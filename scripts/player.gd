@@ -1,0 +1,60 @@
+extends CharacterBody2D
+
+
+
+var layer: int = 0
+var areaForce: Vector2 = Vector2.ZERO
+var areaFlag: String = ""
+var moveSpeed: int = 300
+var maxStamina: float = 1.20
+var staminaRecoveryRate: float = 0.4
+var stamina: float = 0
+var sprintMult: float = 1.3
+var sprinting: bool = false
+var tired: bool = false
+
+var moveVector: Vector2 = Vector2.ZERO
+
+@onready var area_collider = $AreaCollider
+
+
+func _ready():
+	area_collider.area_entered.connect(_area_enter)
+	stamina = maxStamina
+
+
+func _physics_process(delta):
+	_move(moveVector)
+	
+func _process(delta):
+	moveVector.y = Input.get_axis("up", "down")
+	moveVector.x = Input.get_axis("left", "right")
+	
+	sprinting = (Input.is_action_pressed("sprint") and !tired)
+	if sprinting:
+		stamina -= delta
+		if stamina <= 0:
+			tired = true
+			sprinting = false
+	else:
+		if stamina < maxStamina:
+			stamina+=delta * staminaRecoveryRate
+		else:
+			tired = false
+
+func _area_enter(area):
+	print(area.layer, " ", area.force, " ", area.flag, " ")
+	layer = area.layer
+	areaForce = area.force
+	areaFlag = area.flag
+	
+func _move(movevec: Vector2):
+	velocity = movevec.normalized()
+	velocity *= moveSpeed
+	if sprinting:
+		velocity *= sprintMult
+		
+	velocity += areaForce
+	
+	move_and_slide()
+	
