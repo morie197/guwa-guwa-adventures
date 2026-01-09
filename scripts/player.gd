@@ -12,6 +12,7 @@ var stamina: float = 0
 var sprintMult: float = 1.3
 var sprinting: bool = false
 var tired: bool = false
+var quackEXP: int = 20
 
 var moveVector: Vector2 = Vector2.ZERO
 
@@ -21,6 +22,8 @@ var moveVector: Vector2 = Vector2.ZERO
 func _ready():
 	area_collider.area_entered.connect(_area_enter)
 	stamina = maxStamina
+	
+	
 
 
 func _physics_process(delta):
@@ -30,17 +33,23 @@ func _process(delta):
 	moveVector.y = Input.get_axis("up", "down")
 	moveVector.x = Input.get_axis("left", "right")
 	
-	sprinting = (Input.is_action_pressed("sprint") and !tired)
-	if sprinting:
-		stamina -= delta
-		if stamina <= 0:
-			tired = true
-			sprinting = false
-	else:
-		if stamina < maxStamina:
-			stamina+=delta * staminaRecoveryRate
+	if GameManager.abilities.has("sprint"):
+		sprinting = (Input.is_action_pressed("sprint") and !tired)
+		if sprinting:
+			stamina -= delta
+			if stamina <= 0:
+				tired = true
+				sprinting = false
 		else:
-			tired = false
+			if stamina < maxStamina:
+				stamina+=delta * staminaRecoveryRate
+			else:
+				tired = false
+	
+	if GameManager.abilities.has("quack"):
+		if Input.is_action_just_pressed("quack"):
+			print("quack")
+			GameManager.expGain(quackEXP)
 
 func _area_enter(area):
 	print(area.layer, " ", area.force, " ", area.flag, " ")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://iw325qeeftst"]
+[gd_scene load_steps=10 format=3 uid="uid://iw325qeeftst"]
 
 [ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://csewmdswsinay" path="res://scripts/area.gd" id="2_w7c3h"]
@@ -20,6 +20,9 @@ size = Vector2(1280, 1792)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2r41h"]
 size = Vector2(1792, 2432)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klq6b"]
+size = Vector2(256, 5376)
 
 [node name="Level" type="Node2D"]
 
@@ -175,3 +178,13 @@ force = Vector2(0, -320)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/fastwater"]
 position = Vector2(-2176, 1728)
 shape = SubResource("RectangleShape2D_2r41h")
+
+[node name="area_blockades" type="Node2D" parent="areas"]
+
+[node name="landblockade" type="StaticBody2D" parent="areas/area_blockades"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/area_blockades/landblockade"]
+position = Vector2(896, -2176)
+shape = SubResource("RectangleShape2D_klq6b")

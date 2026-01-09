@@ -89,3 +89,4 @@ dive={
 [layer_names]
 
 2d_physics/layer_2="area"
+2d_physics/layer_3="landblockade"
