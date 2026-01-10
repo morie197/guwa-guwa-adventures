@@ -1,0 +1,150 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdqibxl2ctiqt"]
+
+[ext_resource type="Script" uid="uid://becjwxni0umge" path="res://scripts/upgrade_ui.gd" id="1_k1o73"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewqot"]
+bg_color = Color(0.16216752, 0.7096766, 0.40186605, 1)
+
+[node name="UpgradeUI" type="Control"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -22.5
+offset_right = 50.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k1o73")
+
+[node name="backgroundPanel" type="Panel" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 50.0
+
+[node name="UpgradeContent" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 50.0
+alignment = 1
+
+[node name="Text" type="HBoxContainer" parent="UpgradeContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="name" type="RichTextLabel" parent="UpgradeContent/Text"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.78
+text = "Speed"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="UpgradeContent/Text"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+text = "Increases the maximum zoom out amount."
+scroll_active = false
+vertical_alignment = 1
+
+[node name="UpgradeInfo" type="HBoxContainer" parent="UpgradeContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="indicators" type="HBoxContainer" parent="UpgradeContent/UpgradeInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="indicatorinactive" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="indicatoractive" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="indicatorinactive2" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="indicatoractive2" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive2"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="indicatorinactive3" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="indicatoractive3" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive3"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="indicatorinactive4" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="indicatoractive4" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive4"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="indicatorinactive5" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="indicatoractive5" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive5"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="upgradeButton" type="Button" parent="UpgradeContent/UpgradeInfo"]
+z_index = 1
+custom_minimum_size = Vector2(65, 25)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_ewqot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ewqot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ewqot")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ewqot")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ewqot")
+text = "Upgrade!"

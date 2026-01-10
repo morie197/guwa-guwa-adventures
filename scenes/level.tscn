@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://iw325qeeftst"]
+[gd_scene load_steps=11 format=3 uid="uid://iw325qeeftst"]
 
 [ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://csewmdswsinay" path="res://scripts/area.gd" id="2_w7c3h"]
+[ext_resource type="PackedScene" uid="uid://bdgxe0o350b3g" path="res://scenes/ui_manager.tscn" id="3_w8frs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2q6dc"]
 size = Vector2(2304, 5632)
@@ -188,3 +189,5 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/area_blockades/landblockade"]
 position = Vector2(896, -2176)
 shape = SubResource("RectangleShape2D_klq6b")
+
+[node name="UIManager" parent="." instance=ExtResource("3_w8frs")]

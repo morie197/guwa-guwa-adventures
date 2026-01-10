@@ -14,6 +14,10 @@ var sprinting: bool = false
 var tired: bool = false
 var quackEXP: int = 20
 
+var staminaMultiplier: float = 1.0
+var zoomMultiplier: float = 1.0 # unused
+var speedMultiplier: float = 1.0
+
 var moveVector: Vector2 = Vector2.ZERO
 
 @onready var area_collider = $AreaCollider
@@ -21,15 +25,21 @@ var moveVector: Vector2 = Vector2.ZERO
 
 func _ready():
 	area_collider.area_entered.connect(_area_enter)
-	stamina = maxStamina
+	stamina = maxStamina * staminaMultiplier
 	
 	
 
 
 func _physics_process(delta):
+	if GameManager.paused:
+		velocity = Vector2.ZERO
+		return
 	_move(moveVector)
 	
 func _process(delta):
+	if GameManager.paused:
+		return
+	
 	moveVector.y = Input.get_axis("up", "down")
 	moveVector.x = Input.get_axis("left", "right")
 	
@@ -41,9 +51,10 @@ func _process(delta):
 				tired = true
 				sprinting = false
 		else:
-			if stamina < maxStamina:
+			if stamina < maxStamina * staminaMultiplier:
 				stamina+=delta * staminaRecoveryRate
 			else:
+				print(stamina)
 				tired = false
 	
 	if GameManager.abilities.has("quack"):
@@ -52,7 +63,7 @@ func _process(delta):
 			GameManager.expGain(quackEXP)
 
 func _area_enter(area):
-	print(area.layer, " ", area.force, " ", area.flag, " ")
+	#print(area.layer, " ", area.force, " ", area.flag, " ")
 	layer = area.layer
 	areaForce = area.force
 	areaFlag = area.flag
@@ -60,6 +71,7 @@ func _area_enter(area):
 func _move(movevec: Vector2):
 	velocity = movevec.normalized()
 	velocity *= moveSpeed
+	velocity *= speedMultiplier
 	if sprinting:
 		velocity *= sprintMult
 		

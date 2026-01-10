@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwgfu70tl5d85"]
+
+[ext_resource type="Script" uid="uid://bd0cekfa3ldlr" path="res://scripts/upgrade_selection_ui.gd" id="1_buvbx"]
+
+[node name="upgradeSelectionUI" type="Control"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_buvbx")
+
+[node name="upgradeSelection" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="UpgradePoints" type="Label" parent="upgradeSelection"]
+layout_mode = 2
+text = "Remaining Points:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeSelections" type="VBoxContainer" parent="upgradeSelection"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
