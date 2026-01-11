@@ -20,12 +20,17 @@ var upgrades := {}
 var abilities := []
 
 var playerRef
+var overground
+var underground
+var worldLayer = 1
 
 signal levelUp
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playerRef = get_tree().get_first_node_in_group("player")
+	underground = get_tree().get_first_node_in_group("underground")
+	overground = get_tree().get_first_node_in_group("overground")
 	
 	EXPUntilNextLevel = baseRequiredEXP
 	for l in range(level, initialLevel):
@@ -45,15 +50,29 @@ func expGain(expAmount: int):
 		_levelUp(EXP-EXPUntilNextLevel)
 
 func closeUpgrades():
-	expMulti = calculateBonus("gainedExp")
+	expMulti = _calculateBonus("gainedExp")
 	if playerRef != null:
-		playerRef.staminaMultiplier = calculateBonus("stamina")
-		playerRef.zoomMultiplier = calculateBonus("zoom")
-		playerRef.speedMultiplier = calculateBonus("speed")
+		playerRef.staminaMultiplier = _calculateBonus("stamina")
+		playerRef.zoomMultiplier = _calculateBonus("zoom")
+		playerRef.speedMultiplier = _calculateBonus("speed")
 	
 	paused = false
+	
+func switchUnderOverGround():
+	if worldLayer == 1:
+		worldLayer = 0
+		overground.visible = false
+		underground.visible = true
+	else:
+		worldLayer = 1 
+		underground.visible = false
+		overground.visible = true
+	
+	
+	
+	
 
-func calculateBonus(upgradeName: String):
+func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0
 
 func _levelUp(overflowexp: int):

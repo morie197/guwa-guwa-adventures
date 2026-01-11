@@ -52,11 +52,13 @@ func _process(delta):
 		if !sprinting and areaFlag != "air":
 			flying = (Input.is_action_pressed("fly") and !tired)
 		
-		
-		
 	if GameManager.abilities.has("quack"):
 		if Input.is_action_just_pressed("quack"):
 			GameManager.expGain(quackEXP)
+			
+	if GameManager.abilities.has("dive") and areaFlag == "dive":
+		if Input.is_action_just_pressed("dive"):
+			GameManager.switchUnderOverGround()
 			
 	
 			
