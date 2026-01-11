@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkgdqgkcf3kcv"]
+
+[ext_resource type="Script" uid="uid://bfotjenqts535" path="res://scripts/new_ability_ui.gd" id="1_t766n"]
+
+[node name="newAbilityUI" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 198.0
+script = ExtResource("1_t766n")
+
+[node name="levelUpText" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 30
+text = "Level up!"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="newAbilityText" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 3
+text = "New Ability: Walking!"
+horizontal_alignment = 1
+
+[node name="abilityMenu" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="info" type="HBoxContainer" parent="abilityMenu"]
+layout_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="abilityMenu/info"]
+custom_minimum_size = Vector2(256, 100)
+layout_mode = 2
+fit_content = true
+scroll_active = false

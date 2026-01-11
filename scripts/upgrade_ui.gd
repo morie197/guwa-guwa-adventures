@@ -63,8 +63,7 @@ func _upgradeButtonPressed():
 	
 	GameManager.availableUpgradePoints -= 1
 	if GameManager.availableUpgradePoints == 0:
-		if !upgradeSelectionUI.is_queued_for_deletion():
-			upgradeSelectionUI.queue_free()
-			GameManager.closeUpgrades()
+		upgradeSelectionUI.UIManager.hideLevelUpUI()
+		GameManager.closeUpgrades()
 			
 	_updateUI()

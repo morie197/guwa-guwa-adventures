@@ -12,7 +12,7 @@ var stamina: float = 0
 var sprintMult: float = 1.3
 var sprinting: bool = false
 var tired: bool = false
-var quackEXP: int = 20
+var quackEXP: int = 100
 
 var staminaMultiplier: float = 1.0
 var zoomMultiplier: float = 1.0 # unused
@@ -54,12 +54,11 @@ func _process(delta):
 			if stamina < maxStamina * staminaMultiplier:
 				stamina+=delta * staminaRecoveryRate
 			else:
-				print(stamina)
 				tired = false
 	
 	if GameManager.abilities.has("quack"):
 		if Input.is_action_just_pressed("quack"):
-			print("quack")
+			#print("quack")
 			GameManager.expGain(quackEXP)
 
 func _area_enter(area):

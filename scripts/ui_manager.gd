@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-const UPGRADE_SELECTION_UI = preload("uid://dwgfu70tl5d85")
-var selectionUI
+const LEVEL_UP_UI = preload("uid://dqqnbgo7hdj8n")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,7 +13,6 @@ func _process(delta):
 	pass
 
 func _showLevelUpUI():
-	if selectionUI != null: 
-		queue_free()
-	selectionUI = UPGRADE_SELECTION_UI.instantiate()
-	add_child(selectionUI)
+	GameManager.paused = true
+	var levelUpUI = LEVEL_UP_UI.instantiate()
+	add_child(levelUpUI)
