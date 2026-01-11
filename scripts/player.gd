@@ -10,7 +10,10 @@ var maxStamina: float = 1.20
 var staminaRecoveryRate: float = 0.4
 var stamina: float = 0
 var sprintMult: float = 1.3
+var flyMulti: float = 2.0
+var flyStaminaMulti: float = 1.3
 var sprinting: bool = false
+var flying: bool = false
 var tired: bool = false
 var quackEXP: int = 100
 
@@ -43,23 +46,37 @@ func _process(delta):
 	moveVector.y = Input.get_axis("up", "down")
 	moveVector.x = Input.get_axis("left", "right")
 	
-	if GameManager.abilities.has("sprint"):
-		sprinting = (Input.is_action_pressed("sprint") and !tired)
-		if sprinting:
-			stamina -= delta
-			if stamina <= 0:
-				tired = true
-				sprinting = false
-		else:
-			if stamina < maxStamina * staminaMultiplier:
-				stamina+=delta * staminaRecoveryRate
-			else:
-				tired = false
-	
+	if GameManager.abilities.has("fly") or GameManager.abilities.has("sprint"):
+		if !flying:
+			sprinting = (Input.is_action_pressed("sprint") and !tired)
+		if !sprinting and areaFlag != "air":
+			flying = (Input.is_action_pressed("fly") and !tired)
+		
+		
+		
 	if GameManager.abilities.has("quack"):
 		if Input.is_action_just_pressed("quack"):
-			#print("quack")
 			GameManager.expGain(quackEXP)
+			
+	
+			
+	if sprinting or flying:
+		if stamina > 0: # prevent negative stamina values
+			if sprinting:
+				stamina -= delta
+			if flying:
+				stamina -= delta / flyStaminaMulti
+		else:
+			tired = true
+			if sprinting: 
+				sprinting = false
+			elif flying and areaFlag != "air": 
+				flying = false
+	else:
+		if stamina < maxStamina * staminaMultiplier:
+			stamina+=delta * staminaRecoveryRate
+		else:
+			tired = false
 
 func _area_enter(area):
 	#print(area.layer, " ", area.force, " ", area.flag, " ")
@@ -73,8 +90,11 @@ func _move(movevec: Vector2):
 	velocity *= speedMultiplier
 	if sprinting:
 		velocity *= sprintMult
+	elif flying:
+		velocity *= flyMulti
 		
-	velocity += areaForce
+	if !flying: 
+		velocity += areaForce
 	
 	move_and_slide()
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://iw325qeeftst"]
+[gd_scene load_steps=17 format=3 uid="uid://iw325qeeftst"]
 
 [ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://csewmdswsinay" path="res://scripts/area.gd" id="2_w7c3h"]
@@ -16,13 +16,31 @@ size = Vector2(1536, 3328)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
 size = Vector2(1536, 256)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64w2a"]
+size = Vector2(2048, 256)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppgk2"]
 size = Vector2(1280, 1792)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2r41h"]
 size = Vector2(1792, 2432)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b121j"]
+size = Vector2(3328, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olg7q"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1rx8"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8iemx"]
+size = Vector2(256, 5376)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klq6b"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c41q"]
 size = Vector2(256, 5376)
 
 [node name="Level" type="Node2D"]
@@ -149,6 +167,7 @@ shape = SubResource("RectangleShape2D_w7c3h")
 [node name="water3" type="Area2D" parent="areas"]
 collision_layer = 2
 script = ExtResource("2_w7c3h")
+flag = "air"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/water3"]
 position = Vector2(-2432, -1280)
@@ -161,6 +180,15 @@ script = ExtResource("2_w7c3h")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/water4"]
 position = Vector2(-2432, -5120)
 shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="water5" type="Area2D" parent="areas"]
+position = Vector2(256, 8320)
+collision_layer = 2
+script = ExtResource("2_w7c3h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/water5"]
+position = Vector2(-2432, -5120)
+shape = SubResource("RectangleShape2D_64w2a")
 
 [node name="deepwater" type="Area2D" parent="areas"]
 collision_layer = 2
@@ -180,6 +208,46 @@ force = Vector2(0, -320)
 position = Vector2(-2176, 1728)
 shape = SubResource("RectangleShape2D_2r41h")
 
+[node name="cliff" type="Area2D" parent="areas"]
+position = Vector2(12928, 1536)
+collision_layer = 2
+script = ExtResource("2_w7c3h")
+flag = "air"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/cliff"]
+position = Vector2(-2176, -3712)
+shape = SubResource("RectangleShape2D_b121j")
+
+[node name="land" type="Area2D" parent="areas"]
+position = Vector2(5632, 3584)
+collision_layer = 2
+script = ExtResource("2_w7c3h")
+layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/land"]
+position = Vector2(-4480, -5760)
+shape = SubResource("RectangleShape2D_olg7q")
+
+[node name="land2" type="Area2D" parent="areas"]
+position = Vector2(13184, 3584)
+collision_layer = 2
+script = ExtResource("2_w7c3h")
+layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/land2"]
+position = Vector2(-4480, -5760)
+shape = SubResource("RectangleShape2D_t1rx8")
+
+[node name="land3" type="Area2D" parent="areas"]
+position = Vector2(17280, 3584)
+collision_layer = 2
+script = ExtResource("2_w7c3h")
+layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/land3"]
+position = Vector2(-4480, -5760)
+shape = SubResource("RectangleShape2D_8iemx")
+
 [node name="area_blockades" type="Node2D" parent="areas"]
 
 [node name="landblockade" type="StaticBody2D" parent="areas/area_blockades"]
@@ -189,5 +257,14 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/area_blockades/landblockade"]
 position = Vector2(896, -2176)
 shape = SubResource("RectangleShape2D_klq6b")
+
+[node name="airblockade" type="StaticBody2D" parent="areas/area_blockades"]
+position = Vector2(8192, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/area_blockades/airblockade"]
+position = Vector2(896, -2176)
+shape = SubResource("RectangleShape2D_8c41q")
 
 [node name="UIManager" parent="." instance=ExtResource("3_w8frs")]

@@ -3,11 +3,11 @@ extends Node
 var level: int = 1
 var EXP: int = 0
 var EXPUntilNextLevel: int = 0
-var initialLevel: int = 3
+var initialLevel: int = 14
 var paused: bool = false
 
 @export var baseRequiredEXP: int = 200
-@export var requiredEXPMultiplier: float = 1.3
+@export var requiredEXPMultiplier: float = 1.1
 
 var expMulti: float = 1.0
 
@@ -69,5 +69,8 @@ func _levelUp(overflowexp: int):
 		
 	if abilities.has("walk"): 
 		playerRef.set_collision_mask_value(3, false)
+		
+	if abilities.has("fly"): 
+		playerRef.set_collision_mask_value(4, false)
 		
 	
