@@ -3,7 +3,7 @@ extends Node
 var level: int = 1
 var EXP: int = 0
 var EXPUntilNextLevel: int = 0
-var initialLevel: int = 8
+var initialLevel: int = 3
 var paused: bool = false
 
 @export var baseRequiredEXP: int = 200

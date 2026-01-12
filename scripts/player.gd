@@ -53,7 +53,6 @@ func _process(delta):
 	if moveVector != Vector2.ZERO:
 		newtile = GameManager.getTileUnderPos(global_position)
 		if tile != newtile:
-			print("running")
 			tile = newtile
 			var atlascoords = GameManager.tileToAtlasCoords(tile)
 			if atlascoords == Vector2i(0, 0) or atlascoords.x == 8:
