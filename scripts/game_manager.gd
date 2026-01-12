@@ -22,6 +22,7 @@ var abilities := []
 var playerRef
 var overground
 var underground
+var tile_map_layer
 var worldLayer = 1
 
 signal levelUp
@@ -71,21 +72,29 @@ func switchUnderOverGround():
 		underground.visible = false
 		overground.visible = true
 		
+	tile_map_layer = null
+		
 func getTileUnderPos(globalPos: Vector2):
-	var tile_map_layer
-	if overground:
-		if overground.get_child_count() > 0:
-			tile_map_layer = overground.get_child(0)
-	else:
-		if underground.get_child_count() > 0:
-			tile_map_layer = underground.get_child(0)
+	if tile_map_layer == null:
+		if overground:
+			if overground.get_child_count() > 0:
+				tile_map_layer = overground.get_child(0)
+		else:
+			if underground.get_child_count() > 0:
+				tile_map_layer = underground.get_child(0)
 	
 	if tile_map_layer == null:
 		print("no tile map layer present")
 		return
 		
-	var cell = tile_map_layer.local_to_map(globalPos)
-	return tile_map_layer.get_cell_atlas_coords(cell)
+	return tile_map_layer.local_to_map(globalPos)
+	
+func tileToAtlasCoords(localToMapCoords: Vector2i):
+	if tile_map_layer == null:
+		print("no tile map layer present")
+		return
+	
+	return tile_map_layer.get_cell_atlas_coords(localToMapCoords)
 	
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0

@@ -19,6 +19,7 @@ var flying: bool = false
 var tired: bool = false
 var quackEXP: int = 100
 var tile: Vector2i = Vector2i.ZERO
+var newtile: Vector2i = Vector2i.ZERO
 
 var staminaMultiplier: float = 1.0
 var zoomMultiplier: float = 1.0 # unused
@@ -50,11 +51,16 @@ func _process(delta):
 	moveVector.x = Input.get_axis("left", "right")
 	
 	if moveVector != Vector2.ZERO:
-		tile = GameManager.getTileUnderPos(global_position)
-		if tile == Vector2i(0, 0) or tile.x == 8:
-			layer = 0
-		elif tile == Vector2i(0, 4):
-			layer = 1
+		newtile = GameManager.getTileUnderPos(global_position)
+		if tile != newtile:
+			print("running")
+			tile = newtile
+			var atlascoords = GameManager.tileToAtlasCoords(tile)
+			if atlascoords == Vector2i(0, 0) or atlascoords.x == 8:
+				layer = 0
+			elif atlascoords == Vector2i(0, 4):
+				layer = 1
+			
 	
 	if moveVector.x < 0:
 		walking.flip_h = true
