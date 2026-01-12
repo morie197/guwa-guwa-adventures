@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqqnbgo7hdj8n"]
 
-[ext_resource type="Script" uid="uid://c555okju7rah0" path="res://levelUpUI.gd" id="1_cbfmt"]
+[ext_resource type="Script" uid="uid://c555okju7rah0" path="res://scripts/levelUpUI.gd" id="1_cbfmt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lu61t"]
 bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.6784314)

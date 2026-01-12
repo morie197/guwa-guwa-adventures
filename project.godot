@@ -26,7 +26,8 @@ project/assembly_name="GuwaGuwaAdventures"
 
 folder_colors={
 "res://scenes/": "red",
-"res://scripts/": "orange"
+"res://scripts/": "orange",
+"res://sprites/": "yellow"
 }
 
 [input]

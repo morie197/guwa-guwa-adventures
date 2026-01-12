@@ -3,7 +3,7 @@ extends Node
 var level: int = 1
 var EXP: int = 0
 var EXPUntilNextLevel: int = 0
-var initialLevel: int = 14
+var initialLevel: int = 8
 var paused: bool = false
 
 @export var baseRequiredEXP: int = 200
@@ -59,6 +59,9 @@ func closeUpgrades():
 	paused = false
 	
 func switchUnderOverGround():
+	if overground == null or underground == null:
+		print("no overground or underground tilemap")
+		return
 	if worldLayer == 1:
 		worldLayer = 0
 		overground.visible = false
@@ -67,11 +70,23 @@ func switchUnderOverGround():
 		worldLayer = 1 
 		underground.visible = false
 		overground.visible = true
+		
+func getTileUnderPos(globalPos: Vector2):
+	var tile_map_layer
+	if overground:
+		if overground.get_child_count() > 0:
+			tile_map_layer = overground.get_child(0)
+	else:
+		if underground.get_child_count() > 0:
+			tile_map_layer = underground.get_child(0)
 	
+	if tile_map_layer == null:
+		print("no tile map layer present")
+		return
+		
+	var cell = tile_map_layer.local_to_map(globalPos)
+	return tile_map_layer.get_cell_atlas_coords(cell)
 	
-	
-	
-
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0
 

@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+@onready var swimming = $swimming
+@onready var walking = $walking
 
 
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
-var moveSpeed: int = 300
+var moveSpeed: int = 100
 var maxStamina: float = 1.20
 var staminaRecoveryRate: float = 0.4
 var stamina: float = 0
@@ -16,6 +18,7 @@ var sprinting: bool = false
 var flying: bool = false
 var tired: bool = false
 var quackEXP: int = 100
+var tile: Vector2i = Vector2i.ZERO
 
 var staminaMultiplier: float = 1.0
 var zoomMultiplier: float = 1.0 # unused
@@ -45,6 +48,39 @@ func _process(delta):
 	
 	moveVector.y = Input.get_axis("up", "down")
 	moveVector.x = Input.get_axis("left", "right")
+	
+	if moveVector != Vector2.ZERO:
+		tile = GameManager.getTileUnderPos(global_position)
+		if tile == Vector2i(0, 0) or tile.x == 8:
+			layer = 0
+		elif tile == Vector2i(0, 4):
+			layer = 1
+	
+	if moveVector.x < 0:
+		walking.flip_h = true
+		swimming.flip_h = true
+	elif moveVector.x > 0:
+		walking.flip_h = false
+		swimming.flip_h = false
+	
+	if moveVector != Vector2.ZERO:
+		if layer == 0:
+			walking.visible = false
+			if walking.is_playing():
+				walking.stop()
+			swimming.visible = true
+			swimming.play()
+		if layer == 1:
+			swimming.visible = false
+			if swimming.is_playing():
+				swimming.stop()
+			walking.visible = true
+			walking.play()
+	else:
+		if walking.is_playing():
+			walking.stop()
+		elif swimming.is_playing():
+				swimming.stop()
 	
 	if GameManager.abilities.has("fly") or GameManager.abilities.has("sprint"):
 		if !flying:
