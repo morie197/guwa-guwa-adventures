@@ -17,7 +17,6 @@ var flyStaminaMulti: float = 1.3
 var sprinting: bool = false
 var flying: bool = false
 var tired: bool = false
-var quackEXP: int = 100
 var tile: Vector2i = Vector2i.ZERO
 var newtile: Vector2i = Vector2i.ZERO
 
@@ -32,6 +31,7 @@ var moveVector: Vector2 = Vector2.ZERO
 
 func _ready():
 	area_collider.area_entered.connect(_area_enter)
+	
 	stamina = maxStamina * staminaMultiplier
 	
 	
@@ -95,7 +95,7 @@ func _process(delta):
 		
 	if GameManager.abilities.has("quack"):
 		if Input.is_action_just_pressed("quack"):
-			GameManager.expGain(quackEXP)
+			pass
 			
 	if GameManager.abilities.has("dive") and areaFlag == "dive":
 		if Input.is_action_just_pressed("dive"):

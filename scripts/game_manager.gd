@@ -45,10 +45,11 @@ func _ready():
 func _process(delta):
 	pass
 	
-func expGain(expAmount: int):
-	EXP += round(expAmount * expMulti)
-	if EXP >= EXPUntilNextLevel:
-		_levelUp(EXP-EXPUntilNextLevel)
+func treatGet():
+	print("treat got!")
+	#EXP += round(expAmount * expMulti)
+	#if EXP >= EXPUntilNextLevel:
+	#	_levelUp(EXP-EXPUntilNextLevel)
 
 func closeUpgrades():
 	expMulti = _calculateBonus("gainedExp")

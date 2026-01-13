@@ -111,7 +111,9 @@ size = Vector2(40, 40)
 size = Vector2(4, 4)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 17
 collision_mask = 13
+motion_mode = 1
 script = ExtResource("1_3vyb7")
 
 [node name="swimming" type="AnimatedSprite2D" parent="."]
