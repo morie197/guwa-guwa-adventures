@@ -3,7 +3,7 @@ extends Node
 var level: int = 1
 var treats: int = 0
 var treatsUntilNextLevel: int = 0
-var initialLevel: int = 6
+var initialLevel: int = 7
 var paused: bool = false
 
 @export var baseRequiredTreats: int = 1
