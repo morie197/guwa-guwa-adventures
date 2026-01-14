@@ -3,7 +3,7 @@ extends Node
 var level: int = 1
 var EXP: int = 0
 var EXPUntilNextLevel: int = 0
-var initialLevel: int = 3
+var initialLevel: int = 6
 var paused: bool = false
 
 @export var baseRequiredEXP: int = 200
@@ -87,6 +87,9 @@ func getTileUnderPos(globalPos: Vector2):
 	if tile_map_layer == null:
 		print("no tile map layer present")
 		return
+		
+	if tile_map_layer.z_index == 0: 
+		tile_map_layer.z_index = -10
 		
 	return tile_map_layer.local_to_map(globalPos)
 	

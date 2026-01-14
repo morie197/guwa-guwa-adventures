@@ -55,9 +55,9 @@ func _process(delta):
 		if tile != newtile:
 			tile = newtile
 			var atlascoords = GameManager.tileToAtlasCoords(tile)
-			if atlascoords == Vector2i(0, 0) or atlascoords.x == 8:
+			if atlascoords == Vector2i(0, 2):
 				layer = 0
-			elif atlascoords == Vector2i(0, 4):
+			elif atlascoords == Vector2i(0, 0):
 				layer = 1
 			
 	
