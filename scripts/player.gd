@@ -21,7 +21,7 @@ var tile: Vector2i = Vector2i.ZERO
 var newtile: Vector2i = Vector2i.ZERO
 
 var staminaMultiplier: float = 1.0
-var zoomMultiplier: float = 1.0 # unused
+var rangeMultiplier: float = 1.0 # unused
 var speedMultiplier: float = 1.0
 
 var moveVector: Vector2 = Vector2.ZERO

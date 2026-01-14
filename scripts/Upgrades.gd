@@ -2,15 +2,10 @@ extends Node
 class_name UpgradeData
 
 const UPGRADES = {
-	"zoom": {
+	"range": {
 		"levels": 5,
 		"percentIncrease": 20,
-		"description": "Increases the maximum zoom out amount."
-	},
-	"gainedExp": {
-		"levels": 5,
-		"percentIncrease": 20,
-		"description": "Increases the EXP gained."
+		"description": "Increases sonar range and max zoom out range."
 	},
 	"stamina": {
 		"levels": 5,
