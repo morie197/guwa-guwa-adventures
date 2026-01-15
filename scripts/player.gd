@@ -34,7 +34,6 @@ func _ready():
 	
 	stamina = maxStamina * staminaMultiplier
 	
-	
 
 
 func _physics_process(delta):
@@ -51,6 +50,7 @@ func _process(delta):
 	moveVector.x = Input.get_axis("left", "right")
 	
 	if moveVector != Vector2.ZERO:
+		GameManager.showTutorial("movement")
 		newtile = GameManager.getTileUnderPos(global_position)
 		if tile != newtile:
 			tile = newtile

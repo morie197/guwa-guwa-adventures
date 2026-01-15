@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="tutorial" load_steps=4 format=3 uid="uid://c0bmggwxipeby"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_nfns7"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/tutorial.gd" id="2_0jk1l"]
+[ext_resource type="Resource" uid="uid://d0fvebypevuk3" path="res://resources/wasdMovement.tres" id="2_dyj0n"]
+
+[resource]
+script = ExtResource("2_0jk1l")
+items = Array[ExtResource("1_nfns7")]([ExtResource("2_dyj0n")])
+metadata/_custom_type_script = "uid://c3vgn54satwgg"

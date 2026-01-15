@@ -6,6 +6,7 @@ var hoverState: int = 1
 var hoverSpeed: float = 0.6
 var hoverAmount: float = 20.0
 var hoverTime: float = 0.0
+@export var id: int = 0
 
 func _ready():
 	self.body_entered.connect(_player_entered)

@@ -3,13 +3,13 @@ extends Node
 var level: int = 1
 var treats: int = 0
 var treatsUntilNextLevel: int = 0
-var initialLevel: int = 7
+var initialLevel: int = 1
 var paused: bool = false
 
 @export var baseRequiredTreats: int = 1
 @export var requiredTreatsMultiplierIncrease: float = 0.1
 
-var requiredTreatsMultiplier: float = 1
+var requiredTreatsMultiplier: int = 1
 
 var expMulti: float = 1.0
 
@@ -17,6 +17,8 @@ var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
 var availableUpgradePoints: int = 0
 
 var abilityUnlockLevels = {1: "swim", 2: "sprint", 3: "quack", 5: "walk", 8: "sonar", 10: "dive", 13: "eggs", 15: "fly", 20: "migrate"}
+
+var shownTutorials: Array[String]
 
 var upgrades := {}
 var abilities := []
@@ -28,6 +30,7 @@ var tile_map_layer
 var worldLayer = 1
 
 signal levelUp
+signal startTutorial(String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -102,6 +105,12 @@ func tileToAtlasCoords(localToMapCoords: Vector2i):
 	
 	return tile_map_layer.get_cell_atlas_coords(localToMapCoords)
 	
+func showTutorial(tutorialName: String):
+	if shownTutorials.has(tutorialName):
+		return
+	shownTutorials.append(tutorialName)
+	startTutorial.emit(tutorialName)
+
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0
 

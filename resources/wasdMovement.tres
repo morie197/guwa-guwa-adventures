@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=2 format=3 uid="uid://d0fvebypevuk3"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_ckr12"]
+
+[resource]
+script = ExtResource("1_ckr12")
+icons = Dictionary[int, String]({
+2: "W",
+4: "A",
+5: "S",
+6: "D"
+})
+text = "Use the WASD keys to move."
+metadata/_custom_type_script = "uid://osfvc8pe6lad"
