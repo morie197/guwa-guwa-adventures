@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=2 format=3 uid="uid://emr3n2igixtq"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_ol4ge"]
+
+[resource]
+script = ExtResource("1_ol4ge")
+icons = Dictionary[int, String]({
+2: "C",
+3: "V"
+})
+text = "You may zoom out with the mousewheel, or by pressing C or V."
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

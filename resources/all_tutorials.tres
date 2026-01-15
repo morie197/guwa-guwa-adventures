@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="tutorialList" load_steps=3 format=3 uid="uid://babei73ri162t"]
 
 [ext_resource type="Script" uid="uid://df8cvxetmidef" path="res://scripts/tutorialList.gd" id="1_plr7i"]
-[ext_resource type="Resource" uid="uid://c0bmggwxipeby" path="res://resources/movementTutorial.tres" id="2_plr7i"]
+[ext_resource type="Resource" uid="uid://j7jhahcxol2v" path="res://resources/basicsTutorial.tres" id="2_plr7i"]
 
 [resource]
 script = ExtResource("1_plr7i")
 tutorials = Dictionary[String, Resource]({
-"movement": ExtResource("2_plr7i")
+"basics": ExtResource("2_plr7i")
 })
 metadata/_custom_type_script = "uid://df8cvxetmidef"

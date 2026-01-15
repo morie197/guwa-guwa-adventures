@@ -1,6 +1,7 @@
 extends Control
 
 const KEYSPRITE = preload("uid://b66rrw7uw1r70")
+const EMPTYKEYSPRITE = preload("uid://c3f4hym6g7v6")
 
 @onready var _1 = $"1"
 @onready var _2 = $"2"
@@ -25,12 +26,13 @@ func setData(keyData: Dictionary[int, String]):
 	keyImages= [_1, _2, _3, _4, _5, _6]
 	keyText = [key_1, key_2, key_3, key_4, key_5, key_6]
 	for image in keyImages:
-		image.texture = null
+		image.texture = EMPTYKEYSPRITE
 	
 	for text in keyText:
 		text.text = ""
 	
 	for d in keyData:
+		print(keyImages[d-1].name)
 		keyImages[d-1].texture = KEYSPRITE
 		keyText[d-1].text = keyData[d]
 	

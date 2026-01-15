@@ -6,10 +6,10 @@ const ALL_TUTORIALS = preload("uid://babei73ri162t")
 
 var tutorial
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.levelUp.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
+	GameManager.showTutorial("basics")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,6 +22,7 @@ func _showLevelUpUI():
 	add_child(levelUpUI)
 	
 func _startTutorial(tutorialName: String):
+	print("tutorial:", tutorialName)
 	if tutorial != null:
 		return
 	tutorial = TUTORIAL.instantiate()

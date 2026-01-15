@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var swimming = $swimming
 @onready var walking = $walking
 
+@onready var camera_2d = $Camera2D
 
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
@@ -21,10 +22,21 @@ var tile: Vector2i = Vector2i.ZERO
 var newtile: Vector2i = Vector2i.ZERO
 
 var staminaMultiplier: float = 1.0
-var rangeMultiplier: float = 1.0 # unused
+var rangeMultiplier: float = 1.0
 var speedMultiplier: float = 1.0
 
 var moveVector: Vector2 = Vector2.ZERO
+var mouseScrollInput: float
+
+@export var zoomMin: float = 1.5 # maximum amount zoomed OUT (bigger)
+@export var ZOOMMAX: float = 5 # maximum amount zoomed IN (smaller)
+@export var zoomSpeed: float = 10.0
+@export var zoomInAmount: float = 1.2
+@export var zoomOutAmount: float = 0.8
+@export var rangeMultZoomFactor: float = 1.1
+@export var keyZoomMult: float = 1.5
+
+var targetZoom: Vector2
 
 @onready var area_collider = $AreaCollider
 
@@ -34,7 +46,40 @@ func _ready():
 	
 	stamina = maxStamina * staminaMultiplier
 	
+	targetZoom = Vector2(zoomMin, zoomMin)
 
+func _unhandled_input(event):
+	
+	if event is InputEventKey:
+		moveVector.y = Input.get_axis("up", "down")
+		moveVector.x = Input.get_axis("left", "right")
+		
+		if GameManager.abilities.has("fly") or GameManager.abilities.has("sprint"):
+			if !flying:
+				sprinting = (Input.is_action_pressed("sprint") and !tired)
+			if !sprinting and areaFlag != "air":
+				flying = (Input.is_action_pressed("fly") and !tired)
+		
+		if GameManager.abilities.has("quack"):
+			if Input.is_action_just_pressed("quack"):
+				pass
+			
+		if GameManager.abilities.has("dive") and areaFlag == "dive":
+			if Input.is_action_just_pressed("dive"):
+				GameManager.switchUnderOverGround()
+				
+		if Input.is_action_just_pressed("zoomin"):
+			mouseScrollInput = zoomInAmount * keyZoomMult
+		elif Input.is_action_just_pressed("zoomout"):
+			mouseScrollInput = zoomOutAmount / keyZoomMult
+		
+	if event is InputEventMouseButton and mouseScrollInput == 0:
+		if Input.is_action_just_pressed("zoomin"):
+			mouseScrollInput = zoomInAmount
+		elif Input.is_action_just_pressed("zoomout"):
+			mouseScrollInput = zoomOutAmount
+		
+	
 
 func _physics_process(delta):
 	if GameManager.paused:
@@ -45,12 +90,7 @@ func _physics_process(delta):
 func _process(delta):
 	if GameManager.paused:
 		return
-	
-	moveVector.y = Input.get_axis("up", "down")
-	moveVector.x = Input.get_axis("left", "right")
-	
 	if moveVector != Vector2.ZERO:
-		GameManager.showTutorial("movement")
 		newtile = GameManager.getTileUnderPos(global_position)
 		if tile != newtile:
 			tile = newtile
@@ -59,7 +99,14 @@ func _process(delta):
 				layer = 0
 			elif atlascoords == Vector2i(0, 0):
 				layer = 1
-			
+	if mouseScrollInput != 0:
+		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
+		var calculatedZoom: float = clamp(camera_2d.zoom.x * mouseScrollInput, minimumZoomAmount, ZOOMMAX)
+		targetZoom = Vector2(calculatedZoom, calculatedZoom)
+		mouseScrollInput = 0
+		
+	if camera_2d.zoom != targetZoom:
+		camera_2d.zoom = lerp(camera_2d.zoom, targetZoom, zoomSpeed * delta)
 	
 	if moveVector.x < 0:
 		walking.flip_h = true
@@ -86,20 +133,6 @@ func _process(delta):
 			walking.stop()
 		elif swimming.is_playing():
 				swimming.stop()
-	
-	if GameManager.abilities.has("fly") or GameManager.abilities.has("sprint"):
-		if !flying:
-			sprinting = (Input.is_action_pressed("sprint") and !tired)
-		if !sprinting and areaFlag != "air":
-			flying = (Input.is_action_pressed("fly") and !tired)
-		
-	if GameManager.abilities.has("quack"):
-		if Input.is_action_just_pressed("quack"):
-			pass
-			
-	if GameManager.abilities.has("dive") and areaFlag == "dive":
-		if Input.is_action_just_pressed("dive"):
-			GameManager.switchUnderOverGround()
 			
 	
 			
