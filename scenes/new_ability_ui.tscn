@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bfotjenqts535" path="res://scripts/new_ability_ui.gd" id="1_t766n"]
 
 [node name="newAbilityUI" type="VBoxContainer"]
-offset_right = 256.0
-offset_bottom = 198.0
+offset_right = 500.0
+offset_bottom = 320.0
 script = ExtResource("1_t766n")
 
 [node name="levelUpText" type="RichTextLabel" parent="."]

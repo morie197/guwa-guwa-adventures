@@ -50,6 +50,12 @@ func _ready():
 
 func _unhandled_input(event):
 	
+	if event is InputEventMouseButton:
+		if Input.is_action_just_pressed("zoomin"):
+			mouseScrollInput = zoomInAmount
+		elif Input.is_action_just_pressed("zoomout"):
+			mouseScrollInput = zoomOutAmount
+	
 	if event is InputEventKey:
 		moveVector.y = Input.get_axis("up", "down")
 		moveVector.x = Input.get_axis("left", "right")
@@ -68,16 +74,10 @@ func _unhandled_input(event):
 			if Input.is_action_just_pressed("dive"):
 				GameManager.switchUnderOverGround()
 				
-		if Input.is_action_just_pressed("zoomin"):
+		if Input.is_action_just_pressed("zoomin") and mouseScrollInput == 0:
 			mouseScrollInput = zoomInAmount * keyZoomMult
-		elif Input.is_action_just_pressed("zoomout"):
+		elif Input.is_action_just_pressed("zoomout") and mouseScrollInput == 0:
 			mouseScrollInput = zoomOutAmount / keyZoomMult
-		
-	if event is InputEventMouseButton and mouseScrollInput == 0:
-		if Input.is_action_just_pressed("zoomin"):
-			mouseScrollInput = zoomInAmount
-		elif Input.is_action_just_pressed("zoomout"):
-			mouseScrollInput = zoomOutAmount
 		
 	
 
