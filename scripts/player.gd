@@ -4,12 +4,13 @@ extends CharacterBody2D
 @onready var walking = $walking
 
 @onready var camera_2d = $Camera2D
+@onready var quack_sound = $quackSound
 
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
-var moveSpeed: int = 100
-var maxStamina: float = 1.20
+var moveSpeed: int = 130
+var maxStamina: float = 1.50
 var staminaRecoveryRate: float = 0.4
 var stamina: float = 0
 var sprintMult: float = 1.3
@@ -36,9 +37,16 @@ var mouseScrollInput: float
 @export var rangeMultZoomFactor: float = 1.1
 @export var keyZoomMult: float = 1.5
 
+@export var quackRange: float = 100
+@export var quackCooldown: float = 0.20
+@export var quackFalloffZoom: float = 2
+@export var quackFalloffAmountMulti: float = 5
+
+var quackTimer: float = 0
 var targetZoom: Vector2
 
 @onready var area_collider = $AreaCollider
+@onready var quack_collider = $QuackCollider
 
 
 func _ready():
@@ -66,9 +74,9 @@ func _unhandled_input(event):
 			if !sprinting and areaFlag != "air":
 				flying = (Input.is_action_pressed("fly") and !tired)
 		
-		if GameManager.abilities.has("quack"):
+		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
-				pass
+				_quack()
 			
 		if GameManager.abilities.has("dive") and areaFlag == "dive":
 			if Input.is_action_just_pressed("dive"):
@@ -90,6 +98,13 @@ func _physics_process(delta):
 func _process(delta):
 	if GameManager.paused:
 		return
+		
+	if quackTimer > 0:
+		quackTimer -= delta
+	elif quack_collider.get_collision_layer_value(6) == true:
+		quack_collider.set_collision_layer_value(6, false)
+
+	
 	if moveVector != Vector2.ZERO:
 		newtile = GameManager.getTileUnderPos(global_position)
 		if tile != newtile:
@@ -134,8 +149,6 @@ func _process(delta):
 		elif swimming.is_playing():
 				swimming.stop()
 			
-	
-			
 	if sprinting or flying:
 		if stamina > 0: # prevent negative stamina values
 			if sprinting:
@@ -156,9 +169,20 @@ func _process(delta):
 
 func _area_enter(area):
 	#print(area.layer, " ", area.force, " ", area.flag, " ")
-	layer = area.layer
 	areaForce = area.force
 	areaFlag = area.flag
+	
+func _quack():
+	if quack_collider.get_child_count() < 1:
+		return
+	quack_sound.play()
+	quack_sound.volume_db = 10 - clampf(quackFalloffZoom - camera_2d.zoom.x, 0, 80) * quackFalloffAmountMulti
+	print(quack_sound.volume_db)
+	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
+	quack_collider.set_collision_layer_value(6, true)
+	quackTimer = quackCooldown
+	print("quack")
+	
 	
 func _move(movevec: Vector2):
 	velocity = movevec.normalized()

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci28hqjsp8qk0"]
+
+[ext_resource type="Script" uid="uid://dd6y7ulfqglxn" path="res://scripts/static_enemy_duck.gd" id="1_4px4l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2icpk"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ng3w3"]
+size = Vector2(64, 64)
+
+[node name="StaticEnemyDuck" type="Node2D"]
+script = ExtResource("1_4px4l")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 64, 0, 64, 64, 0, 64)
+
+[node name="quackDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="quackDetector"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_2icpk")
+
+[node name="collider" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collider"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_ng3w3")

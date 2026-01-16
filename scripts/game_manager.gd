@@ -3,15 +3,13 @@ extends Node
 var level: int = 1
 var treats: int = 0
 var treatsUntilNextLevel: int = 0
-var initialLevel: int = 1
+var initialLevel: int = 3
 var paused: bool = false
 
 @export var baseRequiredTreats: int = 1
-@export var requiredTreatsMultiplierIncrease: float = 0.1
+@export var requiredTreatsMultiplierIncrease: float = 0.15
 
 var requiredTreatsMultiplier: int = 1
-
-var expMulti: float = 1.0
 
 var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
 var availableUpgradePoints: int = 0
