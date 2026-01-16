@@ -36,4 +36,4 @@ func _setTutorialItem(item: TutorialItem):
 	keyDisplay = KEY_PRESS_DISPLAY.instantiate()
 	key_presses.add_child(keyDisplay)
 	keyDisplay.setData(item.icons)
-	print(key_presses.get_child_count())
+	#print(key_presses.get_child_count())

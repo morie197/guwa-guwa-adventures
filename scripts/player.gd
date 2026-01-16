@@ -9,11 +9,11 @@ extends CharacterBody2D
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
-var moveSpeed: int = 130
-var maxStamina: float = 1.50
-var staminaRecoveryRate: float = 0.4
+var moveSpeed: int = 110
+var maxStamina: float = 5.0
+var staminaRecoveryRate: float = 2
 var stamina: float = 0
-var sprintMult: float = 1.3
+var sprintMult: float = 1.2
 var flyMulti: float = 2.0
 var flyStaminaMulti: float = 1.3
 var sprinting: bool = false
@@ -29,6 +29,9 @@ var speedMultiplier: float = 1.0
 var moveVector: Vector2 = Vector2.ZERO
 var mouseScrollInput: float
 
+@export var streamMoveSpeed: float = 120
+@export var areaForceTransitionSpeed: float = 10
+
 @export var zoomMin: float = 1.5 # maximum amount zoomed OUT (bigger)
 @export var ZOOMMAX: float = 5 # maximum amount zoomed IN (smaller)
 @export var zoomSpeed: float = 10.0
@@ -40,7 +43,7 @@ var mouseScrollInput: float
 @export var quackRange: float = 100
 @export var quackCooldown: float = 0.20
 @export var quackFalloffZoom: float = 2
-@export var quackFalloffAmountMulti: float = 5
+@export var quackFalloffAmountMulti: float = 8
 
 var quackTimer: float = 0
 var targetZoom: Vector2
@@ -48,13 +51,18 @@ var targetZoom: Vector2
 @onready var area_collider = $AreaCollider
 @onready var quack_collider = $QuackCollider
 
+signal quack
+
 
 func _ready():
 	area_collider.area_entered.connect(_area_enter)
+	area_collider.area_exited.connect(_area_exit)
 	
 	stamina = maxStamina * staminaMultiplier
 	
 	targetZoom = Vector2(zoomMin, zoomMin)
+	
+	initializeValues()
 
 func _unhandled_input(event):
 	
@@ -99,10 +107,12 @@ func _process(delta):
 	if GameManager.paused:
 		return
 		
+	if areaFlag == "":
+		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed)
+		
+	
 	if quackTimer > 0:
 		quackTimer -= delta
-	elif quack_collider.get_collision_layer_value(6) == true:
-		quack_collider.set_collision_layer_value(6, false)
 
 	
 	if moveVector != Vector2.ZERO:
@@ -168,20 +178,25 @@ func _process(delta):
 			tired = false
 
 func _area_enter(area):
-	#print(area.layer, " ", area.force, " ", area.flag, " ")
-	areaForce = area.force
 	areaFlag = area.flag
+	if areaFlag == "stream":
+		#print("nya")
+		areaForce = area.force * streamMoveSpeed
 	
+func _area_exit(area):
+	areaFlag = ""
+	
+func initializeValues():
+	stamina = maxStamina * staminaMultiplier
+	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
+
 func _quack():
-	if quack_collider.get_child_count() < 1:
-		return
+	
 	quack_sound.play()
 	quack_sound.volume_db = 10 - clampf(quackFalloffZoom - camera_2d.zoom.x, 0, 80) * quackFalloffAmountMulti
-	print(quack_sound.volume_db)
-	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
-	quack_collider.set_collision_layer_value(6, true)
+	#print(quack_sound.volume_db)
 	quackTimer = quackCooldown
-	print("quack")
+	quack.emit()
 	
 	
 func _move(movevec: Vector2):

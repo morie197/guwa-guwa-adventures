@@ -44,6 +44,7 @@ func _ready():
 		playerRef.set_collision_mask_value(3, false)
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -56,11 +57,7 @@ func treatGet():
 		_levelUp()
 
 func closeUpgrades():
-	if playerRef != null:
-		playerRef.staminaMultiplier = _calculateBonus("stamina")
-		playerRef.rangeMultiplier = _calculateBonus("range")
-		playerRef.speedMultiplier = _calculateBonus("speed")
-	
+	calculateBonuses()
 	paused = false
 	
 func switchUnderOverGround():
@@ -108,6 +105,13 @@ func showTutorial(tutorialName: String):
 		return
 	shownTutorials.append(tutorialName)
 	startTutorial.emit(tutorialName)
+
+func calculateBonuses():
+	if playerRef != null:
+		playerRef.staminaMultiplier = _calculateBonus("stamina")
+		playerRef.rangeMultiplier = _calculateBonus("range")
+		playerRef.speedMultiplier = _calculateBonus("speed")
+		playerRef.initializeValues()
 
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0

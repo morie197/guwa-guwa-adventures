@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_ol4ge")
 icons = Dictionary[int, String]({
-2: "C",
-3: "V"
+4: "C",
+5: "V"
 })
 text = "You may zoom out with the mousewheel, or by pressing C or V."
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

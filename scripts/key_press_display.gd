@@ -22,7 +22,7 @@ var keyImages
 var keyText
 
 func setData(keyData: Dictionary[int, String]):
-	print(keyData)
+	#print(keyData)
 	keyImages= [_1, _2, _3, _4, _5, _6]
 	keyText = [key_1, key_2, key_3, key_4, key_5, key_6]
 	for image in keyImages:
@@ -32,7 +32,7 @@ func setData(keyData: Dictionary[int, String]):
 		text.text = ""
 	
 	for d in keyData:
-		print(keyImages[d-1].name)
+		#print(keyImages[d-1].name)
 		keyImages[d-1].texture = KEYSPRITE
 		keyText[d-1].text = keyData[d]
 	

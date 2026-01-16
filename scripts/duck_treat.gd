@@ -25,6 +25,6 @@ func _physics_process(delta):
 	
 
 func _player_entered(body: Node2D):
-	print("duck enter")
+	#print("duck enter")
 	GameManager.treatGet()
 	queue_free()
