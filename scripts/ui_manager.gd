@@ -5,6 +5,7 @@ const TUTORIAL = preload("uid://dvc0qm8fmb6qj")
 const ALL_TUTORIALS = preload("uid://babei73ri162t")
 
 var tutorial
+var levelUpUI
 
 func _ready():
 	GameManager.levelUp.connect(_showLevelUpUI)
@@ -18,7 +19,9 @@ func _process(delta):
 
 func _showLevelUpUI():
 	GameManager.paused = true
-	var levelUpUI = LEVEL_UP_UI.instantiate()
+	if levelUpUI != null:
+		return
+	levelUpUI = LEVEL_UP_UI.instantiate()
 	add_child(levelUpUI)
 	
 func _startTutorial(tutorialName: String):

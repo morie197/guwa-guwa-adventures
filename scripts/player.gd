@@ -88,7 +88,7 @@ func _unhandled_input(event):
 			
 		if GameManager.abilities.has("dive") and areaFlag == "dive":
 			if Input.is_action_just_pressed("dive"):
-				GameManager.switchUnderOverGround()
+				GameManager.worldManager.switchUnderOverGround()
 				
 		if Input.is_action_just_pressed("zoomin") and mouseScrollInput == 0:
 			mouseScrollInput = zoomInAmount * keyZoomMult
@@ -116,14 +116,19 @@ func _process(delta):
 
 	
 	if moveVector != Vector2.ZERO:
-		newtile = GameManager.getTileUnderPos(global_position)
+		newtile = GameManager.worldManager.getTileUnderPos(global_position)
 		if tile != newtile:
+			if areaFlag == "dive":
+				areaFlag = ""
 			tile = newtile
-			var atlascoords = GameManager.tileToAtlasCoords(tile)
+			var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
 			if atlascoords == Vector2i(0, 2):
 				layer = 0
 			elif atlascoords == Vector2i(0, 0):
 				layer = 1
+			elif atlascoords == Vector2i(0, 3):
+				layer = -1
+				areaFlag = "dive"
 	if mouseScrollInput != 0:
 		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
 		var calculatedZoom: float = clamp(camera_2d.zoom.x * mouseScrollInput, minimumZoomAmount, ZOOMMAX)
