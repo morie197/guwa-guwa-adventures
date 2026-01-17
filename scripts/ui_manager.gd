@@ -20,7 +20,7 @@ func _process(delta):
 func _showLevelUpUI():
 	GameManager.paused = true
 	if levelUpUI != null:
-		return
+		levelUpUI.queue_free()
 	levelUpUI = LEVEL_UP_UI.instantiate()
 	add_child(levelUpUI)
 	
