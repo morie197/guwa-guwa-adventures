@@ -1,6 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene load_steps=6 format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/ui_manager.gd" id="1_rwj1f"]
+[ext_resource type="AudioStream" uid="uid://dly0hk106evgr" path="res://sounds/SFX/cute-level-up-2-189851.mp3" id="2_reske"]
+[ext_resource type="AudioStream" uid="uid://bc0klylk1upd1" path="res://sounds/SFX/level-up-05-326133.mp3" id="3_reske"]
+[ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="4_ixhu3"]
+[ext_resource type="AudioStream" uid="uid://dsdyh8ybdgat7" path="res://sounds/SFX/button_09-190435.mp3" id="5_gl862"]
 
 [node name="UIManager" type="CanvasLayer"]
 script = ExtResource("1_rwj1f")
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("2_reske")
+bus = &"SFX"
+
+[node name="NewAbility" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("3_reske")
+bus = &"SFX"
+
+[node name="maxLevelSound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("4_ixhu3")
+pitch_scale = 0.6
+bus = &"SFX"
+
+[node name="upgradedSound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("5_gl862")
+pitch_scale = 2.0
+bus = &"SFX"

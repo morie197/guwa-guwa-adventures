@@ -4,6 +4,13 @@ const LEVEL_UP_UI = preload("uid://dqqnbgo7hdj8n")
 const TUTORIAL = preload("uid://dvc0qm8fmb6qj")
 const ALL_TUTORIALS = preload("uid://babei73ri162t")
 
+@onready var level_up_sound = $sounds/LevelUpSound
+@onready var new_ability = $sounds/NewAbility
+
+@onready var max_level_sound = $sounds/maxLevelSound
+@onready var upgraded_sound = $sounds/upgradedSound
+
+
 var tutorial
 var levelUpUI
 
@@ -19,9 +26,22 @@ func _process(delta):
 
 func _showLevelUpUI():
 	GameManager.paused = true
+
+	if level_up_sound.playing == true or new_ability.playing == true:
+		level_up_sound.stop()
+		new_ability.stop()
+		
+	if AbilityData.ABILITIES.has(GameManager.level):
+		#level_up_sound_2.play()
+		new_ability.play()
+	else:
+		level_up_sound.play()
+	
+	
 	if levelUpUI != null:
 		levelUpUI.queue_free()
 	levelUpUI = LEVEL_UP_UI.instantiate()
+	levelUpUI.masterUIManager = self
 	add_child(levelUpUI)
 	
 func _startTutorial(tutorialName: String):

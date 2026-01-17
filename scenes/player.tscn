@@ -1,10 +1,10 @@
 [gd_scene load_steps=23 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/duckwater.png" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/duckland.png" id="3_dqkch"]
-[ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/quack.wav" id="4_dqkch"]
-[ext_resource type="AudioStream" uid="uid://php3ewivl5o0" path="res://sounds/Cuddle Clouds.mp3" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="3_dqkch"]
+[ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/SFX/quack.wav" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://php3ewivl5o0" path="res://sounds/music/Cuddle Clouds.mp3" id="5_qlg0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_qhqgy")
@@ -151,6 +151,7 @@ shape = SubResource("CircleShape2D_qhqgy")
 
 [node name="quackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_dqkch")
+bus = &"SFX"
 area_mask = 0
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
@@ -160,4 +161,5 @@ current = true
 stream = ExtResource("5_qlg0r")
 volume_db = -5.725
 autoplay = true
+bus = &"Music"
 parameters/looping = true

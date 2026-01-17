@@ -1,7 +1,8 @@
-extends VBoxContainer
+extends PanelContainer
 
-@onready var description = $abilityMenu/info/Description
-@onready var new_ability_text = $newAbilityText
+@onready var description = $contents/abilityMenu/info/PanelContainer/Description
+@onready var new_ability_text = $contents/PanelContainer/newAbilityText
+
 
 func _ready():
 	new_ability_text.text = "New ability unlocked: " + str(AbilityData.ABILITIES[GameManager.level]["name"]) + "!"

@@ -1,9 +1,9 @@
-extends VBoxContainer
+extends PanelContainer
 
 const UPGRADE_UI = preload("uid://bdqibxl2ctiqt")
 
-@onready var upgrade_selections = $UpgradeSelections
-@onready var upgrade_points = $UpgradePoints
+@onready var upgrade_selections = $contents/UpgradeSelections
+@onready var upgrade_points = $contents/UpgradePoints
 
 var UIManager
 

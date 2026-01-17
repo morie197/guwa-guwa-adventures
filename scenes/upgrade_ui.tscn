@@ -1,34 +1,55 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdqibxl2ctiqt"]
+[gd_scene load_steps=5 format=3 uid="uid://bdqibxl2ctiqt"]
 
 [ext_resource type="Script" uid="uid://becjwxni0umge" path="res://scripts/upgrade_ui.gd" id="1_k1o73"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jc35x"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.15847239, 0.1584723, 0.1584723, 0.9019608)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.35906902, 0.35906914, 0.35906887, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1o73"]
+bg_color = Color(0.99081105, 0.34563336, 0.35804167, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewqot"]
 bg_color = Color(0.16216752, 0.7096766, 0.40186605, 1)
 
 [node name="UpgradeUI" type="Control"]
-custom_minimum_size = Vector2(585, 80)
+z_index = 1
+custom_minimum_size = Vector2(700, 80)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 584.0
+offset_right = 704.0
 offset_bottom = 80.0
 script = ExtResource("1_k1o73")
 
 [node name="backgroundPanel" type="Panel" parent="."]
 z_index = -1
 layout_mode = 0
-offset_right = 584.0
+offset_right = 704.0
 offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jc35x")
 
 [node name="UpgradeContent" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 580.0
-offset_bottom = 74.5
+offset_right = 704.0
+offset_bottom = 80.0
 alignment = 1
 
 [node name="Text" type="HBoxContainer" parent="UpgradeContent"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.82
 
 [node name="name" type="RichTextLabel" parent="UpgradeContent/Text"]
 custom_minimum_size = Vector2(50, 50)
@@ -46,7 +67,8 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 14
+size_flags_stretch_ratio = 0.8
+theme_override_font_sizes/normal_font_size = 16
 text = "Increases the maximum zoom out amount."
 scroll_active = false
 vertical_alignment = 1
@@ -54,86 +76,47 @@ vertical_alignment = 1
 [node name="UpgradeInfo" type="HBoxContainer" parent="UpgradeContent"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
 
-[node name="indicators" type="HBoxContainer" parent="UpgradeContent/UpgradeInfo"]
+[node name="upgradeLevel" type="RichTextLabel" parent="UpgradeContent/UpgradeInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 34
+text = "lvl1 / 2"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="indicatorinactive" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
-custom_minimum_size = Vector2(20, 40)
+[node name="maxedOutIndicator" type="Button" parent="UpgradeContent/UpgradeInfo"]
+custom_minimum_size = Vector2(110, 40)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
-color = Color(0, 0, 0, 1)
+size_flags_stretch_ratio = 0.8
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_k1o73")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k1o73")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k1o73")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_k1o73")
+theme_override_styles/focus = SubResource("StyleBoxFlat_k1o73")
+text = "MAXED"
 
-[node name="indicatoractive" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive"]
-visible = false
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="indicatorinactive2" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-color = Color(0, 0, 0, 1)
-
-[node name="indicatoractive2" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive2"]
-visible = false
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="indicatorinactive3" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-color = Color(0, 0, 0, 1)
-
-[node name="indicatoractive3" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive3"]
-visible = false
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="indicatorinactive4" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-color = Color(0, 0, 0, 1)
-
-[node name="indicatoractive4" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive4"]
-visible = false
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="indicatorinactive5" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators"]
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-color = Color(0, 0, 0, 1)
-
-[node name="indicatoractive5" type="ColorRect" parent="UpgradeContent/UpgradeInfo/indicators/indicatorinactive5"]
-visible = false
-custom_minimum_size = Vector2(20, 40)
-layout_mode = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="upgradeButton" type="Button" parent="UpgradeContent/UpgradeInfo"]
-z_index = 1
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
+[node name="upgradeButton" type="Button" parent="UpgradeContent/UpgradeInfo/maxedOutIndicator"]
+custom_minimum_size = Vector2(110, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -20.0
+offset_right = 53.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 24

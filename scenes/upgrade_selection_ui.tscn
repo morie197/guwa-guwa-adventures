@@ -1,20 +1,47 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwgfu70tl5d85"]
+[gd_scene load_steps=3 format=3 uid="uid://dwgfu70tl5d85"]
 
 [ext_resource type="Script" uid="uid://bd0cekfa3ldlr" path="res://scripts/upgrade_selection_ui.gd" id="1_buvbx"]
 
-[node name="upgradeSelectionUI" type="VBoxContainer"]
-offset_right = 140.0
-offset_bottom = 27.0
-alignment = 1
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buvbx"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 30.0
+expand_margin_top = 4.0
+expand_margin_right = 30.0
+expand_margin_bottom = 30.0
+
+[node name="upgradeSelectionUI" type="PanelContainer"]
+z_index = -1
+offset_top = 39.0
+offset_right = 191.0
+offset_bottom = 39.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_buvbx")
 script = ExtResource("1_buvbx")
 
-[node name="UpgradePoints" type="Label" parent="."]
+[node name="contents" type="VBoxContainer" parent="."]
 layout_mode = 2
+alignment = 1
+
+[node name="UpgradePoints" type="Label" parent="contents"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "Remaining Points:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpgradeSelections" type="VBoxContainer" parent="."]
+[node name="UpgradeSelections" type="VBoxContainer" parent="contents"]
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1

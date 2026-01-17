@@ -3,18 +3,18 @@ class_name UpgradeData
 
 const UPGRADES = {
 	"range": {
-		"levels": 5,
-		"percentIncrease": 20,
+		"levels": 10,
+		"percentIncrease": 15,
 		"description": "Increases sonar range and max zoom out range."
 	},
 	"stamina": {
-		"levels": 5,
+		"levels": 10,
 		"percentIncrease": 10,
 		"description": "Increases maximum stamina."
 	},
 	"speed": {
-		"levels": 5,
-		"percentIncrease": 10,
+		"levels": 10,
+		"percentIncrease": 8,
 		"description": "Increases player speed."
 	}
 	

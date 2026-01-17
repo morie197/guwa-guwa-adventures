@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu2qa7tl2feks"]
 
 [ext_resource type="Script" uid="uid://d2wiliedjt5cj" path="res://scripts/key_press_display.gd" id="1_03oao"]
-[ext_resource type="Texture2D" uid="uid://b66rrw7uw1r70" path="res://sprites/keysprite.png" id="2_0b26k"]
+[ext_resource type="Texture2D" uid="uid://b66rrw7uw1r70" path="res://sprites/sprites/keysprite.png" id="2_0b26k"]
 
 [node name="key_press_display" type="GridContainer"]
 offset_right = 392.0
