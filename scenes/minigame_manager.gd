@@ -61,15 +61,19 @@ func initValues():
 	match stage:
 		"land_forest":
 			stageMap = LAND_FOREST
+			stage_title.text = "Forest"
 			walking = true
 		"land_rocks":
 			stageMap = LAND_ROCKS
+			stage_title.text = "Rocks"
 			walking = true
 		"water":
 			stageMap = WATER
+			stage_title.text = "Water"
 			swimming = true
 		"underwater":
 			stageMap = UNDERWATER
+			stage_title.text = "Underwater"
 			diving = true
 	var map = stageMap.instantiate()
 	terrain_variations.add_child(map)
@@ -84,12 +88,12 @@ func initValues():
 	for ene in enemyCount:
 		var enemy = ENEMY_MINIGAME.instantiate()
 		enemy.position = enemySpawn
-		enemySpawn += Vector2.LEFT
+		enemySpawn += Vector2.LEFT * 32
 		enemyGroup.add_child(enemy)
 		enemyArray.append(enemy)
 		enemy.minigamemanager = self
-		enemy.initValues()
 		enemy.maxHealth = enemyHealthValues[ene]
+		enemy.initValues()
 		
 		var info = INFO_PANEL.instantiate()
 		enemy_info.add_child(info)
@@ -119,10 +123,10 @@ func _process(delta):
 		
 	if enemiesDefeated >= enemyCount:
 		if displaying == false:
-			displaying = true
 			_wonGame()
 		
 func _wonGame():
+	displaying = true
 	popup_panel.visible = true
 	popup_text.text = "You've defeated "
 	for enemyName in enemyNames:
@@ -139,6 +143,10 @@ func _wonGame():
 	displaytime.start()
 		
 func _lostGame():
+	if displaying == true:
+		return
+	player_minigame.hide()
+	displaying = true
 	popup_panel.visible = true
 	popup_text.text = "You've lost to "
 	for enemyName in enemyNames:

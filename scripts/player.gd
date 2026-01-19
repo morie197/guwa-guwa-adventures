@@ -8,6 +8,8 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 @onready var camera_2d = $Camera2D
 @onready var quack_sound = $quackSound
 @onready var radar_sound = $radarSound
+@onready var grass_foot_steps = $grassFootSteps
+@onready var water_swimming_through = $waterSwimmingThrough
 
 @onready var bgm = $BGM
 
@@ -26,6 +28,7 @@ var flying: bool = false
 var tired: bool = false
 var tile: Vector2i = Vector2i.ZERO
 var newtile: Vector2i = Vector2i.ZERO
+var forcedFly: bool = false
 
 var staminaMultiplier: float = 1.0
 var rangeMultiplier: float = 1.0
@@ -97,8 +100,11 @@ func _unhandled_input(event):
 			if !flying:
 				sprinting = (Input.is_action_pressed("sprint") and !tired)
 			if GameManager.abilities.has("fly"):
-				if !sprinting and areaFlag != "air":
-					flying = (Input.is_action_pressed("fly") and !tired)
+				if Input.is_action_just_pressed("fly"):
+					if sprinting:
+						sprinting = false
+				if areaFlag != "air":
+					flying = Input.is_action_pressed("fly") and !tired
 		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
@@ -147,9 +153,17 @@ func _process(delta):
 
 	
 	if moveVector != Vector2.ZERO:
+		match layer:
+			0:
+				if water_swimming_through.playing == false:
+					water_swimming_through.play()
+			1:
+				if grass_foot_steps.playing == false:
+					grass_foot_steps.play()
+		
 		newtile = GameManager.worldManager.getTileUnderPos(global_position)
 		if tile != newtile:
-			if areaFlag == "dive":
+			if areaFlag.match("dive") or areaFlag.match("air"):
 				areaFlag = ""
 			tile = newtile
 			var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
@@ -160,6 +174,18 @@ func _process(delta):
 			elif atlascoords == Vector2i(0, 3):
 				layer = -1
 				areaFlag = "dive"
+			elif atlascoords == Vector2i(1, 1):
+				layer = 2
+				areaFlag = "air"
+				if flying == false:
+					sprinting = false
+					forcedFly = true
+					flying = true
+				
+			if forcedFly:
+				if areaFlag != "air":
+					forcedFly = false
+					flying = false
 	if mouseScrollInput != 0:
 		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
 		var calculatedZoom: float = clamp(camera_2d.zoom.x * mouseScrollInput, minimumZoomAmount, ZOOMMAX)

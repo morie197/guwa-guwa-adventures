@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ceh4yvxpi0rhn"
+path="res://.godot/imported/water splashing 1.wav-e7867af4340656c9e52103f03747b679.sample"
+
+[deps]
+
+source_file="res://sounds/SFX/water splashing 1.wav"
+dest_files=["res://.godot/imported/water splashing 1.wav-e7867af4340656c9e52103f03747b679.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

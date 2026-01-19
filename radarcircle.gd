@@ -5,9 +5,9 @@ var maxRadius: float :
 		maxRadius = newMaxRadius
 		
 @export var circleColor: Color
-@export var circleWidth: float = 15
+@export var circleWidth: float = 20
 @export var pointCount: int = 64
-@export var radiusExpandSpeed: float = 200
+@export var radiusExpandSpeed: float = 240
 		
 var radius: float = 1
 
@@ -19,5 +19,4 @@ func _process(delta):
 		queue_free()
 
 func _draw():
-	print("redraw")
 	draw_arc(Vector2.ZERO, radius, 0, TAU, pointCount, circleColor, circleWidth)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=28 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scenes/player_minigame.gd" id="1_5jswy"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="1_g2itt"]
@@ -139,6 +139,22 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpuvt"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.6)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="DuckMinigame" type="Node2D"]
 z_index = 15
 position = Vector2(-960, -512)
@@ -257,8 +273,10 @@ z_index = 10
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_rpuvt")
 
 [node name="PopupText" type="RichTextLabel" parent="PanelContainer/PopupPanel"]
+custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -266,7 +284,7 @@ theme_override_font_sizes/normal_font_size = 64
 text = "You've defeated Jerry!"
 fit_content = true
 scroll_active = false
-autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)

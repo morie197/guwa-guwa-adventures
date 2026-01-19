@@ -47,6 +47,9 @@ func initValues():
 	quacker.initValues()
 
 func _input(event):
+	if minigamemanager.displaying == true:
+		moveVector = Vector2.ZERO
+		return
 	if event is InputEventKey:
 		moveVector.y = Input.get_axis("up", "down")
 		moveVector.x = Input.get_axis("left", "right")

@@ -5,4 +5,4 @@
 [node name="radarCircle" type="Node2D"]
 z_index = 1
 script = ExtResource("1_7jcqj")
-circleColor = Color(0.24313726, 0.5137255, 0.90588236, 0.5529412)
+circleColor = Color(0.5126621, 0.77984756, 0.9914145, 0.6)

@@ -54,6 +54,9 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	paused = true
 	minigame = true
 	var minigame_stage = DUCK_MINIGAME.instantiate()
+	if owners.size() == 0:
+		print("not properly setup!")
+		return
 	minigame_stage.global_position = owners[0].global_position
 	worldManager.add_child(minigame_stage)
 	for index in range(entityNames.size()):
@@ -65,6 +68,7 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	minigame_stage.speedMultiplier = playerRef.speedMultiplier
 	minigame_stage.rangeMultiplier = playerRef.rangeMultiplier
 	minigame_stage.staminaMultiplier = playerRef.staminaMultiplier
+	minigame_stage.position = minigame_stage.position - Vector2(1920/2, 1080/2)
 	
 	minigame_stage.stage = stageName
 	minigame_stage.initValues()

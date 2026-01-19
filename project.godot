@@ -122,6 +122,7 @@ zoomin={
 2d_physics/layer_7="minigame"
 2d_physics/layer_8="enemyquack"
 2d_physics/layer_9="hidden"
+2d_physics/layer_10="minigamequack"
 
 [rendering]
 

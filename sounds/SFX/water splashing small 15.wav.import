@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c6ur3y0t7ed11"
+path="res://.godot/imported/water splashing small 15.wav-9f63c94235cad913fb9f8ef6806eb231.sample"
+
+[deps]
+
+source_file="res://sounds/SFX/water splashing small 15.wav"
+dest_files=["res://.godot/imported/water splashing small 15.wav-9f63c94235cad913fb9f8ef6806eb231.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

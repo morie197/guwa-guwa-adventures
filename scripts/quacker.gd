@@ -15,10 +15,7 @@ var max_health: int :
 	
 var health: int
 
-var enemy_duck: Quacker :
-	set(new_enemy):
-		if enemy_duck != new_enemy:
-			enemy_duck = new_enemy
+var enemy_duck: Array[Quacker]
 			
 var parent_duck
 			
@@ -40,31 +37,33 @@ func _draw():
 	var circle  = CircleShape2D.new()
 	circle.radius = quack_range
 	collision_shape.shape = circle
-	draw_arc(Vector2.ZERO, quack_range, 0, TAU, 64, Color.RED, 5.0)
+	draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color.RED, 5.0)
 
 func _process(delta):
 	pass
 
 func damage(amount: int):
+	health -= amount
 	hp_changed.emit()
 	if health <= 0:
 		dead.emit()
-		#print("dead!")
-		return
-	if health > 0:
-		health -= amount
-		#print(health)
+	
 
 func quack():
 	quacked.emit()
-	#print(enemy_duck)
+	if parent_duck.name == "PlayerMinigame":
+		print(enemy_duck.size())
+	for enemy in enemy_duck:
+		if enemy.has_method("damage"):
+			enemy.damage(attack_damage)
 	
 func _duck_detected(body):
-	enemy_duck = body.quacker
-	#print("entered: ", body.name)
-	quacked.connect(enemy_duck.damage.bind(attack_damage))  
+	var enemy = body.quacker
+	if !enemy_duck.has(enemy):
+		enemy_duck.append(enemy)
 	
 func _duck_exited(body):
-	quacked.disconnect(enemy_duck.damage)
-	enemy_duck = null
+	if enemy_duck.has(body.quacker):
+		enemy_duck.erase(body.quacker)
+	
 	

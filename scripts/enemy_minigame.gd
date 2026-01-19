@@ -7,8 +7,8 @@ extends CharacterBody2D
 @onready var agent = $NavigationAgent2D
 @onready var quack_sound = $quackSound
 
-@export var speed: float = 60
-@export var quackRange: float = 60
+@export var speed: float = 90
+@export var quackRange: float = 40
 @export var maxHealth: int = 5
 
 @onready var quacker = $Quacker
@@ -17,16 +17,16 @@ extends CharacterBody2D
 @export var quackBaseRandomTimer: float = 3
 @export var quackRandomTimerVariation: float = 0.5
 
-@export var chaseSpeedMultiplier: float = 1.5
+@export var chaseSpeedMultiplier: float = 1.6
 @export var runningSpeedMultiplier: float = 1.2
 
 @export var lungeActivationDistance: float = 200
-@export var lungeSpeedMultiplier: float = 10
+@export var lungeSpeedMultiplier: float = 8
 
 var quackRandomTimer: float = 0.0
 var quackTimer: float = 0.0
 
-var lungeCooldown: float = 2.0
+var lungeCooldown: float = 2
 var lungeCooldownTimer: float = 0.0
 var lungeLength: float = 0.1
 var lungeTimer: float = 0.0
@@ -67,7 +67,7 @@ func initValues():
 	quacker.parent_duck = self
 	quacker.attack_damage = 1
 	quacker.max_health = maxHealth
-	quacker.quack_range = quackRange
+	quacker.quack_range = quackRange * ((GameManager.playerRef.rangeMultiplier - 1 / 2) + 1)
 	
 	if minigamemanager.swimming == false:
 		swimming.visible = false
@@ -81,8 +81,9 @@ func initValues():
 	
 	stateRandomTimer = randf_range(stateBaseRandomTimer - stateRandomTimerVariation, stateBaseRandomTimer + stateRandomTimerVariation)
 	
-	state = STATE.FOLLOWING
 	agent.target_position = playerPos
+	
+	_changeStates()
 
 func _physics_process(delta):
 	if agent.is_navigation_finished():
@@ -105,10 +106,13 @@ func _changeStates():
 				break
 			
 	stateRandomTimer = randf_range(stateBaseRandomTimer - stateRandomTimerVariation, stateBaseRandomTimer + stateRandomTimerVariation) * stateVariationTimer		
-	print(state)
 		
 
 func _process(delta):
+	if minigamemanager.displaying == true:
+		velocity = Vector2.ZERO
+		return
+	
 	if moveVector.x < 0:
 		walking.flip_h = true
 		swimming.flip_h = true
@@ -136,9 +140,9 @@ func _process(delta):
 		quackRandomTimer -= delta
 	
 	if quackRandomTimer <= 0:
-		quack()	
 		quackRandomTimer = randf_range(quackBaseRandomTimer - quackRandomTimerVariation, quackBaseRandomTimer + quackRandomTimerVariation)
-	elif quacker.enemy_duck != null:
+		quack()	
+	elif quacker.enemy_duck.size() > 0:
 		quack()
 	
 func _move():
@@ -155,7 +159,6 @@ func _move():
 		if lunging == false and lungeCooldownTimer <= 0:
 			if state != STATE.CHARGE:
 				state = STATE.CHARGE
-			print("lunging!")
 			lunging = true
 			lungeTimer = lungeLength
 			lungeVelocity = velocity

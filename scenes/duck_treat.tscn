@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlea1st48lkyn"]
+[gd_scene load_steps=6 format=3 uid="uid://dlea1st48lkyn"]
 
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="1_c7hxw"]
 [ext_resource type="Script" uid="uid://c516hnq6mf1ro" path="res://scripts/duck_treat.gd" id="1_r1g13"]
+[ext_resource type="AudioStream" uid="uid://x725xf3ffm8s" path="res://sounds/SFX/shimmering-object-79354.mp3" id="3_sckgt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sckgt"]
 radius = 28.0
@@ -35,3 +36,11 @@ local_coords = true
 trail_enabled = true
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_r1g13")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_sckgt")
+volume_db = 8.0
+autoplay = true
+max_distance = 800.0
+bus = &"SFX"
+parameters/looping = true

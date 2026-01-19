@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b7j8knednxem"
+path="res://.godot/imported/water moving through 3.wav-de32e6abfd84164258bc125243569fc8.sample"
+
+[deps]
+
+source_file="res://sounds/SFX/water moving through 3.wav"
+dest_files=["res://.godot/imported/water moving through 3.wav-de32e6abfd84164258bc125243569fc8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
