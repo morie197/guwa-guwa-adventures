@@ -7,11 +7,11 @@ var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
 @export var moveSpeed: float = 70
-@export var staminaRecoveryRate: float = 0.05
+@export var staminaRecoveryRate: float = 0.4
 @export var baseQuackRange: float = 100.0
-@export var quackCooldown: float = 0.20
+@export var quackCooldown: float = 0.80
 @export var lungeTime: float = 0.10
-@export var lungeSpeed: float = 10
+@export var lungeSpeed: float = 6
 
 @onready var swimming = $swimming
 @onready var walking = $walking

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0yv7nmxv7x5o"]
+
+[ext_resource type="Script" uid="uid://cp3aw2db0loa1" path="res://radarcircle.gd" id="1_7jcqj"]
+
+[node name="radarCircle" type="Node2D"]
+z_index = 1
+script = ExtResource("1_7jcqj")
+circleColor = Color(0.24313726, 0.5137255, 0.90588236, 0.5529412)

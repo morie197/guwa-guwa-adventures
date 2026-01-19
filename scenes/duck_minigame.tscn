@@ -166,6 +166,7 @@ shape = SubResource("RectangleShape2D_fq1qg")
 
 [node name="quackSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
 stream = ExtResource("6_fq1qg")
+volume_db = -6.0
 bus = &"SFX"
 
 [node name="Enemies" type="Node2D" parent="."]

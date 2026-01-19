@@ -146,5 +146,6 @@ collision_mask = 128
 
 [node name="quackSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamWAV_uucyl")
-pitch_scale = 0.9
+volume_db = -8.0
+pitch_scale = 0.95
 bus = &"SFX"

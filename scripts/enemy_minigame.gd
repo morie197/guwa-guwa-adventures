@@ -14,27 +14,33 @@ extends CharacterBody2D
 @onready var quacker = $Quacker
 
 @export var quackCooldown: float = 1.1
-@export var quackBaseRandomTimer: float = 1.7
+@export var quackBaseRandomTimer: float = 3
 @export var quackRandomTimerVariation: float = 0.5
 
-@export var runningStateDuration: float = 0.8
-@export var followingStateDuration: float = 1.0
-@export var idleStateDuration: float = 0.3
-@export var chasingStateDuration: float = 0.6
+@export var chaseSpeedMultiplier: float = 1.5
+@export var runningSpeedMultiplier: float = 1.2
 
-@export var chaseSpeedMultiplier: float = 2.5
-@export var runningSpeedMultiplier: float = 2
-
+@export var lungeActivationDistance: float = 200
+@export var lungeSpeedMultiplier: float = 10
 
 var quackRandomTimer: float = 0.0
 var quackTimer: float = 0.0
 
+var lungeCooldown: float = 2.0
+var lungeCooldownTimer: float = 0.0
+var lungeLength: float = 0.1
+var lungeTimer: float = 0.0
+var lungeVelocity: Vector2 = Vector2.ZERO
+var lunging: bool = false
+
 var stateBaseRandomTimer: float = 6
-var stateRandomTimerVariation: float = 1
+var stateRandomTimerVariation: float = 2
 
 var stateRandomTimer: float = 0.0
 
 enum STATE{FOLLOWING, CHARGE, IDLE, RUNNING}
+var stateChances: Array[int] = [40, 40, 10, 10]
+var stateDurations: Array[float] = [1.3, 1.0, 0.3, 0.2]
 var state: STATE
 
 var infoBox
@@ -86,22 +92,17 @@ func _physics_process(delta):
 	_move()
 
 func _changeStates():
-	var rng = randi_range(0, STATE.size())
+	var rng = randf() * 100
 	var stateVariationTimer: float = 1
 	
-	match rng:
-		STATE.FOLLOWING:
-			state = STATE.FOLLOWING
-			stateVariationTimer = followingStateDuration
-		STATE.CHARGE:
-			state = STATE.CHARGE
-			stateVariationTimer = chasingStateDuration
-		STATE.IDLE:
-			state = STATE.IDLE
-			stateVariationTimer = idleStateDuration
-		STATE.RUNNING:
-			state = STATE.RUNNING
-			stateVariationTimer = runningStateDuration
+	for index in range(STATE.size()):
+		if rng < stateChances[index]:
+			state = STATE.values()[index]
+			stateVariationTimer = stateDurations[index]
+		else:
+			rng -= stateChances[index]
+			if rng <= 0:
+				break
 			
 	stateRandomTimer = randf_range(stateBaseRandomTimer - stateRandomTimerVariation, stateBaseRandomTimer + stateRandomTimerVariation) * stateVariationTimer		
 	print(state)
@@ -119,6 +120,14 @@ func _process(delta):
 		stateRandomTimer -= delta
 	else:
 		_changeStates()
+		
+	if lungeTimer > 0:
+		lungeTimer -= delta
+	elif lunging:
+		lunging = false
+		
+	if lungeCooldownTimer > 0:
+		lungeCooldownTimer -= delta
 	
 	if quackTimer > 0:
 		quackTimer -= delta	
@@ -140,6 +149,20 @@ func _move():
 		velocity *= runningSpeedMultiplier
 	elif state == STATE.CHARGE:
 		velocity *= chaseSpeedMultiplier
+
+	var distanceVector = abs(global_position - playerPos)
+	if distanceVector.x + distanceVector.y <= lungeActivationDistance:
+		if lunging == false and lungeCooldownTimer <= 0:
+			if state != STATE.CHARGE:
+				state = STATE.CHARGE
+			print("lunging!")
+			lunging = true
+			lungeTimer = lungeLength
+			lungeVelocity = velocity
+			lungeCooldownTimer = lungeCooldown
+	
+	if lunging:
+		velocity = lungeVelocity * lungeSpeedMultiplier
 	move_and_slide()
 
 func quack():

@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
+const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
+
 @onready var swimming = $swimming
 @onready var walking = $walking
 
 @onready var camera_2d = $Camera2D
 @onready var quack_sound = $quackSound
+@onready var radar_sound = $radarSound
 
 @onready var bgm = $BGM
 
@@ -32,6 +35,7 @@ var moveVector: Vector2 = Vector2.ZERO
 var mouseScrollInput: float
 
 @export var streamMoveSpeed: float = 120
+@export var whirlPoolMultiplier: float = 2
 @export var areaForceTransitionSpeed: float = 10
 
 @export var zoomMin: float = 1.5 # maximum amount zoomed OUT (bigger)
@@ -42,18 +46,27 @@ var mouseScrollInput: float
 @export var rangeMultZoomFactor: float = 1.1
 @export var keyZoomMult: float = 1.5
 
-@export var quackRange: float = 100
+@export var quackRange: float = 60
 @export var quackCooldown: float = 0.20
 @export var quackFalloffZoom: float = 2
 @export var quackFalloffAmountMulti: float = 8
 
+@export var radarRange: float = 120
+@export var radarCooldown: float = 1.5
+
 var quackTimer: float = 0
+var radarTimer: float = 0
 var targetZoom: Vector2
 
 @onready var area_collider = $AreaCollider
 @onready var quack_collider = $QuackCollider
 
+@onready var radar_collider = $RadarCollider
+
+var streamRef
+
 signal quack
+signal radar
 
 
 func _ready():
@@ -90,6 +103,10 @@ func _unhandled_input(event):
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
 				_quack()
+				
+		if GameManager.abilities.has("sonar") and radarTimer <= 0:
+			if Input.is_action_just_pressed("search"):
+				_radar()
 			
 		if GameManager.abilities.has("dive") and areaFlag == "dive":
 			if Input.is_action_just_pressed("dive"):
@@ -124,6 +141,9 @@ func _process(delta):
 	
 	if quackTimer > 0:
 		quackTimer -= delta
+		
+	if radarTimer > 0:
+		radarTimer -= delta
 
 	
 	if moveVector != Vector2.ZERO:
@@ -194,17 +214,20 @@ func _process(delta):
 			tired = false
 
 func _area_enter(area):
+	streamRef = area
 	areaFlag = area.flag
-	if areaFlag == "stream":
+	if areaFlag == "stream" or "whirlpool":
 		#print("nya")
 		areaForce = area.force * streamMoveSpeed
 	
 func _area_exit(area):
+	streamRef == null
 	areaFlag = ""
 	
 func initializeValues():
 	stamina = maxStamina * staminaMultiplier
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
+	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 
 func _quack():
 	quack_sound.play()
@@ -213,6 +236,14 @@ func _quack():
 	quackTimer = quackCooldown
 	quack.emit()
 	
+func _radar():
+	radar_sound.play()
+	radarTimer = radarCooldown
+	radar.emit()
+	var radCircle = RADAR_CIRCLE.instantiate()
+	GameManager.worldManager.add_child(radCircle)
+	radCircle.global_position = global_position
+	radCircle.maxRadius = radarRange * rangeMultiplier
 	
 func _move(movevec: Vector2):
 	velocity = movevec.normalized()
@@ -224,7 +255,16 @@ func _move(movevec: Vector2):
 		velocity *= flyMulti
 		
 	if !flying: 
-		velocity += areaForce
+		if areaFlag == "stream":
+			velocity += areaForce
+		elif areaFlag == "whirlpool":
+			if streamRef != null:
+				var distanceFromCenter = global_position - streamRef.global_position
+				var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
+				print(absDistance)
+				var whirlpoolvel = distanceFromCenter.normalized() * areaForce
+				velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
+				print(velocity)
 	
 	move_and_slide()
 	
