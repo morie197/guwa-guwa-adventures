@@ -13,7 +13,11 @@ var current_logic_layer
 func _ready():
 	GameManager.playerRef = player
 	GameManager.worldManager = self
+	
+	undergroundLayer.visible = false
+	overgroundLayer.visible = true
 	current_logic_layer = overground_logic_layer
+	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
 
 func switchUnderOverGround():

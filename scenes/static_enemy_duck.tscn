@@ -8,8 +8,9 @@ size = Vector2(64, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ng3w3"]
 size = Vector2(64, 64)
 
-[node name="StaticEnemyDuck" type="Node2D"]
+[node name="StaticEnemyDuck" type="Node2D" node_paths=PackedStringArray("owners")]
 script = ExtResource("1_4px4l")
+owners = []
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 64, 0, 64, 64, 0, 64)

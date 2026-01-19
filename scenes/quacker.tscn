@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dadgukmdghdhw"]
+
+[ext_resource type="Script" uid="uid://btdcawc7wys3k" path="res://scripts/quacker.gd" id="1_36rnc"]
+
+[node name="Quacker" type="Area2D"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("1_36rnc")

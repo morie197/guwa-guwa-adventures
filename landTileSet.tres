@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dgs7ojaeq1tam"]
+
+[ext_resource type="Texture2D" uid="uid://b4cxtgy683rfx" path="res://sprites/sprites/ducktileland.png" id="1_4bocm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2r41h"]
+texture = ExtResource("1_4bocm")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+8:1/0 = 0
+8:2/0 = 0
+0:5/0 = 0
+0:4/0 = 0
+0:2/size_in_atlas = Vector2i(1, 2)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, 32)
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_2r41h")

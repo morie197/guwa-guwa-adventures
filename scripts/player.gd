@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var camera_2d = $Camera2D
 @onready var quack_sound = $quackSound
 
+@onready var bgm = $BGM
+
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
@@ -65,6 +67,8 @@ func _ready():
 	initializeValues()
 
 func _unhandled_input(event):
+	if GameManager.paused or GameManager.minigame:
+		return
 	
 	if event is InputEventMouseButton:
 		if Input.is_action_just_pressed("zoomin"):
@@ -79,8 +83,9 @@ func _unhandled_input(event):
 		if GameManager.abilities.has("fly") or GameManager.abilities.has("sprint"):
 			if !flying:
 				sprinting = (Input.is_action_pressed("sprint") and !tired)
-			if !sprinting and areaFlag != "air":
-				flying = (Input.is_action_pressed("fly") and !tired)
+			if GameManager.abilities.has("fly"):
+				if !sprinting and areaFlag != "air":
+					flying = (Input.is_action_pressed("fly") and !tired)
 		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
@@ -104,7 +109,13 @@ func _physics_process(delta):
 	_move(moveVector)
 	
 func _process(delta):
+	if GameManager.minigame:
+		bgm.stop()
+	elif bgm.playing == false:
+		bgm.play()
+	
 	if GameManager.paused:
+		moveVector = Vector2.ZERO
 		return
 		
 	if areaFlag == "":
@@ -196,7 +207,6 @@ func initializeValues():
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 
 func _quack():
-	
 	quack_sound.play()
 	quack_sound.volume_db = 10 - clampf(quackFalloffZoom - camera_2d.zoom.x, 0, 80) * quackFalloffAmountMulti
 	#print(quack_sound.volume_db)

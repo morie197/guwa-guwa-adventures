@@ -119,6 +119,8 @@ zoomin={
 2d_physics/layer_4="airblockade"
 2d_physics/layer_5="ducksnack"
 2d_physics/layer_6="quack"
+2d_physics/layer_7="minigame"
+2d_physics/layer_8="enemyquack"
 
 [rendering]
 

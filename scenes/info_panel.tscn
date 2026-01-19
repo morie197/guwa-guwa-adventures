@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx2xq1xrwtf6t"]
+
+[ext_resource type="Script" uid="uid://bcjasf3ittkkn" path="res://scenes/info_panel.gd" id="1_ktb4k"]
+[ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/baroverlay.png" id="1_mxpga"]
+[ext_resource type="Texture2D" uid="uid://b2w5tj8olxgod" path="res://sprites/redbar.png" id="2_ktb4k"]
+
+[node name="InfoPanel" type="MarginContainer"]
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+script = ExtResource("1_ktb4k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = -32
+
+[node name="name" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 64
+text = "Jerry 5/5HP"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="hpbar" type="TextureProgressBar" parent="VBoxContainer"]
+z_index = 5
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("1_mxpga")
+texture_progress = ExtResource("2_ktb4k")

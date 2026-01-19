@@ -1,0 +1,20 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://4d1fws4vh5tf"]
+
+[ext_resource type="Texture2D" uid="uid://cjr3i8mpknlyp" path="res://sprites/sprites/ducktilewater.png" id="1_t378y"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fpun6"]
+texture = ExtResource("1_t378y")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:1/0 = 0
+0:2/animation_speed = 15.0
+0:2/animation_frame_0/duration = 1.0
+0:2/animation_frame_1/duration = 1.0
+0:2/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+0:3/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_fpun6")
