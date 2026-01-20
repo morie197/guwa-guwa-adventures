@@ -13,6 +13,12 @@ var speedMultiplier: float = 1
 @export var lungeTime: float = 0.10
 @export var lungeSpeed: float = 6
 
+var invincible: bool = false
+var invincibleCoolDown: float = 0.3
+var invincibleTimer: float = 0.0
+var invincibleDuration: float = 0.5
+var invincibleDurationTimer: float = 0.0
+
 @onready var swimming = $swimming
 @onready var walking = $walking
 
@@ -23,10 +29,17 @@ var stamina: float
 var quackTimer: float
 var lungeVector: Vector2
 
+var hitQuackVolume: float = -6
+var missQuackVolume: float = 0
+
 var minigamemanager
 
 @onready var quacker = $Quacker
 @onready var quack_sound = $quackSound
+@onready var block_sound = $blockSound
+@onready var invincibility_bar = $invincibilityBar
+@onready var hit_sound = $hitSound
+@onready var enemy_hit = $enemyHit
 
 
 func initValues():
@@ -45,6 +58,7 @@ func initValues():
 	quacker.max_health = 5 + round(minigamemanager.level/2.0)
 	quacker.quack_range = baseQuackRange * rangeMultiplier
 	quacker.initValues()
+	quacker.hp_changed.connect(_hp_change)
 
 func _input(event):
 	if minigamemanager.displaying == true:
@@ -70,6 +84,21 @@ func _physics_process(delta):
 func _process(delta):
 	if quackTimer > 0:
 		quackTimer -= delta
+		
+	if invincibleTimer > 0:
+		invincibleTimer -= delta
+			
+	if invincibleDurationTimer > 0:
+		invincibility_bar.max_value = invincibleDuration * 100
+		invincibility_bar.value = invincibleDurationTimer * 100
+		invincibleDurationTimer -= delta
+	elif invincible:
+		invincibleTimer = invincibleCoolDown
+		print("hiding")
+		invincibility_bar.hide()
+		invincible = false
+		
+	GameManager.worldManager.ui_manager.updateStaminaBar(round(stamina * 100), round(lungeTime * 100))
 
 	if moveVector.x < 0:
 		walking.flip_h = true
@@ -92,9 +121,28 @@ func _process(delta):
 			tired = false
 		
 func _quack():
-	quack_sound.play()
 	quackTimer = quackCooldown
-	quacker.quack()
+	if quacker.quack() == false:
+		quack_sound.volume_db = hitQuackVolume
+		enemy_hit.play()
+		quack_sound.play()
+	else:
+		quack_sound.volume_db = missQuackVolume
+		quack_sound.play()
+	
+func _hp_change():
+	hit_sound.pitch_scale = clampf(float(quacker.health) / float(quacker.max_health) + 0.5, 0.2, 1)
+
+func parry():
+	if !invincible and invincibleTimer > 0:
+		return true
+	elif invincibleTimer <= 0:
+		invincibleDurationTimer = invincibleDuration
+		invincible = true
+		invincibility_bar.show()
+		block_sound.play()
+		return false
+	return false
 	
 func _move(movevec: Vector2):
 	if lunging:

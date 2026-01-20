@@ -239,6 +239,6 @@ bus = &"Music"
 
 [node name="underWaterSounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_4ni07")
-volume_db = -4.0
+volume_db = -10.0
 bus = &"SFX"
 parameters/looping = true

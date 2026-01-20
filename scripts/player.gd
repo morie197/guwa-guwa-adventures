@@ -100,11 +100,11 @@ func _unhandled_input(event):
 			if !flying:
 				sprinting = (Input.is_action_pressed("sprint") and !tired)
 			if GameManager.abilities.has("fly"):
-				if Input.is_action_just_pressed("fly"):
+				if Input.is_action_just_pressed("fly") and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
 					if sprinting:
 						sprinting = false
 				if areaFlag != "air":
-					flying = Input.is_action_pressed("fly") and !tired
+					flying = Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1))
 		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
@@ -255,8 +255,8 @@ func _area_enter(area):
 		#print("nya")
 		areaForce = area.force * streamMoveSpeed
 	
-func _area_exit(area):
-	streamRef == null
+func _area_exit(_area):
+	streamRef = null
 	areaFlag = ""
 	
 func initializeValues():
@@ -266,7 +266,7 @@ func initializeValues():
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	
 func emitUpdatedStaminaValue():
-	updatedStamina.emit(round(stamina * 20), round(maxStamina * staminaMultiplier * 20))
+	updatedStamina.emit(round(stamina * 100), round(maxStamina * staminaMultiplier * 100))
 
 func _quack():
 	quack_sound.play()
@@ -300,10 +300,9 @@ func _move(movevec: Vector2):
 			if streamRef != null:
 				var distanceFromCenter = global_position - streamRef.global_position
 				var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
-				print(absDistance)
 				var whirlpoolvel = distanceFromCenter.normalized() * areaForce
 				velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
-				print(velocity)
+				velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
 	
 	move_and_slide()
 	

@@ -20,10 +20,10 @@ func _process(delta):
 	if mask.modulate != targetModulateColor:
 		mask.modulate = mask.modulate.lerp(targetModulateColor, delta * modulateSpeed)
 
-func _player_detected(area):
+func _player_detected(_area):
 	GameManager.playerRef.radar.connect(_showarea.bind(true))
 	
-func _player_exited(area):
+func _player_exited(_area):
 	GameManager.playerRef.radar.disconnect(_showarea)
 	_hidearea()
 	

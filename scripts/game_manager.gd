@@ -2,7 +2,7 @@ extends Node
 
 var level: int = 1
 var treats: int = 0
-var initialLevel: int = 1
+var initialLevel: int = 25
 var paused: bool = false
 var minigame: bool = false
 
@@ -27,7 +27,7 @@ signal startTutorial(String)
 	
 func enterLevel():	
 	for l in range(level, initialLevel):
-		_levelUp()
+		treatGet()
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
 	playerRef.emitUpdatedStaminaValue()
 

@@ -43,6 +43,11 @@ func _process(delta):
 	pass
 
 func damage(amount: int):
+	if parent_duck.name == "PlayerMinigame":
+		if parent_duck.lunging:
+			if parent_duck.parry() == false:
+				return
+		parent_duck.hit_sound.play()
 	health -= amount
 	hp_changed.emit()
 	if health <= 0:
@@ -51,19 +56,28 @@ func damage(amount: int):
 
 func quack():
 	quacked.emit()
-	if parent_duck.name == "PlayerMinigame":
-		print(enemy_duck.size())
 	for enemy in enemy_duck:
 		if enemy.has_method("damage"):
 			enemy.damage(attack_damage)
+	if enemy_duck.size() > 0:
+		return false
 	
 func _duck_detected(body):
-	var enemy = body.quacker
+	var enemy
+	if body.get_collision_layer_value(10):
+		enemy = body.get_parent().quacker
+	else:
+		enemy = body.quacker
 	if !enemy_duck.has(enemy):
 		enemy_duck.append(enemy)
 	
 func _duck_exited(body):
-	if enemy_duck.has(body.quacker):
-		enemy_duck.erase(body.quacker)
+	var enemy
+	if body.get_collision_layer_value(10):
+		enemy = body.get_parent().quacker
+	else:
+		enemy = body.quacker
+	if enemy_duck.has(enemy):
+		enemy_duck.erase(enemy)
 	
 	

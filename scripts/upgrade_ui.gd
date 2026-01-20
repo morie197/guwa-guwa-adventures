@@ -21,10 +21,6 @@ func _ready():
 	maxed_out_indicator.pressed.connect(_upgradeButtonPressed)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func initialize():
 	textName.text = "+" + str(UpgradeData.UPGRADES[upgradeName]["percentIncrease"]) + "% " + upgradeName
 	descriptionText.text = description

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=34 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scenes/player_minigame.gd" id="1_5jswy"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="1_g2itt"]
@@ -6,9 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="2_ex8wr"]
 [ext_resource type="PackedScene" uid="uid://dadgukmdghdhw" path="res://scenes/quacker.tscn" id="4_gsmep"]
 [ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/SFX/quack.wav" id="6_fq1qg"]
+[ext_resource type="AudioStream" uid="uid://c7h4ypm8cr13p" path="res://sounds/SFX/shield-block-shortsword-143940.mp3" id="7_fq1qg"]
+[ext_resource type="AudioStream" uid="uid://cqili45be6i0n" path="res://sounds/SFX/armor-hit-soft-01-266303.mp3" id="8_738s6"]
+[ext_resource type="AudioStream" uid="uid://c87hxaituyd4j" path="res://sounds/SFX/sword-blade-slicing-flesh-352708.mp3" id="8_l6kc5"]
 [ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="9_gsmep"]
+[ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bluebar.png" id="9_rpuvt"]
 [ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/baroverlay.png" id="10_l6kc5"]
 [ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/greenbar.png" id="11_aeba8"]
+[ext_resource type="AudioStream" uid="uid://bmy8twg3bb82d" path="res://sounds/SFX/shielddrop-94887.mp3" id="12_jgibo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("1_g2itt")
@@ -112,12 +117,18 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_738s6"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("8_738s6")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsmep"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0, 0, 0, 0.5294118)
+bg_color = Color(0.39688927, 0.39688927, 0.39688924, 0.5294118)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -182,8 +193,50 @@ shape = SubResource("RectangleShape2D_fq1qg")
 
 [node name="quackSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
 stream = ExtResource("6_fq1qg")
-volume_db = -6.0
+volume_db = -8.0
 bus = &"SFX"
+
+[node name="blockSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("7_fq1qg")
+bus = &"SFX"
+
+[node name="hitSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = SubResource("AudioStreamRandomizer_738s6")
+volume_db = 1.0
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="invincibilityExpire" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("12_jgibo")
+volume_db = -3.0
+pitch_scale = 1.4
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="invincibilityBar" type="TextureProgressBar" parent="PlayerMinigame"]
+visible = false
+z_index = 5
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -36.0
+offset_right = 44.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+allow_greater = true
+nine_patch_stretch = true
+texture_over = ExtResource("10_l6kc5")
+texture_progress = ExtResource("9_rpuvt")
+tint_progress = Color(0.94509804, 0.54901963, 0.5764706, 1)
+
+[node name="enemyHit" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("8_l6kc5")
+pitch_scale = 1.3
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(1280, 576)

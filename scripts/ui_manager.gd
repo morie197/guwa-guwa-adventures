@@ -11,6 +11,8 @@ const ALL_TUTORIALS = preload("uid://babei73ri162t")
 @onready var upgraded_sound = $sounds/upgradedSound
 
 @onready var stamina_bar = $StaminaBar
+@onready var stamina_bar_minigame = $StaminaBarMinigame
+@onready var lunge_text = $StaminaBarMinigame/LungeText
 
 var stamina: int
 
@@ -23,8 +25,21 @@ func _ready():
 	GameManager.showTutorial("basics")
 	
 func updateStaminaBar(current: int, max: int):
-	stamina_bar.value = current
-	stamina_bar.max_value = max
+	if GameManager.minigame == true:
+		stamina_bar.hide()
+		stamina_bar_minigame.show()
+		stamina_bar_minigame.value = current
+		stamina_bar_minigame.max_value = max
+		if current >= max - 1:
+			lunge_text.show()
+		else:
+			if lunge_text.visible:
+				lunge_text.hide()
+	else:
+		stamina_bar.show()
+		stamina_bar_minigame.hide()
+		stamina_bar.value = current
+		stamina_bar.max_value = max
 
 func _showLevelUpUI():
 	GameManager.paused = true
@@ -47,7 +62,6 @@ func _showLevelUpUI():
 	add_child(levelUpUI)
 	
 func _startTutorial(tutorialName: String):
-	print("tutorial:", tutorialName)
 	if tutorial != null:
 		return
 	tutorial = TUTORIAL.instantiate()

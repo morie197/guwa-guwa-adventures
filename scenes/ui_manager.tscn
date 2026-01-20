@@ -50,3 +50,41 @@ value = 100.0
 nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("7_tanoa")
+
+[node name="StaminaBarMinigame" type="TextureProgressBar" parent="."]
+z_index = 5
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -112.0
+offset_right = 256.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+allow_greater = true
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("7_tanoa")
+
+[node name="LungeText" type="RichTextLabel" parent="StaminaBarMinigame"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -34.0
+offset_right = 240.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 38
+text = "LUNGE!"
+horizontal_alignment = 1
+vertical_alignment = 1

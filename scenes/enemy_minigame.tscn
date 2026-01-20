@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://5y4if4dkbvsj"]
+[gd_scene load_steps=24 format=3 uid="uid://5y4if4dkbvsj"]
 
 [ext_resource type="Script" uid="uid://dcosv8pqa8a2r" path="res://scripts/enemy_minigame.gd" id="1_uucyl"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_hk6hf"]
 [ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="3_nk8nx"]
 [ext_resource type="PackedScene" uid="uid://dadgukmdghdhw" path="res://scenes/quacker.tscn" id="4_qsa8o"]
 [ext_resource type="AudioStream" uid="uid://cj2xrus2jcqgb" path="res://sounds/SFX/single-quack-from-a-duck-14494.mp3" id="5_hk6hf"]
+[ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/baroverlay.png" id="6_qsa8o"]
+[ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bluebar.png" id="7_udwa8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_hk6hf")
@@ -107,15 +109,15 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
-size = Vector2(48, 48)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hk6hf"]
-size = Vector2(16, 16)
+size = Vector2(48, 48)
 
 [node name="EnemyMinigame" type="CharacterBody2D"]
 z_index = 2
-collision_layer = 512
-collision_mask = 0
+collision_layer = 64
+collision_mask = 64
 motion_mode = 1
 script = ExtResource("1_uucyl")
 
@@ -146,8 +148,29 @@ pitch_scale = 1.05
 bus = &"SFX"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 64
-collision_mask = 64
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_hk6hf")
+
+[node name="lungeBar" type="TextureProgressBar" parent="."]
+visible = false
+modulate = Color(0.9137255, 0, 1, 0.76862746)
+z_index = 5
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -36.0
+offset_right = 44.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+allow_greater = true
+nine_patch_stretch = true
+texture_over = ExtResource("6_qsa8o")
+texture_progress = ExtResource("7_udwa8")

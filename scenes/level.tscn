@@ -330,7 +330,7 @@ collision_mask = 0
 script = ExtResource("5_8c41q")
 force = Vector2(-0.8, -0.8)
 flag = "whirlpool"
-size = 1500.0
+size = 700.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/stream4"]
 position = Vector2(96, -64)
@@ -477,7 +477,7 @@ position = Vector2(5440, 2112)
 position = Vector2(4992, -1024)
 
 [node name="duckTreat8" parent="Underground/treats" instance=ExtResource("4_mx8sn")]
-position = Vector2(6400, -5696)
+position = Vector2(6400, -5888)
 
 [node name="duckTreat9" parent="Underground/treats" instance=ExtResource("4_mx8sn")]
 position = Vector2(1920, -4864)
@@ -1255,28 +1255,24 @@ position = Vector2(6592, -896)
 [node name="StaticEnemyDuck4" parent="Overground/ducks/Node2D" node_paths=PackedStringArray("owners") instance=ExtResource("6_b121j")]
 duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
 duckHP = Array[int]([3, 10, 3, 7])
-stageName = "land_rocks"
 owners = [NodePath("."), NodePath("../StaticEnemyDuck5"), NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7")]
 
 [node name="StaticEnemyDuck5" parent="Overground/ducks/Node2D" node_paths=PackedStringArray("owners") instance=ExtResource("6_b121j")]
 position = Vector2(0, 64)
 duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
 duckHP = Array[int]([3, 10, 3, 7])
-stageName = "land_rocks"
 owners = [NodePath("../StaticEnemyDuck4"), NodePath("."), NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7")]
 
 [node name="StaticEnemyDuck6" parent="Overground/ducks/Node2D" node_paths=PackedStringArray("owners") instance=ExtResource("6_b121j")]
 position = Vector2(0, 128)
 duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
 duckHP = Array[int]([3, 10, 3, 7])
-stageName = "land_rocks"
 owners = [NodePath("../StaticEnemyDuck4"), NodePath("../StaticEnemyDuck5"), NodePath("."), NodePath("../StaticEnemyDuck7")]
 
 [node name="StaticEnemyDuck7" parent="Overground/ducks/Node2D" node_paths=PackedStringArray("owners") instance=ExtResource("6_b121j")]
 position = Vector2(64, 64)
 duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
 duckHP = Array[int]([3, 10, 3, 7])
-stageName = "land_rocks"
 owners = [NodePath("../StaticEnemyDuck4"), NodePath("../StaticEnemyDuck5"), NodePath("../StaticEnemyDuck6"), NodePath(".")]
 
 [node name="Node2D2" type="Node2D" parent="Overground/ducks"]
@@ -1324,5 +1320,6 @@ stageName = "land_rocks"
 owners = [NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck9"), NodePath("../StaticEnemyDuck10"), NodePath("../StaticEnemyDuck11"), NodePath("../StaticEnemyDuck12"), NodePath(".")]
 
 [node name="Player" parent="." instance=ExtResource("1_2q6dc")]
+position = Vector2(-5120, -5120)
 
 [node name="UIManager" parent="." instance=ExtResource("3_w8frs")]

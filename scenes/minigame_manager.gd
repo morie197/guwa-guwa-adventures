@@ -13,6 +13,7 @@ const ENEMY_MINIGAME = preload("uid://5y4if4dkbvsj")
 @onready var popup_panel = $PanelContainer/PopupPanel
 @onready var popup_text = $PanelContainer/PopupPanel/PopupText
 
+
 const INFO_PANEL = preload("uid://dx2xq1xrwtf6t")
 
 const LAND_FOREST = preload("uid://n0e7krhcyk3k")
@@ -92,7 +93,7 @@ func initValues():
 		enemyGroup.add_child(enemy)
 		enemyArray.append(enemy)
 		enemy.minigamemanager = self
-		enemy.maxHealth = enemyHealthValues[ene]
+		enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/enemyHealthValues.size()) / 3.0)
 		enemy.initValues()
 		
 		var info = INFO_PANEL.instantiate()

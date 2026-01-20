@@ -16,11 +16,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _player_detected(area):
+func _player_detected(_area):
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.connect(_quack)
 	
-func _player_exited(area):
+func _player_exited(_area):
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.disconnect(_quack)
 
@@ -30,16 +30,19 @@ func _quack():
 		GameManager.initiateMinigame(duckNames, duckHP, stageName, owners)
 	
 func playerWon():
-	GameManager.paused = false
-	GameManager.minigame = false
-	if GameManager.worldLayer == 0:
-		GameManager.worldManager.worldManager.darkener.show()
+	_exitMinigame()
 	collider.set_collision_layer_value(1, false)
 	quack_detector.set_collision_mask_value(6, false)
 	hide()
 	
 func playerLost():
+	_exitMinigame()
+
+func _exitMinigame():
 	GameManager.paused = false
 	GameManager.minigame = false
 	if GameManager.worldLayer == 0:
-		GameManager.worldManager.worldManager.darkener.show()
+		GameManager.worldManager.darkener.show()
+	GameManager.worldManager.ui_manager.stamina_bar.show()
+	GameManager.worldManager.ui_manager.stamina_bar_minigame.hide()
+	

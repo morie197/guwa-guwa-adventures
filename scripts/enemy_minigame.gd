@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @onready var agent = $NavigationAgent2D
 @onready var quack_sound = $quackSound
+@onready var lunge_bar = $lungeBar
 
 @export var speed: float = 90
 @export var quackRange: float = 40
@@ -23,6 +24,8 @@ extends CharacterBody2D
 @export var lungeActivationDistance: float = 200
 @export var lungeSpeedMultiplier: float = 8
 
+
+
 var quackRandomTimer: float = 0.0
 var quackTimer: float = 0.0
 
@@ -31,6 +34,7 @@ var lungeCooldownTimer: float = 0.0
 var lungeLength: float = 0.1
 var lungeTimer: float = 0.0
 var lungeVelocity: Vector2 = Vector2.ZERO
+var quackDelay: float = 0.5
 var lunging: bool = false
 
 var stateBaseRandomTimer: float = 6
@@ -45,6 +49,8 @@ var state: STATE
 
 var infoBox
 var minigamemanager
+
+var tim: Timer
 
 var moveVector: Vector2 = Vector2.ZERO
 
@@ -93,6 +99,8 @@ func _physics_process(delta):
 	_move()
 
 func _changeStates():
+	if minigamemanager.displaying == true:
+		return
 	var rng = randf() * 100
 	var stateVariationTimer: float = 1
 	
@@ -120,6 +128,11 @@ func _process(delta):
 		walking.flip_h = false
 		swimming.flip_h = false
 	
+	if tim != null and !tim.is_queued_for_deletion():
+		lunge_bar.show()
+		lunge_bar.max_value = tim.wait_time * 100
+		lunge_bar.value = (tim.time_left / 0.9) * 100
+	
 	if stateRandomTimer > 0:
 		stateRandomTimer -= delta
 	else:
@@ -129,7 +142,7 @@ func _process(delta):
 		lungeTimer -= delta
 	elif lunging:
 		lunging = false
-		
+	
 	if lungeCooldownTimer > 0:
 		lungeCooldownTimer -= delta
 	
@@ -161,19 +174,28 @@ func _move():
 				state = STATE.CHARGE
 			lunging = true
 			lungeTimer = lungeLength
-			lungeVelocity = velocity
 			lungeCooldownTimer = lungeCooldown
+			lungeVelocity = velocity
+			velocity = Vector2.ZERO
 	
-	if lunging:
+	if lunging:	
 		velocity = lungeVelocity * lungeSpeedMultiplier
+	
 	move_and_slide()
 
 func quack():
 	if quackTimer > 0:
 		return
 	quackTimer = quackCooldown
-	quack_sound.play()
-	quacker.quack()
+	if tim == null:
+		tim = Timer.new()
+	tim.wait_time = quackDelay
+	add_child(tim)
+	tim.start()
+	tim.timeout.connect(quacker.quack)
+	tim.timeout.connect(quack_sound.play)
+	tim.timeout.connect(lunge_bar.hide)
+	tim.timeout.connect(tim.queue_free)
 
 func _died():
 	minigamemanager.enemiesDefeated += 1
