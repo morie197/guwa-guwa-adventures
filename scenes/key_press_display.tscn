@@ -1,160 +1,30 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu2qa7tl2feks"]
 
 [ext_resource type="Script" uid="uid://d2wiliedjt5cj" path="res://scripts/key_press_display.gd" id="1_03oao"]
-[ext_resource type="Texture2D" uid="uid://b66rrw7uw1r70" path="res://sprites/sprites/keysprite.png" id="2_0b26k"]
 
-[node name="key_press_display" type="GridContainer"]
-offset_right = 392.0
-offset_bottom = 260.0
-columns = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckq4c"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="PanelContainer" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_ckq4c")
 script = ExtResource("1_03oao")
 
-[node name="1" type="TextureRect" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-texture = ExtResource("2_0b26k")
-
-[node name="key1" type="RichTextLabel" parent="1"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 64
-text = "W"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="2" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_0b26k")
-
-[node name="key2" type="RichTextLabel" parent="2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 64
-text = "W"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="3" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_0b26k")
-
-[node name="key3" type="RichTextLabel" parent="3"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 64
-text = "W"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="4" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_0b26k")
-
-[node name="key4" type="RichTextLabel" parent="4"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 64
-text = "W"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="5" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_0b26k")
-
-[node name="key5" type="RichTextLabel" parent="5"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 64
-text = "W"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="6" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_0b26k")
-
-[node name="key6" type="RichTextLabel" parent="6"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 64
-text = "W"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1

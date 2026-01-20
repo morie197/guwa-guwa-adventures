@@ -52,6 +52,7 @@ texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("7_tanoa")
 
 [node name="StaminaBarMinigame" type="TextureProgressBar" parent="."]
+visible = false
 z_index = 5
 custom_minimum_size = Vector2(0, 100)
 anchors_preset = 7

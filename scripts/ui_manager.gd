@@ -36,10 +36,11 @@ func updateStaminaBar(current: int, max: int):
 			if lunge_text.visible:
 				lunge_text.hide()
 	else:
-		stamina_bar.show()
+		if GameManager.abilities.has("sprint"):
+			stamina_bar.show()
+			stamina_bar.value = current
+			stamina_bar.max_value = max
 		stamina_bar_minigame.hide()
-		stamina_bar.value = current
-		stamina_bar.max_value = max
 
 func _showLevelUpUI():
 	GameManager.paused = true

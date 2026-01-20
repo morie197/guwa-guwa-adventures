@@ -1,5 +1,6 @@
 extends Resource
 class_name TutorialItem
 
-@export var icons: Dictionary[int, String]
+@export var icons: Array[Texture2D]
 @export var text: String
+@export var type: String

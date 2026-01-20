@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialItem" load_steps=2 format=3 uid="uid://emr3n2igixtq"]
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=5 format=3 uid="uid://emr3n2igixtq"]
 
+[ext_resource type="Texture2D" uid="uid://tigjfolsv1o5" path="res://sprites/keys/mouse_scroll_vertical.svg" id="1_lt66m"]
 [ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_ol4ge"]
+[ext_resource type="Texture2D" uid="uid://c7rbo47pvy60l" path="res://sprites/keys/ct/keyboard_c.svg" id="2_ejk4x"]
+[ext_resource type="Texture2D" uid="uid://d1yowekauxj1y" path="res://sprites/keys/keyboard_v.svg" id="3_q3q5o"]
 
 [resource]
 script = ExtResource("1_ol4ge")
-icons = Dictionary[int, String]({
-4: "C",
-5: "V"
-})
-text = "You may zoom out with the mousewheel, or by pressing C or V."
+icons = Array[Texture2D]([ExtResource("1_lt66m"), ExtResource("2_ejk4x"), ExtResource("3_q3q5o")])
+text = "Zoom: "
+type = "or1"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"
