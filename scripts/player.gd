@@ -10,6 +10,7 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 @onready var radar_sound = $radarSound
 @onready var grass_foot_steps = $grassFootSteps
 @onready var water_swimming_through = $waterSwimmingThrough
+@onready var under_water_sounds = $underWaterSounds
 
 @onready var bgm = $BGM
 
@@ -71,12 +72,11 @@ var streamRef
 signal quack
 signal radar
 
+signal updatedStamina(current: int, max: int)
 
 func _ready():
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
-	
-	stamina = maxStamina * staminaMultiplier
 	
 	targetZoom = Vector2(zoomMin, zoomMin)
 	
@@ -140,6 +140,13 @@ func _process(delta):
 	if GameManager.paused:
 		moveVector = Vector2.ZERO
 		return
+		
+	if GameManager.worldLayer == 0:
+		if under_water_sounds.playing == false: 
+			under_water_sounds.play()
+	else:
+		if under_water_sounds.playing: 
+			under_water_sounds.stop()
 		
 	if areaFlag == "":
 		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed)
@@ -227,6 +234,7 @@ func _process(delta):
 				stamina -= delta
 			if flying:
 				stamina -= delta / flyStaminaMulti
+			emitUpdatedStaminaValue()
 		else:
 			tired = true
 			if sprinting: 
@@ -236,6 +244,7 @@ func _process(delta):
 	else:
 		if stamina < maxStamina * staminaMultiplier:
 			stamina+=delta * staminaRecoveryRate
+			emitUpdatedStaminaValue()
 		else:
 			tired = false
 
@@ -252,8 +261,12 @@ func _area_exit(area):
 	
 func initializeValues():
 	stamina = maxStamina * staminaMultiplier
+	emitUpdatedStaminaValue()
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
+	
+func emitUpdatedStaminaValue():
+	updatedStamina.emit(round(stamina * 20), round(maxStamina * staminaMultiplier * 20))
 
 func _quack():
 	quack_sound.play()

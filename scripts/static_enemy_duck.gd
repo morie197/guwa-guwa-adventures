@@ -32,6 +32,8 @@ func _quack():
 func playerWon():
 	GameManager.paused = false
 	GameManager.minigame = false
+	if GameManager.worldLayer == 0:
+		GameManager.worldManager.worldManager.darkener.show()
 	collider.set_collision_layer_value(1, false)
 	quack_detector.set_collision_mask_value(6, false)
 	hide()
@@ -39,3 +41,5 @@ func playerWon():
 func playerLost():
 	GameManager.paused = false
 	GameManager.minigame = false
+	if GameManager.worldLayer == 0:
+		GameManager.worldManager.worldManager.darkener.show()

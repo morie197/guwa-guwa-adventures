@@ -10,6 +10,9 @@ const ALL_TUTORIALS = preload("uid://babei73ri162t")
 @onready var max_level_sound = $sounds/maxLevelSound
 @onready var upgraded_sound = $sounds/upgradedSound
 
+@onready var stamina_bar = $StaminaBar
+
+var stamina: int
 
 var tutorial
 var levelUpUI
@@ -18,11 +21,10 @@ func _ready():
 	GameManager.levelUp.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
 	GameManager.showTutorial("basics")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	
+func updateStaminaBar(current: int, max: int):
+	stamina_bar.value = current
+	stamina_bar.max_value = max
 
 func _showLevelUpUI():
 	GameManager.paused = true

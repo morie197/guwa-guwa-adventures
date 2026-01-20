@@ -13,7 +13,7 @@ const ABILITIES = {
 		}, 	
 	3: {
 		"name": "quack",
-		"description": "Press Q to quack! Quacking gives EXP and can scare off animals."
+		"description": "Press Q to quack! Quacking may be used to fight other ducks!"
 		}, 	
 	5: {
 		"name": "walk",
@@ -21,23 +21,19 @@ const ABILITIES = {
 		}, 	
 	8: {
 		"name": "sonar",
-		"description": "Press E to search your sorroundings, uncovering secret areas and items!"
+		"description": "Press E to search your sorroundings, potentially uncovering secret areas!"
 		},
-	10: {
+	13: {
 		"name": "dive",
 		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
 		}, 	  
-	13: {
-		"name": "eggs",
-		"description": "Press F to lay eggs! Once hatched, smaller ducks will follow and assist you, potentially finding bread for you!"
-		}, 	  
-	15: {
-		"name": "fly",
-		"description": "Press SPACEBAR to take off, moving much faster than usual and overcoming lower obstacles."
-		}, 	  
 	20: {
+		"name": "fly",
+		"description": "Hold SPACEBAR to fly, moving much faster than usual and overcoming lower obstacles!"
+		}, 	  
+	30: {
 		"name": "migrate",
-		"description": "Hold SPACEBAR for 5 seconds to migrate, beating the game!"
+		"description": "Hold SPACEBAR and Q for 5 seconds to migrate, beating the game!"
 		}
 	
 	}

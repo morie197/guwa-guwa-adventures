@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene load_steps=8 format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="AudioStream" uid="uid://dly0hk106evgr" path="res://sounds/SFX/cute-level-up-2-189851.mp3" id="2_reske"]
 [ext_resource type="AudioStream" uid="uid://bc0klylk1upd1" path="res://sounds/SFX/level-up-05-326133.mp3" id="3_reske"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="4_ixhu3"]
 [ext_resource type="AudioStream" uid="uid://dsdyh8ybdgat7" path="res://sounds/SFX/button_09-190435.mp3" id="5_gl862"]
+[ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/baroverlay.png" id="6_hst8a"]
+[ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bluebar.png" id="7_tanoa"]
 
 [node name="UIManager" type="CanvasLayer"]
 script = ExtResource("1_rwj1f")
@@ -28,3 +30,23 @@ bus = &"SFX"
 stream = ExtResource("5_gl862")
 pitch_scale = 2.0
 bus = &"SFX"
+
+[node name="StaminaBar" type="TextureProgressBar" parent="."]
+visible = false
+z_index = 5
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -112.0
+offset_right = 256.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("7_tanoa")

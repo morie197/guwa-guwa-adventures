@@ -8,6 +8,10 @@ extends Node2D
 @onready var underground_collision_layer = $Underground/CollisionLayer
 @onready var overground_collision_layer = $Overground/CollisionLayer
 
+@onready var ui_manager = $UIManager
+
+@onready var darkener = $Underground/darkener
+
 var current_logic_layer
 
 func _ready():

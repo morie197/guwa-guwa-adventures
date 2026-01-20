@@ -2,7 +2,7 @@ extends Node
 
 var level: int = 1
 var treats: int = 0
-var initialLevel: int = 15
+var initialLevel: int = 1
 var paused: bool = false
 var minigame: bool = false
 
@@ -11,7 +11,7 @@ const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
 var availableUpgradePoints: int = 0
 
-var abilityUnlockLevels = {1: "swim", 2: "sprint", 3: "quack", 5: "walk", 8: "sonar", 10: "dive", 13: "eggs", 15: "fly", 20: "migrate"}
+var abilityUnlockLevels = {1: "swim", 2: "sprint", 3: "quack", 5: "walk", 8: "sonar", 13: "dive", 20: "fly", 30: "migrate"}
 
 var shownTutorials: Array[String]
 
@@ -24,17 +24,12 @@ var worldLayer = 1
 
 signal levelUp
 signal startTutorial(String)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
 	
 func enterLevel():	
 	for l in range(level, initialLevel):
 		_levelUp()
-		
-	#if abilities.has("walk"): 
-	#	playerRef.set_collision_mask_value(3, false)
+	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
+	playerRef.emitUpdatedStaminaValue()
 
 func treatGet():
 	treats += 1
@@ -53,6 +48,8 @@ func showTutorial(tutorialName: String):
 func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stageName: String, owners):
 	paused = true
 	minigame = true
+	if worldLayer == 0:
+		worldManager.darkener.hide()
 	var minigame_stage = DUCK_MINIGAME.instantiate()
 	if owners.size() == 0:
 		print("not properly setup!")
@@ -97,6 +94,9 @@ func _levelUp():
 		
 	availableUpgradePoints += 1
 	levelUp.emit()
+		
+	if abilities.has("sprint"):
+		worldManager.ui_manager.stamina_bar.show()
 		
 	if abilities.has("walk"): 
 		playerRef.set_collision_mask_value(3, false)

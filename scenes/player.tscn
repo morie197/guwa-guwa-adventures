@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=45 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://bwlf4w6fgbc3a" path="res://sounds/SFX/water moving through 5.wav" id="16_ke2ow"]
 [ext_resource type="AudioStream" uid="uid://dau88f4126hwl" path="res://sounds/SFX/water moving through 6.wav" id="17_ujl30"]
 [ext_resource type="AudioStream" uid="uid://bh2fuqrdjtqdg" path="res://sounds/SFX/water moving through 7.wav" id="18_31cv2"]
+[ext_resource type="AudioStream" uid="uid://dv6fctkoc1gsj" path="res://sounds/SFX/underwater-ambience-376890.mp3" id="23_4ni07"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_qhqgy")
@@ -225,6 +226,7 @@ bus = &"SFX"
 stream = SubResource("AudioStreamRandomizer_pf23h")
 volume_db = -7.0
 pitch_scale = 1.31
+bus = &"SFX"
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
@@ -234,3 +236,9 @@ stream = SubResource("AudioStreamRandomizer_d2wvv")
 volume_db = -5.725
 autoplay = true
 bus = &"Music"
+
+[node name="underWaterSounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_4ni07")
+volume_db = -4.0
+bus = &"SFX"
+parameters/looping = true
