@@ -2,7 +2,8 @@ extends Control
 
 @onready var h_box_container = $HBoxContainer
 
-func setData(keyData: Array[Texture2D], text: String, type: String):
+func setData(keyDataOriginal: Array[Texture2D], text: String, type: String):
+	var keyData = keyDataOriginal.duplicate()
 	if !text.match(""):
 		_addText(text)
 	if type.match("triangle"):

@@ -4,6 +4,7 @@ const LEVEL_UP_UI = preload("uid://dqqnbgo7hdj8n")
 const TUTORIAL = preload("uid://dvc0qm8fmb6qj")
 const ALL_TUTORIALS = preload("uid://babei73ri162t")
 const CREDITS = preload("uid://26t45ci53pbw")
+const PAUSE_MENU = preload("uid://x4vnr5iy3hg3")
 
 @onready var game_won_bgm = $sounds/gameWonBGM
 @onready var winpanel = $winpanel
@@ -37,6 +38,9 @@ var hoverSpeed: float = 1
 var hoverAmount: float = 5
 var origin: Vector2
 
+var inPauseMenu: bool = false
+var pauseMenu
+
 @export var targetModulateColor: Color = Color.BLACK
 
 @export var modulateSpeed: float = 0.9
@@ -64,6 +68,20 @@ func _physics_process(delta):
 			hoverState = 1
 	migrate_down_indicator.global_position.y = origin.y + (hoverTime * hoverAmount)
 	
+func pause():
+	if !inPauseMenu:
+		inPauseMenu = true
+		GameManager.paused = true
+		pauseMenu = PAUSE_MENU.instantiate()
+		pauseMenu.ui_manager = self
+		add_child(pauseMenu)
+	else:
+		if pauseMenu != null and !pauseMenu.is_queued_for_deletion():
+			print("unpaused")
+			GameManager.paused = false
+			inPauseMenu = false
+			pauseMenu.queue_free()
+			
 func updateStaminaBar(current: int, max: int):
 	if GameManager.wonGame == true:
 		stamina_bar.hide()

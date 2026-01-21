@@ -101,6 +101,8 @@ func _ready():
 	initializeValues()
 
 func _unhandled_input(event):
+	if Input.is_action_just_pressed("menuback pause"):
+		GameManager.worldManager.ui_manager.pause()
 	if GameManager.paused or GameManager.minigame:
 		return
 	

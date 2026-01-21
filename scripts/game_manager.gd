@@ -2,7 +2,7 @@ extends Node
 
 var level: int = 1
 var treats: int = 0
-var initialLevel: int = 30
+var initialLevel: int = 1
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -25,6 +25,19 @@ signal levelUp
 signal startTutorial(String)
 	
 func enterLevel():	
+	# remove upon implementing savegames
+	level = 1
+	treats = 0
+	initialLevel = 1
+	paused = false
+	minigame = false
+	wonGame = false
+	shownTutorials = []
+	upgrades = {}
+	abilities = []
+	upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
+	worldLayer = 1
+	
 	for l in range(level, initialLevel):
 		treatGet()
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
