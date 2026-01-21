@@ -18,8 +18,9 @@ func _ready():
 	GameManager.playerRef = player
 	GameManager.worldManager = self
 	
-	undergroundLayer.visible = false
-	overgroundLayer.visible = true
+	_turnOnOffLayer(undergroundLayer, false)
+	darkener.visible = false
+	_turnOnOffLayer(overgroundLayer, true)
 	current_logic_layer = overground_logic_layer
 	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
@@ -30,18 +31,20 @@ func switchUnderOverGround():
 		return
 	if GameManager.worldLayer == 1:
 		GameManager.worldLayer = 0
-		overgroundLayer.visible = false
+		_turnOnOffLayer(overgroundLayer, false)
 		overground_collision_layer.collision_enabled = false
 		
-		undergroundLayer.visible = true
+		darkener.show()
+		_turnOnOffLayer(undergroundLayer, true)
 		underground_collision_layer.collision_enabled = true
 		current_logic_layer = underground_logic_layer
 	else:
 		GameManager.worldLayer = 1 
-		undergroundLayer.visible = false
+		darkener.hide()
+		_turnOnOffLayer(undergroundLayer, false)
 		underground_collision_layer.collision_enabled = false
 		
-		overgroundLayer.visible = true
+		_turnOnOffLayer(overgroundLayer, true)
 		overground_collision_layer.collision_enabled = true
 		current_logic_layer = overground_logic_layer
 
@@ -61,3 +64,11 @@ func tileToAtlasCoords(localToMapCoords: Vector2i):
 		return
 	
 	return current_logic_layer.get_cell_atlas_coords(localToMapCoords)
+	
+func _turnOnOffLayer(target, isVisible: bool):
+	if isVisible:
+		target.modulate = Color.WHITE
+		target.process_mode = PROCESS_MODE_ALWAYS
+	else:
+		target.modulate = Color.TRANSPARENT
+		target.process_mode = PROCESS_MODE_DISABLED

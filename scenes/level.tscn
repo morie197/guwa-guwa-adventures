@@ -198,7 +198,7 @@ radius = 443.07715
 script = ExtResource("1_olg7q")
 
 [node name="Underground" type="Node2D" parent="."]
-visible = false
+modulate = Color(1, 1, 1, 0)
 z_index = -4
 
 [node name="LogicLayer" type="TileMapLayer" parent="Underground"]
@@ -560,6 +560,7 @@ stageName = "underwater"
 owners = [NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7"), NodePath(".")]
 
 [node name="darkener" type="CanvasModulate" parent="Underground"]
+visible = false
 color = Color(0.20149767, 0.2488139, 0.39026976, 1)
 
 [node name="Overground" type="Node2D" parent="."]
@@ -1320,6 +1321,6 @@ stageName = "land_rocks"
 owners = [NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck9"), NodePath("../StaticEnemyDuck10"), NodePath("../StaticEnemyDuck11"), NodePath("../StaticEnemyDuck12"), NodePath(".")]
 
 [node name="Player" parent="." instance=ExtResource("1_2q6dc")]
-position = Vector2(-1024, -832)
+position = Vector2(1856, 1408)
 
 [node name="UIManager" parent="." instance=ExtResource("3_w8frs")]
