@@ -14,8 +14,12 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 @onready var wings_flying_sound = $wingsFlyingSound
 @onready var wings_flapping_sound = $wingsFlappingSound
 
+@onready var audio_listener_2d = $AudioListener2D
+
 
 @onready var bgm = $BGM
+var bgmVolume: float = -5.7
+var bgmFadeTime: float = 0.2
 
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
@@ -48,6 +52,8 @@ var mouseScrollInput: float
 @export var whirlPoolMultiplier: float = 2
 @export var areaForceTransitionSpeed: float = 10
 
+@export var wonDelay: float = 2.0
+
 @export var zoomMin: float = 1.5 # maximum amount zoomed OUT (bigger)
 @export var ZOOMMAX: float = 5 # maximum amount zoomed IN (smaller)
 @export var zoomSpeed: float = 10.0
@@ -64,9 +70,15 @@ var mouseScrollInput: float
 @export var radarRange: float = 120
 @export var radarCooldown: float = 1.5
 
+var migrationTime: float = 5
+var migrateTimer: float = 0
+var migrating: bool = false
+
 var quackTimer: float = 0
 var radarTimer: float = 0
 var targetZoom: Vector2
+
+var colliding
 
 @onready var area_collider = $AreaCollider
 @onready var quack_collider = $QuackCollider
@@ -115,6 +127,17 @@ func _unhandled_input(event):
 					else:
 						_toggleFly(false)
 		
+		if GameManager.abilities.has("migrate"):
+			if flying and Input.is_action_pressed("quack"):
+				migrating = true
+				if migrateTimer <= 0:
+					migrateTimer = migrationTime
+			else:
+				if migrating:
+					migrateTimer = 0
+					GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
+					migrating = false
+		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
 				_quack()
@@ -135,20 +158,43 @@ func _unhandled_input(event):
 	
 
 func _physics_process(delta):
+	if GameManager.wonGame:
+		_move(Vector2.DOWN)
+		return
 	if GameManager.paused:
 		velocity = Vector2.ZERO
 		return
 	_move(moveVector)
 	
 func _process(delta):
-	if GameManager.minigame:
+	if GameManager.wonGame:
+		if bgm.volume_db <= -35 and bgm.playing:
+			bgm.stop()
+		else:
+			bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
+	elif GameManager.minigame:
+		flying = false
+		migrating = false
+		migrateTimer = 0
 		bgm.stop()
 	elif bgm.playing == false:
 		bgm.play()
 	
-	if GameManager.paused:
+	if GameManager.paused:	
 		moveVector = Vector2.ZERO
 		return
+	if migrating:
+		if moveVector.y > 0 and flying:
+			if migrateTimer > 0:
+				bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
+				migrateTimer -= delta
+				GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
+			else:
+				_migrated()
+		else:
+			bgm.volume_db = bgmVolume
+			migrateTimer = clampf(migrateTimer + delta * 1.5, 0, migrationTime)
+			GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
 		
 	if GameManager.worldLayer == 0:
 		if under_water_sounds.playing == false: 
@@ -300,6 +346,24 @@ func _quack():
 	quackTimer = quackCooldown
 	quack.emit()
 	
+func _migrated():
+	if migrating == true:
+		migrating = false
+	set_collision_mask_value(1, false)
+	set_collision_layer_value(5, false)
+	var timmy = Timer.new()
+	add_child(timmy)
+	timmy.wait_time = wonDelay
+	timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
+	timmy.timeout.connect(timmy.queue_free)
+	timmy.timeout.connect(audio_listener_2d.queue_free)
+	timmy.start()
+	
+	GameManager.won()
+	
+	
+	GameManager.paused = true
+	
 func _radar():
 	radar_sound.play()
 	radarTimer = radarCooldown
@@ -334,5 +398,7 @@ func _move(movevec: Vector2):
 	if flyDelayTimer > 0:
 		velocity = movevec.normalized() * moveSpeed / 1.4
 	
-	move_and_slide()
+	var colliding = move_and_slide()
+	if colliding and flying:
+		_toggleFly(false)
 	

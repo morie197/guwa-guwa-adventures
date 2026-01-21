@@ -1,0 +1,453 @@
+[gd_scene load_steps=5 format=3 uid="uid://26t45ci53pbw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygfb5"]
+content_margin_left = 32.0
+content_margin_top = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 32.0
+bg_color = Color(0.12248526, 0.17942414, 0.28276026, 0.8235294)
+border_width_left = 4
+border_width_top = 8
+border_width_right = 4
+border_width_bottom = 8
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ygfb5"]
+content_margin_left = 0.0
+content_margin_top = 32.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+color = Color(0.3263576, 0.43302685, 0.99109524, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uahl8"]
+content_margin_left = 32.0
+content_margin_top = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 32.0
+bg_color = Color(0.12955856, 0.12955844, 0.12955844, 0.61960787)
+border_width_left = 4
+border_width_top = 8
+border_width_right = 4
+border_width_bottom = 8
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uahl8"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+color = Color(0.5, 0.5, 0.5, 1)
+thickness = 8
+
+[node name="Credits" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -741.5
+offset_right = 741.5
+offset_bottom = 5459.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 100
+
+[node name="basic" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ygfb5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/basic"]
+layout_mode = 2
+theme_override_constants/separation = -64
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Guwa Guwa Adventures"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/basic/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -70
+alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "[img=256x256]res://resources/singularDuck.tres[/img]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title3" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer/HBoxContainer"]
+clip_contents = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = " [i]< Guwa Guwa![/i]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/basic/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ygfb5")
+
+[node name="spacer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 700)
+layout_mode = 2
+
+[node name="hugeThanks" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/hugeThanks"]
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/hugeThanks/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Huge thanks to"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Toa" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Toa"]
+layout_mode = 2
+
+[node name="Toa" type="RichTextLabel" parent="VBoxContainer/Toa/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Toa"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Toa/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="Toatext" type="RichTextLabel" parent="VBoxContainer/Toa/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "For reigniting my game-making passion!
+[i]Happy birthday!![/i]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Myokun" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Myokun"]
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Myokun/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Myoujikun"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Myokun/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Myokun/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "For always being by my side, even when things got rough!"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="You" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/You"]
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/You/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "You"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/You/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/You/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "For taking the time to play and beat my game!
+Any feedback, negative or positive is welcome!"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 700)
+layout_mode = 2
+
+[node name="assetsUsed" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/assetsUsed"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/assetsUsed/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Assets used"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="music" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/music"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Music"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="VBoxContainer/music/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Cozy Tunes"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/music/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Abstraction - Music Loop Bundle"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="sfx" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/sfx"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "SFX"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="VBoxContainer/sfx/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "FilmCow SFX"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/sfx/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Pixabay"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="images" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/images"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Images"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="VBoxContainer/images/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Kenny UI Pack"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="HSeparator5" type="HSeparator" parent="VBoxContainer/images/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Kenny Input Prompts"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1

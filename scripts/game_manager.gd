@@ -2,9 +2,10 @@ extends Node
 
 var level: int = 1
 var treats: int = 0
-var initialLevel: int = 21
+var initialLevel: int = 30
 var paused: bool = false
 var minigame: bool = false
+var wonGame: bool = false
 
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 
@@ -102,4 +103,8 @@ func _levelUp():
 	if abilities.has("fly"): 
 		playerRef.set_collision_mask_value(4, false)
 		
+func won():
+	wonGame = true
+	paused = true
+	worldManager.ui_manager.gameWon()
 	
