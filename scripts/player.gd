@@ -11,18 +11,22 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 @onready var grass_foot_steps = $grassFootSteps
 @onready var water_swimming_through = $waterSwimmingThrough
 @onready var under_water_sounds = $underWaterSounds
+@onready var wings_flying_sound = $wingsFlyingSound
+@onready var wings_flapping_sound = $wingsFlappingSound
+
 
 @onready var bgm = $BGM
 
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
-var moveSpeed: int = 110
+var moveSpeed: int = 130
 var maxStamina: float = 5.0
-var staminaRecoveryRate: float = 2
+var staminaRecoveryRate: float = 1.4
 var stamina: float = 0
-var sprintMult: float = 1.2
-var flyMulti: float = 2.0
+var sprintMult: float = 1.5
+var waterSpeedMultiplier: float = 1.5
+var flyMulti: float = 2.5
 var flyStaminaMulti: float = 1.3
 var sprinting: bool = false
 var flying: bool = false
@@ -30,6 +34,8 @@ var tired: bool = false
 var tile: Vector2i = Vector2i.ZERO
 var newtile: Vector2i = Vector2i.ZERO
 var forcedFly: bool = false
+var flyDelay: float = 0.3
+var flyDelayTimer: float = 0.0
 
 var staminaMultiplier: float = 1.0
 var rangeMultiplier: float = 1.0
@@ -47,7 +53,7 @@ var mouseScrollInput: float
 @export var zoomSpeed: float = 10.0
 @export var zoomInAmount: float = 1.2
 @export var zoomOutAmount: float = 0.8
-@export var rangeMultZoomFactor: float = 1.1
+@export var rangeMultZoomFactor: float = 1.2
 @export var keyZoomMult: float = 1.5
 
 @export var quackRange: float = 60
@@ -104,7 +110,10 @@ func _unhandled_input(event):
 					if sprinting:
 						sprinting = false
 				if areaFlag != "air":
-					flying = Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1))
+					if Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
+						_toggleFly(true)
+					else:
+						_toggleFly(false)
 		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
@@ -148,9 +157,14 @@ func _process(delta):
 		if under_water_sounds.playing: 
 			under_water_sounds.stop()
 		
+	if flyDelayTimer > 0:
+		flyDelayTimer -= delta
+		
 	if areaFlag == "":
 		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed)
 		
+	if flying and !wings_flying_sound.playing:
+		wings_flying_sound.play()
 	
 	if quackTimer > 0:
 		quackTimer -= delta
@@ -187,12 +201,13 @@ func _process(delta):
 				if flying == false:
 					sprinting = false
 					forcedFly = true
-					flying = true
+					_toggleFly(true)
 				
 			if forcedFly:
 				if areaFlag != "air":
 					forcedFly = false
-					flying = false
+					_toggleFly(false)
+		
 	if mouseScrollInput != 0:
 		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
 		var calculatedZoom: float = clamp(camera_2d.zoom.x * mouseScrollInput, minimumZoomAmount, ZOOMMAX)
@@ -240,7 +255,7 @@ func _process(delta):
 			if sprinting: 
 				sprinting = false
 			elif flying and areaFlag != "air": 
-				flying = false
+				_toggleFly(false)
 	else:
 		if stamina < maxStamina * staminaMultiplier:
 			stamina+=delta * staminaRecoveryRate
@@ -258,6 +273,16 @@ func _area_enter(area):
 func _area_exit(_area):
 	streamRef = null
 	areaFlag = ""
+	
+func _toggleFly(value: bool):
+	if flying == value: 
+		return
+	if !wings_flapping_sound.playing:
+		wings_flapping_sound.play()
+	if wings_flying_sound.playing:
+		wings_flying_sound.stop()
+	flyDelayTimer = flyDelay
+	flying = value
 	
 func initializeValues():
 	stamina = maxStamina * staminaMultiplier
@@ -287,7 +312,9 @@ func _radar():
 func _move(movevec: Vector2):
 	velocity = movevec.normalized()
 	velocity *= moveSpeed
-	velocity *= speedMultiplier
+	velocity *= speedMultiplier / 1.1
+	if !flying and layer == 0:
+		velocity *= waterSpeedMultiplier
 	if sprinting:
 		velocity *= sprintMult
 	elif flying:
@@ -303,6 +330,9 @@ func _move(movevec: Vector2):
 				var whirlpoolvel = distanceFromCenter.normalized() * areaForce
 				velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
 				velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
+				
+	if flyDelayTimer > 0:
+		velocity = movevec.normalized() * moveSpeed / 1.4
 	
 	move_and_slide()
 	

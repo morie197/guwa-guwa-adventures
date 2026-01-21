@@ -18,6 +18,8 @@ func _process(delta):
 		queue_free()
 
 func setData(tutorial: Tutorial):
+	if !tutorial.displayText.match(""):
+		tutorial_text.text = tutorial.displayText
 	_setTutorialItems(tutorial.items)
 
 func _setTutorialItems(items: Array[TutorialItem]):

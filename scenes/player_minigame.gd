@@ -6,17 +6,17 @@ var staminaMultiplier: float = 1
 var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
-@export var moveSpeed: float = 70
-@export var staminaRecoveryRate: float = 0.4
+@export var moveSpeed: float = 140
+@export var staminaRecoveryRate: float = 0.6
 @export var baseQuackRange: float = 100.0
 @export var quackCooldown: float = 0.80
 @export var lungeTime: float = 0.10
 @export var lungeSpeed: float = 6
 
 var invincible: bool = false
-var invincibleCoolDown: float = 0.3
+var invincibleCoolDown: float = 0.1
 var invincibleTimer: float = 0.0
-var invincibleDuration: float = 0.5
+var invincibleDuration: float = 0.8
 var invincibleDurationTimer: float = 0.0
 
 @onready var swimming = $swimming
@@ -50,7 +50,7 @@ func initValues():
 	speedMultiplier = minigamemanager.speedMultiplier
 	rangeMultiplier = minigamemanager.rangeMultiplier
 	staminaMultiplier = minigamemanager.staminaMultiplier
-	staminaRecoveryRate = staminaRecoveryRate * staminaMultiplier
+	staminaRecoveryRate = staminaRecoveryRate * ((staminaMultiplier - 1.0) / 2) + 1
 	stamina = lungeTime
 	
 	quacker.parent_duck = self
@@ -94,7 +94,6 @@ func _process(delta):
 		invincibleDurationTimer -= delta
 	elif invincible:
 		invincibleTimer = invincibleCoolDown
-		print("hiding")
 		invincibility_bar.hide()
 		invincible = false
 		
@@ -134,9 +133,14 @@ func _hp_change():
 	hit_sound.pitch_scale = clampf(float(quacker.health) / float(quacker.max_health) + 0.5, 0.2, 1)
 
 func parry():
+	if invincible:
+		block_sound.play()
+		return false
 	if !invincible and invincibleTimer > 0:
 		return true
 	elif invincibleTimer <= 0:
+		quacker.health  = clamp(quacker.health + 1, 0, quacker.max_health)
+		quacker.hp_changed.emit()
 		invincibleDurationTimer = invincibleDuration
 		invincible = true
 		invincibility_bar.show()
@@ -148,10 +152,10 @@ func _move(movevec: Vector2):
 	if lunging:
 		velocity = lungeVector.normalized() * lungeSpeed
 		velocity *= moveSpeed
-		velocity *= speedMultiplier
+		velocity *= (speedMultiplier / 1.8)
 	else:
 		velocity = movevec.normalized()
 		velocity *= moveSpeed
-		velocity *= speedMultiplier
+		velocity *= (speedMultiplier / 1.8)
 	
 	move_and_slide()

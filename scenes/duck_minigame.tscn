@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=40 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scenes/player_minigame.gd" id="1_5jswy"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="1_g2itt"]
@@ -13,7 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bluebar.png" id="9_rpuvt"]
 [ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/baroverlay.png" id="10_l6kc5"]
 [ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/greenbar.png" id="11_aeba8"]
-[ext_resource type="AudioStream" uid="uid://bmy8twg3bb82d" path="res://sounds/SFX/shielddrop-94887.mp3" id="12_jgibo"]
+[ext_resource type="Texture2D" uid="uid://dxpwpg0jqnmli" path="res://sprites/keys/wasd/keyboard_w.svg" id="13_jgibo"]
+[ext_resource type="Texture2D" uid="uid://da538aprdc7p6" path="res://sprites/keys/wasd/keyboard_a.svg" id="14_e78kl"]
+[ext_resource type="Texture2D" uid="uid://pwfqn4dbm23t" path="res://sprites/keys/wasd/keyboard_s.svg" id="15_6sb5u"]
+[ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="16_bpfxv"]
+[ext_resource type="Texture2D" uid="uid://bq6bus1p6d74e" path="res://sprites/keys/qe/keyboard_q.svg" id="17_e78kl"]
+[ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="18_6sb5u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("1_g2itt")
@@ -150,6 +155,18 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sb5u"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpuvt"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -198,18 +215,12 @@ bus = &"SFX"
 
 [node name="blockSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
 stream = ExtResource("7_fq1qg")
+max_polyphony = 5
 bus = &"SFX"
 
 [node name="hitSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
 stream = SubResource("AudioStreamRandomizer_738s6")
 volume_db = 1.0
-max_polyphony = 5
-bus = &"SFX"
-
-[node name="invincibilityExpire" type="AudioStreamPlayer" parent="PlayerMinigame"]
-stream = ExtResource("12_jgibo")
-volume_db = -3.0
-pitch_scale = 1.4
 max_polyphony = 5
 bus = &"SFX"
 
@@ -300,6 +311,157 @@ value = 100.0
 nine_patch_stretch = true
 texture_over = ExtResource("10_l6kc5")
 texture_progress = ExtResource("11_aeba8")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="controls" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="movement" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Move: "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("13_jgibo")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("14_e78kl")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("15_6sb5u")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect2"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("16_bpfxv")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect3"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="attack" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Attack: "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("17_e78kl")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 18.0
+offset_right = 81.0
+offset_bottom = 82.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="lunge" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "Lunge:
+Parry:"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("18_6sb5u")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 36.0
+offset_top = 58.0
+offset_right = 144.0
+offset_bottom = 126.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
 [node name="EnemyInfo" type="VBoxContainer" parent="PanelContainer"]
 custom_minimum_size = Vector2(460, 0)

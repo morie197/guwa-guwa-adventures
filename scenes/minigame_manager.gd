@@ -93,7 +93,8 @@ func initValues():
 		enemyGroup.add_child(enemy)
 		enemyArray.append(enemy)
 		enemy.minigamemanager = self
-		enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/enemyHealthValues.size()) / 3.0)
+		enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
+		enemy.speed = enemy.speed * (speedMultiplier / 2)
 		enemy.initValues()
 		
 		var info = INFO_PANEL.instantiate()

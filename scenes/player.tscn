@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=52 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -22,7 +22,13 @@
 [ext_resource type="AudioStream" uid="uid://bwlf4w6fgbc3a" path="res://sounds/SFX/water moving through 5.wav" id="16_ke2ow"]
 [ext_resource type="AudioStream" uid="uid://dau88f4126hwl" path="res://sounds/SFX/water moving through 6.wav" id="17_ujl30"]
 [ext_resource type="AudioStream" uid="uid://bh2fuqrdjtqdg" path="res://sounds/SFX/water moving through 7.wav" id="18_31cv2"]
+[ext_resource type="AudioStream" uid="uid://do81gfe4v0va7" path="res://sounds/SFX/flying.wav" id="19_l71n6"]
+[ext_resource type="AudioStream" uid="uid://dhoy6u6bjts3f" path="res://sounds/SFX/flap1.wav" id="20_dt7fs"]
+[ext_resource type="AudioStream" uid="uid://dg30biujmjpd8" path="res://sounds/SFX/flap2.wav" id="21_wqfne"]
+[ext_resource type="AudioStream" uid="uid://cvu7t2g27tluj" path="res://sounds/SFX/flap3.wav" id="22_wnwbv"]
 [ext_resource type="AudioStream" uid="uid://dv6fctkoc1gsj" path="res://sounds/SFX/underwater-ambience-376890.mp3" id="23_4ni07"]
+[ext_resource type="AudioStream" uid="uid://bmsqcuam6e8ob" path="res://sounds/SFX/flap4.wav" id="23_gl8cc"]
+[ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="24_487ah"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_qhqgy")
@@ -155,6 +161,14 @@ stream_3/stream = ExtResource("16_ke2ow")
 stream_4/stream = ExtResource("17_ujl30")
 stream_5/stream = ExtResource("18_31cv2")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_md1ol"]
+streams_count = 5
+stream_0/stream = ExtResource("20_dt7fs")
+stream_1/stream = ExtResource("21_wqfne")
+stream_2/stream = ExtResource("22_wnwbv")
+stream_3/stream = ExtResource("23_gl8cc")
+stream_4/stream = ExtResource("24_487ah")
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d2wvv"]
 playback_mode = 1
 streams_count = 4
@@ -228,6 +242,16 @@ volume_db = -7.0
 pitch_scale = 1.31
 bus = &"SFX"
 
+[node name="wingsFlyingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_l71n6")
+volume_db = 6.0
+bus = &"SFX"
+
+[node name="wingsFlappingSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_md1ol")
+volume_db = 6.0
+bus = &"SFX"
+
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
 
@@ -239,6 +263,7 @@ bus = &"Music"
 
 [node name="underWaterSounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_4ni07")
-volume_db = -10.0
+volume_db = -15.0
+pitch_scale = 1.25
 bus = &"SFX"
 parameters/looping = true

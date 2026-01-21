@@ -9,12 +9,12 @@ const UPGRADES = {
 	},
 	"stamina": {
 		"levels": 15,
-		"percentIncrease": 10,
+		"percentIncrease": 5,
 		"description": "Increases maximum stamina."
 	},
 	"speed": {
 		"levels": 15,
-		"percentIncrease": 8,
+		"percentIncrease": 5,
 		"description": "Increases player speed."
 	}
 	

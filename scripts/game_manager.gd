@@ -2,7 +2,7 @@ extends Node
 
 var level: int = 1
 var treats: int = 0
-var initialLevel: int = 1
+var initialLevel: int = 21
 var paused: bool = false
 var minigame: bool = false
 
@@ -10,8 +10,6 @@ const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 
 var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
 var availableUpgradePoints: int = 0
-
-var abilityUnlockLevels = {1: "swim", 2: "sprint", 3: "quack", 5: "walk", 8: "sonar", 13: "dive", 20: "fly", 30: "migrate"}
 
 var shownTutorials: Array[String]
 
@@ -89,8 +87,8 @@ func _calculateBonus(upgradeName: String):
 
 func _levelUp():
 	level += 1
-	if abilityUnlockLevels.has(level):
-		abilities.append(abilityUnlockLevels[level])
+	if AbilityData.ABILITIES.has(level):
+		abilities.append(AbilityData.ABILITIES[level]["name"])
 		
 	availableUpgradePoints += 1
 	levelUp.emit()

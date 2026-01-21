@@ -8,8 +8,8 @@ extends CharacterBody2D
 @onready var quack_sound = $quackSound
 @onready var lunge_bar = $lungeBar
 
-@export var speed: float = 90
-@export var quackRange: float = 40
+@export var speed: float = 110
+var quackRange
 @export var maxHealth: int = 5
 
 @onready var quacker = $Quacker
@@ -24,7 +24,7 @@ extends CharacterBody2D
 @export var lungeActivationDistance: float = 200
 @export var lungeSpeedMultiplier: float = 8
 
-
+@export var playerEnemyRangeDiff: float = 20
 
 var quackRandomTimer: float = 0.0
 var quackTimer: float = 0.0
@@ -73,7 +73,10 @@ func initValues():
 	quacker.parent_duck = self
 	quacker.attack_damage = 1
 	quacker.max_health = maxHealth
-	quacker.quack_range = quackRange * ((GameManager.playerRef.rangeMultiplier - 1 / 2) + 1)
+	
+	quackRange = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
+	quackRange = clampf(quackRange * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
+	quacker.quack_range = quackRange
 	
 	if minigamemanager.swimming == false:
 		swimming.visible = false

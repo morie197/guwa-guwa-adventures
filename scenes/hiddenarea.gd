@@ -7,7 +7,7 @@ extends Area2D
 
 var targetModulateColor: Color = Color.WHITE
 
-@export var modulateSpeed: float = 0.7
+@export var modulateSpeed: float = 0.9
 @export var pingDelay: float = 0.1
 
 # Called when the node enters the scene tree for the first time.
