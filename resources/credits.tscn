@@ -267,7 +267,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="spacer2" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 700)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
 [node name="assetsUsed" type="PanelContainer" parent="VBoxContainer"]
@@ -310,9 +310,9 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="spacer2" type="Control" parent="VBoxContainer/music/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/music/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
 layout_mode = 2
@@ -364,9 +364,9 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="spacer2" type="Control" parent="VBoxContainer/sfx/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/sfx/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
 layout_mode = 2
@@ -418,9 +418,9 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="spacer2" type="Control" parent="VBoxContainer/images/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/images/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
 [node name="RichTextLabel6" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
 layout_mode = 2

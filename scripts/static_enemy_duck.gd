@@ -9,13 +9,10 @@ extends Node2D
 
 @export var owners: Array[Node2D] = [self]
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	quack_detector.area_entered.connect(_player_detected)
 	quack_detector.area_exited.connect(_player_exited)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _player_detected(_area):
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.connect(_quack)

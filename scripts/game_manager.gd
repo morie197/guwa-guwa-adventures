@@ -1,7 +1,6 @@
 extends Node
 
 var level: int = 1
-var treats: int = 0
 var initialLevel: int = 1
 var paused: bool = false
 var minigame: bool = false
@@ -12,9 +11,11 @@ const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
 var availableUpgradePoints: int = 0
 
-var shownTutorials: Array[String]
+var duckRegistry: Dictionary[int, Vector2] = {}
+var treatRegistry: Dictionary[int, Vector2] = {}
 
-var upgrades := {}
+var shownTutorials = []
+
 var abilities := []
 
 var worldManager
@@ -26,30 +27,69 @@ signal startTutorial(String)
 	
 func enterLevel():	
 	# remove upon implementing savegames
-	level = 1
-	treats = 0
-	initialLevel = 1
-	paused = false
-	minigame = false
-	wonGame = false
-	shownTutorials = []
-	upgrades = {}
-	abilities = []
-	upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
-	worldLayer = 1
+	#level = 1
+	#initialLevel = 1
+	#paused = false
+	#minigame = false
+	#wonGame = false
+	#shownTutorials = []
+	#abilities = []
+	#upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
+	#worldLayer = 1
 	
 	for l in range(level, initialLevel):
 		treatGet()
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
 	playerRef.emitUpdatedStaminaValue()
+	
+func saveValues():
+	SaveManager.saveData["player_pos_x"] = playerRef.global_position.x
+	SaveManager.saveData["player_pos_y"] = playerRef.global_position.y
+	SaveManager.saveData["worldLayer"] = worldLayer
+	SaveManager.saveData["level"] = level
+	SaveManager.saveData["shownTutorials"] = shownTutorials
+	SaveManager.saveData["abilities"] = abilities
+	SaveManager.saveData["upgradeLevels"] = upgradeLevels
+	
+	var newdict = _Vector2ValuesToString(duckRegistry)
+	print(newdict)
+	#SaveManager.savaData["duckRegistry"] = duckRegistry
+	#SaveManager.savaData["treatRegistry"] = treatRegistry
+
+func loadValues():
+	if SaveManager.saveData.is_empty():
+		print("no save data")
+		return
+	playerRef.global_position = Vector2(SaveManager.saveData.get("player_pos_x", 0), SaveManager.saveData.get("player_pos_y", 0))
+	if SaveManager.saveData.get("worldLayer", 1) != worldLayer:
+		if worldManager == null:
+			print("null world manager")
+		else:
+			worldManager.switchUnderOverGround()
+	level = int(SaveManager.saveData.get("level", 1))
+	shownTutorials = SaveManager.saveData.get("shownTutorials", [])
+	abilities = SaveManager.saveData.get("abilities", [])
+	var upgradeLevelsData = SaveManager.saveData.get("upgradeLevels", {})
+	upgradeLevels["range"] = int(upgradeLevelsData.get("range", 0))
+	upgradeLevels["stamina"] = int(upgradeLevelsData.get("stamina", 0))
+	upgradeLevels["speed"] = int(upgradeLevelsData.get("speed", 0))
+
+func _Vector2ValuesToString(dictionary: Dictionary):
+	var newDict = {}
+	for key in dictionary:
+		if dictionary[key] is not String:
+			newDict[key] = var_to_str(dictionary[key])
+		else:
+			newDict[key] = str_to_var(dictionary[key])
+	return newDict
 
 func treatGet():
-	treats += 1
 	_levelUp()
 
 func closeUpgrades():
 	calculateBonuses()
 	paused = false
+	saveValues()
 	
 func showTutorial(tutorialName: String):
 	if shownTutorials.has(tutorialName):

@@ -1,18 +1,21 @@
 extends Control
 
 @onready var newgame = $PanelContainer2/PanelContainer/VBoxContainer/newgame
-@onready var loadGame = $PanelContainer2/PanelContainer/VBoxContainer/load
+@onready var continueButton = $PanelContainer2/PanelContainer/VBoxContainer/continue
+@onready var settings = $PanelContainer2/PanelContainer/VBoxContainer/settings
 @onready var quit = $PanelContainer2/PanelContainer/VBoxContainer/quit
 
 const POPUP = preload("uid://cd68megybdr25")
+const SETTINGS_MENU = preload("uid://dnkbdoidjjxng")
 
 var inPopup: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	newgame.pressed.connect(_newgame)
-	loadGame.pressed.connect(_loadgame)
+	continueButton.pressed.connect(_loadgame)
 	quit.pressed.connect(_quit)
+	settings.pressed.connect(_settings)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -32,9 +35,15 @@ func _loadgame():
 func _quit():
 	get_tree().quit()
 	
+func _settings():
+	var settingsMenu = SETTINGS_MENU.instantiate()
+	add_child(settingsMenu)
+	settingsMenu.back_button.pressed.connect(_inPopup)
+	_inPopup()
+	
 func _inPopup():
 	inPopup = !inPopup
-	var buttons = [newgame, loadGame, quit]
+	var buttons = [newgame, settings, continueButton, quit]
 	for button in buttons:
 		button.disabled = inPopup
 

@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://43y02csf0qmi"]
 
 [ext_resource type="Script" uid="uid://dvj7hmhkc3yeq" path="res://resources/main_menu.gd" id="1_ko5lt"]
+[ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/buttonThemeNormal.tres" id="2_7gogf"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/buttonThemePressed.tres" id="2_dy5lf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2880"]
@@ -22,13 +23,6 @@ expand_margin_left = 64.0
 expand_margin_top = 64.0
 expand_margin_right = 64.0
 expand_margin_bottom = 64.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ko5lt"]
-bg_color = Color(0.61339027, 0.61339027, 0.6133901, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -69,30 +63,44 @@ vertical_alignment = 1
 
 [node name="newgame" type="Button" parent="PanelContainer2/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_ko5lt")
+theme_override_styles/normal = ExtResource("2_7gogf")
 theme_override_styles/pressed = ExtResource("2_dy5lf")
 theme_override_styles/hover = ExtResource("2_dy5lf")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ko5lt")
+theme_override_styles/disabled = ExtResource("2_7gogf")
 theme_override_styles/focus = ExtResource("2_dy5lf")
 text = "New Game"
 
-[node name="load" type="Button" parent="PanelContainer2/PanelContainer/VBoxContainer"]
+[node name="continue" type="Button" parent="PanelContainer2/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_ko5lt")
+theme_override_styles/normal = ExtResource("2_7gogf")
 theme_override_styles/pressed = ExtResource("2_dy5lf")
 theme_override_styles/hover = ExtResource("2_dy5lf")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ko5lt")
+theme_override_styles/disabled = ExtResource("2_7gogf")
 theme_override_styles/focus = ExtResource("2_dy5lf")
-text = "Load Game"
+text = "Continue"
+
+[node name="settings" type="Button" parent="PanelContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_7gogf")
+theme_override_styles/pressed = ExtResource("2_dy5lf")
+theme_override_styles/hover = ExtResource("2_dy5lf")
+theme_override_styles/disabled = ExtResource("2_7gogf")
+theme_override_styles/focus = ExtResource("2_dy5lf")
+text = "Settings"
 
 [node name="quit" type="Button" parent="PanelContainer2/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_ko5lt")
+theme_override_styles/normal = ExtResource("2_7gogf")
 theme_override_styles/pressed = ExtResource("2_dy5lf")
 theme_override_styles/hover = ExtResource("2_dy5lf")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ko5lt")
+theme_override_styles/disabled = ExtResource("2_7gogf")
 theme_override_styles/focus = ExtResource("2_dy5lf")
 text = "Quit"
