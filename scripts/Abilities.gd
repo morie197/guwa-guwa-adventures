@@ -3,7 +3,7 @@ class_name AbilityData
 
 const ABILITIES = {
 	
-	1: {
+	0: {
 		"name": "swim",
 		"description": "Allows for swimming."
 		},

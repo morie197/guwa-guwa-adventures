@@ -16,7 +16,6 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 
 @onready var audio_listener_2d = $AudioListener2D
 
-
 @onready var bgm = $BGM
 var bgmVolume: float = -5.7
 var bgmFadeTime: float = 0.2
@@ -41,7 +40,7 @@ var forcedFly: bool = false
 var flyDelay: float = 0.3
 var flyDelayTimer: float = 0.0
 
-var staminaMultiplier: float = 1.0
+var enduranceMultiplier: float = 1.0
 var rangeMultiplier: float = 1.0
 var speedMultiplier: float = 1.0
 
@@ -51,6 +50,11 @@ var mouseScrollInput: float
 @export var streamMoveSpeed: float = 120
 @export var whirlPoolMultiplier: float = 2
 @export var areaForceTransitionSpeed: float = 10
+
+@onready var backwards_detector = $backwardsDetector
+@onready var tutorial_hint_detector = $tutorialHintDetector
+
+@onready var damaged_sound = %damagedSound
 
 @export var wonDelay: float = 2.0
 
@@ -307,7 +311,7 @@ func _process(delta):
 			elif flying and areaFlag != "air": 
 				_toggleFly(false)
 	else:
-		if stamina < maxStamina * staminaMultiplier:
+		if stamina < maxStamina * enduranceMultiplier:
 			stamina+=delta * staminaRecoveryRate
 			emitUpdatedStaminaValue()
 		else:
@@ -335,13 +339,13 @@ func _toggleFly(value: bool):
 	flying = value
 	
 func initializeValues():
-	stamina = maxStamina * staminaMultiplier
+	stamina = maxStamina * enduranceMultiplier
 	emitUpdatedStaminaValue()
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	
 func emitUpdatedStaminaValue():
-	updatedStamina.emit(round(stamina * 100), round(maxStamina * staminaMultiplier * 100))
+	updatedStamina.emit(round(stamina * 100), round(maxStamina * enduranceMultiplier * 100))
 
 func _quack():
 	quack_sound.play()
@@ -381,6 +385,11 @@ func _move(movevec: Vector2):
 	velocity = movevec.normalized()
 	velocity *= moveSpeed
 	velocity *= speedMultiplier / 1.1
+	
+	tutorial_hint_detector.target_position = moveVector * 20
+	if tutorial_hint_detector.is_colliding():
+		print("tutorial")
+	
 	if !flying and (layer == 0 or layer == -1):
 		velocity *= waterSpeedMultiplier
 	if sprinting:
@@ -390,8 +399,12 @@ func _move(movevec: Vector2):
 		
 	if !flying: 
 		if areaFlag == "stream":
+			backwards_detector.enabled = true
+			backwards_detector.target_position = areaForce.normalized() * 13
+			if backwards_detector.is_colliding():
+				GameManager.damagePlayer()
 			var streamForce: Vector2
-			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 0.8) * waterSpeedMultiplier
+			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier
 			streamForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
 			streamForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
 			velocity += streamForce
@@ -402,7 +415,8 @@ func _move(movevec: Vector2):
 				var whirlpoolvel = distanceFromCenter.normalized() * areaForce
 				velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
 				velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
-				
+		else:
+			backwards_detector.enabled = false
 	if flyDelayTimer > 0:
 		velocity = movevec.normalized() * moveSpeed / 1.4
 	

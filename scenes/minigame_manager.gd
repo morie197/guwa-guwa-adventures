@@ -6,8 +6,8 @@ const ENEMY_MINIGAME = preload("uid://5y4if4dkbvsj")
 @onready var enemyGroup = $Enemies
 @onready var terrain_variations = $TerrainVariations
 @onready var stage_title = $PanelContainer/StageName
-@onready var playerText = $PanelContainer/VBoxContainer/InfoPanel/PlayerInfo/RichTextLabel
-@onready var playerHPBar = $PanelContainer/VBoxContainer/InfoPanel/PlayerInfo/TextureProgressBar
+@onready var playerText = $PanelContainer/PlayerInfo/RichTextLabel
+@onready var playerHPBar = $PanelContainer/PlayerInfo/TextureProgressBar
 @onready var enemy_info = $PanelContainer/EnemyInfo
 @onready var camera_2d = $Camera2D
 @onready var popup_panel = $PanelContainer/PopupPanel
@@ -25,7 +25,7 @@ var stage: String
 
 var speedMultiplier: float = 1.0
 var	rangeMultiplier: float = 1.0
-var	staminaMultiplier: float = 1.0
+var	enduranceMultiplier: float = 1.0
 
 var level: int = 1
 var enemyCount: int = 1
@@ -128,6 +128,10 @@ func _process(delta):
 			_wonGame()
 		
 func _wonGame():
+	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		GameManager.healthValue = player_minigame.quacker.health
+		GameManager.upgraded.emit()
+		
 	displaying = true
 	popup_panel.visible = true
 	popup_text.text = "You've defeated "
@@ -145,6 +149,8 @@ func _wonGame():
 	displaytime.start()
 		
 func _lostGame():
+	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		GameManager.lostGame()
 	if displaying == true:
 		return
 	player_minigame.hide()

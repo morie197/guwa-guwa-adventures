@@ -5,6 +5,10 @@ const TUTORIAL = preload("uid://dvc0qm8fmb6qj")
 const ALL_TUTORIALS = preload("uid://babei73ri162t")
 const CREDITS = preload("uid://26t45ci53pbw")
 const PAUSE_MENU = preload("uid://x4vnr5iy3hg3")
+const HP_BAR_PART = preload("uid://cgofcggcnhupr")
+
+const HPPART = preload("uid://dpew5sdxiu3ji")
+const HPPARTEMPTY = preload("uid://bnx8opkaadiwv")
 
 @onready var game_won_bgm = $sounds/gameWonBGM
 @onready var winpanel = $winpanel
@@ -16,10 +20,19 @@ const PAUSE_MENU = preload("uid://x4vnr5iy3hg3")
 @onready var upgraded_sound = $sounds/upgradedSound
 @onready var migrate_down_indicator = $MigrateDownIndicator
 
-@onready var stamina_bar = $StaminaBar
+@onready var stamina_bar = %StaminaBar
 @onready var stamina_bar_minigame = $StaminaBarMinigame
 @onready var lunge_text = $StaminaBarMinigame/LungeText
 @onready var migrate_bar = $MigrateBar
+
+@onready var collected_number = %collectedNumber
+@onready var until_next_ability = %untilNextAbility
+
+@onready var hp_text = %HPText
+@onready var hp_bars = %HPBars
+
+@onready var hud = %HUD
+
 
 var stamina: int
 
@@ -41,6 +54,8 @@ var origin: Vector2
 var inPauseMenu: bool = false
 var pauseMenu
 
+var hpBars: Array[Node] = []
+
 @export var targetModulateColor: Color = Color.BLACK
 
 @export var modulateSpeed: float = 0.9
@@ -48,8 +63,12 @@ var pauseMenu
 func _ready():
 	GameManager.levelUp.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
+	GameManager.upgraded.connect(_updateMaxHP)
 	GameManager.showTutorial("basics")
 	origin = migrate_down_indicator.global_position
+	
+	for bar in hp_bars.get_children():
+		hpBars.append(bar)
 	
 func _physics_process(delta):
 	if credits != null:
@@ -67,6 +86,34 @@ func _physics_process(delta):
 		if hoverTime <= -hoverSpeed:
 			hoverState = 1
 	migrate_down_indicator.global_position.y = origin.y + (hoverTime * hoverAmount)
+	
+func _updateMaxHP():
+	var maxHP = GameManager.maxHP
+	
+	hp_text.text = "HP: " + str(GameManager.healthValue) + "/" + str(maxHP)
+	
+	for hpbar in hpBars:
+		hpbar.queue_free()
+	
+	hpBars = []
+	
+	for i in range(0, maxHP):
+		var hpbar = HP_BAR_PART.instantiate()
+		hp_bars.add_child(hpbar)
+		hpBars.append(hpbar)
+		
+	_updateHP()
+	
+	
+func _updateHP():
+	var maxHP = GameManager.maxHP
+	
+	for i in range(0, GameManager.healthValue):
+		hpBars[i].texture = HPPART
+	
+	for lostHealth in range(maxHP, GameManager.healthValue, -1):
+		print(lostHealth)
+		hpBars[lostHealth - 1].texture = HPPARTEMPTY
 	
 func pause():
 	print("pause called")
@@ -132,6 +179,21 @@ func gameWon():
 
 func _showLevelUpUI():
 	GameManager.paused = true
+	
+	collected_number.text = str(GameManager.level)
+	
+	var foundNextAbility = false
+	
+	for ability in AbilityData.ABILITIES:
+		if GameManager.level >= ability:
+			continue
+		else:
+			until_next_ability.text = "Next ability: " + str(ability)
+			foundNextAbility = true
+			break
+			
+	if foundNextAbility == false:
+		until_next_ability.hide()
 
 	if level_up_sound.playing == true or new_ability.playing == true:
 		level_up_sound.stop()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=39 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scenes/player_minigame.gd" id="1_5jswy"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="1_g2itt"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dadgukmdghdhw" path="res://scenes/quacker.tscn" id="4_gsmep"]
 [ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/SFX/quack.wav" id="6_fq1qg"]
 [ext_resource type="AudioStream" uid="uid://c7h4ypm8cr13p" path="res://sounds/SFX/shield-block-shortsword-143940.mp3" id="7_fq1qg"]
-[ext_resource type="AudioStream" uid="uid://cqili45be6i0n" path="res://sounds/SFX/armor-hit-soft-01-266303.mp3" id="8_738s6"]
+[ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="8_6sb5u"]
 [ext_resource type="AudioStream" uid="uid://c87hxaituyd4j" path="res://sounds/SFX/sword-blade-slicing-flesh-352708.mp3" id="8_l6kc5"]
 [ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="9_gsmep"]
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bluebar.png" id="9_rpuvt"]
@@ -122,18 +122,12 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_738s6"]
-playback_mode = 1
-random_pitch = 1.1
-streams_count = 1
-stream_0/stream = ExtResource("8_738s6")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsmep"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.39688927, 0.39688927, 0.39688924, 0.5294118)
+bg_color = Color(0.4, 0.4, 0.4, 0.70980394)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -219,8 +213,9 @@ max_polyphony = 5
 bus = &"SFX"
 
 [node name="hitSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
-stream = SubResource("AudioStreamRandomizer_738s6")
-volume_db = 1.0
+stream = ExtResource("8_6sb5u")
+volume_db = 4.0
+pitch_scale = 0.9
 max_polyphony = 5
 bus = &"SFX"
 
@@ -286,31 +281,6 @@ theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
-
-[node name="PlayerInfo" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InfoPanel"]
-layout_mode = 2
-theme_override_constants/separation = -32
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/InfoPanel/PlayerInfo"]
-clip_contents = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/normal_font_size = 64
-text = "Duck 5/5HP"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="PanelContainer/VBoxContainer/InfoPanel/PlayerInfo"]
-z_index = 5
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-value = 100.0
-nine_patch_stretch = true
-texture_over = ExtResource("10_l6kc5")
-texture_progress = ExtResource("11_aeba8")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -469,6 +439,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="StageName" type="RichTextLabel" parent="PanelContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -500,6 +471,32 @@ text = "You've defeated Jerry!"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+
+[node name="PlayerInfo" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = -32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PlayerInfo"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 64
+text = "Duck 5/5HP"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PanelContainer/PlayerInfo"]
+z_index = 5
+custom_minimum_size = Vector2(1000, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("10_l6kc5")
+texture_progress = ExtResource("11_aeba8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)

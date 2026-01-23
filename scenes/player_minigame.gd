@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var moveVector: Vector2
 
-var staminaMultiplier: float = 1
+var enduranceMultiplier: float = 1
 var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
@@ -49,15 +49,15 @@ func initValues():
 	
 	speedMultiplier = minigamemanager.speedMultiplier
 	rangeMultiplier = minigamemanager.rangeMultiplier
-	staminaMultiplier = minigamemanager.staminaMultiplier
-	staminaRecoveryRate = staminaRecoveryRate * ((staminaMultiplier - 1.0) / 2) + 1
+	enduranceMultiplier = minigamemanager.enduranceMultiplier
 	stamina = lungeTime
 	
 	quacker.parent_duck = self
 	quacker.attack_damage = 1
-	quacker.max_health = 5 + round(minigamemanager.level/2.0)
+	quacker.max_health = GameManager.maxHP
 	quacker.quack_range = baseQuackRange * rangeMultiplier
 	quacker.initValues()
+	quacker.health = GameManager.healthValue
 	quacker.hp_changed.connect(_hp_change)
 
 func _input(event):
@@ -132,14 +132,17 @@ func _quack():
 func _hp_change():
 	hit_sound.pitch_scale = clampf(float(quacker.health) / float(quacker.max_health) + 0.5, 0.2, 1)
 
-func parry():
+func parry(damager):
 	if invincible:
 		block_sound.play()
 		return false
 	if !invincible and invincibleTimer > 0:
 		return true
 	elif invincibleTimer <= 0:
-		quacker.health  = clamp(quacker.health + 1, 0, quacker.max_health)
+		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+			quacker.health  = clamp(quacker.health + 1, 0, quacker.max_health)
+		else:
+			damager.damage(1, self)
 		quacker.hp_changed.emit()
 		invincibleDurationTimer = invincibleDuration
 		invincible = true

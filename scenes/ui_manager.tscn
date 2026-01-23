@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene load_steps=13 format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="AudioStream" uid="uid://dly0hk106evgr" path="res://sounds/SFX/cute-level-up-2-189851.mp3" id="2_reske"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bluebar.png" id="7_tanoa"]
 [ext_resource type="Texture2D" uid="uid://be01o6n3ywk7v" path="res://sprites/arrow_decorative_s.svg" id="8_jo33p"]
 [ext_resource type="Texture2D" uid="uid://cst8o164y85ev" path="res://sprites/whitebar.png" id="8_tanoa"]
+[ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="12_ipats"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hii27"]
 content_margin_left = 0.0
@@ -52,26 +53,6 @@ stream = ExtResource("6_hii27")
 volume_db = -8.0
 bus = &"Music"
 parameters/looping = true
-
-[node name="StaminaBar" type="TextureProgressBar" parent="."]
-visible = false
-z_index = 5
-custom_minimum_size = Vector2(0, 100)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -112.0
-offset_right = 256.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 100.0
-nine_patch_stretch = true
-texture_over = ExtResource("6_hst8a")
-texture_progress = ExtResource("7_tanoa")
 
 [node name="MigrateDownIndicator" type="TextureRect" parent="."]
 visible = false
@@ -155,3 +136,101 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hii27")
+
+[node name="HUD" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StaminaBar" type="TextureProgressBar" parent="HUD"]
+unique_name_in_owner = true
+z_index = 5
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 640.0
+offset_top = 940.0
+offset_right = 1240.0
+offset_bottom = 1040.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("7_tanoa")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1180.0
+offset_right = 1880.0
+offset_bottom = 192.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="untilNextAbility" type="RichTextLabel" parent="HUD/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Next Ability: 4"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer"]
+self_modulate = Color(0.556953, 0.556953, 0.556953, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("12_ipats")
+stretch_mode = 4
+
+[node name="collectedNumber" type="RichTextLabel" parent="HUD/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -87.5
+offset_right = 72.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 128
+text = "0"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HP" type="VBoxContainer" parent="HUD"]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 92.0
+
+[node name="HPBars" type="HBoxContainer" parent="HUD/HP"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -38
+
+[node name="HPText" type="RichTextLabel" parent="HUD/HP"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "HP: 5/5"
+fit_content = true
+autowrap_mode = 0

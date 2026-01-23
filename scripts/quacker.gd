@@ -42,13 +42,14 @@ func _draw():
 func _process(delta):
 	pass
 
-func damage(amount: int):
+func damage(amount: int, damager):
 	if parent_duck.name == "PlayerMinigame":
-		if parent_duck.lunging:
-			if parent_duck.parry() == false:
+		if parent_duck.lunging and amount > 0:
+			if parent_duck.parry(damager) == false:
 				return
-		parent_duck.hit_sound.play()
-	health -= amount
+		if amount > 0:
+			parent_duck.hit_sound.play()
+	health = clamp(health - amount, 0, max_health)
 	hp_changed.emit()
 	if health <= 0:
 		dead.emit()
@@ -58,7 +59,7 @@ func quack():
 	quacked.emit()
 	for enemy in enemy_duck:
 		if enemy.has_method("damage"):
-			enemy.damage(attack_damage)
+			enemy.damage(attack_damage, self)
 	if enemy_duck.size() > 0:
 		return false
 	

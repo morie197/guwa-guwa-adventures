@@ -1,15 +1,23 @@
 extends Node
 
-var level: int = 1
+var level: int = 0
 var initialLevel: int = 6
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
 var inUpgradeMenu: bool = false
+var baseHealthValue: int = 5
+var healthValue: int = 5
+var maxHP: int = 5
+
+enum Difficulty {EASY, NORMAL, HARD}
+var difficultyValue: Difficulty = Difficulty.NORMAL
+
+var hpRestoredFromTreat: int = 3
 
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 
-var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
+var upgradeLevels = {"range": 0, "endurance": 0, "speed": 0}
 var availableUpgradePoints: int = 0
 
 var duckRegistry: Array[int] = []
@@ -23,10 +31,14 @@ var worldManager
 var playerRef
 var worldLayer = 1
 
+var canDamage: bool = true
+var damageCooldown: float = 1
+
 signal levelUp
 signal startTutorial(String)
 signal treatsUpdated
 signal levelLoaded
+signal upgraded
 	
 func enterLevel():	
 	paused = false
@@ -61,12 +73,12 @@ func loadValues():
 			print("null world manager")
 		else:
 			worldManager.switchUnderOverGround()
-	level = int(SaveManager.saveData.get("level", 1))
+	level = int(SaveManager.saveData.get("level", 0))
 	shownTutorials = SaveManager.saveData.get("shownTutorials", [])
 	abilities = SaveManager.saveData.get("abilities", [])
 	var upgradeLevelsData = SaveManager.saveData.get("upgradeLevels", {})
 	upgradeLevels["range"] = int(upgradeLevelsData.get("range", 0))
-	upgradeLevels["stamina"] = int(upgradeLevelsData.get("stamina", 0))
+	upgradeLevels["endurance"] = int(upgradeLevelsData.get("endurance", 0))
 	upgradeLevels["speed"] = int(upgradeLevelsData.get("speed", 0))
 	
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
@@ -86,6 +98,7 @@ func closeUpgrades():
 	inUpgradeMenu = false
 	calculateBonuses()
 	paused = false
+	upgraded.emit()
 	
 func showTutorial(tutorialName: String):
 	if shownTutorials.has(tutorialName):
@@ -96,6 +109,9 @@ func showTutorial(tutorialName: String):
 func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stageName: String, owners):
 	paused = true
 	minigame = true
+	
+	worldManager.ui_manager.hud.hide()
+	
 	if worldLayer == 0:
 		worldManager.darkener.hide()
 	var minigame_stage = DUCK_MINIGAME.instantiate()
@@ -112,7 +128,7 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	minigame_stage.level = level
 	minigame_stage.speedMultiplier = playerRef.speedMultiplier
 	minigame_stage.rangeMultiplier = playerRef.rangeMultiplier
-	minigame_stage.staminaMultiplier = playerRef.staminaMultiplier
+	minigame_stage.enduranceMultiplier = playerRef.enduranceMultiplier
 	minigame_stage.position = minigame_stage.position - Vector2(1920/2, 1080/2)
 	
 	minigame_stage.stage = stageName
@@ -124,13 +140,22 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	
 	minigame_stage.won.connect(minigame_stage.queue_free)
 	minigame_stage.lost.connect(minigame_stage.queue_free)
+	
+	minigame_stage.won.connect(worldManager.ui_manager.hud.show)
+	minigame_stage.lost.connect(worldManager.ui_manager.hud.show)
+	
 
 func calculateBonuses():
 	if playerRef != null:
-		playerRef.staminaMultiplier = _calculateBonus("stamina")
+		playerRef.enduranceMultiplier = _calculateBonus("endurance")
 		playerRef.rangeMultiplier = _calculateBonus("range")
 		playerRef.speedMultiplier = _calculateBonus("speed")
 		playerRef.initializeValues()
+		
+	maxHP = baseHealthValue + upgradeLevels["endurance"]
+	playerRef.emitUpdatedStaminaValue()
+	
+	healthValue = clamp(healthValue + hpRestoredFromTreat, 0, maxHP)
 
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0
@@ -154,8 +179,16 @@ func won():
 func abilityCheck():
 	if abilities.has("sprint"):
 		worldManager.ui_manager.stamina_bar.show()
+		playerRef.emitUpdatedStaminaValue()
 	else:
 		worldManager.ui_manager.stamina_bar.hide()
+		
+	if abilities.has("quack") and !difficultyValue == Difficulty.EASY:
+		worldManager.ui_manager.hp_bars.show()
+		worldManager.ui_manager.hp_text.show()
+	else:
+		worldManager.ui_manager.hp_bars.hide()
+		worldManager.ui_manager.hp_text.hide()
 		
 	if abilities.has("walk"): 
 		playerRef.set_collision_mask_value(3, false)
@@ -166,4 +199,26 @@ func abilityCheck():
 		playerRef.set_collision_mask_value(4, false)
 	else:
 		playerRef.set_collision_mask_value(4, true)
+	
+func lostGame():
+	print("lost!")
+	
+func damagePlayer(amount: int = 1):
+	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		return
+	if canDamage == false:
+		return
+	canDamage = false
+	playerRef.damaged_sound.play()
+	healthValue = clamp(healthValue - amount, 0, maxHP)
+	upgraded.emit()
+	if healthValue <= 0:
+		lostGame()
+	var tim = Timer.new()
+	add_child(tim)
+	tim.wait_time = damageCooldown
+	tim.timeout.connect(func canDamagePlayer(): canDamage = true)
+	tim.timeout.connect(func canDamagedPlayer(): print(canDamage))
+	tim.timeout.connect(tim.queue_free)
+	tim.start()
 	
