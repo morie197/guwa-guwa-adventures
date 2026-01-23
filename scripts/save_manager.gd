@@ -3,7 +3,7 @@ extends Node
 var saveData = {}
 
 var savePath = "user://save_data.json"
-var saveWarningTime = 2
+var saveWarningTime = 30
 var saveWarning = false
 var tim: Timer
 

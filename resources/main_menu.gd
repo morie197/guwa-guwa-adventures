@@ -16,6 +16,9 @@ func _ready():
 	continueButton.pressed.connect(_loadgame)
 	quit.pressed.connect(_quit)
 	settings.pressed.connect(_settings)
+	
+	if SaveManager.check_save() == false:
+		continueButton.disabled = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -51,7 +54,12 @@ func _settings():
 	
 func _inPopup():
 	inPopup = !inPopup
-	var buttons = [newgame, settings, continueButton, quit]
+	var buttons
+	if SaveManager.check_save() == false:
+		buttons = [newgame, settings, quit]
+	else:
+		buttons = [newgame, settings, continueButton, quit]
+	inPopup = !inPopup
 	for button in buttons:
 		button.disabled = inPopup
 

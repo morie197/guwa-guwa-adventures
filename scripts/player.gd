@@ -390,7 +390,11 @@ func _move(movevec: Vector2):
 		
 	if !flying: 
 		if areaFlag == "stream":
-			velocity += areaForce
+			var streamForce: Vector2
+			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 0.8) * waterSpeedMultiplier
+			streamForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
+			streamForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
+			velocity += streamForce
 		elif areaFlag == "whirlpool":
 			if streamRef != null:
 				var distanceFromCenter = global_position - streamRef.global_position

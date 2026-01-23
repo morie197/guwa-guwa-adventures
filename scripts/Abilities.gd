@@ -7,27 +7,27 @@ const ABILITIES = {
 		"name": "swim",
 		"description": "Allows for swimming."
 		},
-	2: {
+	3: {
 		"name": "sprint",
 		"description": "Press SHIFT to move faster!"
 		}, 	
-	3: {
+	5: {
 		"name": "quack",
 		"description": "Press Q to quack! Quacking may be used to fight other ducks!"
-		}, 	
-	5: {
-		"name": "walk",
-		"description": "Allows you to walk on the land."
 		}, 	
 	8: {
 		"name": "sonar",
 		"description": "Press E to search your sorroundings, potentially uncovering secret areas!"
 		},
-	13: {
+	15: {
+		"name": "walk",
+		"description": "Allows you to walk on the land."
+		}, 	
+	20: {
 		"name": "dive",
 		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
 		}, 	  
-	20: {
+	25: {
 		"name": "fly",
 		"description": "Hold SPACEBAR to fly, moving much faster than usual and overcoming lower obstacles!"
 		}, 	  

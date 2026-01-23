@@ -1,8 +1,12 @@
 extends Area2D
 
 @onready var point_light_2d = $PointLight2D
+@onready var duck_treat_sound = $duckTreatSound
+
+var hidden_treat_sound: float = -6
 
 @export var undergroundEnergy: float = 1.0
+@export var hiddenTreat = false
 
 var origin: Vector2
 
@@ -19,6 +23,9 @@ func _ready():
 		id = 1
 	else:
 		id = name.trim_prefix("duckTreat").to_int()
+	
+	if hiddenTreat:
+		duck_treat_sound.volume_db = hidden_treat_sound
 	
 	GameManager.treatsUpdated.connect(_treatsUpdated)
 
