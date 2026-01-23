@@ -69,6 +69,8 @@ func _physics_process(delta):
 	migrate_down_indicator.global_position.y = origin.y + (hoverTime * hoverAmount)
 	
 func pause():
+	print("pause called")
+	print(inPauseMenu)
 	if !inPauseMenu:
 		inPauseMenu = true
 		GameManager.paused = true

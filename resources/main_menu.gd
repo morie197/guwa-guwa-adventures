@@ -22,15 +22,23 @@ func _process(delta):
 	pass
 	
 func _newgame():
-	var popup = POPUP.instantiate()
-	add_child(popup)
-	popup.yes.connect(_loadMainMap)
-	popup.no.connect(popup.queue_free)
-	popup.no.connect(_inPopup)
-	_inPopup()
+	if SaveManager.check_save():
+		var popup = POPUP.instantiate()
+		add_child(popup)
+		popup.yes.connect(_loadMainMap)
+		popup.yes.connect(GameManager.loadValues)
+		popup.no.connect(popup.queue_free)
+		popup.no.connect(_inPopup)
+		_inPopup()
+	else:
+		_loadMainMap()
+		GameManager.loadValues()
 
 func _loadgame():
-	pass
+	print("load game")
+	SaveManager.load_game()
+	get_tree().change_scene_to_file("res://scenes/level.tscn")
+	GameManager.levelLoaded.connect(GameManager.loadValues)
 	
 func _quit():
 	get_tree().quit()
@@ -48,4 +56,5 @@ func _inPopup():
 		button.disabled = inPopup
 
 func _loadMainMap():
+	SaveManager.new_game()
 	get_tree().change_scene_to_file("res://scenes/level.tscn")

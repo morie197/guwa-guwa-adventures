@@ -102,6 +102,8 @@ func _ready():
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("menuback pause"):
+		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame:
+			return
 		GameManager.worldManager.ui_manager.pause()
 	if GameManager.paused or GameManager.minigame:
 		return
@@ -379,7 +381,7 @@ func _move(movevec: Vector2):
 	velocity = movevec.normalized()
 	velocity *= moveSpeed
 	velocity *= speedMultiplier / 1.1
-	if !flying and layer == 0:
+	if !flying and (layer == 0 or layer == -1):
 		velocity *= waterSpeedMultiplier
 	if sprinting:
 		velocity *= sprintMult

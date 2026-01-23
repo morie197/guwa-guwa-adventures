@@ -7,6 +7,8 @@ extends Node2D
 @onready var overground_logic_layer = $Overground/LogicLayer
 @onready var underground_collision_layer = $Underground/CollisionLayer
 @onready var overground_collision_layer = $Overground/CollisionLayer
+@onready var undergroundTreats = $Underground/treats
+@onready var undergroundDucks = $Underground/ducks
 
 @onready var ui_manager = $UIManager
 
@@ -15,6 +17,14 @@ extends Node2D
 var current_logic_layer
 
 func _ready():
+	for treat in undergroundTreats.get_children():
+		treat.underground = true
+		treat.id = -treat.id
+		treat.point_light_2d.energy = treat.undergroundEnergy
+		treat.point_light_2d.enabled = false
+		
+	_getDucksRecursively(undergroundDucks)
+		
 	GameManager.playerRef = player
 	GameManager.worldManager = self
 	
@@ -24,6 +34,7 @@ func _ready():
 	current_logic_layer = overground_logic_layer
 	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
+	#request_ready()
 
 func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
@@ -66,9 +77,20 @@ func tileToAtlasCoords(localToMapCoords: Vector2i):
 	return current_logic_layer.get_cell_atlas_coords(localToMapCoords)
 	
 func _turnOnOffLayer(target, isVisible: bool):
+	GameManager.treatsUpdated.emit()
 	if isVisible:
 		target.modulate = Color.WHITE
 		target.process_mode = PROCESS_MODE_ALWAYS
 	else:
 		target.modulate = Color.TRANSPARENT
 		target.process_mode = PROCESS_MODE_DISABLED
+		
+func _getDucksRecursively(group):
+	for duck in group.get_children():
+		if duck is StaticDuck:
+			duck.underground = true
+			duck.id = -duck.id
+			duck.collider.set_collision_layer_value(1, true)
+			duck.quack_detector.set_collision_mask_value(6, true)
+		elif duck.get_child_count() > 0:
+			_getDucksRecursively(duck)

@@ -57,6 +57,7 @@ bus = &"SFX"
 parameters/looping = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-range_z_min = -10
+energy = 0.5
+range_z_min = -20
 range_z_max = 2
 texture = SubResource("GradientTexture2D_08ia5")

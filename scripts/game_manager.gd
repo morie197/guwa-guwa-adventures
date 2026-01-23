@@ -5,14 +5,15 @@ var initialLevel: int = 1
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
+var inUpgradeMenu: bool = false
 
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 
 var upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
 var availableUpgradePoints: int = 0
 
-var duckRegistry: Dictionary[int, Vector2] = {}
-var treatRegistry: Dictionary[int, Vector2] = {}
+var duckRegistry: Array[int] = []
+var treatRegistry: Array[int] = []
 
 var shownTutorials = []
 
@@ -24,19 +25,16 @@ var worldLayer = 1
 
 signal levelUp
 signal startTutorial(String)
+signal treatsUpdated
+signal levelLoaded
 	
 func enterLevel():	
-	# remove upon implementing savegames
-	#level = 1
-	#initialLevel = 1
-	#paused = false
-	#minigame = false
-	#wonGame = false
-	#shownTutorials = []
-	#abilities = []
-	#upgradeLevels = {"range": 0, "stamina": 0, "speed": 0}
-	#worldLayer = 1
+	paused = false
+	minigame = false
+	inUpgradeMenu = false
+	wonGame = false
 	
+	levelLoaded.emit()
 	for l in range(level, initialLevel):
 		treatGet()
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
@@ -50,16 +48,13 @@ func saveValues():
 	SaveManager.saveData["shownTutorials"] = shownTutorials
 	SaveManager.saveData["abilities"] = abilities
 	SaveManager.saveData["upgradeLevels"] = upgradeLevels
-	
-	var newdict = _Vector2ValuesToString(duckRegistry)
-	print(newdict)
-	#SaveManager.savaData["duckRegistry"] = duckRegistry
-	#SaveManager.savaData["treatRegistry"] = treatRegistry
+	SaveManager.saveData["duckRegistry"] = duckRegistry
+	SaveManager.saveData["treatRegistry"] = treatRegistry
 
 func loadValues():
 	if SaveManager.saveData.is_empty():
 		print("no save data")
-		return
+		await levelLoaded
 	playerRef.global_position = Vector2(SaveManager.saveData.get("player_pos_x", 0), SaveManager.saveData.get("player_pos_y", 0))
 	if SaveManager.saveData.get("worldLayer", 1) != worldLayer:
 		if worldManager == null:
@@ -73,23 +68,24 @@ func loadValues():
 	upgradeLevels["range"] = int(upgradeLevelsData.get("range", 0))
 	upgradeLevels["stamina"] = int(upgradeLevelsData.get("stamina", 0))
 	upgradeLevels["speed"] = int(upgradeLevelsData.get("speed", 0))
-
-func _Vector2ValuesToString(dictionary: Dictionary):
-	var newDict = {}
-	for key in dictionary:
-		if dictionary[key] is not String:
-			newDict[key] = var_to_str(dictionary[key])
-		else:
-			newDict[key] = str_to_var(dictionary[key])
-	return newDict
+	
+	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
+	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
+	
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	
+	treatsUpdated.emit()
+	
+	abilityCheck()
 
 func treatGet():
 	_levelUp()
 
 func closeUpgrades():
+	inUpgradeMenu = false
 	calculateBonuses()
 	paused = false
-	saveValues()
 	
 func showTutorial(tutorialName: String):
 	if shownTutorials.has(tutorialName):
@@ -145,19 +141,29 @@ func _levelUp():
 		abilities.append(AbilityData.ABILITIES[level]["name"])
 		
 	availableUpgradePoints += 1
+	inUpgradeMenu = true
 	levelUp.emit()
 		
-	if abilities.has("sprint"):
-		worldManager.ui_manager.stamina_bar.show()
-		
-	if abilities.has("walk"): 
-		playerRef.set_collision_mask_value(3, false)
-		
-	if abilities.has("fly"): 
-		playerRef.set_collision_mask_value(4, false)
+	abilityCheck()
 		
 func won():
 	wonGame = true
 	paused = true
 	worldManager.ui_manager.gameWon()
+	
+func abilityCheck():
+	if abilities.has("sprint"):
+		worldManager.ui_manager.stamina_bar.show()
+	else:
+		worldManager.ui_manager.stamina_bar.hide()
+		
+	if abilities.has("walk"): 
+		playerRef.set_collision_mask_value(3, false)
+	else:
+		playerRef.set_collision_mask_value(3, true)
+		
+	if abilities.has("fly"): 
+		playerRef.set_collision_mask_value(4, false)
+	else:
+		playerRef.set_collision_mask_value(4, true)
 	

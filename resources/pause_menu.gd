@@ -23,15 +23,15 @@ func _ready():
 	loadGame.pressed.connect(_load)
 	quit.pressed.connect(_quit)
 	
+	if SaveManager.check_save() == false:
+		loadGame.disabled = true
+	
 	for unlockedTutorials in GameManager.shownTutorials:
 		var tutorial = ui_manager.ALL_TUTORIALS.tutorials[unlockedTutorials]
 		for item in tutorial.items:
 			var keyDisplay = KEY_PRESS_DISPLAY.instantiate()
 			key_presses.add_child(keyDisplay)
 			keyDisplay.setData(item.icons, item.text, item.type)
-	
-	print("finished")
-	print(resume.disabled)
 	
 func _resume():
 	ui_manager.pause()
@@ -43,22 +43,43 @@ func _settings():
 	_inPopup()
 	
 func _save():
+	ui_manager.pause()
 	GameManager.saveValues()
 	SaveManager.save_game()
 	
-func _load():
-	SaveManager.load_game()
-	GameManager.loadValues()
+func _load():	
+	if SaveManager.saveWarning == true:
+		var popup = POPUP.instantiate()
+		add_child(popup)
+		popup.yes.connect(ui_manager.pause)
+		popup.yes.connect(SaveManager.load_game)
+		popup.yes.connect(GameManager.loadValues)
+		
+		popup.no.connect(popup.queue_free)
+		popup.no.connect(_inPopup)
+		_inPopup()
+	else:
+		ui_manager.pause()
+		SaveManager.load_game()
+		GameManager.loadValues()
 	
 func _quit():
-	var popup = POPUP.instantiate()
-	add_child(popup)
-	popup.yes.connect(func mainMenu(): get_tree().change_scene_to_file("res://resources/main_menu.tscn"))
-	popup.no.connect(popup.queue_free)
-	popup.no.connect(_inPopup)
+	if SaveManager.saveWarning == true:
+		var popup = POPUP.instantiate()
+		add_child(popup)
+		popup.yes.connect(func mainMenu(): get_tree().change_scene_to_file("res://resources/main_menu.tscn"))
+		popup.no.connect(popup.queue_free)
+		popup.no.connect(_inPopup)
+		_inPopup()
+	else:
+		get_tree().change_scene_to_file("res://resources/main_menu.tscn")
 
 func _inPopup():
 	inPopup = !inPopup
-	var buttons = [resume, settingsButton, save, loadGame, quit]
+	var buttons
+	if SaveManager.check_save() == false:
+		buttons = [resume, settingsButton, save, quit]
+	else:
+		buttons = [resume, settingsButton, save, loadGame , quit]
 	for button in buttons:
 		button.disabled = inPopup

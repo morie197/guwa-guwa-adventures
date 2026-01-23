@@ -1321,6 +1321,6 @@ stageName = "land_rocks"
 owners = [NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck9"), NodePath("../StaticEnemyDuck10"), NodePath("../StaticEnemyDuck11"), NodePath("../StaticEnemyDuck12"), NodePath(".")]
 
 [node name="Player" parent="." instance=ExtResource("1_2q6dc")]
-position = Vector2(192, 1984)
+position = Vector2(1984, -1024)
 
 [node name="UIManager" parent="." instance=ExtResource("3_w8frs")]
