@@ -11,6 +11,7 @@ extends PanelContainer
 const POPUP = preload("uid://cd68megybdr25")
 const KEY_PRESS_DISPLAY = preload("uid://cu2qa7tl2feks")
 const SETTINGS_MENU = preload("uid://dnkbdoidjjxng")
+const SAVE_LOAD_MENU = preload("uid://b8nmevsdid6a6")
 
 var ui_manager
 var inPopup: bool = false
@@ -26,9 +27,9 @@ func _ready():
 	if SaveManager.check_save() == false:
 		loadGame.disabled = true
 		
-	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
-		save.disabled = true
-		save.hide()
+	#if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+	#	save.disabled = true
+	#	save.hide()
 	
 	for unlockedTutorials in GameManager.shownTutorials:
 		var tutorial = ui_manager.ALL_TUTORIALS.tutorials[unlockedTutorials]
@@ -47,25 +48,18 @@ func _settings():
 	_inPopup()
 	
 func _save():
-	ui_manager.pause()
-	GameManager.saveValues()
-	SaveManager.save_game()
+	var saveLoadMenu = SAVE_LOAD_MENU.instantiate()
+	saveLoadMenu.mode = "save"
+	add_child(saveLoadMenu)
+	saveLoadMenu.parentMenu = self
+	_inPopup()
 	
 func _load():	
-	if SaveManager.saveWarning == true:
-		var popup = POPUP.instantiate()
-		add_child(popup)
-		popup.yes.connect(ui_manager.pause)
-		popup.yes.connect(SaveManager.load_game)
-		popup.yes.connect(GameManager.loadValues)
-		
-		popup.no.connect(popup.queue_free)
-		popup.no.connect(_inPopup)
-		_inPopup()
-	else:
-		ui_manager.pause()
-		SaveManager.load_game()
-		GameManager.loadValues()
+	var saveLoadMenu = SAVE_LOAD_MENU.instantiate()
+	saveLoadMenu.mode = "load"
+	add_child(saveLoadMenu)
+	saveLoadMenu.parentMenu = self
+	_inPopup()
 	
 func _quit():
 	if SaveManager.saveWarning == true:
@@ -83,9 +77,6 @@ func _inPopup():
 	var buttons = [resume, settingsButton, save, loadGame , quit]
 	if SaveManager.check_save() == false:
 		buttons.erase(loadGame)
-	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
-		save.hide()
-		buttons.erase(save)
 	else:
 		save.show()
 	for button in buttons:

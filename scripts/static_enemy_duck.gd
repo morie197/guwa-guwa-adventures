@@ -27,6 +27,8 @@ func _ready():
 func _player_detected(_area):
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.connect(_quack)
+		
+	SaveManager.autoSave()
 	
 func _player_exited(_area):
 	if GameManager.playerRef != null:

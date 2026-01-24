@@ -196,6 +196,7 @@ radius = 443.07715
 
 [node name="World" type="Node2D" groups=["worldManager"]]
 script = ExtResource("1_olg7q")
+levelName = "Rocky Forest"
 
 [node name="Underground" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0)

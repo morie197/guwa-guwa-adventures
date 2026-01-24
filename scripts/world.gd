@@ -14,6 +14,8 @@ extends Node2D
 
 @onready var darkener = $Underground/darkener
 
+@export var levelName: String = ""
+
 var current_logic_layer
 
 func _ready():

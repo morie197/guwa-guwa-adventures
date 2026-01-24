@@ -387,8 +387,8 @@ func _move(movevec: Vector2):
 	velocity *= speedMultiplier / 1.1
 	
 	tutorial_hint_detector.target_position = moveVector * 20
-	if tutorial_hint_detector.is_colliding():
-		print("tutorial")
+	#if tutorial_hint_detector.is_colliding():
+	#	print("tutorial")
 	
 	if !flying and (layer == 0 or layer == -1):
 		velocity *= waterSpeedMultiplier

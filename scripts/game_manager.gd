@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 6
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -53,6 +53,7 @@ func enterLevel():
 		testingCheats = true
 	
 	levelLoaded.emit()
+	print("entered level")
 	for l in range(level, initialLevel):
 		treatGet()
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
@@ -69,14 +70,18 @@ func saveValues():
 	SaveManager.saveData["duckRegistry"] = duckRegistry
 	SaveManager.saveData["treatRegistry"] = treatRegistry
 	SaveManager.saveData["currentHP"] = healthValue
+	SaveManager.saveData["difficulty"] = difficultyValue
+	SaveManager.saveData["levelName"] = worldManager.levelName
 	
 	var saveText = SAVE_LABEL.instantiate()
 	worldManager.ui_manager.add_child(saveText)
 
 func loadValues():
+	if playerRef == null or worldManager == null:
+		await levelLoaded
+	
 	if SaveManager.saveData.is_empty():
 		print("no save data")
-		await levelLoaded
 	playerRef.global_position = Vector2(SaveManager.saveData.get("player_pos_x", 0), SaveManager.saveData.get("player_pos_y", 0))
 	if SaveManager.saveData.get("worldLayer", 1) != worldLayer:
 		if worldManager == null:
@@ -90,6 +95,8 @@ func loadValues():
 	upgradeLevels["range"] = int(upgradeLevelsData.get("range", 0))
 	upgradeLevels["endurance"] = int(upgradeLevelsData.get("endurance", 0))
 	upgradeLevels["speed"] = int(upgradeLevelsData.get("speed", 0))
+	
+	difficultyValue = SaveManager.saveData.get("difficulty", Difficulty.NORMAL)
 	
 	canDamage = false
 	healthValue = SaveManager.saveData.get("currentHP", 5)
@@ -115,14 +122,11 @@ func closeUpgrades():
 	paused = false
 	upgraded.emit()
 	
-	if difficultyValue == Difficulty.EASY:
-		return
-	
 	if testingCheats == true:
 		testingCheats = false
 		return
-	saveValues()
-	SaveManager.save_game()
+	
+	SaveManager.autoSave()
 	
 func showTutorial(tutorialName: String):
 	if shownTutorials.has(tutorialName):

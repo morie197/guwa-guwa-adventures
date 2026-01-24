@@ -161,6 +161,7 @@ height = 1952.8096
 
 [node name="World" type="Node2D" groups=["worldManager"]]
 script = ExtResource("1_ve5ok")
+levelName = "Quiet Gardens"
 
 [node name="Underground" type="Node2D" parent="."]
 visible = false

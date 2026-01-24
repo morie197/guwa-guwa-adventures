@@ -61,6 +61,12 @@ var hpBars: Array[Node] = []
 @export var modulateSpeed: float = 0.9
 
 func _ready():
+	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		hp_text.hide()
+		hp_bars.hide()
+	else:
+		_updateMaxHP()
+	
 	GameManager.levelUp.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
 	GameManager.upgraded.connect(_updateMaxHP)
@@ -90,6 +96,9 @@ func _physics_process(delta):
 func _updateMaxHP():
 	var maxHP = GameManager.maxHP
 	
+	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		hp_text.hide()
+		return
 	hp_text.text = "HP: " + str(GameManager.healthValue) + "/" + str(maxHP)
 	
 	for hpbar in hpBars:
@@ -112,12 +121,12 @@ func _updateHP():
 		hpBars[i].texture = HPPART
 	
 	for lostHealth in range(maxHP, GameManager.healthValue, -1):
-		print(lostHealth)
+		#print(lostHealth)
 		hpBars[lostHealth - 1].texture = HPPARTEMPTY
 	
 func pause():
-	print("pause called")
-	print(inPauseMenu)
+	#print("pause called")
+	#print(inPauseMenu)
 	if !inPauseMenu:
 		inPauseMenu = true
 		GameManager.paused = true
@@ -126,7 +135,7 @@ func pause():
 		add_child(pauseMenu)
 	else:
 		if pauseMenu != null and !pauseMenu.is_queued_for_deletion():
-			print("unpaused")
+			#print("unpaused")
 			GameManager.paused = false
 			inPauseMenu = false
 			pauseMenu.queue_free()

@@ -7,6 +7,8 @@ extends Control
 
 const POPUP = preload("uid://cd68megybdr25")
 const SETTINGS_MENU = preload("uid://dnkbdoidjjxng")
+const SAVE_LOAD_MENU = preload("uid://b8nmevsdid6a6")
+const NEW_GAME_UI = preload("uid://saw53iuafodd")
 
 var inPopup: bool = false
 
@@ -25,23 +27,19 @@ func _process(delta):
 	pass
 	
 func _newgame():
-	if SaveManager.check_save():
-		var popup = POPUP.instantiate()
-		add_child(popup)
-		popup.yes.connect(_loadMainMap)
-		popup.yes.connect(GameManager.loadValues)
-		popup.no.connect(popup.queue_free)
-		popup.no.connect(_inPopup)
-		_inPopup()
-	else:
-		_loadMainMap()
-		GameManager.loadValues()
+	var newGameUI = NEW_GAME_UI.instantiate()
+	newGameUI.parentMenu = self
+	add_child(newGameUI)
+	_inPopup()
 
 func _loadgame():
-	print("load game")
-	SaveManager.load_game()
-	get_tree().change_scene_to_file("res://scenes/level.tscn")
-	GameManager.levelLoaded.connect(GameManager.loadValues)
+	var saveLoadMenu = SAVE_LOAD_MENU.instantiate()
+	saveLoadMenu.mode = "load"
+	add_child(saveLoadMenu)
+	saveLoadMenu.parentMenu = self
+	_inPopup()
+	
+	
 	
 func _quit():
 	get_tree().quit()
@@ -62,7 +60,3 @@ func _inPopup():
 	inPopup = !inPopup
 	for button in buttons:
 		button.disabled = inPopup
-
-func _loadMainMap():
-	SaveManager.new_game()
-	get_tree().change_scene_to_file("res://scenes/level.tscn")
