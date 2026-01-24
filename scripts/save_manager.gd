@@ -19,6 +19,7 @@ func save_game():
 	writeFile.close()
 	
 	_SaveWarner()
+	
 
 func load_game():
 	var readFile = FileAccess.open(savePath, FileAccess.READ)

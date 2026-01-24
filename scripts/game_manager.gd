@@ -10,11 +10,14 @@ var baseHealthValue: int = 5
 var healthValue: int = 5
 var maxHP: int = 5
 
+var testingCheats: bool = false
+
 enum Difficulty {EASY, NORMAL, HARD}
 var difficultyValue: Difficulty = Difficulty.NORMAL
 
 var hpRestoredFromTreat: int = 3
 
+const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 
 var upgradeLevels = {"range": 0, "endurance": 0, "speed": 0}
@@ -46,6 +49,9 @@ func enterLevel():
 	inUpgradeMenu = false
 	wonGame = false
 	
+	if initialLevel > 0:
+		testingCheats = true
+	
 	levelLoaded.emit()
 	for l in range(level, initialLevel):
 		treatGet()
@@ -63,6 +69,9 @@ func saveValues():
 	SaveManager.saveData["duckRegistry"] = duckRegistry
 	SaveManager.saveData["treatRegistry"] = treatRegistry
 	SaveManager.saveData["currentHP"] = healthValue
+	
+	var saveText = SAVE_LABEL.instantiate()
+	worldManager.ui_manager.add_child(saveText)
 
 func loadValues():
 	if SaveManager.saveData.is_empty():
@@ -105,6 +114,15 @@ func closeUpgrades():
 	calculateBonuses()
 	paused = false
 	upgraded.emit()
+	
+	if difficultyValue == Difficulty.EASY:
+		return
+	
+	if testingCheats == true:
+		testingCheats = false
+		return
+	saveValues()
+	SaveManager.save_game()
 	
 func showTutorial(tutorialName: String):
 	if shownTutorials.has(tutorialName):

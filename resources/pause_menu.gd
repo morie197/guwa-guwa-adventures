@@ -25,6 +25,10 @@ func _ready():
 	
 	if SaveManager.check_save() == false:
 		loadGame.disabled = true
+		
+	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		save.disabled = true
+		save.hide()
 	
 	for unlockedTutorials in GameManager.shownTutorials:
 		var tutorial = ui_manager.ALL_TUTORIALS.tutorials[unlockedTutorials]
@@ -76,10 +80,13 @@ func _quit():
 
 func _inPopup():
 	inPopup = !inPopup
-	var buttons
+	var buttons = [resume, settingsButton, save, loadGame , quit]
 	if SaveManager.check_save() == false:
-		buttons = [resume, settingsButton, save, quit]
+		buttons.erase(loadGame)
+	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		save.hide()
+		buttons.erase(save)
 	else:
-		buttons = [resume, settingsButton, save, loadGame , quit]
+		save.show()
 	for button in buttons:
 		button.disabled = inPopup
