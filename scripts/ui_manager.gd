@@ -188,7 +188,7 @@ func _showLevelUpUI():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = "Next ability: " + str(ability)
+			until_next_ability.text = "Next ability at: " + str(ability)
 			foundNextAbility = true
 			break
 			

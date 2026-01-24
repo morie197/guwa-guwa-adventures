@@ -10,7 +10,7 @@ const UPGRADES = {
 	"endurance": {
 		"levels": 20,
 		"percentIncrease": 5,
-		"description": "Increases maximum HP and stamina."
+		"description": "+1 HP every 2 levels, " + "+5%" + " stamina recovery."
 	},
 	"speed": {
 		"levels": 20,

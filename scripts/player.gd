@@ -24,7 +24,7 @@ var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
 var moveSpeed: int = 130
-var maxStamina: float = 5.0
+var maxStamina: float = 8.0
 var staminaRecoveryRate: float = 1.4
 var stamina: float = 0
 var sprintMult: float = 1.5
@@ -311,8 +311,8 @@ func _process(delta):
 			elif flying and areaFlag != "air": 
 				_toggleFly(false)
 	else:
-		if stamina < maxStamina * enduranceMultiplier:
-			stamina+=delta * staminaRecoveryRate
+		if stamina < maxStamina:
+			stamina+=delta * staminaRecoveryRate * enduranceMultiplier
 			emitUpdatedStaminaValue()
 		else:
 			tired = false
@@ -339,13 +339,13 @@ func _toggleFly(value: bool):
 	flying = value
 	
 func initializeValues():
-	stamina = maxStamina * enduranceMultiplier
+	stamina = maxStamina
 	emitUpdatedStaminaValue()
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	
 func emitUpdatedStaminaValue():
-	updatedStamina.emit(round(stamina * 100), round(maxStamina * enduranceMultiplier * 100))
+	updatedStamina.emit(round(stamina * 100), round(maxStamina * 100))
 
 func _quack():
 	quack_sound.play()

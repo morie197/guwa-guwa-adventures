@@ -62,6 +62,7 @@ func saveValues():
 	SaveManager.saveData["upgradeLevels"] = upgradeLevels
 	SaveManager.saveData["duckRegistry"] = duckRegistry
 	SaveManager.saveData["treatRegistry"] = treatRegistry
+	SaveManager.saveData["currentHP"] = healthValue
 
 func loadValues():
 	if SaveManager.saveData.is_empty():
@@ -81,13 +82,18 @@ func loadValues():
 	upgradeLevels["endurance"] = int(upgradeLevelsData.get("endurance", 0))
 	upgradeLevels["speed"] = int(upgradeLevelsData.get("speed", 0))
 	
+	canDamage = false
+	healthValue = SaveManager.saveData.get("currentHP", 5)
+	
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
+	canDamage = true
 	treatsUpdated.emit()
+	upgraded.emit()
 	
 	abilityCheck()
 
@@ -152,7 +158,7 @@ func calculateBonuses():
 		playerRef.speedMultiplier = _calculateBonus("speed")
 		playerRef.initializeValues()
 		
-	maxHP = baseHealthValue + upgradeLevels["endurance"]
+	maxHP = baseHealthValue + floor(upgradeLevels["endurance"] / 2.0)
 	playerRef.emitUpdatedStaminaValue()
 	
 	healthValue = clamp(healthValue + hpRestoredFromTreat, 0, maxHP)
@@ -221,4 +227,9 @@ func damagePlayer(amount: int = 1):
 	tim.timeout.connect(func canDamagedPlayer(): print(canDamage))
 	tim.timeout.connect(tim.queue_free)
 	tim.start()
+	
+func changeDifficulty(diff: Difficulty):
+	difficultyValue = diff
+		
+		
 	
