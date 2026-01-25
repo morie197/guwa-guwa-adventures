@@ -83,7 +83,8 @@ func initValues():
 		quackRange = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
 		quackRange = clampf(quackRange * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
 	else: 
-		quackRange = (minigamemanager.player_minigame.baseQuackRange - playerEnemyRangeDiff) / (minigamemanager.enemyHealthValues.size() / 2)
+		quackBaseRandomTimer += 2.0
+		quackRange = (minigamemanager.player_minigame.baseQuackRange/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
 		
 	quacker.quack_range = quackRange
 	

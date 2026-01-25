@@ -96,9 +96,13 @@ func initValues():
 		
 		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 			enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
+			enemy.speed = enemy.speed * (speedMultiplier / 2)
 		else:
 			enemy.maxHealth = enemyHealthValues[ene]
-		enemy.speed = enemy.speed * (speedMultiplier / 2)
+			if enemy.maxHealth <= 10:
+				enemy.speed = enemy.speed / (clampf(enemy.maxHealth - 10, 3, 10) / 2)
+			else:
+				enemy.speed = enemy.speed / (enemy.maxHealth / 8)
 		enemy.initValues()
 		
 		var info = INFO_PANEL.instantiate()
