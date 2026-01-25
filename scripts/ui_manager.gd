@@ -107,6 +107,7 @@ func _updateMaxHP():
 	hpBars = []
 	
 	for i in range(0, maxHP):
+		print(i)
 		var hpbar = HP_BAR_PART.instantiate()
 		hp_bars.add_child(hpbar)
 		hpBars.append(hpbar)
@@ -117,7 +118,19 @@ func _updateMaxHP():
 func _updateHP():
 	var maxHP = GameManager.maxHP
 	
-	for i in range(0, GameManager.healthValue):
+	if GameManager.healthValue > maxHP:
+		print("over max HP!")
+		return
+	
+	#print(GameManager.healthValue)
+	#print(maxHP)
+	
+	for i in range(0, GameManager.healthValue - 1):
+		#print(i)
+		#print(hpBars.size())
+		#if hpBars.size() - 1 > i:
+		#	print("invalid index")
+		#	return
 		hpBars[i].texture = HPPART
 	
 	for lostHealth in range(maxHP, GameManager.healthValue, -1):

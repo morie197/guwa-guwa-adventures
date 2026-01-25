@@ -12,7 +12,7 @@ extends CharacterBody2D
 var quackRange
 @export var maxHealth: int = 5
 
-@export var healthToHealingRatio: int = 5
+@export var healthToHealingRatio: int = 10
 
 @onready var quacker = $Quacker
 
@@ -28,7 +28,7 @@ var quackRange
 
 @export var playerEnemyRangeDiff: float = 20
 
-var baseHealAmount: int = 2
+var baseHealAmount: int = 3
 
 var quackRandomTimer: float = 0.0
 var quackTimer: float = 0.0
@@ -206,7 +206,7 @@ func quack():
 
 func _died():
 	minigamemanager.enemiesDefeated += 1
-	minigamemanager.player_minigame.quacker.damage(-baseHealAmount * round(maxHealth/healthToHealingRatio), quacker)
+	minigamemanager.player_minigame.quacker.damage(-baseHealAmount + round(maxHealth/healthToHealingRatio), quacker)
 	infoBox.hpValue = 0
 	minigamemanager.enemyArray.erase(self)
 	queue_free()

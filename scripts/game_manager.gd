@@ -6,7 +6,7 @@ var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
 var inUpgradeMenu: bool = false
-var baseHealthValue: int = 5
+var baseHealthValue: int = 10
 var healthValue: int = 5
 var maxHP: int = 5
 
@@ -109,9 +109,13 @@ func loadValues():
 	
 	canDamage = true
 	treatsUpdated.emit()
+	
+	calculateBonuses()
+	
 	upgraded.emit()
 	
 	abilityCheck()
+	
 
 func treatGet():
 	_levelUp()
