@@ -41,6 +41,10 @@ var flyDelay: float = 0.3
 var flyDelayTimer: float = 0.0
 var flyLerpSpeed: float = 3
 
+var underwaterStaminaDrain: float = 0.6
+
+var underwater: bool = false
+
 var enduranceMultiplier: float = 1.0
 var rangeMultiplier: float = 1.0
 var speedMultiplier: float = 1.0
@@ -175,7 +179,7 @@ func _physics_process(delta):
 	if GameManager.paused:
 		velocity = Vector2.ZERO
 		return
-	_move(moveVector)
+	_move(moveVector * delta)
 	
 func _process(delta):
 	if GameManager.wonGame:
@@ -208,6 +212,17 @@ func _process(delta):
 			GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
 		
 	if GameManager.worldLayer == 0:
+		underwater = true
+	else:
+		underwater = false
+		
+	if underwater and (layer != 1 and layer != 2):
+		if stamina > 0:
+			stamina -= delta * underwaterStaminaDrain
+		else:
+			GameManager.damagePlayer(1)
+		
+		emitUpdatedStaminaValue()
 		if under_water_sounds.playing == false: 
 			under_water_sounds.play()
 	else:
@@ -222,7 +237,6 @@ func _process(delta):
 		
 	if moveVector != Vector2.ZERO:
 		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)	
-		print(lastMovedDirection)
 		
 	if flying and !wings_flying_sound.playing:
 		wings_flying_sound.play()
@@ -324,7 +338,7 @@ func _process(delta):
 			elif flying and areaFlag != "air": 
 				_toggleFly(false)
 	else:
-		if stamina < maxStamina:
+		if stamina < maxStamina and !underwater: 
 			stamina+=delta * staminaRecoveryRate * enduranceMultiplier
 			emitUpdatedStaminaValue()
 		else:
