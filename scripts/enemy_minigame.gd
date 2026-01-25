@@ -78,8 +78,13 @@ func initValues():
 	quacker.attack_damage = 1
 	quacker.max_health = maxHealth
 	
-	quackRange = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
-	quackRange = clampf(quackRange * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
+	
+	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		quackRange = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
+		quackRange = clampf(quackRange * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
+	else: 
+		quackRange = (minigamemanager.player_minigame.baseQuackRange - playerEnemyRangeDiff) / (minigamemanager.enemyHealthValues.size() / 2)
+		
 	quacker.quack_range = quackRange
 	
 	if minigamemanager.swimming == false:
@@ -206,7 +211,8 @@ func quack():
 
 func _died():
 	minigamemanager.enemiesDefeated += 1
-	minigamemanager.player_minigame.quacker.damage(-baseHealAmount + round(maxHealth/healthToHealingRatio), quacker)
+	minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
+	print(-baseHealAmount - round(maxHealth/healthToHealingRatio))
 	infoBox.hpValue = 0
 	minigamemanager.enemyArray.erase(self)
 	queue_free()

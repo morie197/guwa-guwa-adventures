@@ -23,7 +23,7 @@ var bgmFadeTime: float = 0.2
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
-var moveSpeed: int = 130
+var moveSpeed: int = 140
 var maxStamina: float = 8.0
 var staminaRecoveryRate: float = 1.4
 var stamina: float = 0
@@ -52,7 +52,7 @@ var speedMultiplier: float = 1.0
 var moveVector: Vector2 = Vector2.ZERO
 var mouseScrollInput: float
 
-@export var streamMoveSpeed: float = 120
+@export var streamMoveSpeed: float = 140
 @export var whirlPoolMultiplier: float = 2
 @export var areaForceTransitionSpeed: float = 10
 
@@ -174,12 +174,12 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	if GameManager.wonGame:
-		_move(Vector2.DOWN)
+		_move(Vector2.DOWN, delta)
 		return
 	if GameManager.paused:
 		velocity = Vector2.ZERO
 		return
-	_move(moveVector * delta)
+	_move(moveVector, delta)
 	
 func _process(delta):
 	if GameManager.wonGame:
@@ -211,12 +211,12 @@ func _process(delta):
 			migrateTimer = clampf(migrateTimer + delta * 1.5, 0, migrationTime)
 			GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
 		
-	if GameManager.worldLayer == 0:
+	if GameManager.worldLayer == 0 and (layer != 1 and layer != 2):
 		underwater = true
 	else:
 		underwater = false
 		
-	if underwater and (layer != 1 and layer != 2):
+	if underwater:
 		if stamina > 0:
 			stamina -= delta * underwaterStaminaDrain
 		else:
@@ -409,7 +409,7 @@ func _radar():
 	radCircle.global_position = global_position
 	radCircle.maxRadius = radarRange * rangeMultiplier
 	
-func _move(movevec: Vector2):
+func _move(movevec: Vector2, delt):
 	if flying == true:
 		velocity = lastMovedDirection.normalized()
 	elif areaFlag.match("stream"):
@@ -426,6 +426,7 @@ func _move(movevec: Vector2):
 	
 	if !flying and (layer == 0 or layer == -1):
 		velocity *= waterSpeedMultiplier
+		
 	if sprinting:
 		velocity *= sprintMult
 	elif flying:

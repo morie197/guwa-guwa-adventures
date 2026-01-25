@@ -93,7 +93,11 @@ func initValues():
 		enemyGroup.add_child(enemy)
 		enemyArray.append(enemy)
 		enemy.minigamemanager = self
-		enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
+		
+		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+			enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
+		else:
+			enemy.maxHealth = enemyHealthValues[ene]
 		enemy.speed = enemy.speed * (speedMultiplier / 2)
 		enemy.initValues()
 		
