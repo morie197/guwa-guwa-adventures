@@ -39,6 +39,7 @@ var newtile: Vector2i = Vector2i.ZERO
 var forcedFly: bool = false
 var flyDelay: float = 0.3
 var flyDelayTimer: float = 0.0
+var flyLerpSpeed: float = 3
 
 var enduranceMultiplier: float = 1.0
 var rangeMultiplier: float = 1.0
@@ -81,6 +82,8 @@ var migrating: bool = false
 var quackTimer: float = 0
 var radarTimer: float = 0
 var targetZoom: Vector2
+
+var lastMovedDirection: Vector2 = Vector2.ZERO
 
 var colliding
 
@@ -217,6 +220,10 @@ func _process(delta):
 	if areaFlag == "":
 		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed)
 		
+	if moveVector != Vector2.ZERO:
+		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)	
+		print(lastMovedDirection)
+		
 	if flying and !wings_flying_sound.playing:
 		wings_flying_sound.play()
 	
@@ -303,7 +310,10 @@ func _process(delta):
 	if sprinting or flying:
 		if stamina > 0: # prevent negative stamina values
 			if sprinting:
-				stamina -= delta
+				if moveVector != Vector2.ZERO:
+					stamina -= delta
+				else:
+					sprinting = false
 			if flying:
 				stamina -= delta / flyStaminaMulti
 			emitUpdatedStaminaValue()
@@ -334,6 +344,7 @@ func _area_exit(_area):
 func _toggleFly(value: bool):
 	if flying == value: 
 		return
+	lastMovedDirection = Vector2.ZERO
 	if !wings_flapping_sound.playing:
 		wings_flapping_sound.play()
 	if wings_flying_sound.playing:
@@ -385,10 +396,13 @@ func _radar():
 	radCircle.maxRadius = radarRange * rangeMultiplier
 	
 func _move(movevec: Vector2):
-	if areaFlag.match("stream"):
+	if flying == true:
+		velocity = lastMovedDirection.normalized()
+	elif areaFlag.match("stream"):
 		velocity = movevec
 	else:
 		velocity = movevec.normalized()
+	
 	velocity *= moveSpeed
 	velocity *= speedMultiplier / 1.1
 	
@@ -402,12 +416,11 @@ func _move(movevec: Vector2):
 		velocity *= sprintMult
 	elif flying:
 		velocity *= flyMulti
-		
-	if areaFlag.match("thorns"):
-		GameManager.damagePlayer()
-		
+
 	if !flying: 
-		if areaFlag == "stream":
+		if areaFlag.match("thorns"):
+			GameManager.damagePlayer()
+		elif areaFlag == "stream":
 			backwards_detector.enabled = true
 			backwards_detector.target_position = areaForce.normalized() * 13
 			if backwards_detector.is_colliding():
