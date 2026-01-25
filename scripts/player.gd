@@ -238,7 +238,7 @@ func _process(delta):
 		
 		newtile = GameManager.worldManager.getTileUnderPos(global_position)
 		if tile != newtile:
-			if areaFlag.match("dive") or areaFlag.match("air"):
+			if areaFlag.match("dive") or areaFlag.match("air") or areaFlag.match("thorns"):
 				areaFlag = ""
 			tile = newtile
 			var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
@@ -256,6 +256,9 @@ func _process(delta):
 					sprinting = false
 					forcedFly = true
 					_toggleFly(true)
+			elif atlascoords == Vector2i(1, 0):
+				layer = 1
+				areaFlag = "thorns"
 				
 			if forcedFly:
 				if areaFlag != "air":
@@ -382,7 +385,10 @@ func _radar():
 	radCircle.maxRadius = radarRange * rangeMultiplier
 	
 func _move(movevec: Vector2):
-	velocity = movevec.normalized()
+	if areaFlag.match("stream"):
+		velocity = movevec
+	else:
+		velocity = movevec.normalized()
 	velocity *= moveSpeed
 	velocity *= speedMultiplier / 1.1
 	
@@ -396,6 +402,9 @@ func _move(movevec: Vector2):
 		velocity *= sprintMult
 	elif flying:
 		velocity *= flyMulti
+		
+	if areaFlag.match("thorns"):
+		GameManager.damagePlayer()
 		
 	if !flying: 
 		if areaFlag == "stream":
