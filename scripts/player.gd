@@ -16,6 +16,8 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 
 @onready var audio_listener_2d = $AudioListener2D
 
+var tornadoMultiplier: float = 5.0
+
 @onready var bgm = $BGM
 var bgmVolume: float = -5.7
 var bgmFadeTime: float = 0.2
@@ -73,6 +75,8 @@ var mouseScrollInput: float
 @export var rangeMultZoomFactor: float = 1.2
 @export var keyZoomMult: float = 1.5
 
+var tornadoRecoverSpeed: float = 0.1
+
 @export var quackRange: float = 60
 @export var quackCooldown: float = 0.20
 @export var quackFalloffZoom: float = 2
@@ -80,6 +84,8 @@ var mouseScrollInput: float
 
 @export var radarRange: float = 120
 @export var radarCooldown: float = 1.5
+
+var tornadoThrownVelocity: Vector2 = Vector2.ZERO
 
 var migrationTime: float = 5
 var migrateTimer: float = 0
@@ -420,85 +426,106 @@ func _radar():
 	radCircle.maxRadius = radarRange * rangeMultiplier
 	
 func _move(movevec: Vector2, delt):
-	if flying == true:
-		#velocity = lerp(velocity.normalized(), ((velocity.normalized() * 2) + lastMovedDirection.normalized()).normalized(), delt * 100)
-		#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
-		velocity = lastMovedDirection
-		
-	elif areaFlag.match("stream") or areaFlag.match("whirlpool"):
-		velocity = movevec
+	if !tornadoThrownVelocity.is_zero_approx():
+		velocity = tornadoThrownVelocity
+		tornadoThrownVelocity = tornadoThrownVelocity.lerp(Vector2.ZERO, tornadoRecoverSpeed)
+		print(tornadoThrownVelocity.is_zero_approx())
 	else:
-		velocity = movevec.normalized()
-	
-	velocity *= moveSpeed
-	velocity *= speedMultiplier / 1.1
-	
-	tutorial_hint_detector.enabled = false
-	#tutorial_hint_detector.target_position = moveVector * 20
-	#if tutorial_hint_detector.is_colliding():
-	#	print("tutorial")
-	
-	if !flying and (layer == 0 or layer == -1):
-		velocity *= waterSpeedMultiplier
 		
-	if sprinting:
-		velocity *= sprintMult
-	elif flying:
-		velocity *= flyMulti
+		if flying == true:
+			#velocity = lerp(velocity.normalized(), ((velocity.normalized() * 2) + lastMovedDirection.normalized()).normalized(), delt * 100)
+			#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
+			velocity = lastMovedDirection
+			
+		elif areaFlag.match("stream") or areaFlag.match("whirlpool"):
+			velocity = movevec
+		else:
+			velocity = movevec.normalized()
+		
+		velocity *= moveSpeed
+		velocity *= speedMultiplier / 1.1
+		
+		tutorial_hint_detector.enabled = false
+		#tutorial_hint_detector.target_position = moveVector * 20
+		#if tutorial_hint_detector.is_colliding():
+		#	print("tutorial")
+		
+		if !flying and (layer == 0 or layer == -1):
+			velocity *= waterSpeedMultiplier
+			
+		if sprinting:
+			velocity *= sprintMult
+		elif flying:
+			velocity *= flyMulti
 
-	if !flying and !forcedFly:
-		if onThorns == true:
-			GameManager.damagePlayer()
-	if areaFlag.match("wind"):
-		var windForce: Vector2
-		var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti
-		windForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
-		windForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
-		if layer != 2 and !flying and !forcedFly:
-			windForce = windForce/8.0
-		velocity += windForce
-
-	if !flying and !forcedFly and !layer == 1: 
-		if areaFlag == "stream":
-			backwards_detector.enabled = true
-			backwards_detector.target_position = areaForce.normalized() * 13
-			if backwards_detector.is_colliding():
+		if !flying and !forcedFly:
+			if onThorns == true:
 				GameManager.damagePlayer()
-			var streamForce: Vector2
-			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier
-			streamForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
-			streamForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
-			velocity += streamForce
-		elif areaFlag == "whirlpool":
-			if streamRef != null:
-				var distanceFromCenter = global_position - streamRef.global_position
-				var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
-				var whirlpoolvel = distanceFromCenter.normalized() * areaForce
-				
-				#backwards_detector.enabled = true
-				#backwards_detector.target_position = Vector2(whirlpoolvel.y, -whirlpoolvel.x).normalized() * 20
-				#if backwards_detector.is_colliding():
-				#	GameManager.damagePlayer()
-				
-				velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
-				velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
-				
+		if areaFlag.match("wind"):
+			var windForce: Vector2
+			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti
+			windForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
+			windForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
+			if layer != 2 and !flying and !forcedFly:
+				windForce = windForce/8.0
+			velocity += windForce
+			
+		elif areaFlag.match("tornado"):
+			var distanceFromCenter = global_position - streamRef.global_position
+			var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
+			var whirlpoolvel = distanceFromCenter.normalized() * areaForce
+					
+			velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * tornadoMultiplier * (streamRef.size / absDistance + 1)
+			velocity += (streamRef.global_position - global_position).normalized() * 100 * (streamRef.size / absDistance + 1) * tornadoMultiplier
+					
+			backwards_detector.enabled = true
+			backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * tornadoMultiplier)).normalized() * 13
+			#print(absDistance)
+			if backwards_detector.is_colliding() or absDistance < 110:
+				tornadoThrownVelocity = velocity
+				GameManager.damagePlayer(2)
+
+		if !flying and !forcedFly and !layer == 1: 
+			if areaFlag == "stream":
 				backwards_detector.enabled = true
-				backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 13
+				backwards_detector.target_position = areaForce.normalized() * 13
 				if backwards_detector.is_colliding():
 					GameManager.damagePlayer()
-				
-		elif areaFlag.match("forcestream"):
-			backwards_detector.enabled = true
-			backwards_detector.target_position = areaForce.normalized() * 13
-			if backwards_detector.is_colliding():
-				GameManager.damagePlayer()
-			velocity += areaForce * waterSpeedMultiplier
-		else:
-			backwards_detector.enabled = false
-	if flyDelayTimer > 0:
-		velocity = movevec.normalized() * moveSpeed / 1.4
-	
+				var streamForce: Vector2
+				var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier
+				streamForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
+				streamForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
+				velocity += streamForce
+			elif areaFlag == "whirlpool":
+				if streamRef != null:
+					var distanceFromCenter = global_position - streamRef.global_position
+					var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
+					var whirlpoolvel = distanceFromCenter.normalized() * areaForce
+					
+					#backwards_detector.enabled = true
+					#backwards_detector.target_position = Vector2(whirlpoolvel.y, -whirlpoolvel.x).normalized() * 20
+					#if backwards_detector.is_colliding():
+					#	GameManager.damagePlayer()
+					
+					velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
+					velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
+					
+					backwards_detector.enabled = true
+					backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 13
+					if backwards_detector.is_colliding():
+						GameManager.damagePlayer()
+					
+			elif areaFlag.match("forcestream"):
+				backwards_detector.enabled = true
+				backwards_detector.target_position = areaForce.normalized() * 13
+				if backwards_detector.is_colliding():
+					GameManager.damagePlayer()
+				velocity += areaForce * waterSpeedMultiplier
+			else:
+				backwards_detector.enabled = false
+		if flyDelayTimer > 0:
+			velocity = movevec.normalized() * moveSpeed / 1.4
+		
 	var colliding = move_and_slide()
 	if colliding and flying:
 		GameManager.damagePlayer(1)

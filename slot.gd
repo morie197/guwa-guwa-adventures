@@ -19,10 +19,17 @@ extends PanelContainer
 signal selected(slot: int)
 signal deleted(slot: int)
 
+var slotMode: String = "load"
+
 func setData(data, slotNumber: int = 0):
 	
 	if slotNumber == 0:
-		slot_name.text = "Autosave"
+		if slotMode.match("load"):
+			slot_name.text = "Autosave"
+			delete_button.disabled = true
+			delete_button.hide()
+		elif slotMode.match("save"):
+			
 	else:
 		slot_name.text = "Slot " + str(slotNumber)
 		
