@@ -23,7 +23,7 @@ var bgmFadeTime: float = 0.2
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
-var moveSpeed: int = 140
+var moveSpeed: int = 160
 var maxStamina: float = 8.0
 var staminaRecoveryRate: float = 1.4
 var stamina: float = 0
@@ -39,7 +39,9 @@ var newtile: Vector2i = Vector2i.ZERO
 var forcedFly: bool = false
 var flyDelay: float = 0.3
 var flyDelayTimer: float = 0.0
-var flyLerpSpeed: float = 3
+var flyLerpSpeed: float = 1
+
+var onThorns: bool = false
 
 var underwaterStaminaDrain: float = 0.6
 
@@ -52,7 +54,7 @@ var speedMultiplier: float = 1.0
 var moveVector: Vector2 = Vector2.ZERO
 var mouseScrollInput: float
 
-@export var streamMoveSpeed: float = 140
+@export var streamMoveSpeed: float = 160
 @export var whirlPoolMultiplier: float = 2
 @export var areaForceTransitionSpeed: float = 10
 
@@ -136,7 +138,7 @@ func _unhandled_input(event):
 				if Input.is_action_just_pressed("fly") and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
 					if sprinting:
 						sprinting = false
-				if areaFlag != "air":
+				if layer != 2:
 					if Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
 						_toggleFly(true)
 					else:
@@ -236,7 +238,7 @@ func _process(delta):
 		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed)
 		
 	if moveVector != Vector2.ZERO:
-		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)	
+		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
 		
 	if flying and !wings_flying_sound.playing:
 		wings_flying_sound.play()
@@ -247,8 +249,10 @@ func _process(delta):
 	if radarTimer > 0:
 		radarTimer -= delta
 
+	if layer == 2 and tired and forcedFly:
+		GameManager.damagePlayer(1)
 	
-	if moveVector != Vector2.ZERO:
+	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or (areaFlag.match("wind") or areaFlag.match("stream")):
 		match layer:
 			0:
 				if water_swimming_through.playing == false:
@@ -259,7 +263,7 @@ func _process(delta):
 		
 		newtile = GameManager.worldManager.getTileUnderPos(global_position)
 		if tile != newtile:
-			if areaFlag.match("dive") or areaFlag.match("air") or areaFlag.match("thorns"):
+			if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
 				areaFlag = ""
 			tile = newtile
 			var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
@@ -272,17 +276,21 @@ func _process(delta):
 				areaFlag = "dive"
 			elif atlascoords == Vector2i(1, 1):
 				layer = 2
-				areaFlag = "air"
+				if !areaFlag.match("wind"):
+					areaFlag = "air"
 				if flying == false:
 					sprinting = false
 					forcedFly = true
 					_toggleFly(true)
-			elif atlascoords == Vector2i(1, 0):
+					
+			if atlascoords == Vector2i(1, 0):
 				layer = 1
-				areaFlag = "thorns"
+				onThorns = true
+			else:
+				onThorns = false
 				
 			if forcedFly:
-				if areaFlag != "air":
+				if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
 					forcedFly = false
 					_toggleFly(false)
 		
@@ -335,7 +343,7 @@ func _process(delta):
 			tired = true
 			if sprinting: 
 				sprinting = false
-			elif flying and areaFlag != "air": 
+			elif flying and areaFlag != "air" and !areaFlag.match("wind") and !forcedFly: 
 				_toggleFly(false)
 	else:
 		if stamina < maxStamina and !underwater: 
@@ -358,7 +366,9 @@ func _area_exit(_area):
 func _toggleFly(value: bool):
 	if flying == value: 
 		return
-	lastMovedDirection = Vector2.ZERO
+	lastMovedDirection = lastMovedDirection * 0.4
+	#if lastMovedDirection.x > 0.5 or lastMovedDirection.y > 0.5:
+	#	lastMovedDirection = lastMovedDirection/2.0
 	if !wings_flapping_sound.playing:
 		wings_flapping_sound.play()
 	if wings_flying_sound.playing:
@@ -411,8 +421,11 @@ func _radar():
 	
 func _move(movevec: Vector2, delt):
 	if flying == true:
-		velocity = lastMovedDirection.normalized()
-	elif areaFlag.match("stream"):
+		#velocity = lerp(velocity.normalized(), ((velocity.normalized() * 2) + lastMovedDirection.normalized()).normalized(), delt * 100)
+		#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
+		velocity = lastMovedDirection
+		
+	elif areaFlag.match("stream") or areaFlag.match("whirlpool"):
 		velocity = movevec
 	else:
 		velocity = movevec.normalized()
@@ -420,7 +433,8 @@ func _move(movevec: Vector2, delt):
 	velocity *= moveSpeed
 	velocity *= speedMultiplier / 1.1
 	
-	tutorial_hint_detector.target_position = moveVector * 20
+	tutorial_hint_detector.enabled = false
+	#tutorial_hint_detector.target_position = moveVector * 20
 	#if tutorial_hint_detector.is_colliding():
 	#	print("tutorial")
 	
@@ -432,10 +446,20 @@ func _move(movevec: Vector2, delt):
 	elif flying:
 		velocity *= flyMulti
 
-	if !flying: 
-		if areaFlag.match("thorns"):
+	if !flying and !forcedFly:
+		if onThorns == true:
 			GameManager.damagePlayer()
-		elif areaFlag == "stream":
+	if areaFlag.match("wind"):
+		var windForce: Vector2
+		var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti
+		windForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
+		windForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
+		if layer != 2 and !flying and !forcedFly:
+			windForce = windForce/8.0
+		velocity += windForce
+
+	if !flying and !forcedFly and !layer == 1: 
+		if areaFlag == "stream":
 			backwards_detector.enabled = true
 			backwards_detector.target_position = areaForce.normalized() * 13
 			if backwards_detector.is_colliding():
@@ -450,8 +474,26 @@ func _move(movevec: Vector2, delt):
 				var distanceFromCenter = global_position - streamRef.global_position
 				var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
 				var whirlpoolvel = distanceFromCenter.normalized() * areaForce
+				
+				#backwards_detector.enabled = true
+				#backwards_detector.target_position = Vector2(whirlpoolvel.y, -whirlpoolvel.x).normalized() * 20
+				#if backwards_detector.is_colliding():
+				#	GameManager.damagePlayer()
+				
 				velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
 				velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
+				
+				backwards_detector.enabled = true
+				backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 13
+				if backwards_detector.is_colliding():
+					GameManager.damagePlayer()
+				
+		elif areaFlag.match("forcestream"):
+			backwards_detector.enabled = true
+			backwards_detector.target_position = areaForce.normalized() * 13
+			if backwards_detector.is_colliding():
+				GameManager.damagePlayer()
+			velocity += areaForce * waterSpeedMultiplier
 		else:
 			backwards_detector.enabled = false
 	if flyDelayTimer > 0:
@@ -459,5 +501,7 @@ func _move(movevec: Vector2, delt):
 	
 	var colliding = move_and_slide()
 	if colliding and flying:
-		_toggleFly(false)
+		GameManager.damagePlayer(1)
+		if !forcedFly:
+			_toggleFly(false)
 	

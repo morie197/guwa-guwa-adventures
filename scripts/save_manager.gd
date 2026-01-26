@@ -92,9 +92,11 @@ func saveAllData():
 	writeFile.close()
 	
 func autoSave():
-	if autosaveCooldownTimer.time_left > 0.0:
+	#if autosaveCooldownTimer.time_left > 0.0:
+	#	return
+	if canAutosave == false:
 		return
-	elif autosave == false:
+	if autosave == false:
 		return
 	autosaveCooldownTimer.wait_time = autosaveCooldown
 	canAutosave = false

@@ -4,7 +4,7 @@ class_name UpgradeData
 const UPGRADES = {
 	"range": {
 		"levels": 20,
-		"percentIncrease": 8,
+		"percentIncrease": 5,
 		"description": "Increases quack, sonar, and zoom out range."
 	},
 	"endurance": {
@@ -14,7 +14,7 @@ const UPGRADES = {
 	},
 	"speed": {
 		"levels": 20,
-		"percentIncrease": 5,
+		"percentIncrease": 3,
 		"description": "Increases player speed."
 	}
 	
