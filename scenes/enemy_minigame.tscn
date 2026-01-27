@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://5y4if4dkbvsj"]
+[gd_scene load_steps=25 format=3 uid="uid://5y4if4dkbvsj"]
 
 [ext_resource type="Script" uid="uid://dcosv8pqa8a2r" path="res://scripts/enemy_minigame.gd" id="1_uucyl"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_hk6hf"]
@@ -114,6 +114,8 @@ size = Vector2(8, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hk6hf"]
 size = Vector2(48, 48)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsa8o"]
+
 [node name="EnemyMinigame" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 0
@@ -174,3 +176,10 @@ allow_greater = true
 nine_patch_stretch = true
 texture_over = ExtResource("6_qsa8o")
 texture_progress = ExtResource("7_udwa8")
+
+[node name="ram" type="Area2D" parent="."]
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ram"]
+shape = SubResource("CircleShape2D_qsa8o")

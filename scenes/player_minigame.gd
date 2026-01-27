@@ -6,17 +6,17 @@ var enduranceMultiplier: float = 1
 var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
-@export var moveSpeed: float = 140
+@export var moveSpeed: float = 160
 @export var staminaRecoveryRate: float = 0.4
 @export var baseQuackRange: float = 100.0
-@export var quackCooldown: float = 0.80
-@export var lungeTime: float = 0.10
+@export var quackCooldown: float = 1.4
+@export var lungeTime: float = 0.15
 @export var lungeSpeed: float = 6
 
 var invincible: bool = false
 var invincibleCoolDown: float = 0.1
 var invincibleTimer: float = 0.0
-var invincibleDuration: float = 0.8
+var invincibleDuration: float = 0.6
 var invincibleDurationTimer: float = 0.0
 
 @onready var swimming = $swimming
@@ -25,9 +25,16 @@ var invincibleDurationTimer: float = 0.0
 var lunging: bool = false
 var tired: bool = false
 
+@onready var ram = $ram
+
 var stamina: float
 var quackTimer: float
 var lungeVector: Vector2
+
+var quackingTime: float = 0.2
+var quackingTimer: float = 0.0
+
+var quacking: bool = false
 
 var hitQuackVolume: float = -6
 var missQuackVolume: float = 0
@@ -55,10 +62,11 @@ func initValues():
 	quacker.parent_duck = self
 	quacker.attack_damage = 1
 	quacker.max_health = GameManager.maxHP
-	quacker.quack_range = baseQuackRange * rangeMultiplier
+	quacker.max_quack_range = baseQuackRange * rangeMultiplier
 	quacker.initValues()
 	quacker.health = GameManager.healthValue
 	quacker.hp_changed.connect(_hp_change)
+	ram.area_entered.connect(_rammed)
 
 func _input(event):
 	if minigamemanager.displaying == true:
@@ -87,6 +95,11 @@ func _process(delta):
 		
 	if invincibleTimer > 0:
 		invincibleTimer -= delta
+		
+	if quackingTimer > 0:
+		quackingTimer -= delta
+	else:
+		quacking = false
 			
 	if invincibleDurationTimer > 0:
 		invincibility_bar.max_value = invincibleDuration * 100
@@ -97,7 +110,7 @@ func _process(delta):
 		invincibility_bar.hide()
 		invincible = false
 		
-	GameManager.worldManager.ui_manager.updateStaminaBar(round(stamina * 100), round(lungeTime * 100))
+	GameManager.worldManager.ui_manager.updateStaminaBar(round(quackTimer * 100), round(quackCooldown * 100))
 
 	if moveVector.x < 0:
 		walking.flip_h = true
@@ -120,6 +133,9 @@ func _process(delta):
 			tired = false
 		
 func _quack():
+	quacking = true
+	quackingTimer = quackingTime
+	
 	quackTimer = quackCooldown
 	if quacker.quack() == false:
 		quack_sound.volume_db = hitQuackVolume
@@ -142,7 +158,8 @@ func parry(damager):
 		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 			quacker.health  = clamp(quacker.health + 1, 0, quacker.max_health)
 		else:
-			damager.damage(1, self)
+			#damager.damage(1, self)
+			damager.parent_duck.changeStates()
 		quacker.hp_changed.emit()
 		invincibleDurationTimer = invincibleDuration
 		invincible = true
@@ -150,6 +167,11 @@ func parry(damager):
 		block_sound.play()
 		return false
 	return false
+	
+func _rammed(area):
+	if lunging:
+		print("damaged enemy")
+		area.get_parent().quacker.damage(1, self)
 	
 func _move(movevec: Vector2):
 	if lunging:

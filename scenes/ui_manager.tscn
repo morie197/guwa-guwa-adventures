@@ -114,6 +114,7 @@ texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("7_tanoa")
 
 [node name="LungeText" type="RichTextLabel" parent="StaminaBarMinigame"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -127,7 +128,7 @@ offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 38
-text = "LUNGE!"
+text = "QUACK!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

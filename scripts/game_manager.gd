@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 0
+var initialLevel: int = 6
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -28,6 +28,8 @@ var availableUpgradePoints: int = 0
 
 var duckRegistry: Array[int] = []
 var treatRegistry: Array[int] = []
+var traveledTiles: Array[Vector2i] = []
+var traveledTilesUnder: Array[Vector2i] = []
 
 var shownTutorials = []
 
@@ -77,9 +79,31 @@ func saveValues():
 	SaveManager.saveData["currentHP"] = healthValue
 	SaveManager.saveData["difficulty"] = difficultyValue
 	SaveManager.saveData["levelName"] = worldManager.levelName
+	SaveManager.saveData["traveledTiles"] = stringToVector2i(traveledTiles.duplicate())
+	SaveManager.saveData["traveledTilesUnder"] = stringToVector2i(traveledTilesUnder.duplicate())
 	
 	var saveText = SAVE_LABEL.instantiate()
 	worldManager.ui_manager.add_child(saveText)
+
+func stringToVector2i(targets):
+	if targets.size() == 0:
+		print("empty")
+		return
+	
+	if targets is Array and !targets.is_empty() and targets[0] is String:
+		var newArray: Array[Vector2i]
+		for target in targets:
+			newArray.append(str_to_var(target))
+		return newArray
+	elif targets is Array[Vector2i]:
+		var newArray: Array[String]
+		for target in targets:
+			newArray.append(var_to_str(target))
+		return newArray
+	else:
+		print("else")
+		return
+
 
 func loadValues():
 	if playerRef == null or worldManager == null:
@@ -108,6 +132,21 @@ func loadValues():
 	
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
+	
+	traveledTiles = []
+	traveledTilesUnder = []
+	
+	var travTiles = SaveManager.saveData.get("traveledTiles", [])
+	traveledTiles = stringToVector2i(travTiles)
+		
+	var travTilesUnder = SaveManager.saveData.get("traveledTiles", [])
+	traveledTilesUnder = stringToVector2i(travTilesUnder)
+	
+	
+	if worldManager != null:
+		worldManager.loadFOW()
+		
+	print(traveledTiles)
 	
 	print(abilities)
 	

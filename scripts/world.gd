@@ -10,6 +10,13 @@ extends Node2D
 @onready var undergroundTreats = $Underground/treats
 @onready var undergroundDucks = $Underground/ducks
 
+@onready var underMap = $MapLayers/Under
+@onready var overMap = $MapLayers/Over
+
+@onready var underHidden = $MapLayers/Under/visible/hidden
+@onready var overHidden = $MapLayers/Over/visible/hidden
+
+
 @onready var ui_manager = $UIManager
 
 @onready var quackNodes = $Overground/cameraNodes/quackNodes
@@ -21,11 +28,66 @@ extends Node2D
 
 @export var levelName: String = ""
 
+var FOWRadius: int = 2
+
 @onready var spawn_pos = $spawnPos
 
 var current_logic_layer
 
+var zoomInAmount: float = 2
+var zoomOutAmount: float = 0.5
+
+const HIDDEN = preload("uid://bhx0dlto56i1j")
+
+var zoomMin: float = 1
+var ZOOMMAX: float = 0.05
+
+var mouseScrollInput: float = 0.0
+var moveVector: Vector2
+
+var zoomSpeed: float = 20
+
+var cameraMoveSpeed: float = 50
+
+var targetZoom: Vector2 = Vector2.ONE
+
+var inMap: bool = false
+var mapCam: Camera2D
+
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("openMap"):
+		openMap()
+		
+	if event is InputEventMouseButton:
+		if Input.is_action_just_pressed("zoomin"):
+			mouseScrollInput = zoomInAmount
+		elif Input.is_action_just_pressed("zoomout"):
+			mouseScrollInput = zoomOutAmount
+	
+	if event is InputEventKey:
+		moveVector.y = Input.get_axis("up", "down")
+		moveVector.x = Input.get_axis("left", "right")
+
+func _process(delta):
+	if inMap:
+		mapCam.global_position += moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
+
+		if mouseScrollInput != 0.0:
+			var calculatedZoom: float = clamp(mapCam.zoom.x * mouseScrollInput, ZOOMMAX, zoomMin)
+			targetZoom = Vector2(calculatedZoom, calculatedZoom)
+			print(targetZoom)
+			mouseScrollInput = 0
+		
+		if mapCam.zoom != targetZoom:
+			mapCam.zoom = mapCam.zoom.lerp(targetZoom, zoomSpeed * delta)
+
 func _ready():
+	mapCam = Camera2D.new()
+	mapCam.set_visibility_layer_bit(1, false)
+	mapCam.set_visibility_layer_bit(2, true)
+	mapCam.enabled = false
+	add_child(mapCam)
+	
 	for treat in undergroundTreats.get_children():
 		treat.underground = true
 		treat.id = -treat.id
@@ -43,6 +105,89 @@ func _ready():
 	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
 	#request_ready()
+
+func openMap(switching: bool = false):
+	#print("opening", inMap)
+	if inMap and !switching:
+		get_viewport().canvas_cull_mask = 1
+		mapCam.enabled = false
+		GameManager.paused = false
+		inMap = false
+		underMap.modulate = Color.TRANSPARENT
+		overMap.modulate = Color.TRANSPARENT
+		return
+	
+	if inMap == false:
+		get_viewport().canvas_cull_mask = 2
+		mapCam.global_position = GameManager.playerRef.global_position
+	inMap = true
+	mapCam.enabled = true
+	mapCam.make_current()
+	GameManager.paused = true
+	var wLayer
+	
+	if !switching:
+		wLayer = GameManager.worldLayer
+	else:
+		wLayer = abs(GameManager.worldLayer - 1)
+	
+	if wLayer == 0:
+		underMap.modulate = Color.WHITE
+		overMap.modulate = Color.TRANSPARENT
+	else:
+		overMap.modulate = Color.WHITE
+		underMap.modulate = Color.TRANSPARENT
+
+func updateFOW():
+	var FOWTileMap: TileMapLayer
+	if GameManager.worldLayer == 0:
+		FOWTileMap = underHidden
+	elif GameManager.worldLayer == 1:
+		FOWTileMap = overHidden
+	else:
+		print("no tile map ;(")
+		return
+		
+	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)
+	if GameManager.worldLayer == 0:
+		if !GameManager.traveledTilesUnder.has(playerCell):
+			GameManager.traveledTilesUnder.append(playerCell)
+	elif GameManager.worldLayer == 1:
+		if !GameManager.traveledTiles.has(playerCell):
+			GameManager.traveledTiles.append(playerCell)
+	
+	var finalFOWRadius = FOWRadius + GameManager.upgradeLevels["range"]
+	
+	for x in range(-finalFOWRadius, finalFOWRadius + 1):
+		for y in range(-finalFOWRadius, finalFOWRadius + 1):
+			var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+			FOWTileMap.set_cell(cellReveal, -1)
+			
+func loadFOW():
+	var parentMap
+	parentMap = overHidden.get_parent()
+	overHidden.queue_free()
+	overHidden = HIDDEN.instantiate()
+	parentMap.add_child(overHidden)
+	
+	parentMap = underHidden.get_parent()
+	underHidden.queue_free()
+	underHidden = HIDDEN.instantiate()
+	parentMap.add_child(underHidden)
+	
+	
+	for playerCell in GameManager.traveledTiles:
+		for x in range(-FOWRadius, FOWRadius + 1):
+			for y in range(-FOWRadius, FOWRadius + 1):
+				var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+				overHidden.set_cell(cellReveal, -1)
+				
+	for playerCell in GameManager.traveledTilesUnder:
+		
+		for x in range(-FOWRadius, FOWRadius + 1):
+			for y in range(-FOWRadius, FOWRadius + 1):
+				var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+				underHidden.set_cell(cellReveal, -1)
 
 func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
@@ -78,6 +223,8 @@ func getTileUnderPos(globalPos: Vector2):
 	return current_logic_layer.local_to_map(globalPos)
 
 func tileToAtlasCoords(localToMapCoords: Vector2i):
+	print("updating FOW")
+	updateFOW()
 	if current_logic_layer == null:
 		print("no logic layer present")
 		return
