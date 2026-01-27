@@ -19,7 +19,7 @@ const ABILITIES = {
 		"name": "sonar",
 		"description": "Press E to search your sorroundings, potentially uncovering secret areas!"
 		},
-	15: {
+	13: {
 		"name": "walk",
 		"description": "Allows you to walk on the land."
 		}, 	
@@ -27,11 +27,11 @@ const ABILITIES = {
 		"name": "dive",
 		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
 		}, 	  
-	25: {
+	30: {
 		"name": "fly",
 		"description": "Hold SPACEBAR to fly, moving much faster than usual and overcoming lower obstacles!"
 		}, 	  
-	30: {
+	40: {
 		"name": "migrate",
 		"description": "Hold SPACEBAR and Q for 5 seconds to migrate, beating the game!"
 		}

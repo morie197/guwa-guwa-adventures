@@ -92,11 +92,14 @@ func saveAllData():
 	writeFile.close()
 	
 func autoSave():
+	GameManager.showTutorial("saving")
 	#if autosaveCooldownTimer.time_left > 0.0:
 	#	return
 	if canAutosave == false:
 		return
 	if autosave == false:
+		return
+	if GameManager.wonGame == true or GameManager.playerRef.migrating == true:
 		return
 	autosaveCooldownTimer.wait_time = autosaveCooldown
 	canAutosave = false

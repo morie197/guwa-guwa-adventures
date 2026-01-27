@@ -121,7 +121,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("menuback pause"):
-		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame:
+		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown:
 			return
 		GameManager.worldManager.ui_manager.pause()
 	if GameManager.paused or GameManager.minigame:
@@ -184,6 +184,9 @@ func _physics_process(delta):
 	if GameManager.wonGame:
 		_move(Vector2.DOWN, delta)
 		return
+	elif GameManager.lost:
+		velocity = Vector2.ZERO
+		return
 	if GameManager.paused:
 		velocity = Vector2.ZERO
 		return
@@ -195,6 +198,8 @@ func _process(delta):
 			bgm.stop()
 		else:
 			bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
+	elif GameManager.lost:
+		bgm.stop()
 	elif GameManager.minigame:
 		flying = false
 		migrating = false
@@ -223,7 +228,7 @@ func _process(delta):
 		underwater = true
 	else:
 		underwater = false
-		
+	
 	if underwater:
 		if stamina > 0:
 			stamina -= delta * underwaterStaminaDrain
@@ -269,36 +274,7 @@ func _process(delta):
 		
 		newtile = GameManager.worldManager.getTileUnderPos(global_position)
 		if tile != newtile:
-			if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
-				areaFlag = ""
-			tile = newtile
-			var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
-			if atlascoords == Vector2i(0, 2):
-				layer = 0
-			elif atlascoords == Vector2i(0, 0):
-				layer = 1
-			elif atlascoords == Vector2i(0, 3):
-				layer = -1
-				areaFlag = "dive"
-			elif atlascoords == Vector2i(1, 1):
-				layer = 2
-				if !areaFlag.match("wind"):
-					areaFlag = "air"
-				if flying == false:
-					sprinting = false
-					forcedFly = true
-					_toggleFly(true)
-					
-			if atlascoords == Vector2i(1, 0):
-				layer = 1
-				onThorns = true
-			else:
-				onThorns = false
-				
-			if forcedFly:
-				if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
-					forcedFly = false
-					_toggleFly(false)
+			tileCheck()
 		
 	if mouseScrollInput != 0:
 		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
@@ -369,9 +345,45 @@ func _area_exit(_area):
 	streamRef = null
 	areaFlag = ""
 	
+func tileCheck():
+	if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
+		areaFlag = ""
+	tile = newtile
+	var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
+	if atlascoords == Vector2i(0, 2):
+		layer = 0
+	elif atlascoords == Vector2i(0, 0):
+		layer = 1
+	elif atlascoords == Vector2i(0, 3):
+		layer = -1
+		areaFlag = "dive"
+	elif atlascoords == Vector2i(1, 1):
+		layer = 2
+		if !areaFlag.match("wind"):
+			areaFlag = "air"
+		if flying == false:
+			sprinting = false
+			forcedFly = true
+			_toggleFly(true)
+					
+	if atlascoords == Vector2i(1, 0):
+		layer = 1
+		onThorns = true
+	else:
+		onThorns = false
+				
+	if forcedFly:
+		if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
+			forcedFly = false
+			_toggleFly(false)
+	
 func _toggleFly(value: bool):
 	if flying == value: 
 		return
+		
+	if !GameManager.abilities.has("fly"):
+		return
+		
 	lastMovedDirection = lastMovedDirection * 0.4
 	#if lastMovedDirection.x > 0.5 or lastMovedDirection.y > 0.5:
 	#	lastMovedDirection = lastMovedDirection/2.0
@@ -407,6 +419,7 @@ func _migrated():
 	add_child(timmy)
 	timmy.wait_time = wonDelay
 	timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
+	timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
 	timmy.timeout.connect(timmy.queue_free)
 	timmy.timeout.connect(audio_listener_2d.queue_free)
 	timmy.start()

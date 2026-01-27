@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Tutorial" load_steps=4 format=3 uid="uid://c4h16h6bd0tpc"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_jikfp"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/tutorial.gd" id="2_iqepm"]
+[ext_resource type="Resource" uid="uid://bypaye5gf826" path="res://resources/qtoQuack.tres" id="2_wgkuu"]
+
+[resource]
+script = ExtResource("2_iqepm")
+items = Array[ExtResource("1_jikfp")]([ExtResource("2_wgkuu")])
+displayText = "Pressing Q near enemy ducks will initiate a battle. Winning makes them move out of the way."
+metadata/_custom_type_script = "uid://c3vgn54satwgg"

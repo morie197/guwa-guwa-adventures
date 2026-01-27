@@ -12,9 +12,16 @@ extends Node2D
 
 @onready var ui_manager = $UIManager
 
+@onready var quackNodes = $Overground/cameraNodes/quackNodes
+@onready var land_nodes = $Overground/cameraNodes/landNodes
+@onready var dive_nodes = $Overground/cameraNodes/diveNodes
+@onready var fly_nodes = $Overground/cameraNodes/flyNodes
+
 @onready var darkener = $Underground/darkener
 
 @export var levelName: String = ""
+
+@onready var spawn_pos = $spawnPos
 
 var current_logic_layer
 
@@ -26,7 +33,6 @@ func _ready():
 		treat.point_light_2d.enabled = false
 		
 	_getDucksRecursively(undergroundDucks)
-		
 	GameManager.playerRef = player
 	GameManager.worldManager = self
 	

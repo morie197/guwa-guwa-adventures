@@ -30,6 +30,7 @@ func _updateSlots():
 	
 	for i in range(SaveManager.saveSlotCount):
 		var slot = SLOT.instantiate()
+		slot.slotMode = mode
 		slotsContainer.add_child(slot)
 		slot.selected.connect(_slotSelected)
 		slot.deleted.connect(_slotDeleted)
@@ -45,8 +46,10 @@ func _slotSelected(slotNumber: int = 0):
 	add_child(popup)
 	
 	if mode.match("load"):
-		if !parentMenu.has_method("_newgame"):
+		if !parentMenu.has_method("_newgame") and !parentMenu.has_method("gameLost"):
 			popup.yes.connect(parentMenu.ui_manager.pause)
+		if parentMenu.has_method("gameLost"):
+			popup.yes.connect(parentMenu.closeLoadSave)
 		
 		popup.yes.connect(SaveManager.loadLevel.bind(SaveManager.saveDataAll[slotNumber]["levelName"]))
 		
@@ -54,15 +57,16 @@ func _slotSelected(slotNumber: int = 0):
 		popup.yes.connect(GameManager.loadValues)
 	
 		popup.no.connect(popup.queue_free)
-		popup.no.connect(parentMenu._inPopup)
+		#popup.no.connect(parentMenu._inPopup)
 	
 	elif mode.match("save"):
-		popup.yes.connect(parentMenu.ui_manager.pause)
+		if !parentMenu.has_method("gameLost"):
+			popup.yes.connect(parentMenu.ui_manager.pause)
 		popup.yes.connect(GameManager.saveValues)
 		popup.yes.connect(SaveManager.save_game.bind(slotNumber))
 	
 		popup.no.connect(popup.queue_free)
-		popup.no.connect(parentMenu._inPopup)
+		#popup.no.connect(parentMenu._inPopup)
 		
 func _slotDeleted(slotNumber: int = 0):
 	var popup = parentMenu.POPUP.instantiate()
@@ -74,6 +78,7 @@ func _slotDeleted(slotNumber: int = 0):
 	popup.yes.connect(popup.queue_free)
 	
 	popup.no.connect(popup.queue_free)
+	#popup.no.connect(parentMenu._inPopup)
 	
 func _back():
 	parentMenu._inPopup()

@@ -1,11 +1,28 @@
-[gd_resource type="Resource" script_class="tutorialList" load_steps=3 format=3 uid="uid://babei73ri162t"]
+[gd_resource type="Resource" script_class="tutorialList" load_steps=12 format=3 uid="uid://babei73ri162t"]
 
 [ext_resource type="Script" uid="uid://df8cvxetmidef" path="res://scripts/tutorialList.gd" id="1_plr7i"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/tutorial.gd" id="2_jvs0w"]
 [ext_resource type="Resource" uid="uid://j7jhahcxol2v" path="res://resources/basicsTutorial.tres" id="2_plr7i"]
+[ext_resource type="Resource" uid="uid://bbhgw5kng0p32" path="res://resources/saving.tres" id="4_8evg3"]
+[ext_resource type="Resource" uid="uid://c4h16h6bd0tpc" path="res://resources/quack.tres" id="5_8evg3"]
+[ext_resource type="Resource" uid="uid://7und1exryiva" path="res://resources/sprinting.tres" id="6_owgbv"]
+[ext_resource type="Resource" uid="uid://c6apiq1m7t46" path="res://resources/radar.tres" id="7_1hoe8"]
+[ext_resource type="Resource" uid="uid://bnpqbi4arqerj" path="res://resources/land.tres" id="8_rv2hx"]
+[ext_resource type="Resource" uid="uid://27x8o2kyq6jo" path="res://resources/diving.tres" id="9_rv2hx"]
+[ext_resource type="Resource" uid="uid://c20t3nqr2tbxi" path="res://resources/flying.tres" id="10_vdjrm"]
+[ext_resource type="Resource" uid="uid://dwnsp46bqvsby" path="res://resources/migrate.tres" id="11_vdjrm"]
 
 [resource]
 script = ExtResource("1_plr7i")
-tutorials = Dictionary[String, Resource]({
-"basics": ExtResource("2_plr7i")
+tutorials = Dictionary[String, ExtResource("2_jvs0w")]({
+"basics": ExtResource("2_plr7i"),
+"dive": ExtResource("9_rv2hx"),
+"fly": ExtResource("10_vdjrm"),
+"land": ExtResource("8_rv2hx"),
+"migrate": ExtResource("11_vdjrm"),
+"quack": ExtResource("5_8evg3"),
+"radar": ExtResource("7_1hoe8"),
+"saving": ExtResource("4_8evg3"),
+"sprint": ExtResource("6_owgbv")
 })
 metadata/_custom_type_script = "uid://df8cvxetmidef"

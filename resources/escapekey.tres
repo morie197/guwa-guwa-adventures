@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=3 format=3 uid="uid://cieerfys8w8nk"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_7a7fe"]
+[ext_resource type="Texture2D" uid="uid://btv1k2p8y0c03" path="res://sprites/keys/escape, tab/keyboard_escape.svg" id="1_r470k"]
+
+[resource]
+script = ExtResource("1_7a7fe")
+icons = Array[Texture2D]([ExtResource("1_r470k")])
+text = "Pause: "
+includeInPause = false
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

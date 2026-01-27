@@ -5,6 +5,9 @@ const KEY_PRESS_DISPLAY = preload("uid://cu2qa7tl2feks")
 @onready var tutorial_text = $"DialogueBox/Tutorial Text"
 @onready var key_presses = $PanelContainer/bottom_bar/key_presses_container
 
+@onready var dialogue_box = $DialogueBox
+@onready var nextDialogueButton = $TextureRect
+
 @export var maxDisplayTime: float = 30
 
 var keyDisplay
@@ -15,10 +18,14 @@ func _process(delta):
 	displayTime += delta
 	if Input.is_action_just_pressed("nextTutorialItem") or displayTime >= maxDisplayTime:
 		displayTime = 0.0
+		GameManager.tutorialOver.emit()
 		queue_free()
 
 func setData(tutorial: Tutorial):
-	if !tutorial.displayText.match(""):
+	if tutorial.displayText == "":
+		dialogue_box.hide()
+		nextDialogueButton.hide()
+	else:
 		tutorial_text.text = tutorial.displayText
 	_setTutorialItems(tutorial.items)
 

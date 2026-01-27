@@ -24,6 +24,14 @@ func setData(keyDataOriginal: Array[Texture2D], text: String, type: String):
 		
 		for image in keyData:
 			_addImage(image)
+	elif type.match("plus"):
+		_addImage(keyData[0])
+		keyData.erase(keyData[0])
+		
+		_addText(" + ")
+		
+		for image in keyData:
+			_addImage(image)
 	else:
 		for image in keyData:
 			_addImage(image)

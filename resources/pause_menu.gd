@@ -34,9 +34,10 @@ func _ready():
 	for unlockedTutorials in GameManager.shownTutorials:
 		var tutorial = ui_manager.ALL_TUTORIALS.tutorials[unlockedTutorials]
 		for item in tutorial.items:
-			var keyDisplay = KEY_PRESS_DISPLAY.instantiate()
-			key_presses.add_child(keyDisplay)
-			keyDisplay.setData(item.icons, item.text, item.type)
+			if item.includeInPause:
+				var keyDisplay = KEY_PRESS_DISPLAY.instantiate()
+				key_presses.add_child(keyDisplay)
+				keyDisplay.setData(item.icons, item.text, item.type)
 	
 func _resume():
 	ui_manager.pause()

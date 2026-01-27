@@ -2094,15 +2094,16 @@ showColor = Color(0.7529412, 0, 0.18039216, 0.21176471)
 
 [node name="Mask" type="TileMapLayer" parent="Overground/areas/hiddenArea5"]
 z_index = 4
-tile_map_data = PackedByteArray("AAD//wQAAQAAAAEAAAD//wMAAQAAAAEAAAD//wIAAQAAAAEAAAD//wEAAQAAAAEAAAAAAAEAAQAAAAEAAAAAAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAEAAQAAAAEAAAACAAEAAQAAAAEAAAACAAIAAQAAAAEAAAADAAIAAQAAAAEAAAADAAMAAQAAAAIAAAACAAMAAQAAAAEAAAABAAQAAQAAAAEAAAAAAAQAAQAAAAEAAAAAAAMAAQAAAAEAAAAAAAIAAQAAAAEAAAABAAIAAQAAAAEAAAABAAMAAQAAAAEAAAABAAUAAQAAAAEAAAAAAAUAAQAAAAEAAAD//wUAAQAAAAEAAAD+/wQAAQAAAAEAAAD+/wMAAQAAAAEAAAD+/wIAAQAAAAEAAAD+/wEAAQAAAAEAAAD//wAAAQAAAAEAAAACAAAAAQAAAAEAAAACAP//AQAAAAEAAAABAP//AQAAAAEAAAAAAP//AQAAAAEAAAD/////AQAAAAEAAAADAAEAAQAAAAEAAAD9/wIAAQAAAAEAAAD9/wMAAQAAAAEAAAACAAQAAQAAAAEAAAACAAUAAQAAAAEAAAADAAAAAQAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAAEAAIAAQAAAAEAAAAEAAMAAQAAAAEAAAAEAAQAAQAAAAEAAAADAAQAAQAAAAEAAAADAAUAAQAAAAEAAAACAAUAAQAAAAEAAAAEAAUAAQAAAAEAAAAEAAYAAQAAAAEAAAAEAAcAAQAAAAEAAAAEAAgAAQAAAAEAAAAEAAoAAQAAAAIAAAAFAAgAAQAAAAEAAAAFAAcAAQAAAAEAAAAFAAYAAQAAAAEAAAAFAAUAAQAAAAEAAAAFAAQAAQAAAAEAAAAFAAMAAQAAAAEAAAADAAYAAQAAAAEAAAADAAMAAQAAAAEAAAADAAIAAQAAAAEAAAAEAAEAAQAAAAEAAAAFAAIAAQAAAAEAAAAGAAMAAQAAAAEAAAAGAAQAAQAAAAEAAAAGAAUAAQAAAAEAAAAGAAYAAQAAAAEAAAA=")
 tile_set = ExtResource("5_cqal4")
 navigation_enabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/hiddenArea5"]
-position = Vector2(0, 128)
+position = Vector2(320, 320)
 shape = SubResource("CircleShape2D_56gwk")
 
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea5"]
+position = Vector2(320, 320)
 stream = SubResource("AudioStreamMP3_8iemx")
 volume_db = -3.496
 
@@ -3515,7 +3516,38 @@ duckHP = Array[int]([7, 9])
 stageName = "water"
 owners = [NodePath("../StaticEnemyDuck14"), NodePath(".")]
 
+[node name="cameraNodes" type="Node2D" parent="Overground"]
+
+[node name="quackNodes" type="Node2D" parent="Overground/cameraNodes"]
+
+[node name="1" type="Node2D" parent="Overground/cameraNodes/quackNodes"]
+position = Vector2(1920, -1920)
+
+[node name="landNodes" type="Node2D" parent="Overground/cameraNodes"]
+
+[node name="1" type="Node2D" parent="Overground/cameraNodes/landNodes"]
+position = Vector2(-2048, -4608)
+
+[node name="2" type="Node2D" parent="Overground/cameraNodes/landNodes"]
+position = Vector2(4736, -4416)
+
+[node name="3" type="Node2D" parent="Overground/cameraNodes/landNodes"]
+position = Vector2(640, -5120)
+
+[node name="diveNodes" type="Node2D" parent="Overground/cameraNodes"]
+
+[node name="1" type="Node2D" parent="Overground/cameraNodes/diveNodes"]
+position = Vector2(4864, -7296)
+
+[node name="flyNodes" type="Node2D" parent="Overground/cameraNodes"]
+
+[node name="1" type="Node2D" parent="Overground/cameraNodes/flyNodes"]
+position = Vector2(-2112, -8192)
+
 [node name="Player" parent="." instance=ExtResource("13_ikw2v")]
 position = Vector2(1920, -1080)
 
 [node name="UIManager" parent="." instance=ExtResource("14_cgqhq")]
+
+[node name="spawnPos" type="Node2D" parent="."]
+position = Vector2(1920, -1080)

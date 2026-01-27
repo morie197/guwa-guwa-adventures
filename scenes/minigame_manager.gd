@@ -159,6 +159,10 @@ func _wonGame():
 func _lostGame():
 	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		GameManager.lostGame()
+		player_minigame.hide()
+		lost.emit()
+		displaying = true
+		return
 	if displaying == true:
 		return
 	player_minigame.hide()

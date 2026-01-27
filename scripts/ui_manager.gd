@@ -6,9 +6,15 @@ const ALL_TUTORIALS = preload("uid://babei73ri162t")
 const CREDITS = preload("uid://26t45ci53pbw")
 const PAUSE_MENU = preload("uid://x4vnr5iy3hg3")
 const HP_BAR_PART = preload("uid://cgofcggcnhupr")
+const SAVE_LOAD_MENU = preload("uid://b8nmevsdid6a6")
+const POPUP = preload("uid://cd68megybdr25")
 
 const HPPART = preload("uid://dpew5sdxiu3ji")
 const HPPARTEMPTY = preload("uid://bnx8opkaadiwv")
+
+@onready var lostpanel = $lostpanel
+
+var inPopup: bool = false
 
 @onready var game_won_bgm = $sounds/gameWonBGM
 @onready var winpanel = $winpanel
@@ -31,7 +37,12 @@ const HPPARTEMPTY = preload("uid://bnx8opkaadiwv")
 @onready var hp_text = %HPText
 @onready var hp_bars = %HPBars
 
+@onready var loadGame = $lostpanel/VBoxContainer2/VBoxContainer/load
+@onready var quit = $lostpanel/VBoxContainer2/VBoxContainer/quit
+
 @onready var hud = %HUD
+
+var creditContentSize: float = 0
 
 
 var stamina: int
@@ -40,6 +51,8 @@ var tutorial
 var levelUpUI
 
 var credits
+
+var saveLoadMenu
 
 var hoverState: float = 0
 var hoverTime: float = 0.2
@@ -51,8 +64,12 @@ var hoverSpeed: float = 1
 var hoverAmount: float = 5
 var origin: Vector2
 
+var creditSkipSpeed: float = 20
+
 var inPauseMenu: bool = false
 var pauseMenu
+
+var ui_manager = self
 
 var hpBars: Array[Node] = []
 
@@ -75,13 +92,32 @@ func _ready():
 	
 	for bar in hp_bars.get_children():
 		hpBars.append(bar)
+		
+	loadGame.pressed.connect(_load)
+	quit.pressed.connect(_quit)
 	
 func _physics_process(delta):
 	if credits != null:
+		if tutorial:
+			tutorial.queue_free()
 		if winpanel.modulate != targetModulateColor:
 			winpanel.modulate = winpanel.modulate.lerp(targetModulateColor, delta * modulateSpeed)
-		credits.global_position.y -= (creditScrollSpeed * delta)
+		if Input.is_action_pressed("nextTutorialItem"):
+			credits.global_position.y -= (creditScrollSpeed * delta * creditSkipSpeed)
+		else:
+			credits.global_position.y -= (creditScrollSpeed * delta)
 		game_won_bgm.volume_db = lerp(game_won_bgm.volume_db, bgmVolume, bgmFadeTime * delta )
+		
+		if -credits.global_position.y > creditContentSize:
+			if Input.is_action_pressed("nextTutorialItem"):
+				game_won_bgm.volume_db -= 1
+			game_won_bgm.volume_db = lerp(game_won_bgm.volume_db, -80.0, bgmFadeTime * delta )
+			#print(game_won_bgm.volume_db)
+			winpanel.modulate = winpanel.modulate.lerp(Color.BLACK, delta * modulateSpeed)
+			if game_won_bgm.volume_db < -40:
+				GameManager.playerCamCredits.queue_free()
+				GameManager.wonGame = false
+				get_tree().change_scene_to_file("res://resources/main_menu.tscn")
 	
 	if hoverState == 1:
 		hoverTime += delta
@@ -153,6 +189,35 @@ func pause():
 			inPauseMenu = false
 			pauseMenu.queue_free()
 			
+func closeLoadSave():
+	GameManager.paused = false
+	GameManager.lost = false
+	saveLoadMenu.queue_free()
+	lostpanel.hide()
+	_inPopup()
+
+func _load():
+	if saveLoadMenu != null:
+		saveLoadMenu.queue_free()
+	saveLoadMenu = SAVE_LOAD_MENU.instantiate()
+	saveLoadMenu.mode = "load"
+	add_child(saveLoadMenu)
+	saveLoadMenu.parentMenu = self
+	_inPopup()
+	
+func _quit():
+	GameManager.paused = false
+	GameManager.lost = false
+	get_tree().change_scene_to_file("res://resources/main_menu.tscn")
+
+func _inPopup():
+	inPopup = !inPopup
+	var buttons = [loadGame , quit]
+	if SaveManager.check_save() == false:
+		buttons.erase(loadGame)
+	for button in buttons:
+		button.disabled = inPopup			
+	
 func updateStaminaBar(current: int, max: int):
 	if GameManager.wonGame == true:
 		stamina_bar.hide()
@@ -187,6 +252,9 @@ func updateMigrateBar(current: int, maxVal: int):
 	migrate_bar.max_value = maxVal
 	migrate_bar.value = maxVal - current
 
+func gameLost():
+	lostpanel.show()
+
 func gameWon():
 	migrate_bar.hide()
 	stamina_bar.hide()
@@ -198,11 +266,16 @@ func gameWon():
 	credits.position.y += creditScreenOffset
 	game_won_bgm.volume_db = -60.0
 	game_won_bgm.play()
+	
+	creditContentSize = 5700
 
 func _showLevelUpUI():
-	GameManager.paused = true
-	
 	collected_number.text = str(GameManager.level)
+	
+	if GameManager.availableUpgradePoints <= 0:
+		return
+	
+	GameManager.paused = true
 	
 	var foundNextAbility = false
 	
@@ -210,7 +283,7 @@ func _showLevelUpUI():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = "Next ability at: " + str(ability)
+			until_next_ability.text = "Next: " + str(ability)
 			foundNextAbility = true
 			break
 			
@@ -236,7 +309,8 @@ func _showLevelUpUI():
 	
 func _startTutorial(tutorialName: String):
 	if tutorial != null:
-		return
+		tutorial.queue_free()
+		#return
 	tutorial = TUTORIAL.instantiate()
 	add_child(tutorial)
 	if !ALL_TUTORIALS.tutorials.has(tutorialName):

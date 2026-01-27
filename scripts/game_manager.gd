@@ -1,14 +1,17 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 25
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
 var inUpgradeMenu: bool = false
 var baseHealthValue: int = 10
+var cameraShown: bool = false
 var healthValue: int = 5
 var maxHP: int = 5
+
+var lost: bool = false
 
 var testingCheats: bool = false
 
@@ -34,6 +37,8 @@ var worldManager
 var playerRef
 var worldLayer = 1
 
+var playerCamCredits
+
 var canDamage: bool = true
 var damageCooldown: float = 1
 
@@ -42,6 +47,7 @@ signal startTutorial(String)
 signal treatsUpdated
 signal levelLoaded
 signal upgraded
+signal tutorialOver
 	
 func enterLevel():	
 	paused = false
@@ -53,7 +59,6 @@ func enterLevel():
 		testingCheats = true
 	
 	levelLoaded.emit()
-	print("entered level")
 	for l in range(level, initialLevel):
 		treatGet()
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
@@ -104,6 +109,10 @@ func loadValues():
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
 	
+	print(abilities)
+	
+	levelUp.emit()
+	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
@@ -126,15 +135,98 @@ func closeUpgrades():
 	paused = false
 	upgraded.emit()
 	
+	if abilities.has("quack"):
+		showTutorial("quack")
+	if abilities.has("sprint"):
+		showTutorial("sprint")
+	if abilities.has("sonar"):
+		showTutorial("radar")
+	if abilities.has("walk"):
+		showTutorial("land")
+	if abilities.has("dive"):
+		showTutorial("dive")
+	if abilities.has("fly"):
+		showTutorial("fly")
+	if abilities.has("migrate"):
+		showTutorial("migrate")
+	
 	if testingCheats == true:
 		testingCheats = false
 		return
 	
 	SaveManager.autoSave()
 	
+func cameraShow(category: String):
+	paused = true
+	if shownTutorials.has(category) or playerRef == null:
+		print("already shown")
+		return
+	
+	var nodes
+	match category:
+		"quack":
+			nodes = worldManager.quackNodes
+		"land":
+			nodes = worldManager.land_nodes
+		"dive":
+			nodes = worldManager.dive_nodes
+		"fly":
+			nodes = worldManager.fly_nodes
+	
+	if nodes == null:
+		print(category)
+		print("none")
+		return
+	
+	var finalNodePos = Vector2.INF
+	for node in nodes.get_children():
+		if playerRef.global_position.distance_to(node.global_position) < playerRef.global_position.distance_to(finalNodePos):
+			finalNodePos = node.global_position
+	
+	var cam = Camera2D.new()
+	cam.global_position = finalNodePos
+	add_child(cam)
+	cam.make_current()
+	
+	var tim = Timer.new()
+	tim.wait_time = 10
+	add_child(tim)
+	
+	if worldLayer == 0:
+		worldManager.switchUnderOverGround()
+		tim.timeout.connect(cameraSwitchWorldLayer)
+		tutorialOver.connect(cameraSwitchWorldLayer)
+	
+	
+	if !tutorialOver.is_connected(cameraShowPause):
+		tutorialOver.connect(cameraShowPause)
+	
+	tim.timeout.connect(cam.queue_free)
+	tutorialOver.connect(cam.queue_free)
+	tim.timeout.connect(cameraShowPause)
+	tim.timeout.connect(tim.queue_free)
+	tutorialOver.connect(tim.queue_free)
+	tim.start()
+	cameraShown = true
+
+func cameraShowPause():
+	if cameraShown:
+		paused = false
+		cameraShown = false
+		
+func cameraSwitchWorldLayer():
+	if worldLayer == 1:
+		worldManager.switchUnderOverGround()
+	
+	
 func showTutorial(tutorialName: String):
 	if shownTutorials.has(tutorialName):
 		return
+		
+	if tutorialName.match("quack") or tutorialName.match("land") or tutorialName.match("dive") or tutorialName.match("fly"):
+		print("showing")
+		cameraShow(tutorialName)
+		
 	shownTutorials.append(tutorialName)
 	startTutorial.emit(tutorialName)
 	
@@ -195,7 +287,8 @@ func _calculateBonus(upgradeName: String):
 func _levelUp():
 	level += 1
 	if AbilityData.ABILITIES.has(level):
-		abilities.append(AbilityData.ABILITIES[level]["name"])
+		if !abilities.has(AbilityData.ABILITIES[level]["name"]):
+			abilities.append(AbilityData.ABILITIES[level]["name"])
 		
 	availableUpgradePoints += 1
 	inUpgradeMenu = true
@@ -233,7 +326,9 @@ func abilityCheck():
 		playerRef.set_collision_mask_value(4, true)
 	
 func lostGame():
-	print("lost!")
+	GameManager.paused = true
+	lost = true
+	worldManager.ui_manager.gameLost()
 	
 func damagePlayer(amount: int = 1):
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:

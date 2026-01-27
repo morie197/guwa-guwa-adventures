@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=3 format=3 uid="uid://dc1otune2r14j"]
+
+[ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="1_5awal"]
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_ps8hc"]
+
+[resource]
+script = ExtResource("1_ps8hc")
+icons = Array[Texture2D]([ExtResource("1_5awal")])
+text = "Sprint: "
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

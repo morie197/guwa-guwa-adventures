@@ -28,3 +28,4 @@ script = ExtResource("1_03oao")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+alignment = 1

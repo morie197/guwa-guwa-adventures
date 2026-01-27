@@ -38,6 +38,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _newGame():
+	if selectedStage.match("Quiet Gardens"):
+		SaveManager.saveData = {"player_pos_x":1920.0,"player_pos_y":-1080.0}
+	else:
+		SaveManager.saveData = {}
+	GameManager.loadValues()
 	SaveManager.loadLevel(selectedStage)
 
 func _back():

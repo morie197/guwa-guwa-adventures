@@ -29,7 +29,7 @@ func setData(data, slotNumber: int = 0):
 			delete_button.disabled = true
 			delete_button.hide()
 		elif slotMode.match("save"):
-			
+			queue_free()
 	else:
 		slot_name.text = "Slot " + str(slotNumber)
 		
@@ -50,9 +50,9 @@ func setData(data, slotNumber: int = 0):
 	elif int(data["difficulty"]) == 1:
 		difficulty.text = "Difficulty: Normal"
 		
-	stage_name.text = "Map: " + data["levelName"] + " |"
+	stage_name.text = "Map: " + data["levelName"]
 	
-	health.text = "HP: " + str(int(data["currentHP"]))
+	health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
 	
 
 	
