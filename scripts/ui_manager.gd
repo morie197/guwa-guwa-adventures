@@ -135,6 +135,9 @@ func _updateMaxHP():
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		hp_text.hide()
 		return
+		
+	hp_bars.show()
+	hp_text.show()
 	hp_text.text = "HP: " + str(GameManager.healthValue) + "/" + str(maxHP)
 	
 	for hpbar in hpBars:

@@ -69,11 +69,11 @@ func saveValues():
 	SaveManager.saveData["player_pos_y"] = playerRef.global_position.y
 	SaveManager.saveData["worldLayer"] = worldLayer
 	SaveManager.saveData["level"] = level
-	SaveManager.saveData["shownTutorials"] = shownTutorials
-	SaveManager.saveData["abilities"] = abilities
-	SaveManager.saveData["upgradeLevels"] = upgradeLevels
-	SaveManager.saveData["duckRegistry"] = duckRegistry
-	SaveManager.saveData["treatRegistry"] = treatRegistry
+	SaveManager.saveData["shownTutorials"] = shownTutorials.duplicate()
+	SaveManager.saveData["abilities"] = abilities.duplicate()
+	SaveManager.saveData["upgradeLevels"] = upgradeLevels.duplicate()
+	SaveManager.saveData["duckRegistry"] = duckRegistry.duplicate()
+	SaveManager.saveData["treatRegistry"] = treatRegistry.duplicate()
 	SaveManager.saveData["currentHP"] = healthValue
 	SaveManager.saveData["difficulty"] = difficultyValue
 	SaveManager.saveData["levelName"] = worldManager.levelName
@@ -299,6 +299,7 @@ func _levelUp():
 func won():
 	wonGame = true
 	paused = true
+	SaveManager.saveData = {}
 	worldManager.ui_manager.gameWon()
 	
 func abilityCheck():

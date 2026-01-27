@@ -212,7 +212,7 @@ func _process(delta):
 		moveVector = Vector2.ZERO
 		return
 	if migrating:
-		if moveVector.y > 0 and flying:
+		if moveVector.y > 0 and flying and GameManager.worldLayer == 1:
 			if migrateTimer > 0:
 				bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
 				migrateTimer -= delta

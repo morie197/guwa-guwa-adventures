@@ -220,13 +220,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HP" type="VBoxContainer" parent="HUD"]
-visible = false
 layout_mode = 0
 offset_right = 220.0
 offset_bottom = 92.0
 
 [node name="HPBars" type="HBoxContainer" parent="HUD/HP"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -234,6 +234,7 @@ theme_override_constants/separation = -38
 
 [node name="HPText" type="RichTextLabel" parent="HUD/HP"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
 text = "HP: 5/5"
