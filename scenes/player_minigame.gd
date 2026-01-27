@@ -7,7 +7,7 @@ var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
 @export var moveSpeed: float = 140
-@export var staminaRecoveryRate: float = 0.6
+@export var staminaRecoveryRate: float = 0.4
 @export var baseQuackRange: float = 100.0
 @export var quackCooldown: float = 0.80
 @export var lungeTime: float = 0.10
@@ -72,7 +72,7 @@ func _input(event):
 			if Input.is_action_just_pressed("quack"):
 				_quack()
 		
-		if Input.is_action_pressed("sprint") and !tired:
+		if (Input.is_action_pressed("sprint") or Input.is_action_just_pressed("fly")) and !tired:
 			if moveVector == Vector2.ZERO:
 				return
 			lunging = true

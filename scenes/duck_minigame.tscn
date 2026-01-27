@@ -16,9 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://dxpwpg0jqnmli" path="res://sprites/keys/wasd/keyboard_w.svg" id="13_jgibo"]
 [ext_resource type="Texture2D" uid="uid://da538aprdc7p6" path="res://sprites/keys/wasd/keyboard_a.svg" id="14_e78kl"]
 [ext_resource type="Texture2D" uid="uid://pwfqn4dbm23t" path="res://sprites/keys/wasd/keyboard_s.svg" id="15_6sb5u"]
+[ext_resource type="Texture2D" uid="uid://cl23cb341umh" path="res://sprites/keys/qe/keyboard_e.svg" id="16_6sb5u"]
 [ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="16_bpfxv"]
-[ext_resource type="Texture2D" uid="uid://bq6bus1p6d74e" path="res://sprites/keys/qe/keyboard_q.svg" id="17_e78kl"]
-[ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="18_6sb5u"]
+[ext_resource type="Texture2D" uid="uid://bodmqtlj1sj1a" path="res://sprites/keys/shift, space/keyboard_space.svg" id="17_bpfxv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("1_g2itt")
@@ -391,7 +391,7 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("17_e78kl")
+texture = ExtResource("16_6sb5u")
 stretch_mode = 5
 
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/TextureRect"]
@@ -421,7 +421,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("18_6sb5u")
+texture = ExtResource("17_bpfxv")
 stretch_mode = 5
 
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/TextureRect"]

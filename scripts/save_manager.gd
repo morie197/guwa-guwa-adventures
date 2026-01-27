@@ -33,14 +33,18 @@ func save_game(slot: int = 0):
 	
 
 func load_game(slot: int = 0):
+	saveData = saveDataAll[slot].duplicate()
+	
 	if saveData.has("levelName"):
 		if saveData["levelName"] != saveDataAll[slot]["levelName"]:
 			loadLevel(saveDataAll[slot]["levelName"])
 			
 	if saveData == {}:
-		loadLevel(saveDataAll[slot]["levelName"])
-			
-	saveData = saveDataAll[slot].duplicate()
+		if saveData.has("levelName"):
+			loadLevel(saveDataAll[slot]["levelName"])
+		else:
+			print("returning")
+			return
 	
 	GameManager.loadValues()
 	
@@ -71,8 +75,8 @@ func loadAllData():
 	
 	var readFile = FileAccess.open(savePath, FileAccess.READ)
 	if readFile == null:
-		saveDataAll = baseData
-		print("no save data!")
+		#push_warning("Failed to open file because: %s (Error code: %d)" % [error_str, error_code])
+		saveDataAll = baseData.duplicate()
 		return
 	var data = readFile.get_as_text()
 	readFile.close()

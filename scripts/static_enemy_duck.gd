@@ -35,7 +35,7 @@ func _player_exited(_area):
 		GameManager.playerRef.quack.disconnect(_quack)
 
 func _quack():
-	if duckNames.size() > 0 and GameManager.minigame == false:
+	if duckNames.size() > 0 and GameManager.minigame == false and GameManager.lost == false:
 		GameManager.initiateMinigame(duckNames, duckHP, stageName, owners)
 	
 func playerWon():

@@ -42,6 +42,10 @@ func _updateSlots():
 		slot.setData(SaveManager.saveDataAll[i], i)
 
 func _slotSelected(slotNumber: int = 0):
+	if mode.match("load"):
+		if !SaveManager.saveDataAll[slotNumber].has("levelName"):
+			print("invalid save")
+			return
 	var popup = parentMenu.POPUP.instantiate()
 	add_child(popup)
 	
@@ -54,7 +58,7 @@ func _slotSelected(slotNumber: int = 0):
 		popup.yes.connect(SaveManager.loadLevel.bind(SaveManager.saveDataAll[slotNumber]["levelName"]))
 		
 		popup.yes.connect(SaveManager.load_game.bind(slotNumber))
-		popup.yes.connect(GameManager.loadValues)
+		#popup.yes.connect(GameManager.loadValues)
 	
 		popup.no.connect(popup.queue_free)
 		#popup.no.connect(parentMenu._inPopup)
