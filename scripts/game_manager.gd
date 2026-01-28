@@ -335,9 +335,10 @@ func _calculateBonus(upgradeName: String):
 
 func _levelUp():
 	level += 1
-	if AbilityData.ABILITIES.has(level):
-		if !abilities.has(AbilityData.ABILITIES[level]["name"]):
-			abilities.append(AbilityData.ABILITIES[level]["name"])
+	for i in range(level + 1):
+		if AbilityData.ABILITIES.has(i):
+			if !abilities.has(AbilityData.ABILITIES[i]["name"]):
+				abilities.append(AbilityData.ABILITIES[i]["name"])
 		
 	availableUpgradePoints += 1
 	inUpgradeMenu = true
@@ -352,6 +353,11 @@ func won():
 	worldManager.ui_manager.gameWon()
 	
 func abilityCheck():
+	for i in range(level + 1):
+		if AbilityData.ABILITIES.has(i):
+			if !abilities.has(AbilityData.ABILITIES[i]["name"]):
+				abilities.append(AbilityData.ABILITIES[i]["name"])
+	
 	if abilities.has("sprint"):
 		worldManager.ui_manager.stamina_bar.show()
 		playerRef.emitUpdatedStaminaValue()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=42 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scenes/player_minigame.gd" id="1_5jswy"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="1_g2itt"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://cl23cb341umh" path="res://sprites/keys/qe/keyboard_e.svg" id="16_6sb5u"]
 [ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="16_bpfxv"]
 [ext_resource type="Texture2D" uid="uid://bodmqtlj1sj1a" path="res://sprites/keys/shift, space/keyboard_space.svg" id="17_bpfxv"]
+[ext_resource type="Texture2D" uid="uid://cniriik63s5n8" path="res://mouse_left.svg" id="17_ufrio"]
+[ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="19_qld8f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("1_g2itt")
@@ -396,7 +398,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -404,13 +412,48 @@ size_flags_vertical = 4
 texture = ExtResource("16_6sb5u")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/TextureRect"]
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect"]
 z_index = -1
 layout_mode = 0
 offset_left = 21.0
 offset_top = 18.0
 offset_right = 81.0
 offset_bottom = 82.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("17_ufrio")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect2"]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 18.0
+offset_right = 81.0
+offset_bottom = 82.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("17_bpfxv")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/TextureRect3"]
+z_index = -1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 34.0
+offset_right = 81.0
+offset_bottom = 66.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
 [node name="lunge" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
@@ -431,7 +474,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("17_bpfxv")
+texture = ExtResource("19_qld8f")
 stretch_mode = 5
 
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/TextureRect"]

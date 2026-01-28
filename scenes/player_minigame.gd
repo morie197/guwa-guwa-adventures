@@ -37,7 +37,7 @@ var stamina: float
 var quackTimer: float
 var lungeVector: Vector2
 
-var quackingTime: float = 0.2
+var quackingTime: float = 0.6
 var quackingTimer: float = 0.0
 
 var quacking: bool = false
@@ -79,15 +79,19 @@ func _input(event):
 	if minigamemanager.displaying == true:
 		moveVector = Vector2.ZERO
 		return
+		
+	if Input.is_action_just_pressed("leftClick"):
+		_quack()
+		
 	if event is InputEventKey:
 		moveVector.y = Input.get_axis("up", "down")
 		moveVector.x = Input.get_axis("left", "right")
 			
 		if quackTimer <= 0:
-			if Input.is_action_just_pressed("quack"):
+			if Input.is_action_just_pressed("quack") or Input.is_action_just_pressed("fly"):
 				_quack()
 		
-		if (Input.is_action_pressed("sprint") or Input.is_action_just_pressed("fly")) and !tired:
+		if Input.is_action_pressed("sprint") and !tired:
 			if moveVector == Vector2.ZERO:
 				return
 			lunging = true
@@ -117,7 +121,7 @@ func _process(delta):
 		invincibility_bar.hide()
 		invincible = false
 		
-	GameManager.worldManager.ui_manager.updateStaminaBar(round(quackCooldown * 100), round(quackTimer * 100))
+	GameManager.worldManager.ui_manager.updateStaminaBar(round(quackCooldown * 100) - round(quackTimer * 100), round(quackCooldown * 100))
 
 	if moveVector.x < 0:
 		walking.flip_h = true
@@ -140,8 +144,11 @@ func _process(delta):
 			tired = false
 		
 func _quack():
+	if quackTimer > 0:
+		return
+	
 	quacking = true
-	quackingTimer = quackingTime
+	#quackingTimer = quackingTime
 	
 	quackTimer = quackCooldown
 	if quacker.quack() == false:
