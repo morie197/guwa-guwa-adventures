@@ -14,7 +14,11 @@ const HPPARTEMPTY = preload("uid://bnx8opkaadiwv")
 
 @onready var lostpanel = $lostpanel
 
+@onready var progress_to_complete_percent = %ProgressToCompletePercent
+
 var inPopup: bool = false
+
+@onready var progress_to_completion = %progressToCompletion
 
 @onready var game_won_bgm = $sounds/gameWonBGM
 @onready var winpanel = $winpanel
@@ -71,6 +75,8 @@ var pauseMenu
 
 var ui_manager = self
 
+var collectedAll: bool = false
+
 var hpBars: Array[Node] = []
 
 @export var targetModulateColor: Color = Color.BLACK
@@ -78,6 +84,8 @@ var hpBars: Array[Node] = []
 @export var modulateSpeed: float = 0.9
 
 func _ready():
+	updateNextAbility()
+	
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		hp_text.hide()
 		hp_bars.hide()
@@ -95,6 +103,20 @@ func _ready():
 		
 	loadGame.pressed.connect(_load)
 	quit.pressed.connect(_quit)
+	
+	if GameManager.abilities.has("sprint"):
+		stamina_bar.show()
+	else:
+		stamina_bar.hide()
+	
+
+func updateNextAbility():
+	for ability in AbilityData.ABILITIES:
+		if GameManager.level >= ability:
+			continue
+		else:
+			until_next_ability.text = AbilityData.ABILITIES[ability]["name"] + ": " + str(ability)
+			break
 	
 func _physics_process(delta):
 	if credits != null:
@@ -274,6 +296,23 @@ func gameWon():
 
 func _showLevelUpUI():
 	collected_number.text = str(GameManager.level)
+	if GameManager.level > 40:
+		progress_to_completion.self_modulate = Color.TEAL
+		if GameManager.worldManager.levelName == "Quiet Gardens":
+			if GameManager.level >= 60:
+				collected_number.add_theme_color_override("default_color", Color.BLUE)
+				collectedAll = true
+			progress_to_completion.max_value = 60.0
+			progress_to_complete_percent.max_value = 60.0
+		else:
+			if GameManager.level >= 50:
+				collected_number.add_theme_color_override("default_color", Color.BLUE)
+				collectedAll = true
+			progress_to_completion.max_value = 50.0
+			progress_to_complete_percent.max_value = 50.0
+		
+	progress_to_completion.value = GameManager.level
+	progress_to_complete_percent.value = GameManager.level
 	
 	if GameManager.availableUpgradePoints <= 0:
 		return
@@ -286,7 +325,7 @@ func _showLevelUpUI():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = "Next: " + str(ability)
+			until_next_ability.text = AbilityData.ABILITIES[ability]["name"] + ": " + str(ability)
 			foundNextAbility = true
 			break
 			

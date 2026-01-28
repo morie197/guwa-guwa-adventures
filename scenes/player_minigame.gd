@@ -7,9 +7,9 @@ var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
 @export var moveSpeed: float = 160
-@export var staminaRecoveryRate: float = 0.4
+@export var staminaRecoveryRate: float = 0.8
 @export var baseQuackRange: float = 100.0
-@export var quackCooldown: float = 1.4
+@export var quackCooldown: float = 1
 @export var lungeTime: float = 0.15
 @export var lungeSpeed: float = 6
 
@@ -19,11 +19,17 @@ var invincibleTimer: float = 0.0
 var invincibleDuration: float = 0.6
 var invincibleDurationTimer: float = 0.0
 
+var beingKnockedBack: bool = false
+var knockBackDirection: Vector2
+var knockBackDuration: float = 0.2
+
 @onready var swimming = $swimming
 @onready var walking = $walking
 
 var lunging: bool = false
 var tired: bool = false
+
+var knockBackSpeed: float = 2
 
 @onready var ram = $ram
 
@@ -59,14 +65,15 @@ func initValues():
 	enduranceMultiplier = minigamemanager.enduranceMultiplier
 	stamina = lungeTime
 	
+	quackCooldown = quackCooldown - ((speedMultiplier/5) * quackCooldown)
 	quacker.parent_duck = self
 	quacker.attack_damage = 1
 	quacker.max_health = GameManager.maxHP
-	quacker.max_quack_range = baseQuackRange * rangeMultiplier
+	quacker.max_quack_range = baseQuackRange * (((rangeMultiplier-1)/1.7)+1)
 	quacker.initValues()
 	quacker.health = GameManager.healthValue
 	quacker.hp_changed.connect(_hp_change)
-	ram.area_entered.connect(_rammed)
+	#ram.area_entered.connect(_rammed)
 
 func _input(event):
 	if minigamemanager.displaying == true:
@@ -110,7 +117,7 @@ func _process(delta):
 		invincibility_bar.hide()
 		invincible = false
 		
-	GameManager.worldManager.ui_manager.updateStaminaBar(round(quackTimer * 100), round(quackCooldown * 100))
+	GameManager.worldManager.ui_manager.updateStaminaBar(round(quackCooldown * 100), round(quackTimer * 100))
 
 	if moveVector.x < 0:
 		walking.flip_h = true
@@ -142,6 +149,7 @@ func _quack():
 		enemy_hit.play()
 		quack_sound.play()
 	else:
+		
 		quack_sound.volume_db = missQuackVolume
 		quack_sound.play()
 	
@@ -158,7 +166,7 @@ func parry(damager):
 		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 			quacker.health  = clamp(quacker.health + 1, 0, quacker.max_health)
 		else:
-			#damager.damage(1, self)
+			damager.damage(1, self)
 			damager.parent_duck.changeStates()
 		quacker.hp_changed.emit()
 		invincibleDurationTimer = invincibleDuration
@@ -168,10 +176,21 @@ func parry(damager):
 		return false
 	return false
 	
-func _rammed(area):
-	if lunging:
-		print("damaged enemy")
-		area.get_parent().quacker.damage(1, self)
+
+func knockback(direction: Vector2):
+	beingKnockedBack = true
+	knockBackDirection = direction 
+	var tommy = Timer.new()
+	tommy.wait_time = knockBackDuration
+	tommy.timeout.connect(func turnOffKnockback(): beingKnockedBack = false)
+	tommy.timeout.connect(tommy.queue_free)
+	add_child(tommy)
+	tommy.start()
+	
+#func _rammed(area):
+#	if lunging:
+#		print("damaged enemy")
+#		area.get_parent().quacker.damage(1, self)
 	
 func _move(movevec: Vector2):
 	if lunging:
@@ -182,5 +201,8 @@ func _move(movevec: Vector2):
 		velocity = movevec.normalized()
 		velocity *= moveSpeed
 		velocity *= (speedMultiplier / 1.8)
+		
+	if beingKnockedBack:
+		velocity += knockBackDirection * knockBackSpeed
 	
 	move_and_slide()

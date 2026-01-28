@@ -124,11 +124,13 @@ motion_mode = 1
 script = ExtResource("1_uucyl")
 
 [node name="swimming" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.92, 0.13799998, 0.13799998, 1)
 sprite_frames = SubResource("SpriteFrames_rpuvt")
 flip_h = true
 
 [node name="walking" type="AnimatedSprite2D" parent="."]
 visible = false
+self_modulate = Color(0.92, 0.13799998, 0.13799998, 1)
 sprite_frames = SubResource("SpriteFrames_gsmep")
 flip_h = true
 
@@ -178,8 +180,9 @@ texture_over = ExtResource("6_qsa8o")
 texture_progress = ExtResource("7_udwa8")
 
 [node name="ram" type="Area2D" parent="."]
-collision_layer = 2048
-collision_mask = 2048
+visible = false
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ram"]
 shape = SubResource("CircleShape2D_qsa8o")

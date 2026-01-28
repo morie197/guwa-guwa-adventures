@@ -1,0 +1,20 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bmv7xxamm24pi"]
+
+[ext_resource type="Texture2D" uid="uid://d2134ihb6exvv" path="res://sprites/sprites/ducktiledecoration.png" id="1_1eukw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8iemx"]
+texture = ExtResource("1_1eukw")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+7:4/0 = 0
+7:3/0 = 0
+7:2/0 = 0
+7:1/0 = 0
+7:0/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_8iemx")

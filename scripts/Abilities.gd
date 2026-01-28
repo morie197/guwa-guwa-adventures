@@ -9,20 +9,24 @@ const ABILITIES = {
 		},
 	3: {
 		"name": "sprint",
-		"description": "Press SHIFT to move faster!"
+		"description": "Hold SHIFT to move faster!"
 		}, 	
 	5: {
 		"name": "quack",
-		"description": "Press Q to quack! Quacking may be used to fight other ducks!"
+		"description": "Press E to quack! Quacking may be used to fight other ducks!"
 		}, 	
 	8: {
 		"name": "sonar",
-		"description": "Press E to search your sorroundings, potentially uncovering secret areas!"
+		"description": "Press Q to search your sorroundings, potentially uncovering secret areas!"
 		},
 	13: {
 		"name": "walk",
 		"description": "Allows you to walk on the land."
 		}, 	
+	18: {
+		"name": "map",
+		"description": "Allows mapping your sorroundings."
+		},
 	20: {
 		"name": "dive",
 		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
@@ -33,7 +37,7 @@ const ABILITIES = {
 		}, 	  
 	40: {
 		"name": "migrate",
-		"description": "Hold SPACEBAR and Q for 5 seconds to migrate, beating the game!"
+		"description": "Hold SPACEBAR and E for 5 seconds to migrate, beating the game!"
 		}
 	
 	}

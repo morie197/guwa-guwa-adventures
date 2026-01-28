@@ -284,3 +284,9 @@ volume_db = 4.0
 pitch_scale = 0.9
 max_polyphony = 5
 bus = &"SFX"
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+light_mask = 0
+visibility_layer = 2
+position = Vector2(0, 32)
+polygon = PackedVector2Array(-64, -96, 64, -96, 64, 32, -64, 32)

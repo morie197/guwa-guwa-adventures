@@ -13,6 +13,8 @@ extends Node2D
 @onready var underMap = $MapLayers/Under
 @onready var overMap = $MapLayers/Over
 
+@onready var lights = $Underground/lights
+
 @onready var underHidden = $MapLayers/Under/visible/hidden
 @onready var overHidden = $MapLayers/Over/visible/hidden
 
@@ -47,6 +49,8 @@ var moveVector: Vector2
 
 var zoomSpeed: float = 20
 
+var mapLayer: int = 1
+
 var cameraMoveSpeed: float = 50
 
 var targetZoom: Vector2 = Vector2.ONE
@@ -56,7 +60,11 @@ var mapCam: Camera2D
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("openMap"):
-		openMap()
+		if GameManager.abilities.has("map"):
+			openMap()
+		
+	if inMap and Input.is_action_just_pressed("nextTutorialItem"):
+		openMap(true)
 		
 	if event is InputEventMouseButton:
 		if Input.is_action_just_pressed("zoomin"):
@@ -82,6 +90,7 @@ func _process(delta):
 			mapCam.zoom = mapCam.zoom.lerp(targetZoom, zoomSpeed * delta)
 
 func _ready():
+	get_viewport().canvas_cull_mask = 1
 	mapCam = Camera2D.new()
 	mapCam.set_visibility_layer_bit(1, false)
 	mapCam.set_visibility_layer_bit(2, true)
@@ -100,6 +109,7 @@ func _ready():
 	
 	_turnOnOffLayer(undergroundLayer, false)
 	darkener.visible = false
+	lights.hide()
 	_turnOnOffLayer(overgroundLayer, true)
 	current_logic_layer = overground_logic_layer
 	underground_collision_layer.collision_enabled = false
@@ -118,20 +128,18 @@ func openMap(switching: bool = false):
 		return
 	
 	if inMap == false:
+		mapLayer = GameManager.worldLayer
 		get_viewport().canvas_cull_mask = 2
 		mapCam.global_position = GameManager.playerRef.global_position
 	inMap = true
 	mapCam.enabled = true
 	mapCam.make_current()
 	GameManager.paused = true
-	var wLayer
 	
-	if !switching:
-		wLayer = GameManager.worldLayer
-	else:
-		wLayer = abs(GameManager.worldLayer - 1)
+	if switching:
+		mapLayer = abs(mapLayer - 1)
 	
-	if wLayer == 0:
+	if mapLayer == 0:
 		underMap.modulate = Color.WHITE
 		overMap.modulate = Color.TRANSPARENT
 	else:
@@ -195,6 +203,7 @@ func switchUnderOverGround():
 		return
 	if GameManager.worldLayer == 1:
 		GameManager.worldLayer = 0
+		lights.show()
 		_turnOnOffLayer(overgroundLayer, false)
 		overground_collision_layer.collision_enabled = false
 		
@@ -204,6 +213,7 @@ func switchUnderOverGround():
 		current_logic_layer = underground_logic_layer
 	else:
 		GameManager.worldLayer = 1 
+		lights.hide()
 		darkener.hide()
 		_turnOnOffLayer(undergroundLayer, false)
 		underground_collision_layer.collision_enabled = false

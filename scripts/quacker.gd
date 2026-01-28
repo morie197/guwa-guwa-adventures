@@ -12,6 +12,8 @@ var max_health: int :
 			max_health = new_maxhp
 			
 var minQuackRange: float = 20
+
+var knockBackMultiplier = 60
 			
 @export var attack_damage: int 
 	
@@ -36,57 +38,69 @@ func _ready():
 	body_entered.connect(_duck_detected)
 	body_exited.connect(_duck_exited)
 	
-	var collision_shape = CollisionShape2D.new()
-	add_child(collision_shape)
-	circle  = CircleShape2D.new()
-	circle.radius = max_quack_range
-	collision_shape.shape = circle
 	
-	quack_range = max_quack_range
 	
 func initValues():
 	health = max_health
 
 func _draw():
-	draw_arc(Vector2.ZERO, max_quack_range - 8, 0, TAU, 64, Color(1, 0, 0, 0.3), 5.0)
-	if (quack_range < max_quack_range):
-		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 0.6, 0.6, 0.7), 5.0)
+	var collision_shape = CollisionShape2D.new()
+	add_child(collision_shape)
+	circle  = CircleShape2D.new()
+	circle.radius = max_quack_range
+	collision_shape.shape = circle
+	quack_range = max_quack_range
+	if parent_duck.name == "PlayerMinigame":
+		draw_arc(Vector2.ZERO, max_quack_range - 8, 0, TAU, 64, Color(0, 1, 1, 0.5), 5.0)
+	else:
+		draw_arc(Vector2.ZERO, max_quack_range - 8, 0, TAU, 64, Color(1, 0, 0, 0.5), 5.0)
+	#if (quack_range < max_quack_range):
+	#	draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 0.6, 0.6, 0.7), 5.0)
 
 func _process(delta):
-	if (quack_range < max_quack_range) or Input.is_action_just_released("quack"):
-		#quackTimer -= delta
-		quack_range += 100 * delta
-		circle.radius = quack_range
-		queue_redraw()
-	else:
-		quacked.emit()
-		print("quacked")
-		circle.radius = max_quack_range
+	pass
+	#if (quack_range < max_quack_range) or Input.is_action_just_released("quack"):
+	#	#quackTimer -= delta
+	#	quack_range += 100 * delta
+	#	circle.radius = quack_range
+	#	queue_redraw()
+	#else:
+	#	quacked.emit()
+	#	print("quacked")
+	#	circle.radius = max_quack_range
 		
 	
 	
 
 
 func damage(amount: int, damager):
+	var knockBackDirection
 	if parent_duck.name == "PlayerMinigame":
-		if parent_duck.quacking and amount > 0:
+		if parent_duck.lunging and amount > 0:
 			if parent_duck.parry(damager) == false:
 				return
 		if amount > 0:
 			parent_duck.hit_sound.play()
 	health = clamp(health - amount, 0, max_health)
 	hp_changed.emit()
+	if amount > 0:
+		var multiplier: float = 1.0
+		var distance = global_position.distance_to(damager.global_position)
+		if distance < 150:
+			multiplier = 1 + 100/distance
+		knockBackDirection = (global_position - damager.global_position).normalized() * knockBackMultiplier * multiplier
+		parent_duck.knockback(knockBackDirection)
+	
 	if health <= 0:
 		dead.emit()
 
 func quack():
 	#quackTimer = quackTime
-	quack_range = minQuackRange
-	#quacked.emit()
+	#quack_range = minQuackRange
+	quacked.emit()
 	for enemy in enemy_duck:
-		if enemy.parent_duck.has_method("knockback"):
-			var knockBackDirection = (global_position - enemy.parent_duck.global_position).normalized() * 50
-			enemy.parent_duck.knockback(-knockBackDirection)
+		if enemy.has_method("damage"):
+			enemy.damage(attack_damage, self)
 	if enemy_duck.size() > 0:
 		return false
 	
@@ -96,6 +110,7 @@ func _duck_detected(body):
 		enemy = body.get_parent().quacker
 	else:
 		enemy = body.quacker
+		
 	if !enemy_duck.has(enemy):
 		enemy_duck.append(enemy)
 	

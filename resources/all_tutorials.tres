@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="tutorialList" load_steps=12 format=3 uid="uid://babei73ri162t"]
+[gd_resource type="Resource" script_class="tutorialList" load_steps=13 format=3 uid="uid://babei73ri162t"]
 
 [ext_resource type="Script" uid="uid://df8cvxetmidef" path="res://scripts/tutorialList.gd" id="1_plr7i"]
 [ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/tutorial.gd" id="2_jvs0w"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://27x8o2kyq6jo" path="res://resources/diving.tres" id="9_rv2hx"]
 [ext_resource type="Resource" uid="uid://c20t3nqr2tbxi" path="res://resources/flying.tres" id="10_vdjrm"]
 [ext_resource type="Resource" uid="uid://dwnsp46bqvsby" path="res://resources/migrate.tres" id="11_vdjrm"]
+[ext_resource type="Resource" uid="uid://pvn8psjwvqq6" path="res://resources/map.tres" id="12_ikdx2"]
 
 [resource]
 script = ExtResource("1_plr7i")
@@ -19,6 +20,7 @@ tutorials = Dictionary[String, ExtResource("2_jvs0w")]({
 "dive": ExtResource("9_rv2hx"),
 "fly": ExtResource("10_vdjrm"),
 "land": ExtResource("8_rv2hx"),
+"map": ExtResource("12_ikdx2"),
 "migrate": ExtResource("11_vdjrm"),
 "quack": ExtResource("5_8evg3"),
 "radar": ExtResource("7_1hoe8"),

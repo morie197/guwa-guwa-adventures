@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://26t45ci53pbw"]
+[gd_scene load_steps=6 format=3 uid="uid://26t45ci53pbw"]
+
+[ext_resource type="Script" uid="uid://cct6ykpn26fix" path="res://resources/creditSecret.gd" id="1_ygfb5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygfb5"]
 content_margin_left = 32.0
@@ -221,7 +223,45 @@ theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
 theme_override_font_sizes/italics_font_size = 64
 bbcode_enabled = true
-text = "For always being by my side, even when things got rough!"
+text = "For supporting me throughout this project!"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AJ" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AJ"]
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/AJ/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Ayrton Muniz"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/AJ/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/AJ/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "For providing valuable feedback and helping me make this game possible!"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
@@ -265,6 +305,7 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("1_ygfb5")
 
 [node name="spacer2" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)

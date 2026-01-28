@@ -16,7 +16,7 @@ var max_quack_range
 
 @onready var quacker = $Quacker
 
-@export var quackCooldown: float = 2
+@export var quackCooldown: float = 1.1
 @export var quackBaseRandomTimer: float = 3
 @export var quackRandomTimerVariation: float = 0.5
 
@@ -35,7 +35,7 @@ var baseHealAmount: int = 3
 var quackRandomTimer: float = 0.0
 var quackTimer: float = 0.0
 
-var knockBackDuration: float = 0.4
+var knockBackDuration: float = 0.2
 var knockBackDirection: Vector2 = Vector2.ZERO
 
 var lungeCooldown: float = 2
@@ -50,7 +50,7 @@ var stateBaseRandomTimer: float = 6
 var stateRandomTimerVariation: float = 2
 
 var stateRandomTimer: float = 0.0
-var knockBackSpeed: float = 10
+var knockBackSpeed: float = 1.3
 
 enum STATE{FOLLOWING, CHARGE, IDLE, RUNNING}
 var stateChances: Array[int] = [40, 40, 10, 10]
@@ -79,7 +79,7 @@ var playerPos: Vector2 :
 			#agent.target_position = global_position + -playerPos.normalized() * 100
 			var potential_target = (global_position - playerPos).normalized() * 100
 			agent.target_position = NavigationServer2D.map_get_closest_point(get_world_2d().get_navigation_map(), potential_target)
-			
+		
 
 func initValues():
 	quacker.parent_duck = self
@@ -92,7 +92,9 @@ func initValues():
 		max_quack_range = clampf(max_quack_range * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
 	else: 
 		quackBaseRandomTimer += 2.0
-		max_quack_range = (minigamemanager.player_minigame.baseQuackRange/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
+		quackCooldown = quackCooldown * (((minigamemanager.enemyHealthValues.size() -1) / 4.0) + 1)
+		print(quackCooldown)
+		max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
 		
 	quacker.max_quack_range = max_quack_range
 	
@@ -104,7 +106,7 @@ func initValues():
 	
 	quacker.dead.connect(_died)
 	
-	ram.area_entered.connect(_rammed)
+	#ram.area_entered.connect(_rammed)
 	
 	quackRandomTimer = randf_range(quackBaseRandomTimer - quackRandomTimerVariation, quackBaseRandomTimer + quackRandomTimerVariation)
 	
@@ -140,6 +142,10 @@ func changeStates():
 		
 func forceState(forcedState: STATE):
 	if minigamemanager.displaying == true:
+		return
+		
+	var rng = randf() * 100
+	if rng < 30.0:
 		return
 
 	state = forcedState
@@ -187,7 +193,7 @@ func _process(delta):
 		quackRandomTimer = randf_range(quackBaseRandomTimer - quackRandomTimerVariation, quackBaseRandomTimer + quackRandomTimerVariation)
 		quack()	
 	elif quacker.enemy_duck.size() > 0:
-		if state == STATE.CHARGE:
+		if state != STATE.RUNNING:
 			quack()
 	
 func _move():
@@ -234,10 +240,10 @@ func quack():
 	tim.timeout.connect(lunge_bar.hide)
 	tim.timeout.connect(tim.queue_free)
 
-func _rammed(area):
-	if area.get_parent().name == "PlayerMinigame":
-		if lunging:
-			area.get_parent().quacker.damage(1, self)
+#func _rammed(area):
+#	if area.get_parent().name == "PlayerMinigame":
+#		if lunging:
+#			area.get_parent().quacker.damage(1, self)
 
 func knockback(direction: Vector2):
 	beingKnockedBack = true

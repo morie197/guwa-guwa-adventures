@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=3 format=3 uid="uid://bxugl538afqjx"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_42kwf"]
+[ext_resource type="Texture2D" uid="uid://co0cdy0sna8g" path="res://keyboard_m.svg" id="1_7143r"]
+
+[resource]
+script = ExtResource("1_42kwf")
+icons = Array[Texture2D]([ExtResource("1_7143r")])
+text = "Map: "
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

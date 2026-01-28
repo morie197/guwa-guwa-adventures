@@ -39,9 +39,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _newGame():
 	if selectedStage.match("Quiet Gardens"):
-		SaveManager.saveData = {"player_pos_x":1920.0,"player_pos_y":-1080.0}
+		SaveManager.saveData = {"player_pos_x":1920.0,"player_pos_y":-1080.0, "difficulty": GameManager.difficultyValue}
 	else:
-		SaveManager.saveData = {}
+		SaveManager.saveData = {"difficulty": GameManager.difficultyValue}
 	GameManager.loadValues()
 	SaveManager.loadLevel(selectedStage)
 

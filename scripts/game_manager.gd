@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 6
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -86,6 +86,8 @@ func saveValues():
 	worldManager.ui_manager.add_child(saveText)
 
 func stringToVector2i(targets):
+	if targets == null:
+		return
 	if targets.size() == 0:
 		print("empty")
 		return
@@ -136,19 +138,21 @@ func loadValues():
 	traveledTiles = []
 	traveledTilesUnder = []
 	
-	var travTiles = SaveManager.saveData.get("traveledTiles", [])
-	traveledTiles = stringToVector2i(travTiles)
+	var travTiles = SaveManager.saveData.get("traveledTiles", null)
+	if travTiles != null:
+		traveledTiles.assign(stringToVector2i(travTiles))
 		
-	var travTilesUnder = SaveManager.saveData.get("traveledTiles", [])
-	traveledTilesUnder = stringToVector2i(travTilesUnder)
+	var travTilesUnder = SaveManager.saveData.get("traveledTilesUnder", null)
+	if travTilesUnder != null:
+		traveledTilesUnder.assign(stringToVector2i(travTilesUnder))
 	
 	
 	if worldManager != null:
 		worldManager.loadFOW()
 		
-	print(traveledTiles)
+	#print(traveledTiles)
 	
-	print(abilities)
+	#print(abilities)
 	
 	levelUp.emit()
 	
@@ -158,11 +162,13 @@ func loadValues():
 	canDamage = true
 	treatsUpdated.emit()
 	
-	calculateBonuses()
+	calculateBonuses(false)
 	
 	upgraded.emit()
 	
 	abilityCheck()
+	
+	worldManager.ui_manager.updateNextAbility()
 	
 
 func treatGet():
@@ -188,6 +194,8 @@ func closeUpgrades():
 		showTutorial("fly")
 	if abilities.has("migrate"):
 		showTutorial("migrate")
+	if abilities.has("map"):
+		showTutorial("map")
 	
 	if testingCheats == true:
 		testingCheats = false
@@ -228,23 +236,24 @@ func cameraShow(category: String):
 	cam.make_current()
 	
 	var tim = Timer.new()
-	tim.wait_time = 10
+	tim.wait_time = 5
 	add_child(tim)
 	
 	if worldLayer == 0:
 		worldManager.switchUnderOverGround()
 		tim.timeout.connect(cameraSwitchWorldLayer)
-		tutorialOver.connect(cameraSwitchWorldLayer)
+		#tutorialOver.connect(cameraSwitchWorldLayer)
 	
 	
-	if !tutorialOver.is_connected(cameraShowPause):
-		tutorialOver.connect(cameraShowPause)
+	#if !tutorialOver.is_connected(cameraShowPause):
+		#tutorialOver.connect(cameraShowPause)
 	
 	tim.timeout.connect(cam.queue_free)
-	tutorialOver.connect(cam.queue_free)
+#	tutorialOver.connect(cam.queue_free)
 	tim.timeout.connect(cameraShowPause)
 	tim.timeout.connect(tim.queue_free)
-	tutorialOver.connect(tim.queue_free)
+	#tutorialOver.connect(tim.queue_free)
+
 	tim.start()
 	cameraShown = true
 
@@ -308,7 +317,7 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	minigame_stage.lost.connect(worldManager.ui_manager.hud.show)
 	
 
-func calculateBonuses():
+func calculateBonuses(heal: bool = true):
 	if playerRef != null:
 		playerRef.enduranceMultiplier = _calculateBonus("endurance")
 		playerRef.rangeMultiplier = _calculateBonus("range")
@@ -318,7 +327,8 @@ func calculateBonuses():
 	maxHP = baseHealthValue + floor(upgradeLevels["endurance"] / 2.0)
 	playerRef.emitUpdatedStaminaValue()
 	
-	healthValue = clamp(healthValue + hpRestoredFromTreat, 0, maxHP)
+	if heal:
+		healthValue = clamp(healthValue + hpRestoredFromTreat, 0, maxHP)
 
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0
