@@ -126,7 +126,7 @@ tile_map_data = PackedByteArray("AAAEAA4AAAAHAAEAAAAFAA4AAAAHAAEAAAAGAA4AAAAHAAE
 tile_set = ExtResource("6_ah1i3")
 
 [node name="duckTreat" parent="." instance=ExtResource("6_px2ki")]
-z_index = -1
+z_index = -2
 position = Vector2(128, 956)
 scale = Vector2(0.5, 0.5)
 

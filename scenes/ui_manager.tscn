@@ -293,7 +293,7 @@ autowrap_mode = 0
 light_mask = 2
 visibility_layer = 2
 layout_mode = 0
-offset_right = 400.0
+offset_right = 480.0
 offset_bottom = 88.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HUD/switch"]
@@ -302,7 +302,7 @@ visibility_layer = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 64
-text = "Toggle: "
+text = "Toggle Map: "
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1

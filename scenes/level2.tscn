@@ -658,6 +658,8 @@ bus = &"SFX"
 parameters/looping = true
 
 [node name="treats" type="Node2D" parent="Underground"]
+light_mask = 3
+visibility_layer = 3
 
 [node name="duckTreat" parent="Underground/treats" instance=ExtResource("11_ekhvm")]
 position = Vector2(4992, -8256)
@@ -748,6 +750,7 @@ stageName = "underwater"
 owners = [NodePath("../StaticEnemyDuck"), NodePath("../StaticEnemyDuck2"), NodePath("../StaticEnemyDuck3"), NodePath("../StaticEnemyDuck4"), NodePath("../StaticEnemyDuck5"), NodePath(".")]
 
 [node name="darkener" type="CanvasModulate" parent="Underground"]
+visible = false
 color = Color(0.31350002, 0.37762502, 0.57, 1)
 
 [node name="lights" type="Node2D" parent="Underground"]
@@ -2354,6 +2357,8 @@ bus = &"SFX"
 parameters/looping = true
 
 [node name="treats" type="Node2D" parent="Overground"]
+light_mask = 3
+visibility_layer = 3
 
 [node name="duckTreat" parent="Overground/treats" instance=ExtResource("11_ekhvm")]
 position = Vector2(704, -1344)

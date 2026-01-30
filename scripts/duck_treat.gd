@@ -19,10 +19,13 @@ var hoverTime: float = 0.0
 var id: int = 0
 var underground: bool = false
 
+var mapCheckRef
+
 func _ready():
-	map_check.hide()
+	mapCheckRef = map_check
+	_updateCheck(false)
 	duck_area.body_entered.connect(_player_entered)
-	origin = global_position
+	origin = duck_area.global_position
 	if name.match("duckTreat"):
 		id = 1
 	else:
@@ -35,22 +38,39 @@ func _ready():
 
 func _process(delta):
 	hoverTime += delta * frequency
-	position.y = origin.y + sin(hoverTime) * amplitude
+	duck_area.global_position.y = origin.y + sin(hoverTime) * amplitude
 	
 
 func _player_entered(body: Node2D):
 	GameManager.treatGet()
 	GameManager.treatRegistry.append(id)
-	map_check.show()
+	_updateCheck(true)
 	_enableDisable(false)
 	
 func _treatsUpdated():
 	duck_area.monitoring = true
 	if GameManager.treatRegistry.has(id):
-		map_check.show()
+		_updateCheck(true)
 		_enableDisable(false)
 	else:
+		_updateCheck(false)
 		_enableDisable(true)
+
+func _updateCheck(enable: bool = true):
+	if enable:
+		mapCheckRef.show()
+		if GameManager.worldManager == null:
+			print("returning")
+			return
+		if underground:
+			mapCheckRef.reparent(GameManager.worldManager.underMap)
+		else:
+			mapCheckRef.reparent(GameManager.worldManager.overMap)
+	else:
+		if mapCheckRef.get_parent() != self:
+			mapCheckRef.reparent(self)
+		mapCheckRef.hide()
+			
 
 func _enableDisable(enable: bool = true):
 	var onWorldlayer

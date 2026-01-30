@@ -484,6 +484,8 @@ stream = SubResource("AudioStreamMP3_8iemx")
 volume_db = -3.496
 
 [node name="treats" type="Node2D" parent="Underground"]
+light_mask = 3
+visibility_layer = 3
 
 [node name="duckTreat" parent="Underground/treats" instance=ExtResource("4_mx8sn")]
 position = Vector2(3328, 4736)
@@ -1270,6 +1272,8 @@ stream = SubResource("AudioStreamMP3_8iemx")
 volume_db = -3.496
 
 [node name="treats" type="Node2D" parent="Overground"]
+light_mask = 3
+visibility_layer = 3
 
 [node name="duckTreat" parent="Overground/treats" instance=ExtResource("4_mx8sn")]
 position = Vector2(-2112, -1792)
