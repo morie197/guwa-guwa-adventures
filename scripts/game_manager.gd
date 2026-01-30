@@ -103,7 +103,7 @@ func stringToVector2i(targets):
 			newArray.append(var_to_str(target))
 		return newArray
 	else:
-		print("else")
+		#print("else")
 		return
 
 
@@ -162,6 +162,8 @@ func loadValues():
 	canDamage = true
 	treatsUpdated.emit()
 	
+	playerRef.loadGameChecks()
+	
 	calculateBonuses(false)
 	
 	upgraded.emit()
@@ -206,7 +208,7 @@ func closeUpgrades():
 func cameraShow(category: String):
 	paused = true
 	if shownTutorials.has(category) or playerRef == null:
-		print("already shown")
+		#print("already shown")
 		return
 	
 	var nodes
@@ -221,8 +223,8 @@ func cameraShow(category: String):
 			nodes = worldManager.fly_nodes
 	
 	if nodes == null:
-		print(category)
-		print("none")
+		#print(category)
+		#print("none")
 		return
 	
 	var finalNodePos = Vector2.INF

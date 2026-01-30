@@ -271,10 +271,7 @@ func _process(delta):
 			1:
 				if grass_foot_steps.playing == false:
 					grass_foot_steps.play()
-		
-		newtile = GameManager.worldManager.getTileUnderPos(global_position)
-		if tile != newtile:
-			tileCheck()
+		tileCheck()
 		
 	if mouseScrollInput != 0:
 		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
@@ -345,37 +342,46 @@ func _area_exit(_area):
 	streamRef = null
 	areaFlag = ""
 	
+func loadGameChecks():
+	tileCheck()
+	flying = false
+	velocity = Vector2.ZERO
+	sprinting = false
+	migrating = false
+	
 func tileCheck():
-	if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
-		areaFlag = ""
-	tile = newtile
-	var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
-	if atlascoords == Vector2i(0, 2):
-		layer = 0
-	elif atlascoords == Vector2i(0, 0):
-		layer = 1
-	elif atlascoords == Vector2i(0, 3):
-		layer = -1
-		areaFlag = "dive"
-	elif atlascoords == Vector2i(1, 1):
-		layer = 2
-		if !areaFlag.match("wind"):
-			areaFlag = "air"
-		if flying == false:
-			sprinting = false
-			forcedFly = true
-			_toggleFly(true)
+	newtile = GameManager.worldManager.getTileUnderPos(global_position)
+	if tile != newtile:
+		if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
+			areaFlag = ""
+		tile = newtile
+		var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
+		if atlascoords == Vector2i(0, 2):
+			layer = 0
+		elif atlascoords == Vector2i(0, 0):
+			layer = 1
+		elif atlascoords == Vector2i(0, 3):
+			layer = -1
+			areaFlag = "dive"
+		elif atlascoords == Vector2i(1, 1):
+			layer = 2
+			if !areaFlag.match("wind"):
+				areaFlag = "air"
+			if flying == false:
+				sprinting = false
+				forcedFly = true
+				_toggleFly(true)
+						
+		if atlascoords == Vector2i(1, 0):
+			layer = 1
+			onThorns = true
+		else:
+			onThorns = false
 					
-	if atlascoords == Vector2i(1, 0):
-		layer = 1
-		onThorns = true
-	else:
-		onThorns = false
-				
-	if forcedFly:
-		if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
-			forcedFly = false
-			_toggleFly(false)
+		if forcedFly:
+			if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
+				forcedFly = false
+				_toggleFly(false)
 	
 func _toggleFly(value: bool):
 	if flying == value: 
@@ -442,7 +448,7 @@ func _move(movevec: Vector2, delt):
 	if !tornadoThrownVelocity.is_zero_approx():
 		velocity = tornadoThrownVelocity
 		tornadoThrownVelocity = tornadoThrownVelocity.lerp(Vector2.ZERO, tornadoRecoverSpeed)
-		print(tornadoThrownVelocity.is_zero_approx())
+		#print(tornadoThrownVelocity.is_zero_approx())
 	else:
 		
 		if flying == true:

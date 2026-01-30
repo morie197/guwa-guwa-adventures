@@ -116,7 +116,7 @@ func autoSave():
 func loadLevel(levelName: String):
 	if GameManager.worldManager != null:
 		if GameManager.worldManager.levelName.match(levelName):
-			print("already loaded!")
+			#print("already loaded!")
 			return
 	
 	if levelName.match("Quiet Gardens"):
