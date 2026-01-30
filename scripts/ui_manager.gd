@@ -113,6 +113,8 @@ func _ready():
 		stamina_bar.show()
 	else:
 		stamina_bar.hide()
+
+
 	
 
 func updateNextAbility():

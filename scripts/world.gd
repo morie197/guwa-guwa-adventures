@@ -51,14 +51,20 @@ var ZOOMMAX: float = 0.05
 
 var mouseScrollInput: float = 0.0
 var moveVector: Vector2
+var mouseMoveVector: Vector2 = Vector2.ZERO
 
 var zoomSpeed: float = 20
+
+var targetCamPosition: Vector2
 
 var mapLayer: int = 1
 
 var cameraMoveSpeed: float = 50
+var mouseCameraMoveSpeed: float = 1
 
 var targetZoom: Vector2 = Vector2.ONE
+
+var lastMousePos: Vector2 = Vector2.ZERO
 
 var inMap: bool = false
 var mapCam: Camera2D
@@ -80,19 +86,31 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		moveVector.y = Input.get_axis("up", "down")
 		moveVector.x = Input.get_axis("left", "right")
+		
+	if GameManager.abilities.has("map") and inMap:
+		if event is InputEventMouseMotion and Input.is_action_pressed("leftClick"):
+			mouseMoveVector -= event.relative * 0.3
+		else:
+			mouseMoveVector = Vector2.ZERO
 
 func _process(delta):
 	if inMap:
-		mapCam.global_position += moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
+		var newTargetCamPosition = moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
+		newTargetCamPosition += mouseMoveVector * 2
+		
+		targetCamPosition = targetCamPosition.lerp(newTargetCamPosition, 1.0 - exp(delta * -8))
+		mapCam.global_position += targetCamPosition
 
 		if mouseScrollInput != 0.0:
 			var calculatedZoom: float = clamp(mapCam.zoom.x * mouseScrollInput, ZOOMMAX, zoomMin)
 			targetZoom = Vector2(calculatedZoom, calculatedZoom)
-			print(targetZoom)
+			#print(targetZoom)
 			mouseScrollInput = 0
 		
 		if mapCam.zoom != targetZoom:
 			mapCam.zoom = mapCam.zoom.lerp(targetZoom, zoomSpeed * delta)
+	else:
+		targetCamPosition = Vector2.ZERO
 
 func _ready():
 	get_viewport().canvas_cull_mask = 1
@@ -250,7 +268,7 @@ func getTileUnderPos(globalPos: Vector2):
 	return current_logic_layer.local_to_map(globalPos)
 
 func tileToAtlasCoords(localToMapCoords: Vector2i):
-	print("updating FOW")
+	#print("updating FOW")
 	updateFOW()
 	if current_logic_layer == null:
 		print("no logic layer present")

@@ -11,7 +11,7 @@ var mapMaskShowColor: Color = Color(0.072, 0.165, 0.4, 0.475)
 var mapMaskRef
 
 var targetModulateColor: Color = Color.WHITE
-var pingHintColor: Color = Color(1, 0.90, 0.90, 0.95)
+var pingHintColor: Color = Color(1, 0.85, 0.85, 0.90)
 
 @export var modulateSpeed: float = 0.7
 @export var pingDelay: float = 0.1
