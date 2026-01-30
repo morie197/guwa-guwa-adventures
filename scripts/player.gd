@@ -106,6 +106,8 @@ var colliding
 
 var streamRef
 
+var tilePosition: Vector2i
+
 signal quack
 signal radar
 
@@ -355,6 +357,7 @@ func tileCheck():
 		if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
 			areaFlag = ""
 		tile = newtile
+		tilePosition = (tile * 64) + Vector2i(0, 0)
 		var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
 		if atlascoords == Vector2i(0, 2):
 			layer = 0
@@ -480,6 +483,7 @@ func _move(movevec: Vector2, delt):
 		if !flying and !forcedFly:
 			if onThorns == true:
 				GameManager.damagePlayer()
+				#if global_position.distance_to(tilePosition) < 64:
 		if areaFlag.match("wind"):
 			var windForce: Vector2
 			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti

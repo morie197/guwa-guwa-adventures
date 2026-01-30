@@ -132,7 +132,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
-size = Vector2(24, 24)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(4, 4)
@@ -187,11 +187,13 @@ motion_mode = 1
 script = ExtResource("1_3vyb7")
 
 [node name="swimming" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_ur7pv")
 frame_progress = 0.5237696
 
 [node name="walking" type="AnimatedSprite2D" parent="."]
 visible = false
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_fulsm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -286,6 +288,7 @@ max_polyphony = 5
 bus = &"SFX"
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 light_mask = 0
 visibility_layer = 2
 position = Vector2(0, 32)

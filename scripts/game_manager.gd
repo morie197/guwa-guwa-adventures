@@ -42,7 +42,7 @@ var worldLayer = 1
 var playerCamCredits
 
 var canDamage: bool = true
-var damageCooldown: float = 1
+var damageCooldown: float = 2
 
 signal levelUp
 signal startTutorial(String)
@@ -107,8 +107,13 @@ func stringToVector2i(targets):
 		return
 
 
-func loadValues():
+func loadValues(resetRefs: bool = false):
+	if resetRefs:
+		playerRef = null
+		worldManager = null
+	
 	if playerRef == null or worldManager == null:
+		print("waiting")
 		await levelLoaded
 	
 	if SaveManager.saveData.is_empty():
@@ -145,7 +150,6 @@ func loadValues():
 	var travTilesUnder = SaveManager.saveData.get("traveledTilesUnder", null)
 	if travTilesUnder != null:
 		traveledTilesUnder.assign(stringToVector2i(travTilesUnder))
-	
 	
 	if worldManager != null:
 		worldManager.loadFOW()

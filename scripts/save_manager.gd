@@ -33,20 +33,20 @@ func save_game(slot: int = 0):
 	
 
 func load_game(slot: int = 0):
+	var reloadRefs: bool = false
+	if saveData.has("levelName"):
+		if saveDataAll[slot].has("levelName"):
+			if saveData["levelName"] != saveDataAll[slot]["levelName"]:
+				loadLevel(saveDataAll[slot]["levelName"])
+				reloadRefs = true
+	
 	saveData = saveDataAll[slot].duplicate()
 	
-	if saveData.has("levelName"):
-		if saveData["levelName"] != saveDataAll[slot]["levelName"]:
-			loadLevel(saveDataAll[slot]["levelName"])
-			
-	if saveData == {}:
-		if saveData.has("levelName"):
-			loadLevel(saveDataAll[slot]["levelName"])
-		else:
-			print("returning")
-			return
+	#if saveData.has("levelName"):
+	#	if saveData["levelName"] != saveDataAll[slot]["levelName"]:
+	#		print("loading level")
 	
-	GameManager.loadValues()
+	GameManager.loadValues(reloadRefs)
 	
 	_SaveWarner()
 		
