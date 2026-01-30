@@ -82,8 +82,8 @@ var tornadoRecoverSpeed: float = 0.1
 @export var quackFalloffZoom: float = 2
 @export var quackFalloffAmountMulti: float = 8
 
-@export var radarRange: float = 120
-@export var radarCooldown: float = 1.5
+@export var radarRange: float = 400
+@export var radarCooldown: float = 1
 
 var tornadoThrownVelocity: Vector2 = Vector2.ZERO
 
@@ -168,7 +168,7 @@ func _unhandled_input(event):
 				_quack()
 				
 		if GameManager.abilities.has("sonar") and radarTimer <= 0:
-			if Input.is_action_just_pressed("search"):
+			if Input.is_action_pressed("search"):
 				_radar()
 			
 		if GameManager.abilities.has("dive") and areaFlag == "dive":
@@ -264,6 +264,9 @@ func _process(delta):
 
 	if layer == 2 and tired and forcedFly:
 		GameManager.damagePlayer(1)
+	
+	GameManager.minimapCam.global_position = global_position
+	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
 	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or (areaFlag.match("wind") or areaFlag.match("stream")):
 		match layer:

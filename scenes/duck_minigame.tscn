@@ -451,10 +451,10 @@ stretch_mode = 5
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/TextureRect3"]
 z_index = -1
 layout_mode = 0
-offset_left = 21.0
-offset_top = 34.0
-offset_right = 81.0
-offset_bottom = 66.0
+offset_left = 37.0
+offset_top = 70.0
+offset_right = 141.0
+offset_bottom = 110.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
 [node name="lunge" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]

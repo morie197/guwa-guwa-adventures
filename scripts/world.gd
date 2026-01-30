@@ -13,10 +13,15 @@ extends Node2D
 @onready var underMap = $MapLayers/Under
 @onready var overMap = $MapLayers/Over
 
+@onready var underAreas = $Underground/areas
+@onready var overAreas = $Overground/areas
+
+
 @onready var lights = $Underground/lights
 
 @onready var underHidden = $MapLayers/Under/visible/hidden
 @onready var overHidden = $MapLayers/Over/visible/hidden
+
 
 
 @onready var ui_manager = $UIManager
@@ -30,7 +35,7 @@ extends Node2D
 
 @export var levelName: String = ""
 
-var FOWRadius: int = 2
+var FOWRadius: int = 3
 
 @onready var spawn_pos = $spawnPos
 
@@ -107,6 +112,9 @@ func _ready():
 	GameManager.playerRef = player
 	GameManager.worldManager = self
 	
+	_getAreasOnly(overAreas, false)
+	_getAreasOnly(underAreas, true)
+	
 	_turnOnOffLayer(undergroundLayer, false)
 	darkener.visible = false
 	lights.hide()
@@ -115,6 +123,9 @@ func _ready():
 	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
 	#request_ready()
+	
+	overMap.modulate = Color.WHITE
+	underMap.modulate = Color.TRANSPARENT
 
 func openMap(switching: bool = false):
 	#print("opening", inMap)
@@ -123,8 +134,8 @@ func openMap(switching: bool = false):
 		mapCam.enabled = false
 		GameManager.paused = false
 		inMap = false
-		underMap.modulate = Color.TRANSPARENT
-		overMap.modulate = Color.TRANSPARENT
+		#underMap.modulate = Color.TRANSPARENT
+		#overMap.modulate = Color.TRANSPARENT
 		return
 	
 	if inMap == false:
@@ -201,11 +212,12 @@ func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
 		print("no overground or underground tilemap")
 		return
-	updateFOW()
 	if GameManager.worldLayer == 1:
 		GameManager.worldLayer = 0
 		lights.show()
 		_turnOnOffLayer(overgroundLayer, false)
+		overMap.modulate = Color.TRANSPARENT
+		underMap.modulate = Color.WHITE
 		overground_collision_layer.collision_enabled = false
 		
 		darkener.show()
@@ -217,11 +229,15 @@ func switchUnderOverGround():
 		lights.hide()
 		darkener.hide()
 		_turnOnOffLayer(undergroundLayer, false)
+		overMap.modulate = Color.WHITE
+		underMap.modulate = Color.TRANSPARENT
 		underground_collision_layer.collision_enabled = false
 		
 		_turnOnOffLayer(overgroundLayer, true)
 		overground_collision_layer.collision_enabled = true
 		current_logic_layer = overground_logic_layer
+		
+	updateFOW()
 
 func getTileUnderPos(globalPos: Vector2):
 	if current_logic_layer == null:
@@ -260,3 +276,13 @@ func _getDucksRecursively(group):
 			duck.quack_detector.set_collision_mask_value(6, true)
 		elif duck.get_child_count() > 0:
 			_getDucksRecursively(duck)
+			
+func _getAreasOnly(group, underground: bool = false):
+	#var hiddenAreas
+	for area in group.get_children():
+		if area is HiddenArea:
+			area.underground = underground
+			if underground:
+				area.id = -area.id
+	#		hiddenAreas.append(area)
+	#return hiddenAreas

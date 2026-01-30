@@ -13,6 +13,7 @@ const HPPART = preload("uid://dpew5sdxiu3ji")
 const HPPARTEMPTY = preload("uid://bnx8opkaadiwv")
 
 @onready var lostpanel = $lostpanel
+@onready var minimap_camera = %minimapCamera
 
 @onready var progress_to_complete_percent = %ProgressToCompletePercent
 
@@ -37,6 +38,9 @@ var inPopup: bool = false
 
 @onready var collected_number = %collectedNumber
 @onready var until_next_ability = %untilNextAbility
+
+@onready var minimap = %minimap
+@onready var mini_map_panel = %MiniMapPanel
 
 @onready var hp_text = %HPText
 @onready var hp_bars = %HPBars
@@ -84,6 +88,7 @@ var hpBars: Array[Node] = []
 @export var modulateSpeed: float = 0.9
 
 func _ready():
+	mini_map_panel.hide()
 	updateNextAbility()
 	
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
@@ -155,6 +160,7 @@ func _updateMaxHP():
 	var maxHP = GameManager.maxHP
 	
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		hp_bars.hide()
 		hp_text.hide()
 		return
 		
@@ -178,6 +184,11 @@ func _updateMaxHP():
 	
 func _updateHP():
 	var maxHP = GameManager.maxHP
+	
+	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		hp_bars.hide()
+		hp_text.hide()
+		return
 	
 	if GameManager.healthValue > maxHP:
 		#print("over max HP!")

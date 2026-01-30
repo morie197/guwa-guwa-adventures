@@ -30,6 +30,7 @@ var duckRegistry: Array[int] = []
 var treatRegistry: Array[int] = []
 var traveledTiles: Array[Vector2i] = []
 var traveledTilesUnder: Array[Vector2i] = []
+var hiddenRegistry: Array[int] = []
 
 var shownTutorials = []
 
@@ -40,6 +41,7 @@ var playerRef
 var worldLayer = 1
 
 var playerCamCredits
+var minimapCam
 
 var canDamage: bool = true
 var damageCooldown: float = 2
@@ -59,6 +61,9 @@ func enterLevel():
 	
 	if initialLevel > 0:
 		testingCheats = true
+		
+	GameManager.worldManager.ui_manager.minimap.world_2d = get_tree().root.get_viewport().world_2d
+	minimapCam = GameManager.worldManager.ui_manager.minimap_camera
 	
 	levelLoaded.emit()
 	for l in range(level, initialLevel):
@@ -81,6 +86,7 @@ func saveValues():
 	SaveManager.saveData["levelName"] = worldManager.levelName
 	SaveManager.saveData["traveledTiles"] = stringToVector2i(traveledTiles.duplicate())
 	SaveManager.saveData["traveledTilesUnder"] = stringToVector2i(traveledTilesUnder.duplicate())
+	SaveManager.saveData["hiddenRegistry"] = hiddenRegistry.duplicate()
 	
 	var saveText = SAVE_LABEL.instantiate()
 	worldManager.ui_manager.add_child(saveText)
@@ -139,6 +145,7 @@ func loadValues(resetRefs: bool = false):
 	
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
+	hiddenRegistry.assign(SaveManager.saveData.get("hiddenRegistry", []))
 	
 	traveledTiles = []
 	traveledTilesUnder = []
@@ -153,10 +160,6 @@ func loadValues(resetRefs: bool = false):
 	
 	if worldManager != null:
 		worldManager.loadFOW()
-		
-	#print(traveledTiles)
-	
-	#print(abilities)
 	
 	levelUp.emit()
 	
@@ -386,6 +389,11 @@ func abilityCheck():
 		playerRef.set_collision_mask_value(4, false)
 	else:
 		playerRef.set_collision_mask_value(4, true)
+		
+	if abilities.has("map"):
+		worldManager.ui_manager.mini_map_panel.show()
+	else:
+		worldManager.ui_manager.mini_map_panel.hide()
 	
 func lostGame():
 	GameManager.paused = true
