@@ -23,7 +23,7 @@ const ABILITIES = {
 		"name": "walk",
 		"description": "Allows you to walk on the land."
 		}, 	
-	18: {
+	16: {
 		"name": "map",
 		"description": "Allows mapping your sorroundings."
 		},
@@ -31,7 +31,7 @@ const ABILITIES = {
 		"name": "dive",
 		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
 		}, 	  
-	30: {
+	26: {
 		"name": "fly",
 		"description": "Hold SPACEBAR to fly, moving much faster than usual and overcoming lower obstacles!"
 		}, 	  

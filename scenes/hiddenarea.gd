@@ -6,7 +6,7 @@ class_name HiddenArea
 @onready var ping = $ping
 
 var showColor: Color = Color.TRANSPARENT
-var mapMaskShowColor: Color = Color(0.072, 0.165, 0.4, 0.475)
+var mapMaskShowColor: Color = Color(0.072, 0.165, 0.4, 0.282)
 
 var mapMaskRef
 

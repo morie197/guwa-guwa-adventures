@@ -22,6 +22,9 @@ var tornadoMultiplier: float = 5.0
 var bgmVolume: float = -5.7
 var bgmFadeTime: float = 0.2
 
+var thornSpeedMultiplier: float = 0.3
+var easyStreamHitSpeedMultiplier: float = 0.3
+
 var layer: int = 0
 var areaForce: Vector2 = Vector2.ZERO
 var areaFlag: String = ""
@@ -485,7 +488,9 @@ func _move(movevec: Vector2, delt):
 
 		if !flying and !forcedFly:
 			if onThorns == true:
-				GameManager.damagePlayer()
+				velocity *= thornSpeedMultiplier
+				if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+					GameManager.damagePlayer()
 				#if global_position.distance_to(tilePosition) < 64:
 		if areaFlag.match("wind"):
 			var windForce: Vector2
@@ -514,7 +519,7 @@ func _move(movevec: Vector2, delt):
 		if !flying and !forcedFly and !layer == 1: 
 			if areaFlag == "stream":
 				backwards_detector.enabled = true
-				backwards_detector.target_position = areaForce.normalized() * 13
+				backwards_detector.target_position = areaForce.normalized() * 16
 				if backwards_detector.is_colliding():
 					GameManager.damagePlayer()
 				var streamForce: Vector2
@@ -537,7 +542,7 @@ func _move(movevec: Vector2, delt):
 					velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
 					
 					backwards_detector.enabled = true
-					backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 13
+					backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 20
 					if backwards_detector.is_colliding():
 						GameManager.damagePlayer()
 					

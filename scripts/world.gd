@@ -72,9 +72,14 @@ var mapCam: Camera2D
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("openMap"):
 		if GameManager.abilities.has("map"):
-			openMap()
+			if mapLayer != GameManager.worldLayer:
+				print(mapLayer, " ", GameManager.worldLayer)
+				openMap(true)
+				openMap()
+			else:
+				openMap()
 		
-	if inMap and Input.is_action_just_pressed("nextTutorialItem"):
+	if inMap and (Input.is_action_just_pressed("nextTutorialItem") or Input.is_action_just_pressed("dive")):
 		openMap(true)
 		
 	if event is InputEventMouseButton:
@@ -237,6 +242,7 @@ func switchUnderOverGround():
 		overMap.modulate = Color.TRANSPARENT
 		underMap.modulate = Color.WHITE
 		overground_collision_layer.collision_enabled = false
+		mapLayer = 0
 		
 		darkener.show()
 		_turnOnOffLayer(undergroundLayer, true)
@@ -250,6 +256,7 @@ func switchUnderOverGround():
 		overMap.modulate = Color.WHITE
 		underMap.modulate = Color.TRANSPARENT
 		underground_collision_layer.collision_enabled = false
+		mapLayer = 1
 		
 		_turnOnOffLayer(overgroundLayer, true)
 		overground_collision_layer.collision_enabled = true

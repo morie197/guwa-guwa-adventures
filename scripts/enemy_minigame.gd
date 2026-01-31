@@ -93,8 +93,11 @@ func initValues():
 	else: 
 		quackBaseRandomTimer += 2.0
 		quackCooldown = quackCooldown * (((minigamemanager.enemyHealthValues.size() -1) / 4.0) + 1)
-		print(quackCooldown)
 		max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
+		
+	var enemyScale = 0.5 + (maxHealth/25.0)
+	swimming.scale = Vector2(enemyScale, enemyScale)
+	walking.scale = Vector2(enemyScale, enemyScale)
 		
 	quacker.max_quack_range = max_quack_range
 	
