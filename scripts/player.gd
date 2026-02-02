@@ -5,6 +5,8 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 @onready var swimming = $swimming
 @onready var walking = $walking
 
+@onready var going_fast_particle = $goingFastParticle
+
 @onready var camera_2d = $Camera2D
 @onready var quack_sound = $quackSound
 @onready var radar_sound = $radarSound
@@ -271,14 +273,9 @@ func _process(delta):
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
-	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or (areaFlag.match("wind") or areaFlag.match("stream")):
-		match layer:
-			0:
-				if water_swimming_through.playing == false:
-					water_swimming_through.play()
-			1:
-				if grass_foot_steps.playing == false:
-					grass_foot_steps.play()
+	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or (areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool")):
+		_stateEffects()
+		
 		tileCheck()
 		
 	if mouseScrollInput != 0:
@@ -452,6 +449,35 @@ func _radar():
 	GameManager.worldManager.add_child(radCircle)
 	radCircle.global_position = global_position
 	radCircle.maxRadius = radarRange * rangeMultiplier
+	
+func _stateEffects():
+	if flying or forcedFly:
+		if going_fast_particle.visible == false:
+			going_fast_particle.show()
+		water_swimming_through.stop()
+		grass_foot_steps.stop()
+		return
+	else:
+		going_fast_particle.hide()
+	
+	if sprinting:
+		water_swimming_through.volume_db = -3.0
+		water_swimming_through.pitch_scale = 1.7
+		grass_foot_steps.volume_db = -2.0
+		grass_foot_steps.pitch_scale = 1.5
+	else:
+		water_swimming_through.volume_db = -7.0
+		water_swimming_through.pitch_scale = 1.31
+		grass_foot_steps.volume_db = -5.0
+		grass_foot_steps.pitch_scale = 1
+	
+	match layer:
+		0:
+			if water_swimming_through.playing == false:
+				water_swimming_through.play()
+		1:
+			if grass_foot_steps.playing == false:
+				grass_foot_steps.play()
 	
 func _move(movevec: Vector2, delt):
 	if !tornadoThrownVelocity.is_zero_approx():

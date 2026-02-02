@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=54 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -180,6 +180,18 @@ stream_2/stream = ExtResource("7_ur7pv")
 stream_3/stream = ExtResource("8_y4r1p")
 stream_3/weight = 1.2
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wqfne"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 10.0
+emission_ring_radius = 90.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+inherit_velocity_ratio = 0.8
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 273
 collision_mask = 13
@@ -237,12 +249,14 @@ area_mask = 0
 [node name="grassFootSteps" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_4ni07")
 volume_db = -5.0
+max_polyphony = 2
 bus = &"SFX"
 
 [node name="waterSwimmingThrough" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_pf23h")
 volume_db = -7.0
 pitch_scale = 1.31
+max_polyphony = 2
 bus = &"SFX"
 
 [node name="wingsFlyingSound" type="AudioStreamPlayer2D" parent="."]
@@ -288,8 +302,14 @@ max_polyphony = 5
 bus = &"SFX"
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 light_mask = 0
 visibility_layer = 2
 z_index = 6
 position = Vector2(0, 32)
 polygon = PackedVector2Array(-64, -96, 64, -96, 64, 32, -64, 32)
+
+[node name="goingFastParticle" type="GPUParticles2D" parent="."]
+trail_enabled = true
+trail_lifetime = 0.05
+process_material = SubResource("ParticleProcessMaterial_wqfne")
