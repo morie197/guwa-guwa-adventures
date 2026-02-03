@@ -459,7 +459,7 @@ func _stateEffects():
 		return
 	else:
 		going_fast_particle.hide()
-	
+
 	if sprinting:
 		water_swimming_through.volume_db = -3.0
 		water_swimming_through.pitch_scale = 1.7
@@ -471,12 +471,24 @@ func _stateEffects():
 		grass_foot_steps.volume_db = -5.0
 		grass_foot_steps.pitch_scale = 1
 	
+	var percent: float = 0
+	
+	if water_swimming_through.playing:
+		percent = water_swimming_through.get_playback_position() / water_swimming_through.stream.get_length()
+	elif grass_foot_steps.playing:
+		percent = grass_foot_steps.get_playback_position() / grass_foot_steps.stream.get_length()
+	
+	percent *= 100
+	
+	if sprinting: 
+		percent += 20.0
+	
 	match layer:
 		0:
-			if water_swimming_through.playing == false:
+			if percent >= 80.0 or water_swimming_through.playing == false:
 				water_swimming_through.play()
 		1:
-			if grass_foot_steps.playing == false:
+			if percent >= 80.0 or grass_foot_steps.playing == false:
 				grass_foot_steps.play()
 	
 func _move(movevec: Vector2, delt):

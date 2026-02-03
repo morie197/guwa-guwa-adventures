@@ -188,7 +188,6 @@ emission_ring_height = 10.0
 emission_ring_radius = 90.0
 emission_ring_inner_radius = 0.0
 emission_ring_cone_angle = 90.0
-inherit_velocity_ratio = 0.8
 spread = 0.0
 gravity = Vector3(0, 0, 0)
 
@@ -310,6 +309,7 @@ position = Vector2(0, 32)
 polygon = PackedVector2Array(-64, -96, 64, -96, 64, 32, -64, 32)
 
 [node name="goingFastParticle" type="GPUParticles2D" parent="."]
+visible = false
 trail_enabled = true
 trail_lifetime = 0.05
 process_material = SubResource("ParticleProcessMaterial_wqfne")
