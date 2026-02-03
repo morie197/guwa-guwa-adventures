@@ -88,7 +88,7 @@ var tornadoRecoverSpeed: float = 0.1
 @export var quackFalloffAmountMulti: float = 8
 
 @export var radarRange: float = 400
-@export var radarCooldown: float = 1
+@export var radarCooldown: float = 3
 
 var tornadoThrownVelocity: Vector2 = Vector2.ZERO
 
@@ -481,14 +481,17 @@ func _stateEffects():
 	percent *= 100
 	
 	if sprinting: 
-		percent += 20.0
+		if water_swimming_through.playing:
+			percent += 15.0
+		elif grass_foot_steps.playing:
+			percent += 5
 	
 	match layer:
 		0:
 			if percent >= 80.0 or water_swimming_through.playing == false:
 				water_swimming_through.play()
 		1:
-			if percent >= 80.0 or grass_foot_steps.playing == false:
+			if percent >= 95.0 or grass_foot_steps.playing == false:
 				grass_foot_steps.play()
 	
 func _move(movevec: Vector2, delt):

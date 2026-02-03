@@ -55,7 +55,7 @@ func _areasUpdated():
 	if mapMaskRef != null:
 		if underground:
 			mapMaskRef.reparent(GameManager.worldManager.underMap)
-			print("underground")
+			#print("underground")
 		else:
 			mapMaskRef.reparent(GameManager.worldManager.overMap)
 	

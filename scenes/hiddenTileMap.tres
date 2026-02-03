@@ -1,0 +1,33 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://da5bya7ua2qbw"]
+
+[ext_resource type="Texture2D" uid="uid://cjr3i8mpknlyp" path="res://sprites/sprites/ducktilewater.png" id="1_ewq6o"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_24ks5"]
+texture = ExtResource("1_ewq6o")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:1/0 = 0
+0:2/animation_speed = 15.0
+0:2/animation_frame_0/duration = 1.0
+0:2/animation_frame_1/duration = 1.0
+0:2/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+0:5/0/terrain_set = 0
+0:5/0/terrain = 0
+0:5/0/terrains_peering_bit/right_side = 0
+0:5/0/terrains_peering_bit/bottom_right_corner = 0
+0:5/0/terrains_peering_bit/bottom_side = 0
+0:5/0/terrains_peering_bit/bottom_left_corner = 0
+0:5/0/terrains_peering_bit/left_side = 0
+0:5/0/terrains_peering_bit/top_left_corner = 0
+0:5/0/terrains_peering_bit/top_side = 0
+0:5/0/terrains_peering_bit/top_right_corner = 0
+0:3/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/1 = SubResource("TileSetAtlasSource_24ks5")

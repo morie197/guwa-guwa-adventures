@@ -64,6 +64,9 @@ var mouseCameraMoveSpeed: float = 1
 
 var targetZoom: Vector2 = Vector2.ONE
 
+var revealedTilesDict := {}
+var revealedTilesUnderDict := {}
+
 var lastMousePos: Vector2 = Vector2.ZERO
 
 var inMap: bool = false
@@ -189,23 +192,89 @@ func updateFOW():
 	else:
 		print("no tile map ;(")
 		return
-		
-	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)
-	if GameManager.worldLayer == 0:
-		if !GameManager.traveledTilesUnder.has(playerCell):
-			GameManager.traveledTilesUnder.append(playerCell)
-	elif GameManager.worldLayer == 1:
-		if !GameManager.traveledTiles.has(playerCell):
-			GameManager.traveledTiles.append(playerCell)
+			
+
+	
+	#var appendToDict = {}
+	#if GameManager.worldLayer == 0:
+		#appendToDict = revealedTilesUnderDict
+	#elif GameManager.worldLayer == 1:
+		#appendToDict = revealedTilesDict
 	
 	var finalFOWRadius = FOWRadius + GameManager.upgradeLevels["range"]
-	
+	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):
 			var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
 			FOWTileMap.set_cell(cellReveal, -1)
+			if GameManager.worldLayer == 0:
+				revealedTilesUnderDict[cellReveal] = true
+			elif GameManager.worldLayer == 1:
+				revealedTilesDict[cellReveal] = true
+			
+			#appendToDict[cellReveal] = true
 			
 func loadFOW():
+	#var parentMap
+	#parentMap = overHidden.get_parent()
+	#overHidden.queue_free()
+	#overHidden = HIDDEN.instantiate()
+	#parentMap.add_child(overHidden)
+	
+	#parentMap = underHidden.get_parent()
+	#underHidden.queue_free()
+	#underHidden = HIDDEN.instantiate()
+	#parentMap.add_child(underHidden)
+	#
+	#var finalFOWRadius = FOWRadius + GameManager.upgradeLevels["range"]
+	#print(finalFOWRadius)
+	#print(GameManager.upgradeLevels["range"])
+	#
+	#for playerCell in GameManager.traveledTiles:
+		#for x in range(-finalFOWRadius, finalFOWRadius + 1):
+			#for y in range(-finalFOWRadius, finalFOWRadius + 1):
+				#var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+				#overHidden.set_cell(cellReveal, -1)
+				#
+	#for playerCell in GameManager.traveledTilesUnder:
+		#for x in range(-finalFOWRadius, finalFOWRadius + 1):
+			#for y in range(-finalFOWRadius, finalFOWRadius + 1):
+				#var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+				#underHidden.set_cell(cellReveal, -1)
+	
+	revealedTilesDict = {}
+	revealedTilesUnderDict = {}
+	
+	overHidden.set_cells_terrain_connect(GameManager.revealedTiles, 0, -1, false)
+	underHidden.set_cells_terrain_connect(GameManager.revealedTilesUnder, 0, -1, false)
+	
+	for val in GameManager.revealedTiles:
+		revealedTilesDict[val] = true
+		#print(val)
+	
+	for val in GameManager.revealedTilesUnder:
+		revealedTilesUnderDict[val] = true
+		#print(val)
+	
+	#
+	#for playerCell in GameManager.traveledTiles:
+		#for x in range(-finalFOWRadius, finalFOWRadius + 1):
+			#for y in range(-finalFOWRadius, finalFOWRadius + 1):
+				#var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+				#revealedTilesDict[cellReveal] = true
+	#var overReveals = revealedTilesDict.keys()
+	#overHidden.set_cells_terrain_connect(overReveals, 0, -1, false)
+				#
+	#for playerCell in GameManager.traveledTilesUnder:
+		#for x in range(-finalFOWRadius, finalFOWRadius + 1):
+			#for y in range(-finalFOWRadius, finalFOWRadius + 1):
+				#var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
+				#revealedTilesUnderDict[cellReveal] = true
+	#var underReveals = revealedTilesUnderDict.keys()
+	#underHidden.set_cells_terrain_connect(underReveals, 0, -1, false)
+			
+
+func clearFOW():
 	var parentMap
 	parentMap = overHidden.get_parent()
 	overHidden.queue_free()
@@ -217,19 +286,18 @@ func loadFOW():
 	underHidden = HIDDEN.instantiate()
 	parentMap.add_child(underHidden)
 	
-	
-	for playerCell in GameManager.traveledTiles:
-		for x in range(-FOWRadius, FOWRadius + 1):
-			for y in range(-FOWRadius, FOWRadius + 1):
-				var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
-				overHidden.set_cell(cellReveal, -1)
-				
-	for playerCell in GameManager.traveledTilesUnder:
-		
-		for x in range(-FOWRadius, FOWRadius + 1):
-			for y in range(-FOWRadius, FOWRadius + 1):
-				var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
-				underHidden.set_cell(cellReveal, -1)
+	#var rect = overHidden.get_used_rect()
+	#var tileMaps = [overHidden, underHidden]
+	#
+	#for tilemap in tileMaps:
+		#var empty_cells = []
+		#for x in range(rect.position.x, rect.end.x):
+			#for y in range(rect.position.y, rect.end.y):
+				#var pos = Vector2i(x, y)
+				#if tilemap.get_cell_source_id(pos) == -1:
+					#empty_cells.append(pos)
+		#
+		#tilemap.set_cells_terrain_connect(empty_cells, 0, 0)
 
 func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:

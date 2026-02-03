@@ -28,8 +28,10 @@ var availableUpgradePoints: int = 0
 
 var duckRegistry: Array[int] = []
 var treatRegistry: Array[int] = []
-var traveledTiles: Array[Vector2i] = []
-var traveledTilesUnder: Array[Vector2i] = []
+
+var revealedTiles: Array[Vector2i] = []
+var revealedTilesUnder: Array[Vector2i] = []
+
 var hiddenRegistry: Array[int] = []
 
 var shownTutorials = []
@@ -84,14 +86,21 @@ func saveValues():
 	SaveManager.saveData["currentHP"] = healthValue
 	SaveManager.saveData["difficulty"] = difficultyValue
 	SaveManager.saveData["levelName"] = worldManager.levelName
-	SaveManager.saveData["traveledTiles"] = stringToVector2i(traveledTiles.duplicate())
-	SaveManager.saveData["traveledTilesUnder"] = stringToVector2i(traveledTilesUnder.duplicate())
+	SaveManager.saveData["revealedTiles"] = stringToVector2i(genericArrayToVector2i(worldManager.revealedTilesDict.keys()))
+	SaveManager.saveData["revealedTilesUnder"] = stringToVector2i(genericArrayToVector2i(worldManager.revealedTilesUnderDict.keys()))
 	SaveManager.saveData["hiddenRegistry"] = hiddenRegistry.duplicate()
 	
 	var saveText = SAVE_LABEL.instantiate()
 	worldManager.ui_manager.add_child(saveText)
 
+func genericArrayToVector2i(targets) -> Array[Vector2i]:
+	var typedArray: Array[Vector2i]
+	for target in targets:
+		typedArray.append(Vector2i(target))
+	return typedArray
+
 func stringToVector2i(targets):
+	#print(targets)
 	if targets == null:
 		return
 	if targets.size() == 0:
@@ -104,6 +113,7 @@ func stringToVector2i(targets):
 			newArray.append(str_to_var(target))
 		return newArray
 	elif targets is Array[Vector2i]:
+		#print("array Vector2i")
 		var newArray: Array[String]
 		for target in targets:
 			newArray.append(var_to_str(target))
@@ -122,14 +132,12 @@ func loadValues(resetRefs: bool = false):
 		print("waiting")
 		await levelLoaded
 	
+	worldManager.clearFOW()
+	
 	if SaveManager.saveData.is_empty():
 		print("no save data")
+	
 	playerRef.global_position = Vector2(SaveManager.saveData.get("player_pos_x", 0), SaveManager.saveData.get("player_pos_y", 0))
-	if SaveManager.saveData.get("worldLayer", 1) != worldLayer:
-		if worldManager == null:
-			print("null world manager")
-		else:
-			worldManager.switchUnderOverGround()
 	level = int(SaveManager.saveData.get("level", 0))
 	shownTutorials = SaveManager.saveData.get("shownTutorials", [])
 	abilities = SaveManager.saveData.get("abilities", [])
@@ -147,16 +155,17 @@ func loadValues(resetRefs: bool = false):
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
 	hiddenRegistry.assign(SaveManager.saveData.get("hiddenRegistry", []))
 	
-	traveledTiles = []
-	traveledTilesUnder = []
+	revealedTiles = []
+	revealedTilesUnder = []
 	
-	var travTiles = SaveManager.saveData.get("traveledTiles", null)
-	if travTiles != null:
-		traveledTiles.assign(stringToVector2i(travTiles))
+	var revTiles = SaveManager.saveData.get("revealedTiles", null)
+	if revTiles != null:
+		print("not null1")
+		revealedTiles.assign(stringToVector2i(revTiles))
 		
-	var travTilesUnder = SaveManager.saveData.get("traveledTilesUnder", null)
-	if travTilesUnder != null:
-		traveledTilesUnder.assign(stringToVector2i(travTilesUnder))
+	var revTilesUnder = SaveManager.saveData.get("revealedTilesUnder", null)
+	if revTilesUnder != null:
+		revealedTilesUnder.assign(stringToVector2i(revTilesUnder))
 	
 	if worldManager != null:
 		worldManager.loadFOW()
@@ -165,6 +174,12 @@ func loadValues(resetRefs: bool = false):
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
+	
+	if SaveManager.saveData.get("worldLayer", 1) != worldLayer:
+		if worldManager == null:
+			print("null world manager")
+		else:
+			worldManager.switchUnderOverGround()
 	
 	canDamage = true
 	treatsUpdated.emit()

@@ -39,6 +39,8 @@ func load_game(slot: int = 0):
 			if saveData["levelName"] != saveDataAll[slot]["levelName"]:
 				loadLevel(saveDataAll[slot]["levelName"])
 				reloadRefs = true
+	else:
+		reloadRefs = true
 	
 	saveData = saveDataAll[slot].duplicate()
 	
