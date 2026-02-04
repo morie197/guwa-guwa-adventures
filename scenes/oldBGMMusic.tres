@@ -1,0 +1,16 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://dsuftp28fmh2u"]
+
+[ext_resource type="AudioStream" uid="uid://php3ewivl5o0" path="res://sounds/music/Cuddle Clouds.mp3" id="1_ty67a"]
+[ext_resource type="AudioStream" uid="uid://bmlmui0x8upoi" path="res://sounds/music/Strange Worlds.mp3" id="2_j8vwj"]
+[ext_resource type="AudioStream" uid="uid://b1lfew4w1nxj6" path="res://sounds/music/Sunlight Through Leaves.mp3" id="3_ggp8i"]
+[ext_resource type="AudioStream" uid="uid://drkjcynn0jwi0" path="res://sounds/music/Wanderer's Tale.mp3" id="4_m643m"]
+
+[resource]
+playback_mode = 1
+streams_count = 4
+stream_0/stream = ExtResource("1_ty67a")
+stream_0/weight = 2.0
+stream_1/stream = ExtResource("2_j8vwj")
+stream_2/stream = ExtResource("3_ggp8i")
+stream_3/stream = ExtResource("4_m643m")
+stream_3/weight = 1.2

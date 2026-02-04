@@ -21,6 +21,7 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 var tornadoMultiplier: float = 5.0
 
 @onready var bgm = $BGM
+
 var bgmVolume: float = -5.7
 var bgmFadeTime: float = 0.2
 
