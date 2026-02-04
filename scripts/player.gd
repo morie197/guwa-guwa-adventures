@@ -176,7 +176,7 @@ func _unhandled_input(event):
 			if Input.is_action_pressed("search"):
 				_radar()
 			
-		if GameManager.abilities.has("dive") and areaFlag == "dive":
+		if GameManager.abilities.has("dive") and layer == -1:
 			if Input.is_action_just_pressed("dive"):
 				GameManager.worldManager.switchUnderOverGround()
 				
@@ -357,7 +357,7 @@ func loadGameChecks():
 func tileCheck():
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
 	if tile != newtile:
-		if (areaFlag.match("dive") or areaFlag.match("air") and !areaFlag.match("wind")):
+		if (areaFlag.match("air") and !areaFlag.match("wind")):
 			areaFlag = ""
 		tile = newtile
 		tilePosition = (tile * 64) + Vector2i(0, 0)
@@ -368,7 +368,6 @@ func tileCheck():
 			layer = 1
 		elif atlascoords == Vector2i(0, 3):
 			layer = -1
-			areaFlag = "dive"
 		elif atlascoords == Vector2i(1, 1):
 			layer = 2
 			if !areaFlag.match("wind"):
@@ -536,10 +535,13 @@ func _move(movevec: Vector2, delt):
 		if areaFlag.match("wind"):
 			var windForce: Vector2
 			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti
-			windForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
-			windForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
-			if layer != 2 and !flying and !forcedFly:
-				windForce = windForce/8.0
+			if layer == 2 or flying or forcedFly:
+				windForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
+				windForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
+			else:
+				windForce = areaForce/20.0
+				if layer == 0:
+					windForce = windForce/1.5
 			velocity += windForce
 			
 		elif areaFlag.match("tornado"):

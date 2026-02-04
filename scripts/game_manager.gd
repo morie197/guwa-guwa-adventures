@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 8
+var initialLevel: int = 14
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -41,6 +41,7 @@ var abilities := []
 var worldManager
 var playerRef
 var worldLayer = 1
+var switchedWorldLayer: bool = false
 
 var playerCamCredits
 var minimapCam
@@ -264,30 +265,36 @@ func cameraShow(category: String):
 	add_child(tim)
 	
 	if worldLayer == 0:
+		switchedWorldLayer = true
 		worldManager.switchUnderOverGround()
-		tim.timeout.connect(cameraSwitchWorldLayer)
-		#tutorialOver.connect(cameraSwitchWorldLayer)
 	
+	if !tutorialOver.is_connected(cameraShowPause):
+		tutorialOver.connect(cameraShowPause)
 	
-	#if !tutorialOver.is_connected(cameraShowPause):
-		#tutorialOver.connect(cameraShowPause)
+	tutorialOver.connect(cam.queue_free)
+	tutorialOver.connect(tim.queue_free)
 	
 	tim.timeout.connect(cam.queue_free)
-#	tutorialOver.connect(cam.queue_free)
 	tim.timeout.connect(cameraShowPause)
 	tim.timeout.connect(tim.queue_free)
-	#tutorialOver.connect(tim.queue_free)
 
 	tim.start()
 	cameraShown = true
 
 func cameraShowPause():
+	if tutorialOver.is_connected(cameraShowPause):
+		tutorialOver.disconnect(cameraShowPause)
+	
+	if switchedWorldLayer:
+		cameraSwitchWorldLayer()
+		switchedWorldLayer = false
+	
 	if cameraShown:
 		paused = false
 		cameraShown = false
 		
 func cameraSwitchWorldLayer():
-	if worldLayer == 1:
+	if switchedWorldLayer == true:
 		worldManager.switchUnderOverGround()
 	
 	
