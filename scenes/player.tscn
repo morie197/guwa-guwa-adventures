@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=51 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -25,8 +25,6 @@
 [ext_resource type="AudioStream" uid="uid://dv6fctkoc1gsj" path="res://sounds/SFX/underwater-ambience-376890.mp3" id="23_4ni07"]
 [ext_resource type="AudioStream" uid="uid://bmsqcuam6e8ob" path="res://sounds/SFX/flap4.wav" id="23_gl8cc"]
 [ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="24_487ah"]
-[ext_resource type="AudioStream" uid="uid://c425vxhuhnv0i" path="res://hitslab-nature-nature-documentary-music-412342.mp3" id="25_dt7fs"]
-[ext_resource type="AudioStream" uid="uid://cmqm8dc0qd2ro" path="res://original_soundtrack-ambient-ambient-music-412767.mp3" id="26_wqfne"]
 [ext_resource type="AudioStream" uid="uid://cvu0vvf0ik5k2" path="res://syouki_takahashi-relief-358185.mp3" id="27_wnwbv"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="30_wqfne"]
 
@@ -170,10 +168,8 @@ stream_3/stream = ExtResource("23_gl8cc")
 stream_4/stream = ExtResource("24_487ah")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gl8cc"]
-streams_count = 3
-stream_0/stream = ExtResource("25_dt7fs")
-stream_1/stream = ExtResource("26_wqfne")
-stream_2/stream = ExtResource("27_wnwbv")
+streams_count = 1
+stream_0/stream = ExtResource("27_wnwbv")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wqfne"]
 particle_flag_disable_z = true

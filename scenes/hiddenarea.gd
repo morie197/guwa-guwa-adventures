@@ -16,6 +16,8 @@ var pingHintColor: Color = Color(1, 0.85, 0.85, 0.90)
 @export var modulateSpeed: float = 0.7
 @export var pingDelay: float = 0.1
 
+@export var pingRadarVolume: float = -3.496
+
 var underground: bool = false
 var found: bool = false
 
@@ -23,6 +25,8 @@ var id: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ping.panning_strength = 2
+	
 	if name.match("hiddenArea"):
 		id = 1
 	else:
@@ -45,6 +49,7 @@ func _process(delta):
 
 func _player_detected(_area):
 	GameManager.playerRef.radar.connect(pingSoundPlay)
+	pingSoundPlay(true)
 	
 func _player_exited(_area):
 	GameManager.playerRef.radar.disconnect(pingSoundPlay)
@@ -75,9 +80,19 @@ func _showarea():
 		return
 	mapMaskRef.modulate = mapMaskShowColor
 		
-func pingSoundPlay():
+func pingSoundPlay(subtle: bool = false):
 	if found:
 		return
+		
+	if subtle:
+		ping.volume_db = -7
+		ping.pitch_scale = 1.8
+		ping.play()
+		return
+	else:
+		ping.volume_db = pingRadarVolume
+		ping.pitch_scale = 1
+	
 	var time = Timer.new()
 	add_child(time)
 	targetModulateColor = pingHintColor

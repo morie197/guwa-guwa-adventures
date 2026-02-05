@@ -12,6 +12,7 @@ extends Area2D
 @export var originalForce: Vector2
 @export var originalSound: AudioStreamPlayer2D
 @export var switchSound: AudioStreamPlayer2D
+@export var delayTime: float = 0.25
 
 var tim: Timer
 var switchTimer: float = 0
@@ -26,29 +27,39 @@ func _process(delta):
 		if tim == null:
 			tim = Timer.new()
 			add_child(tim)
-			tim.wait_time = 0.25
+			tim.wait_time = delayTime
 			tim.timeout.connect(_switch)
 			tim.timeout.connect(tim.queue_free)
 			tim.start()
-			collider.disabled = true
-			switchFromObject.visible = false
-			switchToObject.visible = false
+			if collider != null:
+				collider.disabled = true
+			if switchFromObject != null:
+				switchFromObject.visible = false
+			if switchToObject != null:
+				switchToObject.visible = false
+			if originalSound != null:
+				originalSound.stop()
+			if switchSound != null:
+				switchSound.stop()
 	else:
 		switchTimer -= delta
 
 func _switch():
 	if !switch:
 		return
-	collider.disabled = false
+	if collider != null:
+		collider.disabled = false
 	switchValue = !switchValue
 	switchTimer = switchTime
 	if switchValue == 0:
 		force = switchForce
-		originalSound.stop()
-		switchSound.play()
-		switchToObject.visible = true
+		if switchSound != null:
+			switchSound.play()
+		if switchToObject != null:
+			switchToObject.visible = true
 	elif switchValue == 1:
 		force = originalForce
-		originalSound.play()
-		switchSound.stop()
-		switchFromObject.visible = true
+		if originalSound != null:
+			originalSound.play()
+		if switchFromObject != null:
+			switchFromObject.visible = true
