@@ -49,6 +49,8 @@ var flyDelay: float = 0.3
 var flyDelayTimer: float = 0.0
 var flyLerpSpeed: float = 1
 
+var healTimer: Timer
+
 var onThorns: bool = false
 
 var underwaterStaminaDrain: float = 0.6
@@ -114,6 +116,8 @@ var streamRef
 
 var tilePosition: Vector2i
 
+var healRegenerationTime: float = 60.0
+
 signal quack
 signal radar
 
@@ -124,6 +128,12 @@ func _ready():
 	area_collider.area_exited.connect(_area_exit)
 	
 	bgmVolume = bgm.volume_db
+	
+	healTimer = Timer.new()
+	add_child(healTimer)
+	healTimer.timeout.connect(GameManager.healPlayer)
+	healTimer.timeout.connect(_regenHeal)
+	_regenHeal()
 	
 	targetZoom = Vector2(zoomMin, zoomMin)
 	
@@ -429,6 +439,10 @@ func _quack():
 	#print(quack_sound.volume_db)
 	quackTimer = quackCooldown
 	quack.emit()
+	
+func _regenHeal():
+	healTimer.wait_time = healRegenerationTime
+	healTimer.start()
 	
 func _migrated():
 	if migrating == true:

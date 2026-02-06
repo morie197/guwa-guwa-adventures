@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 33
+var initialLevel: int = 60
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -47,7 +47,7 @@ var playerCamCredits
 var minimapCam
 
 var canDamage: bool = true
-var damageCooldown: float = 2
+var damageCooldown: float = 1.25
 
 signal levelUp
 signal startTutorial(String)
@@ -359,7 +359,12 @@ func calculateBonuses(heal: bool = true):
 	playerRef.emitUpdatedStaminaValue()
 	
 	if heal:
-		healthValue = clamp(healthValue + hpRestoredFromTreat, 0, maxHP)
+		healPlayer(hpRestoredFromTreat)
+		
+func healPlayer(amount: int = 1):
+	healthValue = clamp(healthValue + amount, 0, maxHP)
+	if worldManager != null:
+		worldManager.ui_manager._updateMaxHP()
 
 func _calculateBonus(upgradeName: String):
 	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0

@@ -16,9 +16,13 @@ func _ready():
 		abilityUI = NEW_ABILITY_UI.instantiate()
 		add_child(abilityUI)
 	
+	if GameManager.level > (UpgradeData.UPGRADES["range"]["levels"] * UpgradeData.UPGRADES.size()):
+		GameManager.closeUpgrades()
+		queue_free()
+		return
 	selectionUI = UPGRADE_SELECTION_UI.instantiate()
 	selectionUI.UIManager = self
 	add_child(selectionUI)
-	
+
 func hideLevelUpUI():
 	queue_free()
