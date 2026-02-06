@@ -12,6 +12,7 @@ const ENEMY_MINIGAME = preload("uid://5y4if4dkbvsj")
 @onready var camera_2d = $Camera2D
 @onready var popup_panel = $PanelContainer/PopupPanel
 @onready var popup_text = $PanelContainer/PopupPanel/PopupText
+@onready var lost_audio = $lostAudio
 
 
 const INFO_PANEL = preload("uid://dx2xq1xrwtf6t")
@@ -120,6 +121,7 @@ func _hp_changed(infoBox):
 		
 	
 func _player_hp_changed():
+	
 	playerText.text = "Duck " + str(player_minigame.quacker.health) + "/" + str(player_minigame.quacker.max_health)
 	playerHPBar.max_value = player_minigame.quacker.max_health
 	playerHPBar.value = player_minigame.quacker.health
@@ -157,6 +159,8 @@ func _wonGame():
 	displaytime.start()
 		
 func _lostGame():
+	lost_audio.play()
+	
 	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		GameManager.lostGame()
 		player_minigame.hide()

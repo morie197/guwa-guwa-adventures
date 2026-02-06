@@ -22,6 +22,8 @@ var tornadoMultiplier: float = 5.0
 
 @onready var bgm = $BGM
 
+@onready var heal_sound = $healSound
+
 var bgmVolume: float = -5.7
 var bgmFadeTime: float = 0.2
 
@@ -140,6 +142,9 @@ func _ready():
 	initializeValues()
 
 func _unhandled_input(event):
+	if GameManager.lost:
+		return
+	
 	if Input.is_action_just_pressed("menuback pause"):
 		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown:
 			return

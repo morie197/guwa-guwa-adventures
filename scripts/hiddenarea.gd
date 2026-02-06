@@ -49,7 +49,8 @@ func _process(delta):
 
 func _player_detected(_area):
 	GameManager.playerRef.radar.connect(pingSoundPlay)
-	pingSoundPlay(true)
+	if GameManager.abilities.has("sonar"):
+		pingSoundPlay(true)
 	
 func _player_exited(_area):
 	GameManager.playerRef.radar.disconnect(pingSoundPlay)

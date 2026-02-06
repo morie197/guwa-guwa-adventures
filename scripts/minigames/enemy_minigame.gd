@@ -260,8 +260,11 @@ func knockback(direction: Vector2):
 
 func _died():
 	minigamemanager.enemiesDefeated += 1
+	if minigamemanager.player_minigame.quacker.health < minigamemanager.player_minigame.quacker.max_health:
+		minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
+		minigamemanager.player_minigame.heal_sound.play(0.15)
 	minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
-	print(-baseHealAmount - round(maxHealth/healthToHealingRatio))
+	
 	infoBox.hpValue = 0
 	minigamemanager.enemyArray.erase(self)
 	queue_free()

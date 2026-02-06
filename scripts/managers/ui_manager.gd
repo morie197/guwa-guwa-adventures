@@ -38,6 +38,7 @@ var inPopup: bool = false
 
 @onready var collected_number = %collectedNumber
 @onready var until_next_ability = %untilNextAbility
+@onready var until_next_goal = $HUD/VBoxContainer/HBoxContainer2/untilNextGoal
 
 @onready var minimap = %minimap
 @onready var mini_map_panel = %MiniMapPanel
@@ -122,8 +123,13 @@ func updateNextAbility():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = AbilityData.ABILITIES[ability]["name"] + ": " + str(ability)
+			until_next_ability.text = AbilityData.ABILITIES[ability]["displayName"] + ": " + str(ability)
 			break
+	
+	if GameManager.level <= 40:
+		until_next_goal.text = "Migration: "
+	else:
+		until_next_goal.text = "All Treats: "
 	
 func _physics_process(delta):
 	if credits != null:
@@ -309,10 +315,14 @@ func gameWon():
 
 func _showLevelUpUI():
 	collected_number.text = str(GameManager.level)
+	if GameManager.level <= 40:
+		until_next_goal.text = "Migration: "
+	else:
+		until_next_goal.text = "All Treats: "
 	if GameManager.level > 40:
 		progress_to_completion.self_modulate = Color.TEAL
 		if GameManager.worldManager.levelName == "Quiet Gardens":
-			if GameManager.level >= 60:
+			if GameManager.level >= 65:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
 				collectedAll = true
 			progress_to_completion.max_value = 60.0
@@ -338,7 +348,7 @@ func _showLevelUpUI():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = AbilityData.ABILITIES[ability]["name"] + ": " + str(ability)
+			until_next_ability.text = AbilityData.ABILITIES[ability]["displayName"] + ": " + str(ability)
 			foundNextAbility = true
 			break
 			

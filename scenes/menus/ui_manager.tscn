@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene load_steps=25 format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/managers/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="AudioStream" uid="uid://dugxx4l44rqni" path="res://sounds/SFX/level-up-08-402152.mp3" id="3_2oyku"]
@@ -10,11 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="7_tanoa"]
 [ext_resource type="Texture2D" uid="uid://be01o6n3ywk7v" path="res://sprites/sprites/arrow_decorative_s.svg" id="8_jo33p"]
 [ext_resource type="Texture2D" uid="uid://cst8o164y85ev" path="res://sprites/bars/whitebar.png" id="8_tanoa"]
+[ext_resource type="Shader" uid="uid://brcuvu54l8o6u" path="res://scenes/menus/treatCollected.gdshader" id="11_5dfom"]
 [ext_resource type="Texture2D" uid="uid://dq1i4suv57vi4" path="res://sprites/bars/yellowbar.png" id="12_4v62q"]
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="12_ipats"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="12_ms7gl"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="13_4v62q"]
 [ext_resource type="Texture2D" uid="uid://v8u4bw6qf3fx" path="res://sprites/keys/escape, tab/keyboard_tab.svg" id="13_45cly"]
+[ext_resource type="Shader" uid="uid://3cue6d8n8ex7" path="res://scenes/menus/white.gdshader" id="14_lho24"]
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="16_prq0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hii27"]
@@ -29,9 +31,20 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lho24"]
+shader = ExtResource("11_5dfom")
+shader_parameter/shine_speed = 0.50000002375
+shader_parameter/shine_width = 0.0010000000475
+shader_parameter/shine_intensity = 0.6000000285
+shader_parameter/global_brighten = 0.150000007125
+shader_parameter/line_intensity = 0.70000003325
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45cly"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_prq0i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fft06"]
+shader = ExtResource("14_lho24")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prq0i"]
 content_margin_left = 0.0
@@ -210,16 +223,19 @@ alignment = 2
 
 [node name="untilNextAbility" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 2
+theme_override_constants/outline_size = 20
 theme_override_font_sizes/normal_font_size = 64
 text = "Next: 3"
 fit_content = true
 autowrap_mode = 0
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="HUD/VBoxContainer/HBoxContainer"]
 self_modulate = Color(0.8047426, 0.80474263, 0.8047425, 1)
+material = SubResource("ShaderMaterial_lho24")
 custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
 texture = ExtResource("12_ipats")
@@ -239,6 +255,8 @@ offset_right = 72.0
 offset_bottom = 87.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_font_sizes/normal_font_size = 128
 text = "0"
 fit_content = true
@@ -246,7 +264,23 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="progressToCompletion" type="TextureProgressBar" parent="HUD/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="untilNextGoal" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/normal_font_size = 24
+text = "Migration:"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="progressToCompletion" type="TextureProgressBar" parent="HUD/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -256,7 +290,7 @@ nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("12_4v62q")
 
-[node name="ProgressToCompletePercent" type="ProgressBar" parent="HUD/VBoxContainer/progressToCompletion"]
+[node name="ProgressToCompletePercent" type="ProgressBar" parent="HUD/VBoxContainer/HBoxContainer2/progressToCompletion"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -269,6 +303,31 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/background = SubResource("StyleBoxEmpty_45cly")
 theme_override_styles/fill = SubResource("StyleBoxEmpty_prq0i")
 max_value = 40.0
+
+[node name="progressToCompletion2" type="TextureProgressBar" parent="HUD/VBoxContainer/HBoxContainer2/progressToCompletion"]
+self_modulate = Color(1, 1, 1, 0.78431374)
+z_index = -1
+material = SubResource("ShaderMaterial_fft06")
+custom_minimum_size = Vector2(210, 55)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+min_value = 40.0
+max_value = 40.0
+value = 40.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("8_tanoa")
 
 [node name="HP" type="VBoxContainer" parent="HUD"]
 layout_mode = 0

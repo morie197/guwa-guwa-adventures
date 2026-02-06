@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=44 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="10_dplsg"]
 [ext_resource type="AudioStream" uid="uid://c87hxaituyd4j" path="res://sounds/SFX/sword-blade-slicing-flesh-352708.mp3" id="11_xaff1"]
 [ext_resource type="Texture2D" uid="uid://dxpwpg0jqnmli" path="res://sprites/keys/wasd/keyboard_w.svg" id="12_d6syi"]
+[ext_resource type="AudioStream" uid="uid://cbayh0an2p7ho" path="res://sounds/SFX/bright-notification-352449.mp3" id="12_nthku"]
 [ext_resource type="Texture2D" uid="uid://da538aprdc7p6" path="res://sprites/keys/wasd/keyboard_a.svg" id="13_u6wm1"]
 [ext_resource type="Texture2D" uid="uid://pwfqn4dbm23t" path="res://sprites/keys/wasd/keyboard_s.svg" id="14_06rur"]
 [ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="15_qf5xk"]
@@ -257,6 +258,12 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame/ram"]
 shape = SubResource("CircleShape2D_6sb5u")
+
+[node name="healSound" type="AudioStreamPlayer2D" parent="PlayerMinigame"]
+stream = ExtResource("12_nthku")
+volume_db = -5.0
+pitch_scale = 1.6
+bus = &"SFX"
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(1280, 576)
@@ -587,7 +594,7 @@ autoplay = true
 bus = &"Music"
 parameters/looping = true
 
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+[node name="lostAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_wl8cf")
 volume_db = -5.0
 pitch_scale = 0.9

@@ -53,6 +53,7 @@ var minigamemanager
 @onready var invincibility_bar = $invincibilityBar
 @onready var hit_sound = $hitSound
 @onready var enemy_hit = $enemyHit
+@onready var heal_sound = $healSound
 
 
 func initValues():

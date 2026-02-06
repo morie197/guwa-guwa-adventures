@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 60
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -22,6 +22,7 @@ var hpRestoredFromTreat: int = 3
 
 const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
+const BRIGHT_NOTIFICATION_352449 = preload("uid://cbayh0an2p7ho")
 
 var upgradeLevels = {"range": 0, "endurance": 0, "speed": 0}
 var availableUpgradePoints: int = 0
@@ -362,6 +363,10 @@ func calculateBonuses(heal: bool = true):
 		healPlayer(hpRestoredFromTreat)
 		
 func healPlayer(amount: int = 1):
+	if healthValue < maxHP:
+		playerRef.heal_sound.pitch_scale = 1.6 + clampf(healthValue/maxHP, 0, 1)
+		playerRef.heal_sound.play(0.15)
+	
 	healthValue = clamp(healthValue + amount, 0, maxHP)
 	if worldManager != null:
 		worldManager.ui_manager._updateMaxHP()
