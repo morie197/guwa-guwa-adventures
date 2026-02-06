@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="1_c7hxw"]
 [ext_resource type="Script" uid="uid://c516hnq6mf1ro" path="res://scripts/duck_treat.gd" id="1_r1g13"]
 [ext_resource type="AudioStream" uid="uid://x725xf3ffm8s" path="res://sounds/SFX/shimmering-object-79354.mp3" id="3_sckgt"]
-[ext_resource type="Texture2D" uid="uid://bj5nd6nday274" path="res://icon_checkmark.svg" id="4_08ia5"]
+[ext_resource type="Texture2D" uid="uid://bj5nd6nday274" path="res://sprites/sprites/icon_checkmark.svg" id="4_08ia5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sckgt"]
 radius = 28.0

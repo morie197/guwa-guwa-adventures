@@ -25,7 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dv6fctkoc1gsj" path="res://sounds/SFX/underwater-ambience-376890.mp3" id="23_4ni07"]
 [ext_resource type="AudioStream" uid="uid://bmsqcuam6e8ob" path="res://sounds/SFX/flap4.wav" id="23_gl8cc"]
 [ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="24_487ah"]
-[ext_resource type="AudioStream" uid="uid://cvu0vvf0ik5k2" path="res://syouki_takahashi-relief-358185.mp3" id="27_wnwbv"]
+[ext_resource type="AudioStream" uid="uid://cvu0vvf0ik5k2" path="res://sounds/music/syouki_takahashi-relief-358185.mp3" id="27_wnwbv"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="30_wqfne"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]

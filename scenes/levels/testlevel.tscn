@@ -1,0 +1,397 @@
+[gd_scene load_steps=24 format=3 uid="uid://wia1qjpfpogq"]
+
+[ext_resource type="Script" uid="uid://csewmdswsinay" path="res://scripts/area.gd" id="1_jiwm1"]
+[ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="2_6kl7x"]
+[ext_resource type="PackedScene" uid="uid://bdgxe0o350b3g" path="res://scenes/menus/ui_manager.tscn" id="3_7ixgg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpun6"]
+size = Vector2(1280, 1792)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wc255"]
+size = Vector2(1280, 1792)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arp2o"]
+size = Vector2(1280, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ux5qa"]
+size = Vector2(384, 2560)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gunhw"]
+size = Vector2(768, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gofh"]
+size = Vector2(1024, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82cfe"]
+size = Vector2(768, 2304)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q6dc"]
+size = Vector2(2304, 5632)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7c3h"]
+size = Vector2(1664, 5632)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8frs"]
+size = Vector2(1536, 3328)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
+size = Vector2(1536, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64w2a"]
+size = Vector2(2048, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppgk2"]
+size = Vector2(1280, 1792)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r41h"]
+size = Vector2(1792, 2432)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b121j"]
+size = Vector2(3328, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olg7q"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1rx8"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8iemx"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klq6b"]
+size = Vector2(256, 5376)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c41q"]
+size = Vector2(256, 5376)
+
+[node name="Level" type="Node2D"]
+
+[node name="Underground" type="Node2D" parent="." groups=["underground"]]
+visible = false
+
+[node name="geometry" type="Node2D" parent="Underground"]
+
+[node name="deepwater" type="Polygon2D" parent="Underground/geometry"]
+color = Color(0, 0.30908924, 0.30925506, 1)
+polygon = PackedVector2Array(-3072, -3072, -3072.0002, -4883.4795, -3072, -7936, -6912, -7936, -6912, -9088, -1792, -9088, -1792, -4863.297, -1792, -3072)
+
+[node name="deepwater" type="Polygon2D" parent="Underground/geometry/deepwater"]
+position = Vector2(-3840, -8320)
+color = Color(0, 0.30908924, 0.30925506, 1)
+polygon = PackedVector2Array(-3072, -3072, -3072, -4736, -6528, -4736, -6528, -5760, -6528, -8704, -2304, -8704, -1280, -8704, -1280, -7936, 0, -7936, 0, -6144, -1280, -6144, -2304, -6144, -2304, -7808, -5632, -7808, -5632, -5760, -2304, -5760, -2304, -3072)
+
+[node name="fasterdeepwater" type="Polygon2D" parent="Underground/geometry"]
+position = Vector2(-3840, -6016)
+color = Color(0, 0.5661015, 0.56610143, 1)
+polygon = PackedVector2Array(-3072, -3072, -3072, -5376, -2304, -5376, -2304, -3072)
+
+[node name="deepwater2" type="Polygon2D" parent="Underground/geometry"]
+color = Color(1.2513996e-06, 0.48696154, 0.48696148, 1)
+polygon = PackedVector2Array(-3072, -3072, -3072, -4864, -1792, -4864, -1792, -3072)
+
+[node name="deepwater" type="Polygon2D" parent="Underground/geometry/deepwater2"]
+position = Vector2(-3840, -8320)
+color = Color(0, 0.4862745, 0.4862745, 1)
+polygon = PackedVector2Array(-1280, -7936, 0, -7936, 0, -6144, -1280, -6144)
+
+[node name="areas" type="Node2D" parent="Underground"]
+
+[node name="exitwater" type="Area2D" parent="Underground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+flag = "dive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/exitwater"]
+position = Vector2(-2432, -3968)
+shape = SubResource("RectangleShape2D_fpun6")
+
+[node name="exitwater2" type="Area2D" parent="Underground/areas"]
+position = Vector2(-2048, -11392)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+flag = "dive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/exitwater2"]
+position = Vector2(-2432, -3968)
+shape = SubResource("RectangleShape2D_wc255")
+
+[node name="deepwater" type="Area2D" parent="Underground/areas"]
+position = Vector2(0, -1920)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/deepwater"]
+position = Vector2(-2432, -3264)
+shape = SubResource("RectangleShape2D_arp2o")
+
+[node name="deepwater2" type="Area2D" parent="Underground/areas"]
+position = Vector2(-3456, -11520)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/deepwater2"]
+position = Vector2(-1984, -4224)
+shape = SubResource("RectangleShape2D_ux5qa")
+
+[node name="deepwater3" type="Area2D" parent="Underground/areas"]
+position = Vector2(-4736, -8576)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/deepwater3"]
+position = Vector2(-1792, -3072)
+shape = SubResource("RectangleShape2D_gunhw")
+
+[node name="deepwater4" type="Area2D" parent="Underground/areas"]
+position = Vector2(-4736, -5760)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/deepwater4"]
+position = Vector2(-1664, -3072)
+shape = SubResource("RectangleShape2D_8gofh")
+
+[node name="fastdeepwater" type="Area2D" parent="Underground/areas"]
+position = Vector2(-4608, -6016)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = -1
+force = Vector2(0, 310)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/areas/fastdeepwater"]
+position = Vector2(-1920, -4224)
+shape = SubResource("RectangleShape2D_82cfe")
+
+[node name="area_blockades" type="Node2D" parent="Underground/areas"]
+
+[node name="Overground" type="Node2D" parent="." groups=["overground"]]
+
+[node name="geometry" type="Node2D" parent="Overground"]
+z_index = -5
+
+[node name="water" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(-192, -160)
+color = Color(9.62615e-08, 0.59729505, 0.59770834, 1)
+polygon = PackedVector2Array(-4800, -7136, -1600, -7136, -1600, -4704, -2880, -4704, -2880, -2912, -1600, -2912, -1600, -4704, -1600, -7136, 960, -7136, 960, 672, -4800, 672)
+
+[node name="water" type="Polygon2D" parent="Overground/geometry/water"]
+position = Vector2(-704, 10400)
+color = Color(9.62615e-08, 0.59729505, 0.59770834, 1)
+polygon = PackedVector2Array(-6528, -7168, 896, -7168, 896, 768, -6528, 768)
+
+[node name="water" type="Polygon2D" parent="Overground/geometry/water/water"]
+position = Vector2(-11392, 2048)
+color = Color(9.62615e-08, 0.59729505, 0.59770834, 1)
+polygon = PackedVector2Array(-4736, -5376, 896, -5376, 896, -1024, -4736, -1024)
+
+[node name="water" type="Polygon2D" parent="Overground/geometry/water/water/water"]
+position = Vector2(5888, -12672)
+color = Color(9.62615e-08, 0.59729505, 0.59770834, 1)
+polygon = PackedVector2Array(-7296, -5760, -2304, -5760, -2304, -3840, 896, -3840, 896, -2816, -2304, -2816, -2304, -1024, -7296, -1024)
+
+[node name="water2" type="Polygon2D" parent="Overground/geometry/water"]
+position = Vector2(1216, -13280)
+color = Color(9.62615e-08, 0.59729505, 0.59770834, 1)
+polygon = PackedVector2Array(-6144, -7296, 1152, -7296, 1152, 640, -6144, 640, -6144, -1024, -4864, -1024, -4864, -2816, -6144, -2816)
+
+[node name="land" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(768, -1024)
+color = Color(1.3187826e-05, 0.6326832, 0.12193044, 1)
+polygon = PackedVector2Array(0, -3840, 0, 1536, 8192, 1536, 8192, -3840)
+
+[node name="land" type="Polygon2D" parent="Overground/geometry/land"]
+position = Vector2(768, 8192)
+color = Color(1.3187826e-05, 0.6326832, 0.12193044, 1)
+polygon = PackedVector2Array(0, -3840, 0, 1280, 6656, 1280, 6656, -3840)
+
+[node name="fastwater" type="Polygon2D" parent="Overground/geometry"]
+color = Color(0, 0.7704436, 0.77766824, 1)
+polygon = PackedVector2Array(-3072, 512, -3072, 3072, -1280, 3072, -1280, 512)
+
+[node name="hiddenpath" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(1280, 6400)
+color = Color(3.970787e-07, 0.39801723, 0.102873914, 1)
+polygon = PackedVector2Array(2688, -3072, 2688, -5888, 3840, -5888, 3840, -3072)
+
+[node name="deepwater" type="Polygon2D" parent="Overground/geometry"]
+color = Color(0, 0.30908924, 0.30925506, 1)
+polygon = PackedVector2Array(-3072, -3072, -3072, -4864, -1792, -4864, -1792, -3072)
+
+[node name="duckobstacle" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(-640, -2304)
+color = Color(0.45662367, 0.45512235, 9.62615e-08, 1)
+polygon = PackedVector2Array(-4352, -1920, -4352, -896, -4864, -896, -4864, -1920)
+
+[node name="hiddenpan" type="Polygon2D" parent="Overground/geometry"]
+color = Color(0.31894037, 0.25168335, 0.13478252, 1)
+polygon = PackedVector2Array(5120, 512, 5120, 1536, 8960, 1536, 8960, 512)
+
+[node name="gake" type="Polygon2D" parent="Overground/geometry"]
+color = Color(0.30729362, 0, 0.005729208, 1)
+polygon = PackedVector2Array(8960, -4864, 8960, 512, 12544, 512, 12544, -4864)
+
+[node name="land2" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(12544, -1024)
+color = Color(1.3187826e-05, 0.6326832, 0.12193044, 1)
+polygon = PackedVector2Array(0, -3840, 0, 1536, 8192, 1536, 8192, -3840)
+
+[node name="fasterwater" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(-6144, 6784)
+color = Color(0.7193419, 0.9998384, 0.9999997, 1)
+polygon = PackedVector2Array(-5248, 1280, -5248, 3200, -1280, 3200, -1280, 1280)
+
+[node name="trees" type="Polygon2D" parent="Overground/geometry"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(768, -4864, 20736, -4864, 20736, 512, 8960, 512, 8960, 1536, 5120, 1536, 5120, 3328, 8192, 3328, 8192, 8448, 1536, 8448, 1536, 3328, 3968, 3328, 3968, 512, -1280, 512, -1280, 3072, 0, 3072, 0, 11008, 30208, 11008, 30208, -11264, 768, -11264)
+
+[node name="trees" type="Polygon2D" parent="Overground/geometry/trees"]
+position = Vector2(-43776, 256)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(40704, 256, 40704, 2816, 36352, 2816, 36352, 7808, 32384, 7808, 32384, 6656, 26752, 6656, 26752, 11008, 32384, 11008, 32384, 9728, 36352, 9728, 36352, 10752, 73984, 10752, 73984, 14208, 24832, 14208, 24832, 256)
+
+[node name="trees" type="Polygon2D" parent="Overground/geometry/trees/trees"]
+position = Vector2(-37632, -25344)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(82176, 13824, 82176, 17792, 76416, 17792, 76416, 20864, 72704, 20864, 72704, 18944, 67712, 18944, 67712, 23680, 72704, 23680, 72704, 21888, 76416, 21888, 76416, 25600, 62464, 25600, 62464, 13824)
+
+[node name="trees" type="Polygon2D" parent="Overground/geometry/trees/trees/trees"]
+position = Vector2(640, -19072)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(87552, 18304, 87552, 32896, 82944, 32896, 82944, 23424, 75638.81, 23424, 75648, 31360, 82944, 31360, 82944, 32896, 75648, 32896, 63232, 32896, 63232, 18304)
+
+[node name="deepwater2" type="Polygon2D" parent="Overground/geometry"]
+position = Vector2(-2048, -11392)
+color = Color(0, 0.30908924, 0.30925506, 1)
+polygon = PackedVector2Array(-3072, -3072, -3072, -4864, -1792, -4864, -1792, -3072)
+
+[node name="areas" type="Node2D" parent="Overground"]
+
+[node name="water" type="Area2D" parent="Overground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/water"]
+position = Vector2(-512, -2432)
+shape = SubResource("RectangleShape2D_2q6dc")
+
+[node name="water2" type="Area2D" parent="Overground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/water2"]
+position = Vector2(-4032, -2432)
+shape = SubResource("RectangleShape2D_w7c3h")
+
+[node name="water3" type="Area2D" parent="Overground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+flag = "air"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/water3"]
+position = Vector2(-2432, -1280)
+shape = SubResource("RectangleShape2D_w8frs")
+
+[node name="water4" type="Area2D" parent="Overground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/water4"]
+position = Vector2(-2432, -5120)
+shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="water5" type="Area2D" parent="Overground/areas"]
+position = Vector2(256, 8320)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/water5"]
+position = Vector2(-2432, -5120)
+shape = SubResource("RectangleShape2D_64w2a")
+
+[node name="deepwater" type="Area2D" parent="Overground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+flag = "dive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/deepwater"]
+position = Vector2(-2432, -3968)
+shape = SubResource("RectangleShape2D_ppgk2")
+
+[node name="fastwater" type="Area2D" parent="Overground/areas"]
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+force = Vector2(0, -320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/fastwater"]
+position = Vector2(-2176, 1728)
+shape = SubResource("RectangleShape2D_2r41h")
+
+[node name="cliff" type="Area2D" parent="Overground/areas"]
+position = Vector2(12928, 1536)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+flag = "air"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/cliff"]
+position = Vector2(-2176, -3712)
+shape = SubResource("RectangleShape2D_b121j")
+
+[node name="land" type="Area2D" parent="Overground/areas"]
+position = Vector2(5632, 3584)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/land"]
+position = Vector2(-4480, -5760)
+shape = SubResource("RectangleShape2D_olg7q")
+
+[node name="land2" type="Area2D" parent="Overground/areas"]
+position = Vector2(13184, 3584)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/land2"]
+position = Vector2(-4480, -5760)
+shape = SubResource("RectangleShape2D_t1rx8")
+
+[node name="land3" type="Area2D" parent="Overground/areas"]
+position = Vector2(17280, 3584)
+collision_layer = 2
+script = ExtResource("1_jiwm1")
+layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/land3"]
+position = Vector2(-4480, -5760)
+shape = SubResource("RectangleShape2D_8iemx")
+
+[node name="area_blockades" type="Node2D" parent="Overground/areas"]
+
+[node name="landblockade" type="StaticBody2D" parent="Overground/areas/area_blockades"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/area_blockades/landblockade"]
+position = Vector2(896, -2176)
+shape = SubResource("RectangleShape2D_klq6b")
+
+[node name="airblockade" type="StaticBody2D" parent="Overground/areas/area_blockades"]
+position = Vector2(8192, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/area_blockades/airblockade"]
+position = Vector2(896, -2176)
+shape = SubResource("RectangleShape2D_8c41q")
+
+[node name="Player" parent="." instance=ExtResource("2_6kl7x")]
+collision_layer = 3
+
+[node name="UIManager" parent="." instance=ExtResource("3_7ixgg")]

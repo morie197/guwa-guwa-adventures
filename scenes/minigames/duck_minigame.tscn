@@ -1,0 +1,593 @@
+[gd_scene load_steps=43 format=3 uid="uid://djxnchr27abqs"]
+
+[ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
+[ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
+[ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="3_jn6ol"]
+[ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="4_kb3bo"]
+[ext_resource type="PackedScene" uid="uid://dadgukmdghdhw" path="res://scenes/quacker.tscn" id="5_v7abb"]
+[ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/SFX/quack.wav" id="6_wgwjx"]
+[ext_resource type="AudioStream" uid="uid://c7h4ypm8cr13p" path="res://sounds/SFX/shield-block-shortsword-143940.mp3" id="7_1v83y"]
+[ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="8_u7pdh"]
+[ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/bars/baroverlay.png" id="9_vf2ar"]
+[ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="10_dplsg"]
+[ext_resource type="AudioStream" uid="uid://c87hxaituyd4j" path="res://sounds/SFX/sword-blade-slicing-flesh-352708.mp3" id="11_xaff1"]
+[ext_resource type="Texture2D" uid="uid://dxpwpg0jqnmli" path="res://sprites/keys/wasd/keyboard_w.svg" id="12_d6syi"]
+[ext_resource type="Texture2D" uid="uid://da538aprdc7p6" path="res://sprites/keys/wasd/keyboard_a.svg" id="13_u6wm1"]
+[ext_resource type="Texture2D" uid="uid://pwfqn4dbm23t" path="res://sprites/keys/wasd/keyboard_s.svg" id="14_06rur"]
+[ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="15_qf5xk"]
+[ext_resource type="Texture2D" uid="uid://cl23cb341umh" path="res://sprites/keys/qe/keyboard_e.svg" id="16_i4syp"]
+[ext_resource type="Texture2D" uid="uid://cniriik63s5n8" path="res://sprites/sprites/mouse_left.svg" id="17_lx27d"]
+[ext_resource type="Texture2D" uid="uid://bodmqtlj1sj1a" path="res://sprites/keys/shift, space/keyboard_space.svg" id="18_8fesu"]
+[ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="19_vhdu7"]
+[ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/bars/greenbar.png" id="20_sq7tm"]
+[ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="21_r2a71"]
+[ext_resource type="AudioStream" uid="uid://cn3pvo0qicqff" path="res://sounds/SFX/duck-calling-371054.mp3" id="22_wl8cf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("3_jn6ol")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("3_jn6ol")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("3_jn6ol")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("3_jn6ol")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5jswy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("4_kb3bo")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gsmep"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6sb5u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsmep"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.4, 0.4, 0.4, 0.70980394)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fq1qg"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.0035191728, 0.0035191667, 0.0035191672, 0.9607843)
+border_width_left = 15
+border_width_right = 15
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sb5u"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpuvt"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.6)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="DuckMinigame" type="Node2D"]
+z_index = 15
+position = Vector2(-960, -512)
+script = ExtResource("1_3pkwc")
+
+[node name="PlayerMinigame" type="CharacterBody2D" parent="."]
+z_index = 2
+position = Vector2(640, 576)
+collision_layer = 192
+collision_mask = 64
+motion_mode = 1
+script = ExtResource("2_nthku")
+
+[node name="swimming" type="AnimatedSprite2D" parent="PlayerMinigame"]
+sprite_frames = SubResource("SpriteFrames_5jswy")
+
+[node name="walking" type="AnimatedSprite2D" parent="PlayerMinigame"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_gsmep")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame"]
+shape = SubResource("RectangleShape2D_fq1qg")
+
+[node name="Quacker" parent="PlayerMinigame" instance=ExtResource("5_v7abb")]
+
+[node name="quackSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("6_wgwjx")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="blockSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("7_1v83y")
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="hitSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("8_u7pdh")
+volume_db = 4.0
+pitch_scale = 0.9
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="invincibilityBar" type="TextureProgressBar" parent="PlayerMinigame"]
+visible = false
+z_index = 5
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -36.0
+offset_right = 44.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+allow_greater = true
+nine_patch_stretch = true
+texture_over = ExtResource("9_vf2ar")
+texture_progress = ExtResource("10_dplsg")
+tint_progress = Color(0.94509804, 0.54901963, 0.5764706, 1)
+
+[node name="enemyHit" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("11_xaff1")
+pitch_scale = 1.3
+bus = &"SFX"
+
+[node name="ram" type="Area2D" parent="PlayerMinigame"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame/ram"]
+shape = SubResource("CircleShape2D_6sb5u")
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2(1280, 576)
+
+[node name="TerrainVariations" type="Node2D" parent="."]
+position = Vector2(-64, 64)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+z_index = -1
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gsmep")
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(1000, 1000)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_fq1qg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="InfoPanel" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="controls" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="movement" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Move: "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_d6syi")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("13_u6wm1")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("14_06rur")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect2"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("15_qf5xk")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect3"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="attack" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Attack: "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
+layout_mode = 2
+theme_override_constants/separation = -32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("16_i4syp")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 18.0
+offset_right = 81.0
+offset_bottom = 82.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("17_lx27d")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect2"]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 18.0
+offset_right = 81.0
+offset_bottom = 82.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_8fesu")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/TextureRect3"]
+z_index = -1
+layout_mode = 0
+offset_left = 37.0
+offset_top = 70.0
+offset_right = 141.0
+offset_bottom = 110.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="lunge" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "Lunge:
+Parry:"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -80
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("19_vhdu7")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 36.0
+offset_top = 58.0
+offset_right = 144.0
+offset_bottom = 126.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_8fesu")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/TextureRect3"]
+z_index = -1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 34.0
+offset_right = 81.0
+offset_bottom = 66.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
+
+[node name="EnemyInfo" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="StageName" type="RichTextLabel" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 90
+bbcode_enabled = true
+text = "Forest"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopupPanel" type="PanelContainer" parent="PanelContainer"]
+visible = false
+z_index = 10
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_rpuvt")
+
+[node name="PopupText" type="RichTextLabel" parent="PanelContainer/PopupPanel"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 64
+text = "You've defeated Jerry!"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="PlayerInfo" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = -32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PlayerInfo"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 64
+text = "Duck 5/5HP"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PanelContainer/PlayerInfo"]
+z_index = 5
+custom_minimum_size = Vector2(1000, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("9_vf2ar")
+texture_progress = ExtResource("20_sq7tm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_r2a71")
+volume_db = -10.759
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_wl8cf")
+volume_db = -5.0
+pitch_scale = 0.9

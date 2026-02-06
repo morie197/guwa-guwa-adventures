@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Tutorial" load_steps=3 format=3 uid="uid://bnpqbi4arqerj"]
-
-[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/tutorialItem.gd" id="1_m4310"]
-[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/tutorial.gd" id="2_rn4js"]
-
-[resource]
-script = ExtResource("2_rn4js")
-displayText = "You can now walk on land! Walking on land is slower than swimming in water."
-metadata/_custom_type_script = "uid://c3vgn54satwgg"

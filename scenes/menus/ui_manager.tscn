@@ -1,0 +1,416 @@
+[gd_scene load_steps=21 format=3 uid="uid://bdgxe0o350b3g"]
+
+[ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/managers/ui_manager.gd" id="1_rwj1f"]
+[ext_resource type="AudioStream" uid="uid://dugxx4l44rqni" path="res://sounds/SFX/level-up-08-402152.mp3" id="3_2oyku"]
+[ext_resource type="AudioStream" uid="uid://bc0klylk1upd1" path="res://sounds/SFX/level-up-05-326133.mp3" id="3_reske"]
+[ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="4_ixhu3"]
+[ext_resource type="AudioStream" uid="uid://dsdyh8ybdgat7" path="res://sounds/SFX/button_09-190435.mp3" id="5_gl862"]
+[ext_resource type="AudioStream" uid="uid://d3kfhwm4hrjdf" path="res://sounds/music/Sketchbook 2025-11-23.ogg" id="6_hii27"]
+[ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/bars/baroverlay.png" id="6_hst8a"]
+[ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="7_tanoa"]
+[ext_resource type="Texture2D" uid="uid://be01o6n3ywk7v" path="res://sprites/sprites/arrow_decorative_s.svg" id="8_jo33p"]
+[ext_resource type="Texture2D" uid="uid://cst8o164y85ev" path="res://sprites/bars/whitebar.png" id="8_tanoa"]
+[ext_resource type="Texture2D" uid="uid://dq1i4suv57vi4" path="res://sprites/bars/yellowbar.png" id="12_4v62q"]
+[ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="12_ipats"]
+[ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="12_ms7gl"]
+[ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="13_4v62q"]
+[ext_resource type="Texture2D" uid="uid://v8u4bw6qf3fx" path="res://sprites/keys/escape, tab/keyboard_tab.svg" id="13_45cly"]
+[ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="16_prq0i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hii27"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45cly"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_prq0i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prq0i"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="UIManager" type="CanvasLayer"]
+script = ExtResource("1_rwj1f")
+targetModulateColor = Color(0, 0, 0, 0.90588236)
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("3_reske")
+bus = &"SFX"
+
+[node name="NewAbility" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("3_2oyku")
+volume_db = -5.0
+pitch_scale = 1.2
+bus = &"SFX"
+
+[node name="maxLevelSound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("4_ixhu3")
+pitch_scale = 0.6
+bus = &"SFX"
+
+[node name="upgradedSound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("5_gl862")
+pitch_scale = 2.0
+bus = &"SFX"
+
+[node name="gameWonBGM" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("6_hii27")
+volume_db = -8.0
+bus = &"Music"
+parameters/looping = true
+
+[node name="MigrateDownIndicator" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0.7003872, 0.30979958, 0.8744973, 1)
+z_index = 9
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -256.0
+offset_right = 58.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("8_jo33p")
+
+[node name="MigrateBar" type="TextureProgressBar" parent="."]
+visible = false
+z_index = 5
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -640.0
+offset_right = 640.0
+offset_bottom = 200.0
+grow_horizontal = 2
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("8_tanoa")
+tint_progress = Color(0.77228, 0.2752, 0.86, 1)
+
+[node name="StaminaBarMinigame" type="TextureProgressBar" parent="."]
+visible = false
+z_index = 5
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -112.0
+offset_right = 256.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+allow_greater = true
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("7_tanoa")
+
+[node name="LungeText" type="RichTextLabel" parent="StaminaBarMinigame"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -34.0
+offset_right = 240.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 38
+text = "QUACK!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="winpanel" type="PanelContainer" parent="."]
+modulate = Color(0, 0, 0, 0)
+z_index = 10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hii27")
+
+[node name="HUD" type="Control" parent="."]
+unique_name_in_owner = true
+light_mask = 3
+visibility_layer = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StaminaBar" type="TextureProgressBar" parent="HUD"]
+unique_name_in_owner = true
+z_index = 5
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("7_tanoa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -414.0
+offset_bottom = 284.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="untilNextAbility" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Next: 3"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.8047426, 0.80474263, 0.8047425, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("12_ipats")
+stretch_mode = 4
+
+[node name="collectedNumber" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -87.5
+offset_right = 72.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 128
+text = "0"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="progressToCompletion" type="TextureProgressBar" parent="HUD/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 40.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("12_4v62q")
+
+[node name="ProgressToCompletePercent" type="ProgressBar" parent="HUD/VBoxContainer/progressToCompletion"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.015115168, 0.066489495, 0.24136817, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/background = SubResource("StyleBoxEmpty_45cly")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_prq0i")
+max_value = 40.0
+
+[node name="HP" type="VBoxContainer" parent="HUD"]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 92.0
+
+[node name="HPBars" type="HBoxContainer" parent="HUD/HP"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -38
+
+[node name="HPText" type="RichTextLabel" parent="HUD/HP"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "HP: 5/5"
+fit_content = true
+autowrap_mode = 0
+
+[node name="switch" type="HBoxContainer" parent="HUD"]
+light_mask = 2
+visibility_layer = 2
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 88.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/switch"]
+light_mask = 3
+visibility_layer = 3
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 64
+text = "Toggle Map: "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/switch"]
+light_mask = 2
+visibility_layer = 2
+clip_contents = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.33
+texture = ExtResource("13_45cly")
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HUD/switch/TextureRect"]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_prq0i")
+
+[node name="MiniMapPanel" type="PanelContainer" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -408.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("16_prq0i")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD/MiniMapPanel"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="minimap" type="SubViewport" parent="HUD/MiniMapPanel/SubViewportContainer"]
+unique_name_in_owner = true
+disable_3d = true
+handle_input_locally = false
+canvas_cull_mask = 4294967294
+size = Vector2i(384, 384)
+size_2d_override = Vector2i(384, 384)
+render_target_update_mode = 4
+
+[node name="minimapCamera" type="Camera2D" parent="HUD/MiniMapPanel/SubViewportContainer/minimap"]
+unique_name_in_owner = true
+position = Vector2(-464, 0)
+
+[node name="lostpanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="lostpanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="lostpanel/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 64
+text = "You have fallen..."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="lostpanel/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="load" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("12_ms7gl")
+theme_override_styles/pressed = ExtResource("13_4v62q")
+theme_override_styles/hover = ExtResource("13_4v62q")
+theme_override_styles/disabled = ExtResource("12_ms7gl")
+theme_override_styles/focus = ExtResource("13_4v62q")
+text = "Load"
+
+[node name="quit" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("12_ms7gl")
+theme_override_styles/pressed = ExtResource("13_4v62q")
+theme_override_styles/hover = ExtResource("13_4v62q")
+theme_override_styles/disabled = ExtResource("12_ms7gl")
+theme_override_styles/focus = ExtResource("13_4v62q")
+text = "Quit"

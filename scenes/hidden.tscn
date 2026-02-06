@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=4 uid="uid://bhx0dlto56i1j"]
 
-[ext_resource type="TileSet" uid="uid://da5bya7ua2qbw" path="res://scenes/hiddenTileMap.tres" id="1_d4wyt"]
+[ext_resource type="TileSet" uid="uid://da5bya7ua2qbw" path="res://resources/tilesets/hiddenTileMap.tres" id="1_d4wyt"]
 
 [node name="hidden" type="TileMapLayer"]
 light_mask = 2

@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8nmevsdid6a6"]
+
+[ext_resource type="Script" uid="uid://c0ad0tiswhk3h" path="res://scripts/menus/save_load_menu.gd" id="1_8r3bj"]
+[ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="2_knhrb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qteal"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.5211406, 0.52114064, 0.52114046, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="SaveLoadMenu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8r3bj")
+
+[node name="menu" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("2_knhrb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="text" type="RichTextLabel" parent="menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "Load"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="slots" type="VBoxContainer" parent="menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="backButton" type="Button" parent="menu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_qteal")
+text = "back"

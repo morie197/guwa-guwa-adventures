@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu2qa7tl2feks"]
+
+[ext_resource type="Script" uid="uid://d2wiliedjt5cj" path="res://scripts/menus/key_press_display.gd" id="1_03oao"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckq4c"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="PanelContainer" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_ckq4c")
+script = ExtResource("1_03oao")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1

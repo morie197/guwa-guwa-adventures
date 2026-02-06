@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkgdqgkcf3kcv"]
+
+[ext_resource type="Script" uid="uid://bfotjenqts535" path="res://scripts/menus/new_ability_ui.gd" id="1_t766n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebmit"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.20152658, 0.20152658, 0.20152658, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t766n"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+draw_center = false
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_detail = 5
+expand_margin_left = 5.0
+expand_margin_top = 3.0
+expand_margin_right = 5.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3el0a"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+draw_center = false
+corner_detail = 5
+expand_margin_left = 5.0
+expand_margin_top = 3.0
+expand_margin_right = 5.0
+expand_margin_bottom = 3.0
+
+[node name="newAbilityUI" type="PanelContainer"]
+z_index = -1
+offset_right = 400.0
+offset_bottom = 114.0
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_ebmit")
+script = ExtResource("1_t766n")
+
+[node name="contents" type="VBoxContainer" parent="."]
+z_index = 1
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="contents"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_t766n")
+
+[node name="newAbilityText" type="RichTextLabel" parent="contents/PanelContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/normal_font_size = 21
+text = "New Ability: Walking!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="abilityMenu" type="VBoxContainer" parent="contents"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="info" type="HBoxContainer" parent="contents/abilityMenu"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="contents/abilityMenu/info"]
+z_index = -1
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_3el0a")
+
+[node name="Description" type="RichTextLabel" parent="contents/abilityMenu/info/PanelContainer"]
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "adadada"
+fit_content = true
+scroll_active = false

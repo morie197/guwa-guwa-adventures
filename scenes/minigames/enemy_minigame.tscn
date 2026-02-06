@@ -1,0 +1,188 @@
+[gd_scene load_steps=25 format=3 uid="uid://5y4if4dkbvsj"]
+
+[ext_resource type="Script" uid="uid://dcosv8pqa8a2r" path="res://scripts/minigames/enemy_minigame.gd" id="1_uucyl"]
+[ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_hk6hf"]
+[ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="3_nk8nx"]
+[ext_resource type="PackedScene" uid="uid://dadgukmdghdhw" path="res://scenes/quacker.tscn" id="4_qsa8o"]
+[ext_resource type="AudioStream" uid="uid://cj2xrus2jcqgb" path="res://sounds/SFX/single-quack-from-a-duck-14494.mp3" id="5_hk6hf"]
+[ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/bars/baroverlay.png" id="6_qsa8o"]
+[ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="7_udwa8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("2_hk6hf")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("2_hk6hf")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("2_hk6hf")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("2_hk6hf")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpuvt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("3_nk8nx")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gsmep"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hk6hf"]
+size = Vector2(48, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsa8o"]
+
+[node name="EnemyMinigame" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 0
+collision_mask = 64
+motion_mode = 1
+script = ExtResource("1_uucyl")
+
+[node name="swimming" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.92, 0.13799998, 0.13799998, 1)
+sprite_frames = SubResource("SpriteFrames_rpuvt")
+flip_h = true
+
+[node name="walking" type="AnimatedSprite2D" parent="."]
+visible = false
+self_modulate = Color(0.92, 0.13799998, 0.13799998, 1)
+sprite_frames = SubResource("SpriteFrames_gsmep")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fq1qg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 15.0
+target_desired_distance = 20.0
+radius = 5.0
+
+[node name="Quacker" parent="." instance=ExtResource("4_qsa8o")]
+collision_mask = 128
+
+[node name="quackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hk6hf")
+volume_db = 9.479
+pitch_scale = 1.05
+bus = &"SFX"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_hk6hf")
+
+[node name="lungeBar" type="TextureProgressBar" parent="."]
+visible = false
+modulate = Color(0.9137255, 0, 1, 0.76862746)
+z_index = 5
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -36.0
+offset_right = 44.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+allow_greater = true
+nine_patch_stretch = true
+texture_over = ExtResource("6_qsa8o")
+texture_progress = ExtResource("7_udwa8")
+
+[node name="ram" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ram"]
+shape = SubResource("CircleShape2D_qsa8o")

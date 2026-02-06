@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Tutorial" load_steps=4 format=3 uid="uid://27x8o2kyq6jo"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_b5qge"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/resourceBases/tutorial.gd" id="2_3qgd0"]
+[ext_resource type="Resource" uid="uid://dir3jn8x6lkpm" path="res://resources/tutorials/rToDive.tres" id="2_r2ua7"]
+
+[resource]
+script = ExtResource("2_3qgd0")
+items = Array[ExtResource("1_b5qge")]([ExtResource("2_r2ua7")])
+displayText = "Darker water spots can be dived in. Once underwater, if you run out of stamina you start taking damage."
+metadata/_custom_type_script = "uid://c3vgn54satwgg"

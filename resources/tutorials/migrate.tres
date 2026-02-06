@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Tutorial" load_steps=4 format=3 uid="uid://dwnsp46bqvsby"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_fh306"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/resourceBases/tutorial.gd" id="2_daji6"]
+[ext_resource type="Resource" uid="uid://42ulg1g5bsan" path="res://resources/tutorials/qPlusSpaceToMigrate.tres" id="2_l0fuk"]
+
+[resource]
+script = ExtResource("2_daji6")
+items = Array[ExtResource("1_fh306")]([ExtResource("2_l0fuk")])
+displayText = "Hold E and SPACEBAR while moving south to migrate and beat the game!"
+metadata/_custom_type_script = "uid://c3vgn54satwgg"

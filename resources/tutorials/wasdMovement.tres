@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=6 format=3 uid="uid://d0fvebypevuk3"]
+
+[ext_resource type="Texture2D" uid="uid://dxpwpg0jqnmli" path="res://sprites/keys/wasd/keyboard_w.svg" id="1_bnr14"]
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_ckr12"]
+[ext_resource type="Texture2D" uid="uid://da538aprdc7p6" path="res://sprites/keys/wasd/keyboard_a.svg" id="2_2071y"]
+[ext_resource type="Texture2D" uid="uid://pwfqn4dbm23t" path="res://sprites/keys/wasd/keyboard_s.svg" id="3_0ihlw"]
+[ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="4_dutyu"]
+
+[resource]
+script = ExtResource("1_ckr12")
+icons = Array[Texture2D]([ExtResource("1_bnr14"), ExtResource("2_2071y"), ExtResource("3_0ihlw"), ExtResource("4_dutyu")])
+text = "Move: "
+type = "triangle"
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

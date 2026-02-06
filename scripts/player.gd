@@ -123,6 +123,8 @@ func _ready():
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
 	
+	bgmVolume = bgm.volume_db
+	
 	targetZoom = Vector2(zoomMin, zoomMin)
 	
 	initializeValues()
@@ -131,7 +133,8 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("menuback pause"):
 		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown:
 			return
-		GameManager.worldManager.ui_manager.pause()
+		if GameManager.worldManager.ui_manager != null:
+			GameManager.worldManager.ui_manager.pause()
 	if GameManager.paused or GameManager.minigame:
 		return
 	
@@ -259,6 +262,9 @@ func _process(delta):
 	if moveVector != Vector2.ZERO:
 		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
 		
+	if !Input.is_action_pressed("fly") and (flying or forcedFly) and layer != 2:
+		_toggleFly(false)
+		
 	if flying and !wings_flying_sound.playing:
 		wings_flying_sound.play()
 	
@@ -358,6 +364,8 @@ func loadGameChecks():
 func tileCheck():
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
 	if tile != newtile:
+		if GameManager.worldManager != null:
+			GameManager.worldManager.updateFOW(true)
 		if (areaFlag.match("air") and !areaFlag.match("wind")):
 			areaFlag = ""
 		tile = newtile
