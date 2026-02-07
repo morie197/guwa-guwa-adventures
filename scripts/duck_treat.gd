@@ -10,6 +10,7 @@ var hidden_treat_sound: float = -6
 
 @export var undergroundEnergy: float = 1.0
 @export var hiddenTreat = false
+@export var movingTreat = false
 
 var origin: Vector2
 
@@ -37,6 +38,8 @@ func _ready():
 	GameManager.treatsUpdated.connect(_treatsUpdated)
 
 func _process(delta):
+	if movingTreat:
+		return
 	hoverTime += delta * frequency
 	duck_area.global_position.y = origin.y + sin(hoverTime) * amplitude
 	
