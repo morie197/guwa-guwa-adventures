@@ -133,7 +133,7 @@ func _ready():
 	
 	healTimer = Timer.new()
 	add_child(healTimer)
-	healTimer.timeout.connect(GameManager.healPlayer)
+	healTimer.timeout.connect(GameManager.healPlayer.bind(1, true))
 	healTimer.timeout.connect(_regenHeal)
 	_regenHeal()
 	

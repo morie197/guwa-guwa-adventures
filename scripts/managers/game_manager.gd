@@ -50,6 +50,10 @@ var minimapCam
 var canDamage: bool = true
 var damageCooldown: float = 1.25
 
+var damagedHealCooldown: float = 30.0
+var damageHealTimer: Timer
+var canHealAfterDamage: bool = true
+
 signal levelUp
 signal startTutorial(String)
 signal treatsUpdated
@@ -62,6 +66,11 @@ func enterLevel():
 	minigame = false
 	inUpgradeMenu = false
 	wonGame = false
+	
+	if damageHealTimer != null:
+		damageHealTimer.queue_free()
+	damageHealTimer = Timer.new()
+	add_child(damageHealTimer)
 	
 	if initialLevel > 0:
 		testingCheats = true
@@ -333,7 +342,7 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	minigame_stage.speedMultiplier = playerRef.speedMultiplier
 	minigame_stage.rangeMultiplier = playerRef.rangeMultiplier
 	minigame_stage.enduranceMultiplier = playerRef.enduranceMultiplier
-	minigame_stage.position = minigame_stage.position - Vector2(1920/2, 1080/2)
+	minigame_stage.position = minigame_stage.position - Vector2(1920.0/2.0, 1080.0/2.0)
 	
 	minigame_stage.stage = stageName
 	minigame_stage.initValues()
@@ -362,7 +371,13 @@ func calculateBonuses(heal: bool = true):
 	if heal:
 		healPlayer(hpRestoredFromTreat)
 		
-func healPlayer(amount: int = 1):
+func healPlayer(amount: int = 1, regenHeal: bool = false):
+	if canHealAfterDamage == false and regenHeal:
+		if damageHealTimer.time_left == 0.0:
+			print("0 damage heal delay")
+			return
+		print("delayed")
+		return
 	if healthValue < maxHP:
 		playerRef.heal_sound.pitch_scale = 1.6 + clampf(healthValue/maxHP, 0, 1)
 		playerRef.heal_sound.play(0.15)
@@ -437,6 +452,12 @@ func damagePlayer(amount: int = 1):
 		return
 	if canDamage == false:
 		return
+		
+	damageHealTimer.wait_time = damagedHealCooldown
+	damageHealTimer.timeout.connect(func allowHealing(): canHealAfterDamage = true)
+	damageHealTimer.start()
+	canHealAfterDamage = false
+	
 	canDamage = false
 	playerRef.damaged_sound.play()
 	healthValue = clamp(healthValue - amount, 0, maxHP)
