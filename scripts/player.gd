@@ -68,7 +68,7 @@ var mouseScrollInput: float
 
 @export var streamMoveSpeed: float = 160
 @export var whirlPoolMultiplier: float = 2
-@export var areaForceTransitionSpeed: float = 10
+@export var areaForceTransitionSpeed: float = 6
 
 @onready var backwards_detector = $backwardsDetector
 @onready var tutorial_hint_detector = $tutorialHintDetector
@@ -272,7 +272,10 @@ func _process(delta):
 		flyDelayTimer -= delta
 		
 	if areaFlag == "":
-		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed)
+		var multiplier = 1
+		if abs(areaForce.x) > 1.5 or abs(areaForce.y) > 1.5:
+			multiplier = 2
+		areaForce = lerp(areaForce, Vector2.ZERO, delta * areaForceTransitionSpeed * multiplier)
 		
 	if moveVector != Vector2.ZERO:
 		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
@@ -533,7 +536,7 @@ func _move(movevec: Vector2, delt):
 			#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
 			velocity = lastMovedDirection
 			
-		elif areaFlag.match("stream") or areaFlag.match("whirlpool"):
+		elif areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("wind") or areaFlag.match("forceStream"):
 			velocity = movevec
 		else:
 			velocity = movevec.normalized()
@@ -586,6 +589,24 @@ func _move(movevec: Vector2, delt):
 			if backwards_detector.is_colliding() or absDistance < 110:
 				tornadoThrownVelocity = velocity
 				GameManager.damagePlayer(2)
+		elif areaFlag.match("tornadoSafe"):
+			var distanceFromCenter = global_position - streamRef.global_position
+			var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
+			var whirlpoolvel = distanceFromCenter.normalized() * areaForce
+			
+			var multiplier: float = 1
+			if flying or forcedFly or layer == 2:
+				multiplier = 1.2
+					
+			velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * tornadoMultiplier/2.0 * (streamRef.size / absDistance + 1) * multiplier
+			velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * tornadoMultiplier * 10 * multiplier
+					
+			backwards_detector.enabled = true
+			backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * tornadoMultiplier)).normalized() * 13
+			#print(absDistance)
+			if backwards_detector.is_colliding() or absDistance < 110:
+				tornadoThrownVelocity = velocity * streamRef.size/10
+				GameManager.damagePlayer(2)
 
 		if !flying and !forcedFly and !layer == 1: 
 			if areaFlag == "stream":
@@ -610,7 +631,7 @@ func _move(movevec: Vector2, delt):
 					#	GameManager.damagePlayer()
 					
 					velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
-					velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier
+					velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier * 5
 					
 					backwards_detector.enabled = true
 					backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 20
@@ -626,7 +647,8 @@ func _move(movevec: Vector2, delt):
 			else:
 				backwards_detector.enabled = false
 		if flyDelayTimer > 0:
-			velocity = movevec.normalized() * moveSpeed / 1.4
+			if areaFlag != "tornado" and areaFlag != "tornadoSafe":
+				velocity = movevec.normalized() * moveSpeed / 1.4
 		
 	var colliding = move_and_slide()
 	if colliding and flying:

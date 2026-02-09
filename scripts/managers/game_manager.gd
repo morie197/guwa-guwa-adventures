@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 21
+var initialLevel: int = 29
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -60,6 +60,7 @@ signal treatsUpdated
 signal levelLoaded
 signal upgraded
 signal tutorialOver
+signal switchedWorldLevel
 	
 func enterLevel():	
 	paused = false
@@ -322,6 +323,7 @@ func showTutorial(tutorialName: String):
 func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stageName: String, owners):
 	paused = true
 	minigame = true
+	playerRef.healTimer.paused = true
 	
 	worldManager.ui_manager.hud.hide()
 	
@@ -407,6 +409,7 @@ func won():
 	paused = true
 	SaveManager.saveData = {}
 	worldManager.ui_manager.gameWon()
+	playerRef.healTimer.paused = true
 	
 func abilityCheck():
 	for i in range(level + 1):
@@ -445,6 +448,7 @@ func abilityCheck():
 func lostGame():
 	GameManager.paused = true
 	lost = true
+	playerRef.healTimer.paused = true
 	worldManager.ui_manager.gameLost()
 	
 func damagePlayer(amount: int = 1):

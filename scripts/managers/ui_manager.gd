@@ -223,6 +223,7 @@ func pause():
 	if !inPauseMenu:
 		inPauseMenu = true
 		GameManager.paused = true
+		GameManager.playerRef.healTimer.paused = true
 		pauseMenu = PAUSE_MENU.instantiate()
 		pauseMenu.ui_manager = self
 		add_child(pauseMenu)
@@ -230,11 +231,13 @@ func pause():
 		if pauseMenu != null and !pauseMenu.is_queued_for_deletion():
 			#print("unpaused")
 			GameManager.paused = false
+			GameManager.playerRef.healTimer.paused = false
 			inPauseMenu = false
 			pauseMenu.queue_free()
 			
 func closeLoadSave():
 	GameManager.paused = false
+	GameManager.playerRef.healTimer.paused = false
 	GameManager.lost = false
 	saveLoadMenu.queue_free()
 	lostpanel.hide()
@@ -345,6 +348,7 @@ func _showLevelUpUI():
 		return
 	
 	GameManager.paused = true
+	GameManager.playerRef.healTimer.paused = true
 	
 	var foundNextAbility = false
 	

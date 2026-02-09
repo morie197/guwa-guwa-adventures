@@ -317,6 +317,9 @@ func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
 		print("no overground or underground tilemap")
 		return
+		
+	GameManager.switchedWorldLevel.emit()
+		
 	if GameManager.worldLayer == 1:
 		GameManager.worldLayer = 0
 		lights.show()
