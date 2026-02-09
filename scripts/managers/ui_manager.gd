@@ -279,8 +279,12 @@ func updateStaminaBar(current: int, max: int):
 	else:
 		if GameManager.abilities.has("sprint"):
 			stamina_bar.show()
-			stamina_bar.value = current
-			stamina_bar.max_value = max
+			stamina_bar.value = current + 40
+			stamina_bar.max_value = max + 40
+			if GameManager.playerRef.tired and current < max - 60:
+				stamina_bar.modulate = Color.DIM_GRAY
+			else:
+				stamina_bar.modulate = Color.WHITE
 		stamina_bar_minigame.hide()
 		
 func updateMigrateBar(current: int, maxVal: int):
