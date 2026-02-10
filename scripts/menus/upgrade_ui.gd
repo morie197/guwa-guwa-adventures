@@ -22,27 +22,45 @@ func _ready():
 
 
 func initialize():
-	textName.text = "+" + str(UpgradeData.UPGRADES[upgradeName]["percentIncrease"]) + "% " + upgradeName
+	textName.text = "+" + str(GameManager.upgradeSet[upgradeName]["percentIncrease"]) + "% " + upgradeName
 	descriptionText.text = description
 	_updateUI()
 
 func _updateUI():
-	var level = GameManager.upgradeLevels[upgradeName]
+	var level
 	
-	upgrade_level_text.text = "lvl: " + str(level) + " / " +  str(UpgradeData.UPGRADES[upgradeName]["levels"])
-	if GameManager.upgradeLevels[upgradeName] >= UpgradeData.UPGRADES[upgradeName]["levels"]:
-		upgrade_level_text.add_theme_color_override("default_color", Color.RED)
-		upgrade_button.visible = false
+
+	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:
+		level = GameManager.postgameUpgradeLevels[upgradeName]
+		if GameManager.postgameUpgradeLevels[upgradeName] >= GameManager.upgradeSet[upgradeName]["levels"]:
+			upgrade_level_text.add_theme_color_override("default_color", Color.RED)
+			upgrade_button.visible = false
+	else:
+		level = GameManager.upgradeLevels[upgradeName]
+		if GameManager.upgradeLevels[upgradeName] >= GameManager.upgradeSet[upgradeName]["levels"]:
+			upgrade_level_text.add_theme_color_override("default_color", Color.RED)
+			upgrade_button.visible = false
+
+	upgrade_level_text.text = "lvl: " + str(level) + " / " +  str(GameManager.upgradeSet[upgradeName]["levels"])
 
 	if upgradeSelectionUI != null:
 		upgradeSelectionUI.updateRemainingPoints()
 		
 func _upgradeButtonPressed():
-	if GameManager.upgradeLevels[upgradeName] >= UpgradeData.UPGRADES[upgradeName]["levels"]:
-		upgradeSelectionUI.UIManager.masterUIManager.max_level_sound.play()
-		print("max")
-		return
-	GameManager.upgradeLevels[upgradeName] += 1
+	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:
+		if GameManager.postgameUpgradeLevels[upgradeName] >= GameManager.upgradeSet[upgradeName]["levels"]:
+			upgradeSelectionUI.UIManager.masterUIManager.max_level_sound.play()
+			print("max")
+			return
+		else:
+			GameManager.postgameUpgradeLevels[upgradeName] += 1
+	else:
+		if GameManager.upgradeLevels[upgradeName] >= GameManager.upgradeSet[upgradeName]["levels"]:
+			upgradeSelectionUI.UIManager.masterUIManager.max_level_sound.play()
+			print("max")
+			return
+		else:
+			GameManager.upgradeLevels[upgradeName] += 1
 	upgradeSelectionUI.UIManager.masterUIManager.upgraded_sound.play()
 	GameManager.availableUpgradePoints -= 1
 	if GameManager.availableUpgradePoints == 0:

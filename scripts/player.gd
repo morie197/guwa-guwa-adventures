@@ -63,6 +63,10 @@ var enduranceMultiplier: float = 1.0
 var rangeMultiplier: float = 1.0
 var speedMultiplier: float = 1.0
 
+var resistanceMultiplier =  1.0
+var visibilityMultiplier =  1.0
+var agilityMultiplier = 1.0
+
 var moveVector: Vector2 = Vector2.ZERO
 var mouseScrollInput: float
 
@@ -100,6 +104,10 @@ var tornadoThrownVelocity: Vector2 = Vector2.ZERO
 var migrationTime: float = 5
 var migrateTimer: float = 0
 var migrating: bool = false
+
+var travelingTime: float = 1
+var travelingTimer: float = 0
+var traveling: bool = false
 
 var quackTimer: float = 0
 var radarTimer: float = 0
@@ -142,6 +150,9 @@ func _ready():
 	initializeValues()
 
 func _unhandled_input(event):
+	if GameManager.worldManager == null:
+		return
+	
 	if GameManager.lost:
 		return
 	
@@ -187,6 +198,17 @@ func _unhandled_input(event):
 					GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
 					migrating = false
 		
+		if GameManager.abilities.has("travel"):
+			if flying and Input.is_action_pressed("search"):
+				traveling = true
+				if travelingTimer <= 0:
+					travelingTimer = travelingTime
+			else:
+				if traveling:
+					travelingTimer = 0
+					GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
+					traveling = false
+		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
 				_quack()
@@ -207,6 +229,8 @@ func _unhandled_input(event):
 	
 
 func _physics_process(delta):
+	if GameManager.loadingLevel:
+		return
 	if GameManager.wonGame:
 		_move(Vector2.DOWN, delta)
 		return
@@ -219,6 +243,10 @@ func _physics_process(delta):
 	_move(moveVector, delta)
 	
 func _process(delta):
+	if GameManager.loadingLevel:
+		print("returning")
+		return
+	
 	if GameManager.wonGame:
 		if bgm.volume_db <= -35 and bgm.playing:
 			bgm.stop()
@@ -226,9 +254,11 @@ func _process(delta):
 			bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
 	elif GameManager.lost:
 		bgm.stop()
+		
 	elif GameManager.minigame:
 		flying = false
 		migrating = false
+		traveling = false
 		migrateTimer = 0
 		bgm.stop()
 	elif bgm.playing == false:
@@ -238,7 +268,7 @@ func _process(delta):
 		moveVector = Vector2.ZERO
 		return
 	if migrating:
-		if moveVector.y > 0 and flying and GameManager.worldLayer == 1:
+		if flying and GameManager.worldLayer == 1:
 			if migrateTimer > 0:
 				bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
 				migrateTimer -= delta
@@ -249,6 +279,21 @@ func _process(delta):
 			bgm.volume_db = bgmVolume
 			migrateTimer = clampf(migrateTimer + delta * 1.5, 0, migrationTime)
 			GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
+		
+	if traveling:
+		if migrating:
+			migrating = false
+		if flying and GameManager.worldLayer == 1:
+			if travelingTimer > 0:
+				bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
+				travelingTimer -= delta
+				GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
+			else:
+				_traveled()
+		else:
+			bgm.volume_db = bgmVolume
+			travelingTimer = clampf(travelingTimer + delta * 1.5, 0, travelingTime)
+			GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
 		
 	if GameManager.worldLayer == 0 and (layer != 1 and layer != 2):
 		underwater = true
@@ -284,6 +329,8 @@ func _process(delta):
 		_toggleFly(false)
 		
 	if flying and !wings_flying_sound.playing:
+		if GameManager.loadingLevel:
+			return
 		wings_flying_sound.play()
 	
 	if quackTimer > 0:
@@ -302,6 +349,7 @@ func _process(delta):
 		_stateEffects()
 		
 		tileCheck()
+		print(layer)
 		
 	if mouseScrollInput != 0:
 		var minimumZoomAmount = zoomMin / (1 + ((rangeMultiplier - 1) * rangeMultZoomFactor))
@@ -355,7 +403,7 @@ func _process(delta):
 			elif flying and areaFlag != "air" and !areaFlag.match("wind") and !forcedFly: 
 				_toggleFly(false)
 	else:
-		if stamina < maxStamina and !underwater: 
+		if stamina < maxStamina * resistanceMultiplier and !underwater: 
 			stamina+=delta * staminaRecoveryRate * enduranceMultiplier
 			emitUpdatedStaminaValue()
 		else:
@@ -380,6 +428,8 @@ func loadGameChecks():
 	migrating = false
 	
 func tileCheck():
+	if GameManager.worldManager == null:
+		return
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
 	if tile != newtile:
 		if GameManager.worldManager != null:
@@ -433,13 +483,13 @@ func _toggleFly(value: bool):
 	flying = value
 	
 func initializeValues():
-	stamina = maxStamina
+	stamina = maxStamina * resistanceMultiplier
 	emitUpdatedStaminaValue()
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	
 func emitUpdatedStaminaValue():
-	updatedStamina.emit(round(stamina * 100), round(maxStamina * 100))
+	updatedStamina.emit(round(stamina * 100), round(maxStamina * resistanceMultiplier * 100))
 
 func _quack():
 	quack_sound.play()
@@ -470,6 +520,11 @@ func _migrated():
 	
 	
 	GameManager.paused = true
+	
+func _traveled():
+	if traveling == true:
+		traveling = false
+	GameManager.travelToMap()
 	
 func _radar():
 	radar_sound.play()
@@ -550,12 +605,12 @@ func _move(movevec: Vector2, delt):
 		#	print("tutorial")
 		
 		if !flying and (layer == 0 or layer == -1):
-			velocity *= waterSpeedMultiplier
+			velocity *= waterSpeedMultiplier * agilityMultiplier
 			
 		if sprinting:
 			velocity *= sprintMult
 		elif flying:
-			velocity *= flyMulti
+			velocity *= flyMulti * agilityMultiplier
 
 		if !flying and !forcedFly:
 			if onThorns == true:
@@ -565,7 +620,7 @@ func _move(movevec: Vector2, delt):
 				#if global_position.distance_to(tilePosition) < 64:
 		if areaFlag.match("wind"):
 			var windForce: Vector2
-			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti
+			var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * flyMulti * agilityMultiplier
 			if layer == 2 or flying or forcedFly:
 				windForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
 				windForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
@@ -615,7 +670,7 @@ func _move(movevec: Vector2, delt):
 				if backwards_detector.is_colliding():
 					GameManager.damagePlayer()
 				var streamForce: Vector2
-				var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier
+				var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier * agilityMultiplier
 				streamForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
 				streamForce.y = clampf(areaForce.y, -minMaxForce.y, minMaxForce.y)
 				velocity += streamForce
@@ -643,7 +698,7 @@ func _move(movevec: Vector2, delt):
 				backwards_detector.target_position = areaForce.normalized() * 13
 				if backwards_detector.is_colliding():
 					GameManager.damagePlayer()
-				velocity += areaForce * waterSpeedMultiplier
+				velocity += areaForce * waterSpeedMultiplier * agilityMultiplier
 			else:
 				backwards_detector.enabled = false
 		if flyDelayTimer > 0:

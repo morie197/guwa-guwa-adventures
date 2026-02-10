@@ -96,7 +96,7 @@ func pingSoundPlay(subtle: bool = false):
 	
 	var time = Timer.new()
 	add_child(time)
-	targetModulateColor = pingHintColor
+	targetModulateColor = Color(pingHintColor.r, pingHintColor.g, pingHintColor.b, clampf(pingHintColor.a - (0.05 * GameManager.postgameUpgradeLevels["visibility"]), 0.0, 1.0))
 	time.wait_time = pingDelay + (ping.global_position.distance_to(GameManager.playerRef.global_position)/400.0)
 	#print(time.wait_time)
 	time.timeout.connect(ping.play)

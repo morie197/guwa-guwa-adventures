@@ -266,6 +266,9 @@ func _inPopup():
 		button.disabled = inPopup			
 	
 func updateStaminaBar(current: int, max: int):
+	if GameManager.playerRef == null:
+		return
+	
 	if GameManager.wonGame == true:
 		stamina_bar.hide()
 		return
@@ -293,13 +296,8 @@ func updateStaminaBar(current: int, max: int):
 func updateMigrateBar(current: int, maxVal: int):
 	if current > maxVal/20.0:
 		migrate_bar.show()
-		if GameManager.playerRef.moveVector.y > 0:
-			migrate_down_indicator.hide()
-		else:
-			migrate_down_indicator.show()
 	else:
 		migrate_bar.hide()
-		migrate_down_indicator.hide()
 	migrate_bar.max_value = maxVal
 	migrate_bar.value = maxVal - current
 
@@ -334,6 +332,12 @@ func _showLevelUpUI():
 				collectedAll = true
 			progress_to_completion.max_value = 60.0
 			progress_to_complete_percent.max_value = 60.0
+		elif GameManager.worldManager.levelName == "Hidden Grove":
+			if GameManager.level >= 100:
+				collected_number.add_theme_color_override("default_color", Color.BLUE)
+				collectedAll = true
+			progress_to_completion.max_value = 100.0
+			progress_to_complete_percent.max_value = 100.0
 		else:
 			if GameManager.level >= 50:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)

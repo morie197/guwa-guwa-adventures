@@ -33,7 +33,9 @@ func save_game(slot: int = 0):
 	
 
 func load_game(slot: int = 0):
+	GameManager.loadingLevel = true
 	var reloadRefs: bool = false
+	
 	if saveData.has("levelName"):
 		if saveDataAll[slot].has("levelName"):
 			if saveData["levelName"] != saveDataAll[slot]["levelName"]:
@@ -121,11 +123,16 @@ func loadLevel(levelName: String):
 			#print("already loaded!")
 			return
 	
+	
+	
 	if levelName.match("Quiet Gardens"):
 		get_tree().change_scene_to_file("res://scenes/levels/level2.tscn")
 		return
 	elif levelName.match("Rocky Forest"):
 		get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
+		return
+	elif levelName.match("Hidden Grove"):
+		get_tree().change_scene_to_file("res://scenes/levels/level3.tscn")
 		return
 	
 	

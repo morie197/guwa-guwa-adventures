@@ -1,17 +1,19 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 29
+var initialLevel: int = 64
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
 var inUpgradeMenu: bool = false
 var baseHealthValue: int = 10
 var cameraShown: bool = false
-var healthValue: int = 5
-var maxHP: int = 5
+var healthValue: int = 10
+var maxHP: int = 10
 
 var lost: bool = false
+
+var loadingLevel: bool = false
 
 var testingCheats: bool = false
 
@@ -25,6 +27,7 @@ const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 const BRIGHT_NOTIFICATION_352449 = preload("uid://cbayh0an2p7ho")
 
 var upgradeLevels = {"range": 0, "endurance": 0, "speed": 0}
+var postgameUpgradeLevels = {"resistance": 0, "visibility": 0, "agility": 0}
 var availableUpgradePoints: int = 0
 
 var duckRegistry: Array[int] = []
@@ -54,6 +57,8 @@ var damagedHealCooldown: float = 30.0
 var damageHealTimer: Timer
 var canHealAfterDamage: bool = true
 
+var upgradeSet = UpgradeData.UPGRADES
+
 signal levelUp
 signal startTutorial(String)
 signal treatsUpdated
@@ -68,20 +73,27 @@ func enterLevel():
 	inUpgradeMenu = false
 	wonGame = false
 	
+	if worldManager.levelName == "Hidden Grove":
+		print("hidden grove")
+		upgradeSet = UpgradeData.POSTGAMEUPGRADES
+	
 	if damageHealTimer != null:
 		damageHealTimer.queue_free()
 	damageHealTimer = Timer.new()
 	add_child(damageHealTimer)
-	
-	if initialLevel > 0:
-		testingCheats = true
 		
 	GameManager.worldManager.ui_manager.minimap.world_2d = get_tree().root.get_viewport().world_2d
 	minimapCam = GameManager.worldManager.ui_manager.minimap_camera
 	
-	levelLoaded.emit()
-	for l in range(level, initialLevel):
+	for i in range(initialLevel):
+		if worldManager.levelName == "Hidden Grove":
+			availableUpgradePoints = clamp(availableUpgradePoints, 0, 10)
+			break
 		treatGet()
+		closeUpgrades()
+	
+	levelLoaded.emit()
+	print("level loaded")
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
 	playerRef.emitUpdatedStaminaValue()
 	
@@ -93,6 +105,7 @@ func saveValues():
 	SaveManager.saveData["shownTutorials"] = shownTutorials.duplicate()
 	SaveManager.saveData["abilities"] = abilities.duplicate()
 	SaveManager.saveData["upgradeLevels"] = upgradeLevels.duplicate()
+	SaveManager.saveData["postgameUpgradeLevels"] = postgameUpgradeLevels.duplicate()
 	SaveManager.saveData["duckRegistry"] = duckRegistry.duplicate()
 	SaveManager.saveData["treatRegistry"] = treatRegistry.duplicate()
 	SaveManager.saveData["currentHP"] = healthValue
@@ -136,6 +149,7 @@ func stringToVector2i(targets):
 
 
 func loadValues(resetRefs: bool = false):
+	print("loading values")
 	if resetRefs:
 		playerRef = null
 		worldManager = null
@@ -143,6 +157,8 @@ func loadValues(resetRefs: bool = false):
 	if playerRef == null or worldManager == null:
 		print("waiting")
 		await levelLoaded
+	
+	print("level loaded")
 	
 	worldManager.clearFOW()
 	
@@ -157,6 +173,11 @@ func loadValues(resetRefs: bool = false):
 	upgradeLevels["range"] = int(upgradeLevelsData.get("range", 0))
 	upgradeLevels["endurance"] = int(upgradeLevelsData.get("endurance", 0))
 	upgradeLevels["speed"] = int(upgradeLevelsData.get("speed", 0))
+	
+	var postgameUpgradeLevelsData = SaveManager.saveData.get("postgameUpgradeLevels", {})
+	postgameUpgradeLevels["resistance"] = int(postgameUpgradeLevelsData.get("resistance", 0))
+	postgameUpgradeLevels["visibility"] = int(postgameUpgradeLevelsData.get("visibility", 0))
+	postgameUpgradeLevels["agility"] = int(postgameUpgradeLevelsData.get("agility", 0))
 	
 	difficultyValue = SaveManager.saveData.get("difficulty", Difficulty.NORMAL)
 	
@@ -205,6 +226,9 @@ func loadValues(resetRefs: bool = false):
 	abilityCheck()
 	
 	worldManager.ui_manager.updateNextAbility()
+	
+	loadingLevel = false
+	print("Now: " + str(loadingLevel))
 	
 
 func treatGet():
@@ -365,9 +389,14 @@ func calculateBonuses(heal: bool = true):
 		playerRef.enduranceMultiplier = _calculateBonus("endurance")
 		playerRef.rangeMultiplier = _calculateBonus("range")
 		playerRef.speedMultiplier = _calculateBonus("speed")
+		
+		playerRef.resistanceMultiplier =  _calculateBonus("resistance", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
+		playerRef.visibilityMultiplier =  _calculateBonus("visibility", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
+		playerRef.agilityMultiplier =  _calculateBonus("agility", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
+		
 		playerRef.initializeValues()
 		
-	maxHP = baseHealthValue + floor(upgradeLevels["endurance"] / 2.0)
+	maxHP = baseHealthValue + floor(upgradeLevels["endurance"] / 2.0) + postgameUpgradeLevels["resistance"]
 	playerRef.emitUpdatedStaminaValue()
 	
 	if heal:
@@ -388,8 +417,8 @@ func healPlayer(amount: int = 1, regenHeal: bool = false):
 	if worldManager != null:
 		worldManager.ui_manager._updateMaxHP()
 
-func _calculateBonus(upgradeName: String):
-	return 1 + (upgradeLevels[upgradeName] * UpgradeData.UPGRADES[upgradeName]["percentIncrease"])/100.0
+func _calculateBonus(upgradeName: String, upgSet = upgradeLevels, upgData = UpgradeData.UPGRADES):
+	return 1 + (upgSet[upgradeName] * upgData[upgradeName]["percentIncrease"])/100.0
 
 func _levelUp():
 	level += 1
@@ -479,5 +508,18 @@ func damagePlayer(amount: int = 1):
 func changeDifficulty(diff: Difficulty):
 	difficultyValue = diff
 		
-		
+func travelToMap():
+	var oldAbilities = abilities.duplicate()
+	var oldUpgrades = upgradeLevels.duplicate()
+	var oldShownTutorials = shownTutorials.duplicate()
+	var oldCurrentHP = healthValue
+	var oldDifficulty = difficultyValue
+	var oldLevel = level
+
+	loadingLevel = true
+	
+	upgradeSet = UpgradeData.POSTGAMEUPGRADES
+
+	SaveManager.saveDataAll[0] = {"abilities": oldAbilities, "upgradeLevels": oldUpgrades, "shownTutorials": oldShownTutorials, "currentHP": oldCurrentHP, "difficulty": oldDifficulty, "level": oldLevel, "levelName": "Hidden Grove"}
+	SaveManager.load_game(0)
 	

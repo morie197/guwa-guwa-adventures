@@ -8,14 +8,14 @@ const UPGRADE_UI = preload("uid://bdqibxl2ctiqt")
 var UIManager
 
 func _ready():
-	for k in UpgradeData.UPGRADES:
+	for k in GameManager.upgradeSet:
 		var card = UPGRADE_UI.instantiate()
 		upgrade_selections.add_child(card)
 		
 		card.upgradeSelectionUI = self
-		card.percentage = UpgradeData.UPGRADES[k]["percentIncrease"]
+		card.percentage = GameManager.upgradeSet[k]["percentIncrease"]
 		card.upgradeName = k
-		card.description = UpgradeData.UPGRADES[k]["description"]
+		card.description = GameManager.upgradeSet[k]["description"]
 		card.initialize()
 	reset_size()
 

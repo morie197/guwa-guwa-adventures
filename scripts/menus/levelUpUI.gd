@@ -16,7 +16,12 @@ func _ready():
 		abilityUI = NEW_ABILITY_UI.instantiate()
 		add_child(abilityUI)
 	
-	if GameManager.level > (UpgradeData.UPGRADES["range"]["levels"] * UpgradeData.UPGRADES.size()):
+	var upgradeLevels: int = 0
+	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:
+		upgradeLevels = 90
+	else:
+		upgradeLevels = 60
+	if GameManager.level > upgradeLevels:
 		GameManager.closeUpgrades()
 		queue_free()
 		return

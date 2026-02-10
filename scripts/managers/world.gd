@@ -154,6 +154,7 @@ func _ready():
 	current_logic_layer = overground_logic_layer
 	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
+	
 	#request_ready()
 	
 	overMap.modulate = Color.WHITE
