@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=54 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -174,16 +174,16 @@ streams_count = 2
 stream_0/stream = ExtResource("27_wnwbv")
 stream_1/stream = ExtResource("26_pf23h")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wqfne"]
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 10.0
-emission_ring_radius = 90.0
-emission_ring_inner_radius = 0.0
-emission_ring_cone_angle = 90.0
-spread = 0.0
-gravity = Vector3(0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_sckgt"]
+offsets = PackedFloat32Array(0, 0.7099567)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dt7fs"]
+gradient = SubResource("Gradient_sckgt")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 273
@@ -301,12 +301,13 @@ z_index = 6
 position = Vector2(0, 32)
 polygon = PackedVector2Array(-64, -96, 64, -96, 64, 32, -64, 32)
 
-[node name="goingFastParticle" type="GPUParticles2D" parent="."]
-visible = false
-trail_enabled = true
-trail_lifetime = 0.05
-process_material = SubResource("ParticleProcessMaterial_wqfne")
-
 [node name="healSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("29_dt7fs")
 volume_db = -5.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+energy = 1.05
+range_z_min = -20
+range_z_max = 10
+texture = SubResource("GradientTexture2D_dt7fs")
+texture_scale = 4.1

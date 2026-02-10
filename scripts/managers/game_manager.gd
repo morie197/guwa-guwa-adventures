@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 64
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -410,6 +410,7 @@ func healPlayer(amount: int = 1, regenHeal: bool = false):
 		print("delayed")
 		return
 	if healthValue < maxHP:
+		#print(healthValue, maxHP)
 		playerRef.heal_sound.pitch_scale = 1.6 + clampf(healthValue/maxHP, 0, 1)
 		playerRef.heal_sound.play(0.15)
 	

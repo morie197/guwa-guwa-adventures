@@ -10,6 +10,8 @@ extends Node2D
 @onready var undergroundTreats = $Underground/treats
 @onready var undergroundDucks = $Underground/ducks
 
+@onready var overgroundTreats = $Overground/treats
+
 @onready var underMap = $MapLayers/Under
 @onready var overMap = $MapLayers/Over
 
@@ -170,14 +172,38 @@ func openMap(switching: bool = false):
 		mapCam.enabled = false
 		GameManager.paused = false
 		inMap = false
+		GameManager.playerRef.healTimer.paused = false
+		if GameManager.worldLayer == 1:
+			overAreas.show()
+			overAreas.process_mode = Node.PROCESS_MODE_ALWAYS
+			overgroundTreats.show()
+			overgroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
+		else:
+			underAreas.show()
+			underAreas.process_mode = Node.PROCESS_MODE_ALWAYS
+			undergroundTreats.show()
+			undergroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
 		#underMap.modulate = Color.TRANSPARENT
 		#overMap.modulate = Color.TRANSPARENT
 		return
 	
 	if inMap == false:
+		GameManager.playerRef.healTimer.paused = true
+		overAreas.hide()
+		overAreas.process_mode = Node.PROCESS_MODE_DISABLED
+		underAreas.hide()
+		underAreas.process_mode = Node.PROCESS_MODE_DISABLED
+		
+		overgroundTreats.hide()
+		overgroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
+		undergroundTreats.hide()
+		undergroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
+		
 		mapLayer = GameManager.worldLayer
 		get_viewport().canvas_cull_mask = 2
 		mapCam.global_position = GameManager.playerRef.global_position
+		#mapCam.zoom = GameManager.minimapCam.zoom * 2
+		#targetZoom = GameManager.minimapCam.zoom * 2
 	inMap = true
 	mapCam.enabled = true
 	mapCam.make_current()
