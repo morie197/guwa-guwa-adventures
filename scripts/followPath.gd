@@ -33,8 +33,8 @@ func _process(delta):
 		progress += speed * dist*dist * delta
 		
 func _toggleTornado():
-	print("toggled")
-	print(disableStreamComponents)
+	#print("toggled")
+	#print(disableStreamComponents)
 	if GameManager.worldLayer == 1:
 		for component in disableStreamComponents:
 			if component is CollisionShape2D:

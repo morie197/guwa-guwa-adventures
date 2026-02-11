@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://b8kxk1dhvy5xl"]
+
+[ext_resource type="AudioStream" uid="uid://bh6hc5yftnpq4" path="res://sounds/music/Evening Harmony.mp3" id="1_8is7p"]
+[ext_resource type="AudioStream" uid="uid://xestn702v5e4" path="res://Floating Dream.mp3" id="2_4w3hd"]
+[ext_resource type="AudioStream" uid="uid://cv6gy18yp34o5" path="res://Golden Gleam.mp3" id="3_cn2ny"]
+[ext_resource type="AudioStream" uid="uid://b4fljfkflsusj" path="res://Gentle Breeze.mp3" id="4_dlu5t"]
+
+[resource]
+streams_count = 4
+stream_0/stream = ExtResource("1_8is7p")
+stream_1/stream = ExtResource("2_4w3hd")
+stream_2/stream = ExtResource("3_cn2ny")
+stream_3/stream = ExtResource("4_dlu5t")

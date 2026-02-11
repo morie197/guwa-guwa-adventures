@@ -10,6 +10,9 @@ var mapMaskShowColor: Color = Color(0.072, 0.165, 0.4, 0.282)
 
 var mapMaskRef
 
+var pingSubtlePlayed: bool = false
+var pingCooldown: float = 30.0
+
 var targetModulateColor: Color = Color.WHITE
 var pingHintColor: Color = Color(1, 0.85, 0.85, 0.90)
 
@@ -46,11 +49,14 @@ func _ready():
 func _process(delta):
 	if mask.modulate != targetModulateColor:
 		mask.modulate = mask.modulate.lerp(targetModulateColor, delta * modulateSpeed)
+		
+	if GameManager.abilities.has("sonar") and GameManager.playerRef != null:
+		var playR = GameManager.playerRef
+		if playR.global_position.distance_to(global_position) < (playR.radarRange * playR.rangeMultiplier/2.0):
+			pingSoundPlay(true)
 
 func _player_detected(_area):
 	GameManager.playerRef.radar.connect(pingSoundPlay)
-	if GameManager.abilities.has("sonar"):
-		pingSoundPlay(true)
 	
 func _player_exited(_area):
 	GameManager.playerRef.radar.disconnect(pingSoundPlay)
@@ -84,6 +90,15 @@ func _showarea():
 func pingSoundPlay(subtle: bool = false):
 	if found:
 		return
+		
+	if pingSubtlePlayed and subtle:
+		return
+	elif subtle:
+		pingSubtlePlayed = true
+		var timmy = Timer.new()
+		timmy.wait_time = pingCooldown
+		timmy.timeout.connect(func subtleReset(): pingSubtlePlayed = false)
+		timmy.start()
 		
 	if subtle:
 		ping.volume_db = -7

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=52 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -25,8 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dv6fctkoc1gsj" path="res://sounds/SFX/underwater-ambience-376890.mp3" id="23_4ni07"]
 [ext_resource type="AudioStream" uid="uid://bmsqcuam6e8ob" path="res://sounds/SFX/flap4.wav" id="23_gl8cc"]
 [ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="24_487ah"]
-[ext_resource type="AudioStream" uid="uid://r3gtgfop4ehi" path="res://sounds/music/syouki_takahashi-midnight-forest-184304.mp3" id="26_pf23h"]
-[ext_resource type="AudioStream" uid="uid://cvu0vvf0ik5k2" path="res://sounds/music/syouki_takahashi-relief-358185.mp3" id="27_wnwbv"]
+[ext_resource type="AudioStream" uid="uid://dsuftp28fmh2u" path="res://resources/oldBGMMusic.tres" id="25_pf23h"]
 [ext_resource type="AudioStream" uid="uid://cbayh0an2p7ho" path="res://sounds/SFX/bright-notification-352449.mp3" id="29_dt7fs"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="30_wqfne"]
 
@@ -169,11 +168,6 @@ stream_2/stream = ExtResource("22_wnwbv")
 stream_3/stream = ExtResource("23_gl8cc")
 stream_4/stream = ExtResource("24_487ah")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gl8cc"]
-streams_count = 2
-stream_0/stream = ExtResource("27_wnwbv")
-stream_1/stream = ExtResource("26_pf23h")
-
 [sub_resource type="Gradient" id="Gradient_sckgt"]
 offsets = PackedFloat32Array(0, 0.7099567)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -266,9 +260,8 @@ bus = &"SFX"
 current = true
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_gl8cc")
+stream = ExtResource("25_pf23h")
 volume_db = -13.0
-autoplay = true
 bus = &"Music"
 
 [node name="underWaterSounds" type="AudioStreamPlayer" parent="."]
@@ -306,8 +299,9 @@ stream = ExtResource("29_dt7fs")
 volume_db = -5.0
 
 [node name="PointLight2D3" type="PointLight2D" parent="."]
-energy = 1.05
+color = Color(0.8646751, 0.86467516, 0.8646751, 0.61960787)
+energy = 0.61
 range_z_min = -20
 range_z_max = 10
 texture = SubResource("GradientTexture2D_dt7fs")
-texture_scale = 4.1
+texture_scale = 1.87

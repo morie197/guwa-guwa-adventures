@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 15
+var initialLevel: int = 28
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false

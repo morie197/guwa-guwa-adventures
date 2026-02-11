@@ -47,7 +47,8 @@ var zoomInAmount: float = 2
 var zoomOutAmount: float = 0.5
 
 const HIDDEN = preload("uid://bhx0dlto56i1j")
-const NEWB_GM_MUSIC_2 = preload("uid://dbmgbly3dr1id")
+const LEVEL_3_MUSIC = preload("uid://c64fa5fkyx48n")
+const LEVEL_0_MUSIC = preload("uid://b8kxk1dhvy5xl")
 
 var zoomMin: float = 1
 var ZOOMMAX: float = 0.05
@@ -162,8 +163,12 @@ func _ready():
 	overMap.modulate = Color.WHITE
 	underMap.modulate = Color.TRANSPARENT
 	
-	if levelName == "Rocky Forest":
-		GameManager.playerRef.bgm.stream = NEWB_GM_MUSIC_2
+	if levelName == "Hidden Grove":
+		GameManager.playerRef.bgm.volume_db += 5
+		GameManager.playerRef.bgm.stream = LEVEL_3_MUSIC
+	elif levelName == "Rocky Forest":
+		GameManager.playerRef.bgm.volume_db += 5
+		GameManager.playerRef.bgm.stream = LEVEL_0_MUSIC
 	GameManager.playerRef.bgm.play()
 
 func openMap(switching: bool = false):

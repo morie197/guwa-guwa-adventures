@@ -558,77 +558,15 @@ shape = SubResource("CircleShape2D_522sc")
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
 
-[node name="hiddenArea2" type="Area2D" parent="Overground/areas"]
-light_mask = 3
-visibility_layer = 3
-z_index = 6
-position = Vector2(-1472, -1792)
-collision_layer = 0
-collision_mask = 256
-script = ExtResource("9_022ip")
-
-[node name="Mask" type="TileMapLayer" parent="Overground/areas/hiddenArea2"]
-z_index = 4
-tile_map_data = PackedByteArray("AAACAAIAAQAAAAEAAAABAAIAAQAAAAEAAAABAAMAAQAAAAEAAAACAAMAAQAAAAEAAAABAAQAAQAAAAEAAAADAAQAAQAAAAEAAAADAAMAAQAAAAEAAAAAAP3/AQAAAAEAAAAAAPz/AQAAAAEAAAD///3/AQAAAAEAAAADAAUAAQAAAAEAAAACAAYAAQAAAAEAAAADAAYAAQAAAAEAAAADAAcAAQAAAAEAAAAEAAQAAQAAAAEAAAAEAAUAAQAAAAEAAAAEAAYAAQAAAAEAAAAEAAcAAQAAAAEAAAACAAQAAQAAAAIAAAACAAcAAQAAAAEAAAAAAAMAAQAAAAEAAAAAAAQAAQAAAAEAAAABAAUAAQAAAAIAAAABAAEAAQAAAAEAAAAAAAAAAQAAAAIAAAAAAP7/AQAAAAEAAAABAP7/AQAAAAEAAAABAP//AQAAAAEAAAABAAAAAQAAAAEAAAA=")
-tile_set = ExtResource("4_t14x3")
-navigation_enabled = false
-
-[node name="MapMask" type="TileMapLayer" parent="Overground/areas/hiddenArea2"]
-light_mask = 2
-visibility_layer = 2
-z_index = 4
-tile_map_data = PackedByteArray("AAAEAAcAAAAAAAEAAAAEAAYAAAAAAAEAAAADAAYAAAAAAAEAAAACAAYAAAAAAAEAAAACAAcAAAAAAAEAAAADAAcAAAAAAAEAAAADAAUAAAAAAAEAAAADAAQAAAAAAAEAAAAEAAQAAAAAAAEAAAAEAAUAAAAAAAEAAAADAAMAAAAAAAEAAAACAAMAAAAAAAEAAAACAAQAAAAAAAEAAAABAAQAAAAAAAEAAAABAAUAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAMAAAAAAAEAAAABAAMAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAABAAEAAAAAAAEAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAP//AAAAAAEAAAABAP//AAAAAAEAAAABAP7/AAAAAAEAAAAAAP7/AAAAAAEAAAAAAP3/AAAAAAEAAAD///3/AAAAAAEAAAAAAPz/AAAAAAEAAAA=")
-tile_set = ExtResource("1_ah4rv")
-navigation_enabled = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/hiddenArea2"]
-position = Vector2(0, 128)
-shape = SubResource("CircleShape2D_522sc")
-
-[node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea2"]
-stream = SubResource("AudioStreamMP3_a82vw")
-volume_db = -3.496
-
-[node name="hiddenArea3" type="Area2D" parent="Overground/areas"]
-light_mask = 3
-visibility_layer = 3
-z_index = 6
-position = Vector2(256, -2752)
-collision_layer = 0
-collision_mask = 256
-script = ExtResource("9_022ip")
-
-[node name="Mask" type="TileMapLayer" parent="Overground/areas/hiddenArea3"]
-z_index = 4
-tile_map_data = PackedByteArray("AAACAAIAAQAAAAEAAAABAAIAAQAAAAEAAAABAAMAAQAAAAEAAAACAAMAAQAAAAEAAAABAAQAAQAAAAEAAAADAAQAAQAAAAEAAAADAAMAAQAAAAEAAAAAAP3/AQAAAAEAAAAAAPz/AQAAAAEAAAD///3/AQAAAAEAAAADAAUAAQAAAAEAAAACAAYAAQAAAAEAAAADAAYAAQAAAAEAAAADAAcAAQAAAAEAAAAEAAQAAQAAAAEAAAAEAAUAAQAAAAEAAAAEAAYAAQAAAAEAAAAEAAcAAQAAAAEAAAACAAQAAQAAAAIAAAACAAcAAQAAAAEAAAAAAAMAAQAAAAEAAAAAAAQAAQAAAAEAAAABAAUAAQAAAAIAAAABAAEAAQAAAAEAAAAAAAAAAQAAAAIAAAAAAP7/AQAAAAEAAAABAP7/AQAAAAEAAAABAP//AQAAAAEAAAABAAAAAQAAAAEAAAA=")
-tile_set = ExtResource("4_t14x3")
-navigation_enabled = false
-
-[node name="MapMask" type="TileMapLayer" parent="Overground/areas/hiddenArea3"]
-light_mask = 2
-visibility_layer = 2
-z_index = 4
-tile_map_data = PackedByteArray("AAAEAAcAAAAAAAEAAAAEAAYAAAAAAAEAAAADAAYAAAAAAAEAAAACAAYAAAAAAAEAAAACAAcAAAAAAAEAAAADAAcAAAAAAAEAAAADAAUAAAAAAAEAAAADAAQAAAAAAAEAAAAEAAQAAAAAAAEAAAAEAAUAAAAAAAEAAAADAAMAAAAAAAEAAAACAAMAAAAAAAEAAAACAAQAAAAAAAEAAAABAAQAAAAAAAEAAAABAAUAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAMAAAAAAAEAAAABAAMAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAABAAEAAAAAAAEAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAP//AAAAAAEAAAABAP//AAAAAAEAAAABAP7/AAAAAAEAAAAAAP7/AAAAAAEAAAAAAP3/AAAAAAEAAAD///3/AAAAAAEAAAAAAPz/AAAAAAEAAAA=")
-tile_set = ExtResource("1_ah4rv")
-navigation_enabled = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/hiddenArea3"]
-position = Vector2(0, 128)
-shape = SubResource("CircleShape2D_522sc")
-
-[node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea3"]
-stream = SubResource("AudioStreamMP3_a82vw")
-volume_db = -3.496
-
 [node name="treats" type="Node2D" parent="Overground"]
 light_mask = 3
 visibility_layer = 3
 
 [node name="duckTreat" parent="Overground/treats" instance=ExtResource("10_hl16f")]
-position = Vector2(-192, -448)
+position = Vector2(-1536, -832)
 
 [node name="duckTreat2" parent="Overground/treats" instance=ExtResource("10_hl16f")]
-position = Vector2(448, -896)
+position = Vector2(-2112, -1792)
 
 [node name="ducks" type="Node2D" parent="Overground"]
 light_mask = 3
