@@ -387,7 +387,7 @@ func _process(delta):
 		swimming.flip_h = false
 	
 	if moveVector != Vector2.ZERO:
-		if layer == 0:
+		if layer == 0 or layer == -1:
 			walking.visible = false
 			if walking.is_playing():
 				walking.stop()
@@ -596,19 +596,21 @@ func _stateEffects():
 	
 	percent *= 100
 	
+	
 	if sprinting: 
 		if water_swimming_through.playing:
 			percent += 15.0
 		elif grass_foot_steps.playing:
 			percent += 5
-	
 	match layer:
 		0:
-			if percent >= 80.0 or water_swimming_through.playing == false:
-				water_swimming_through.play()
+			if moveVector != Vector2.ZERO:
+				if percent >= 80.0 or water_swimming_through.playing == false:
+					water_swimming_through.play()
 		1:
-			if percent >= 95.0 or grass_foot_steps.playing == false:
-				grass_foot_steps.play()
+			if moveVector != Vector2.ZERO or areaFlag == "wind" or areaFlag == "safeTornado":
+				if percent >= 95.0 or grass_foot_steps.playing == false:
+					grass_foot_steps.play()
 	
 func _move(movevec: Vector2, delt):
 	if !tornadoThrownVelocity.is_zero_approx():
