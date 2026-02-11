@@ -164,6 +164,7 @@ func _ready():
 	
 	if levelName == "Rocky Forest":
 		GameManager.playerRef.bgm.stream = NEWB_GM_MUSIC_2
+	GameManager.playerRef.bgm.play()
 
 func openMap(switching: bool = false):
 	#print("opening", inMap)
@@ -220,8 +221,8 @@ func openMap(switching: bool = false):
 		underMap.modulate = Color.TRANSPARENT
 
 func updateFOW(usual: bool = false):
-	if usual and sinceLastUpdate < 0.5:
-		print("skipping to update")
+	if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/10.0:
+		#print("skipping to update")
 		return
 	else:
 		sinceLastUpdate = 0
@@ -242,7 +243,7 @@ func updateFOW(usual: bool = false):
 	#elif GameManager.worldLayer == 1:
 		#appendToDict = revealedTilesDict
 	
-	var finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"]/3.0)
+	var finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"]/3.5)
 	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):
