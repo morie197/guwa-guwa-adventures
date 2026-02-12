@@ -149,17 +149,22 @@ func _quack():
 		return
 	
 	quacking = true
+	quack_sound.volume_db = hitQuackVolume
+	quack_sound.play()
+	
 	#quackingTimer = quackingTime
 	
 	quackTimer = quackCooldown
-	if quacker.quack() == false:
-		quack_sound.volume_db = hitQuackVolume
-		enemy_hit.play()
-		quack_sound.play()
-	else:
+	#if quacker.quack() == false:
+		#quack_sound.volume_db = hitQuackVolume
+		#enemy_hit.play()
+		#quack_sound.play()
+	#else:
+		#
+		#quack_sound.volume_db = missQuackVolume
+		#quack_sound.play()
 		
-		quack_sound.volume_db = missQuackVolume
-		quack_sound.play()
+	quacker.quack(get_local_mouse_position().normalized(), 5 * speedMultiplier)
 	
 func _hp_change():
 	hit_sound.pitch_scale = clampf(float(quacker.health) / float(quacker.max_health) + 0.5, 0.2, 1)
@@ -174,8 +179,9 @@ func parry(damager):
 		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 			quacker.health  = clamp(quacker.health + 1, 0, quacker.max_health)
 		else:
-			damager.damage(1, self)
-			damager.parent_duck.changeStates()
+			#damager.damage(1, self)
+			#damager.parent_duck.changeStates()
+			quacker.quack(damager.parentDuck.global_position - global_position, 5 * speedMultiplier)
 		quacker.hp_changed.emit()
 		invincibleDurationTimer = invincibleDuration
 		invincible = true

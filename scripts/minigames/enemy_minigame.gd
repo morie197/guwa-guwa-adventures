@@ -195,9 +195,9 @@ func _process(delta):
 	if quackRandomTimer <= 0:
 		quackRandomTimer = randf_range(quackBaseRandomTimer - quackRandomTimerVariation, quackBaseRandomTimer + quackRandomTimerVariation)
 		quack()	
-	elif quacker.enemy_duck.size() > 0:
-		if state != STATE.RUNNING:
-			quack()
+	#elif quacker.enemy_duck.size() > 0:
+		#if state != STATE.RUNNING:
+			#quack()
 	
 func _move():
 	if beingKnockedBack:
@@ -233,12 +233,15 @@ func quack():
 	if quackTimer > 0:
 		return
 	quackTimer = quackCooldown
+	
+	#quacker.quack((playerPos - global_position).normalized(), 5 * minigamemanager.player_minigame.speedMultiplier)
+	
 	if tim == null:
 		tim = Timer.new()
 	tim.wait_time = quackDelay
 	add_child(tim)
 	tim.start()
-	tim.timeout.connect(quacker.quack)
+	tim.timeout.connect(quacker.quack.bind((playerPos - global_position).normalized(), 5 * minigamemanager.player_minigame.speedMultiplier))
 	tim.timeout.connect(quack_sound.play)
 	tim.timeout.connect(lunge_bar.hide)
 	tim.timeout.connect(tim.queue_free)
