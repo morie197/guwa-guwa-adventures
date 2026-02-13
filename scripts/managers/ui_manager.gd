@@ -101,7 +101,6 @@ func _ready():
 	GameManager.levelUp.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
 	GameManager.upgraded.connect(_updateMaxHP)
-	GameManager.showTutorial("basics")
 	origin = migrate_down_indicator.global_position
 	
 	for bar in hp_bars.get_children():
@@ -330,8 +329,8 @@ func _showLevelUpUI():
 			if GameManager.level >= 65:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
 				collectedAll = true
-			progress_to_completion.max_value = 60.0
-			progress_to_complete_percent.max_value = 60.0
+			progress_to_completion.max_value = 65.0
+			progress_to_complete_percent.max_value = 65.0
 		elif GameManager.worldManager.levelName == "Hidden Grove":
 			if GameManager.level >= 100:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
@@ -339,11 +338,11 @@ func _showLevelUpUI():
 			progress_to_completion.max_value = 100.0
 			progress_to_complete_percent.max_value = 100.0
 		else:
-			if GameManager.level >= 50:
+			if GameManager.level >= 65:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
 				collectedAll = true
-			progress_to_completion.max_value = 50.0
-			progress_to_complete_percent.max_value = 50.0
+			progress_to_completion.max_value = 65.0
+			progress_to_complete_percent.max_value = 65.0
 		
 	progress_to_completion.value = GameManager.level
 	progress_to_complete_percent.value = GameManager.level

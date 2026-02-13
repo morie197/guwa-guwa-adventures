@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://2n3n0g72rrmu"]
+
+[ext_resource type="Script" uid="uid://bmcbwsl5158pl" path="res://scenes/indicator.gd" id="1_dik84"]
+[ext_resource type="Texture2D" uid="uid://be01o6n3ywk7v" path="res://sprites/sprites/arrow_decorative_s.svg" id="1_t3fs7"]
+[ext_resource type="Script" uid="uid://cn40qc55dy6vx" path="res://scripts/fadeout.gd" id="2_dik84"]
+
+[node name="indicator" type="Node2D"]
+script = ExtResource("1_dik84")
+
+[node name="TextureRect" type="TextureRect" parent="." node_paths=PackedStringArray("deleteList")]
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 60.0
+rotation = -1.5707964
+texture = ExtResource("1_t3fs7")
+script = ExtResource("2_dik84")
+normaldisplayTime = 5.0
+deleteList = [NodePath("..")]

@@ -21,7 +21,7 @@ const ABILITIES = {
 	8: {
 		"name": "sonar",
 		"displayName": "Sonar",
-		"description": "Press Q to search your sorroundings, potentially uncovering secret areas!"
+		"description": "Press Q to search your sorroundings, potentially uncovering secret areas and finding treats!"
 		},
 	13: {
 		"name": "walk",

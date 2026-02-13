@@ -11,6 +11,8 @@ var displayCooldown: float = 10
 
 var canDisplay: bool = true
 
+var timerBoi: Timer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	displayName = requiredAbility
@@ -26,7 +28,9 @@ func _ready():
 func _process(delta):
 	pass
 
-func showHint():
+func showHint(spawnPos: Vector2):
+	#print(canDisplay)
+	#print(timerBoi)
 	if canDisplay == false:
 		return
 	if GameManager.abilities.has(requiredAbility):
@@ -36,15 +40,18 @@ func showHint():
 		var skillHint = SKILL_HINT.instantiate()
 		add_child(skillHint)
 		skillHint.setText(displayName, requiredLevel)
+		skillHint.global_position = spawnPos
 		skillHint.position.x -= skillHint.size.x/2.0
-		skillHint.position -= Vector2.RIGHT * 32
-		skillHint.position += Vector2.UP * 64
+		#skillHint.position += Vector2.RIGHT * 0
+		skillHint.position += Vector2.UP * 160
 		canDisplay = false
-		var tim = Timer.new()
-		add_child(tim)
-		tim.wait_time = displayCooldown
-		tim.timeout.connect(func allowDisplay(): canDisplay = true)
-		tim.start()
+		if timerBoi == null:
+			timerBoi = Timer.new()
+			add_child(timerBoi)
+			timerBoi.wait_time = displayCooldown
+			timerBoi.timeout.connect(func allowDisplay(): canDisplay = true)
+			timerBoi.timeout.connect(timerBoi.queue_free)
+			timerBoi.start()
 		
 		
 		

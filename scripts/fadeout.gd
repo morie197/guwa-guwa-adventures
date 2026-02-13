@@ -2,6 +2,7 @@ extends Control
 
 @export var fadeoutSpeed: float = 2
 @export var normaldisplayTime: float = 2
+@export var deleteList: Array[Node]
 
 var normaldisplayTimer: float = 0
 
@@ -15,4 +16,7 @@ func _process(delta):
 	else:
 		modulate = modulate.lerp(Color.TRANSPARENT, delta * fadeoutSpeed)
 		if modulate.a <= 0.05:
+			for node in deleteList:
+				node.queue_free()
 			queue_free()
+			

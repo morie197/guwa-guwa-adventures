@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=53 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -27,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="24_487ah"]
 [ext_resource type="AudioStream" uid="uid://dsuftp28fmh2u" path="res://resources/oldBGMMusic.tres" id="25_pf23h"]
 [ext_resource type="AudioStream" uid="uid://cbayh0an2p7ho" path="res://sounds/SFX/bright-notification-352449.mp3" id="29_dt7fs"]
+[ext_resource type="AudioStream" uid="uid://dtegenwk8i4yl" path="res://sounds/SFX/ping-306439.mp3" id="29_wqfne"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="30_wqfne"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
@@ -305,3 +306,9 @@ range_z_min = -20
 range_z_max = 10
 texture = SubResource("GradientTexture2D_dt7fs")
 texture_scale = 1.87
+
+[node name="foundTreat" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("29_wqfne")
+volume_db = -2.47
+pitch_scale = 1.25
+bus = &"SFX"

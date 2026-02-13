@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 0
+var initialLevel: int = 17
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -43,7 +43,7 @@ var shownTutorials = []
 
 var abilities := []
 
-var worldManager
+var worldManager: WorldManager
 var playerRef
 var worldLayer = 1
 var switchedWorldLayer: bool = false
@@ -94,9 +94,11 @@ func enterLevel():
 		closeUpgrades()
 	
 	levelLoaded.emit()
-	print("level loaded")
+	#print("level loaded")
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
 	playerRef.emitUpdatedStaminaValue()
+	
+	showTutorial("basics")
 	
 func saveValues():
 	SaveManager.saveData["player_pos_x"] = playerRef.global_position.x
@@ -183,7 +185,7 @@ func loadValues(resetRefs: bool = false):
 	difficultyValue = SaveManager.saveData.get("difficulty", Difficulty.NORMAL)
 	
 	canDamage = false
-	healthValue = SaveManager.saveData.get("currentHP", 5)
+	healthValue = SaveManager.saveData.get("currentHP", 10)
 	
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
@@ -339,7 +341,7 @@ func showTutorial(tutorialName: String):
 		return
 		
 	if tutorialName.match("quack") or tutorialName.match("land") or tutorialName.match("dive") or tutorialName.match("fly"):
-		print("showing")
+		#print("showing")
 		cameraShow(tutorialName)
 		
 	shownTutorials.append(tutorialName)
@@ -519,6 +521,7 @@ func travelToMap():
 	var oldLevel = level
 
 	loadingLevel = true
+	availableUpgradePoints = 0
 	
 	upgradeSet = UpgradeData.POSTGAMEUPGRADES
 

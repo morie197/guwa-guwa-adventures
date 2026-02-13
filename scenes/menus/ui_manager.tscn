@@ -31,6 +31,9 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fft06"]
+shader = ExtResource("14_lho24")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lho24"]
 shader = ExtResource("11_5dfom")
 shader_parameter/shine_speed = 0.50000002375
@@ -42,9 +45,6 @@ shader_parameter/line_intensity = 0.70000003325
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45cly"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_prq0i"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fft06"]
-shader = ExtResource("14_lho24")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prq0i"]
 content_margin_left = 0.0
@@ -207,6 +207,54 @@ value = 100.0
 nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("7_tanoa")
+
+[node name="staminaThingy2" type="TextureProgressBar" parent="HUD/StaminaBar"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.60784316)
+z_index = -1
+material = SubResource("ShaderMaterial_fft06")
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+min_value = 40.0
+max_value = 40.0
+value = 40.0
+nine_patch_stretch = true
+texture_progress = ExtResource("8_tanoa")
+
+[node name="staminaThingy" type="TextureProgressBar" parent="HUD/StaminaBar"]
+self_modulate = Color(0.7708395, 0.77083945, 0.77083945, 0.92156863)
+z_index = -2
+material = SubResource("ShaderMaterial_fft06")
+custom_minimum_size = Vector2(620, 120)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -55.0
+offset_right = 305.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+min_value = 40.0
+max_value = 40.0
+value = 40.0
+nine_patch_stretch = true
+texture_over = ExtResource("6_hst8a")
+texture_progress = ExtResource("8_tanoa")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
 layout_mode = 1

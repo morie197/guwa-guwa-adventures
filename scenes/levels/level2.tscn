@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=4 uid="uid://bemwbjjcrdjyc"]
+[gd_scene load_steps=121 format=4 uid="uid://bemwbjjcrdjyc"]
 
 [ext_resource type="Script" uid="uid://crksfl5ssd2u1" path="res://scripts/managers/world.gd" id="1_4eecq"]
 [ext_resource type="TileSet" uid="uid://dlkfn2w1l7bh5" path="res://resources/tilesets/logicTileSet.tres" id="2_b3p8y"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://ii1rt1h5f4o2" path="res://scripts/followPath.gd" id="14_6igki"]
 [ext_resource type="AudioStream" uid="uid://bsy56u3df52mm" path="res://sounds/SFX/tornado-sound-better-quality-68141.mp3" id="15_hlvfl"]
 [ext_resource type="PackedScene" uid="uid://bhx0dlto56i1j" path="res://scenes/hidden.tscn" id="16_7r2ys"]
+[ext_resource type="Script" uid="uid://bugiatvopwsmi" path="res://scenes/levels/tutorial_area.gd" id="16_b3p8y"]
 [ext_resource type="TileSet" uid="uid://da5bya7ua2qbw" path="res://resources/tilesets/hiddenTileMap.tres" id="17_h3qar"]
 [ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="18_r00g1"]
 [ext_resource type="PackedScene" uid="uid://bdgxe0o350b3g" path="res://scenes/menus/ui_manager.tscn" id="19_liaw4"]
@@ -627,6 +628,15 @@ gravity = Vector3(0, 0, 0)
 linear_accel_min = 1000.0
 linear_accel_max = 1000.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4wmb1"]
+radius = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5qtw0"]
+radius = 192.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xidjn"]
+radius = 320.0
+
 [node name="World" type="Node2D" groups=["worldManager"]]
 light_mask = 3
 visibility_layer = 3
@@ -1006,6 +1016,16 @@ max_distance = 1300.0
 bus = &"SFX"
 parameters/looping = true
 
+[node name="tutorialArea14" type="Area2D" parent="Underground/areas"]
+position = Vector2(4544, -13952)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Underground/areas/tutorialArea14"]
+polygon = PackedVector2Array(-192, 64, -192, -64, -128, -64, -128, -192, -64, -192, -64, -256, 320, -256, 320, -192, 256, -192, 256, 0, 320, 0, 320, 192, 256, 192, 256, 128, 192, 128, 192, 64, 128, 64, 128, 0, -64, 0, -64, 64)
+
 [node name="treats" type="Node2D" parent="Underground"]
 light_mask = 3
 visibility_layer = 3
@@ -1096,7 +1116,6 @@ stageName = "underwater"
 owners = [NodePath("../StaticEnemyDuck"), NodePath("../StaticEnemyDuck2"), NodePath("../StaticEnemyDuck3"), NodePath("../StaticEnemyDuck4"), NodePath("../StaticEnemyDuck5"), NodePath(".")]
 
 [node name="darkener" type="CanvasModulate" parent="Underground"]
-visible = false
 color = Color(0.31350002, 0.37762502, 0.57, 1)
 
 [node name="lights" type="Node2D" parent="Underground"]
@@ -3168,6 +3187,162 @@ autoplay = true
 max_distance = 3500.0
 bus = &"SFX"
 parameters/looping = true
+
+[node name="tutorialArea" type="Area2D" parent="Overground/areas"]
+position = Vector2(1856, -1920)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "quack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea"]
+position = Vector2(64, 0)
+shape = SubResource("CircleShape2D_4wmb1")
+
+[node name="tutorialArea15" type="Area2D" parent="Overground/areas"]
+position = Vector2(3648, -448)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "quack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea15"]
+position = Vector2(64, 0)
+shape = SubResource("CircleShape2D_4wmb1")
+
+[node name="tutorialArea2" type="Area2D" parent="Overground/areas"]
+position = Vector2(3072, -832)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "sprint"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea2"]
+position = Vector2(64, 0)
+shape = SubResource("CircleShape2D_4wmb1")
+
+[node name="tutorialArea3" type="Area2D" parent="Overground/areas"]
+position = Vector2(2688, 256)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "sprint"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea3"]
+position = Vector2(64, 0)
+shape = SubResource("CircleShape2D_4wmb1")
+
+[node name="tutorialArea4" type="Area2D" parent="Overground/areas"]
+position = Vector2(4736, -4480)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "walk"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea4"]
+polygon = PackedVector2Array(256, 192, 192, 192, 192, 128, 64, 128, 64, 64, 0, 64, 0, 0, -128, 0, -128, -64, -192, -64, -192, -192, 384, -192, 384, 128, 256, 128)
+
+[node name="tutorialArea5" type="Area2D" parent="Overground/areas"]
+position = Vector2(-1920, -4608)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "walk"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea5"]
+polygon = PackedVector2Array(-64, 128, -64, -64, -128, -64, -128, -128, -64, -128, -64, -192, 0, -192, 0, -256, 64, -256, 64, 128)
+
+[node name="tutorialArea6" type="Area2D" parent="Overground/areas"]
+position = Vector2(384, -5120)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "walk"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea6"]
+position = Vector2(320, -64)
+polygon = PackedVector2Array(0, 192, 0, 128, 64, 128, 64, -192, 0, -192, 0, -256, -320, -256, -320, -320, -704, -320, -704, -192, -640, -192, -640, 64, -576, 64, -576, 192, -512, 192, -512, 256, -448, 256, -448, 320, -320, 320, -320, 448, -128, 448, -128, 384, -192, 384, -192, 192, -256, 192, -256, 64, -320, 64, -320, 0, -448, 0, -448, -128, -384, -128, -384, -192, -192, -192, -192, -128, -128, -128, -128, -64, -64, -64, -64, 192)
+
+[node name="tutorialArea7" type="Area2D" parent="Overground/areas"]
+position = Vector2(1152, -5120)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "walk"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea7"]
+position = Vector2(320, -64)
+polygon = PackedVector2Array(-320, -320, -512, -320, -512, -256, -576, -256, -576, -192, -512, -192, -512, -128, -448, -128, -448, 0, -512, 0, -512, 192, -576, 192, -576, 320, -640, 320, -640, 384, -704, 384, -704, 448, -576, 448, -576, 384, -512, 384, -512, 320, -448, 320, -448, 192, -384, 192, -384, 128, -256, 128, -256, 64, -192, 64, -192, -64, -256, -64, -256, -192, -320, -192)
+
+[node name="tutorialArea8" type="Area2D" parent="Overground/areas"]
+position = Vector2(576, -6912)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "dive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea8"]
+shape = SubResource("CircleShape2D_5qtw0")
+
+[node name="tutorialArea9" type="Area2D" parent="Overground/areas"]
+position = Vector2(4864, -7296)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "dive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea9"]
+shape = SubResource("CircleShape2D_xidjn")
+
+[node name="tutorialArea10" type="Area2D" parent="Overground/areas"]
+position = Vector2(1984, -8128)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea10"]
+polygon = PackedVector2Array(1024, 384, 768, 384, 768, 320, 512, 320, 512, 256, 384, 256, 384, 192, 256, 192, 256, 128, 64, 128, 64, 64, -128, 64, -128, 0, -192, 0, -192, -64, -320, -64, -320, -192, -256, -192, -256, -256, -192, -256, -192, -320, -128, -320, -128, -384, -64, -384, -64, -512, -128, -512, -128, -576, -192, -576, -192, -640, -320, -640, -320, -704, -448, -704, -448, -768, -576, -768, -576, -832, -704, -832, -704, -896, -768, -896, -768, -960, -832, -960, -832, -1024, -896, -1024, -896, -1088, -960, -1088, -960, -1152, -1024, -1152, -1024, -1280, -1088, -1280, -1088, -1344, -1152, -1344, -1152, -1472, -1088, -1472, -1088, -1536, -1024, -1536, -1024, -1600, -960, -1600, -960, -1664, -768, -1664, -768, -1728, -512, -1728, -512, -1792, -256, -1792, -256, -1920, -128, -1920, -128, -1984, -64, -1984, -64, -2048, 192, -2048, 192, -2176, 384, -2176, 384, -2240, 576, -2240, 576, -1728, 512, -1728, 512, -1088, 576, -1088, 576, -896, 640, -896, 640, -320, 704, -320, 704, -128, 768, -128, 768, 0, 832, 0, 832, 192, 896, 192, 896, 256, 960, 256, 960, 320, 1024, 320)
+
+[node name="tutorialArea11" type="Area2D" parent="Overground/areas"]
+position = Vector2(960, -8192)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea11"]
+polygon = PackedVector2Array(128, 256, 192, 256, 192, 192, 320, 192, 320, 128, 448, 128, 448, 64, 512, 64, 512, 0, 576, 0, 576, -64, 512, -64, 512, -128, 448, -128, 448, -192, 384, -192, 384, -256, 320, -256, 320, -320, 256, -320, 256, -384, 192, -384, 192, -448, 128, -448, 128, -512, 64, -512, 64, -576, 0, -576, 0, -704, -64, -704, -64, -832, -128, -832, -128, -768, -192, -768, -192, -640, -256, -640, -256, -576, -320, -576, -320, -512, -256, -512, -256, -448, -128, -448, -128, -384, 0, -384, 0, -320, 64, -320, 64, -192, 192, -192, 192, 64, 128, 64)
+
+[node name="tutorialArea12" type="Area2D" parent="Overground/areas"]
+position = Vector2(1088, -10240)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea12"]
+polygon = PackedVector2Array(-448, 1152, -384, 1152, -384, 1088, -320, 1088, -320, 960, -384, 960, -384, 768, -448, 768, -448, 448, -384, 448, -384, 384, -320, 384, -320, 256, -256, 256, -256, 192, -192, 192, -192, 128, -64, 128, -64, 64, 128, 64, 128, 0, 256, 0, 256, -64, 384, -64, 384, -128, 1024, -128, 1024, -192, 1152, -192, 1152, -256, 1280, -256, 1280, -320, 1408, -320, 1408, -384, 1472, -384, 1472, -576, 64, -320, -576, 128, -640, 128, -640, 576, -576, 576, -576, 832, -512, 832, -512, 1024, -448, 1024)
+
+[node name="tutorialArea13" type="Area2D" parent="Overground/areas"]
+position = Vector2(-320, -8640)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea13"]
+polygon = PackedVector2Array(384, 128, 384, 0, 256, 0, 256, -64, 0, -64, 0, -128, -128, -128, -128, -64, -256, -64, -256, 0, -320, 0, -320, 64, 128, 64, 128, 128)
+
+[node name="tutorialArea14" type="Area2D" parent="Overground/areas"]
+position = Vector2(2816, -12224)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_b3p8y")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea14"]
+polygon = PackedVector2Array(0, 192, 64, 192, 64, 64, 192, 64, 192, 0, 256, 0, 256, -64, 192, -64, 192, -128, -64, -128, -64, 128, 0, 128)
 
 [node name="treats" type="Node2D" parent="Overground"]
 light_mask = 3

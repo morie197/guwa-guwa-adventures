@@ -22,7 +22,8 @@ func _ready():
 
 
 func initialize():
-	textName.text = "+" + str(GameManager.upgradeSet[upgradeName]["percentIncrease"]) + "% " + upgradeName
+	#textName.text = "+" + str(GameManager.upgradeSet[upgradeName]["percentIncrease"]) + "% " + upgradeName
+	textName.text = upgradeName.capitalize()
 	descriptionText.text = description
 	_updateUI()
 
@@ -50,14 +51,12 @@ func _upgradeButtonPressed():
 	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:
 		if GameManager.postgameUpgradeLevels[upgradeName] >= GameManager.upgradeSet[upgradeName]["levels"]:
 			upgradeSelectionUI.UIManager.masterUIManager.max_level_sound.play()
-			print("max")
 			return
 		else:
 			GameManager.postgameUpgradeLevels[upgradeName] += 1
 	else:
 		if GameManager.upgradeLevels[upgradeName] >= GameManager.upgradeSet[upgradeName]["levels"]:
 			upgradeSelectionUI.UIManager.masterUIManager.max_level_sound.play()
-			print("max")
 			return
 		else:
 			GameManager.upgradeLevels[upgradeName] += 1

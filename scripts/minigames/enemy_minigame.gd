@@ -16,8 +16,8 @@ var max_quack_range
 
 @onready var quacker = $Quacker
 
-@export var quackCooldown: float = 1.1
-@export var quackBaseRandomTimer: float = 3
+@export var quackCooldown: float = 0.6
+@export var quackBaseRandomTimer: float = 1.5
 @export var quackRandomTimerVariation: float = 0.5
 
 @export var chaseSpeedMultiplier: float = 1.6
@@ -91,8 +91,8 @@ func initValues():
 		max_quack_range = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
 		max_quack_range = clampf(max_quack_range * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
 	else: 
-		quackBaseRandomTimer += 2.0
-		quackCooldown = quackCooldown * (((minigamemanager.enemyHealthValues.size() -1) / 4.0) + 1)
+		#quackBaseRandomTimer += 2.0
+		#quackCooldown = quackCooldown * (((minigamemanager.enemyHealthValues.size() -1) / 4.0) + 1)
 		max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
 		
 	var enemyScale = 0.5 + (maxHealth/25.0)

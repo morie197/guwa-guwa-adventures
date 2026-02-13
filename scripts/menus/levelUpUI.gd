@@ -12,13 +12,13 @@ var abilityUI
 func _ready():
 	GameManager.paused = true
 	
-	if AbilityData.ABILITIES.has(GameManager.level):
+	if AbilityData.ABILITIES.has(GameManager.level) and GameManager.level != 65:
 		abilityUI = NEW_ABILITY_UI.instantiate()
 		add_child(abilityUI)
 	
 	var upgradeLevels: int = 0
 	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:
-		upgradeLevels = 90
+		upgradeLevels = 95
 	else:
 		upgradeLevels = 60
 	if GameManager.level > upgradeLevels:

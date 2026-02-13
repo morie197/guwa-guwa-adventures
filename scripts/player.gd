@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
+const INDICATOR = preload("uid://2n3n0g72rrmu")
 
 @onready var swimming = $swimming
 @onready var walking = $walking
@@ -15,6 +16,10 @@ const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 @onready var under_water_sounds = $underWaterSounds
 @onready var wings_flying_sound = $wingsFlyingSound
 @onready var wings_flapping_sound = $wingsFlappingSound
+@onready var found_treat_sound = $foundTreat
+
+
+var indicator
 
 @onready var audio_listener_2d = $AudioListener2D
 
@@ -51,6 +56,8 @@ var flyDelay: float = 0.3
 var flyDelayTimer: float = 0.0
 var flyLerpSpeed: float = 1
 
+var treatFindRangeMult: float = 2.0
+
 var healTimer: Timer
 var areaSwitchTimer: Timer
 
@@ -83,7 +90,7 @@ var mouseScrollInput: float
 
 @export var wonDelay: float = 2.0
 
-@export var zoomMin: float = 1.5 # maximum amount zoomed OUT (bigger)
+@export var zoomMin: float = 1.25 # maximum amount zoomed OUT (bigger)
 @export var ZOOMMAX: float = 5 # maximum amount zoomed IN (smaller)
 @export var zoomSpeed: float = 10.0
 @export var zoomInAmount: float = 1.2
@@ -364,7 +371,7 @@ func _process(delta):
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
-	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or (areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool")):
+	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool")) and streamRef != null):
 		_stateEffects()
 		
 		tileCheck()
@@ -564,8 +571,40 @@ func _radar():
 	radar.emit()
 	var radCircle = RADAR_CIRCLE.instantiate()
 	GameManager.worldManager.add_child(radCircle)
+	var closest = GameManager.worldManager.getClosestTreat()
+	if closest != null:
+		#print("found:", closest)
+		var distanceToClosest = closest.global_position.distance_to(self.global_position)
+		var timmy = Timer.new()
+		timmy.wait_time = distanceToClosest/400.0
+		
+		#print(distanceToClosest)
+		if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0:
+			if indicator != null and !is_queued_for_deletion():
+				indicator.queue_free()
+			indicator = INDICATOR.instantiate()
+			indicator.pointAt = closest
+			add_child(indicator)
+			indicator.delayTime = timmy.wait_time
+			indicator.hide()
+			
+			timmy.timeout.connect(found_treat_sound.play)
+			timmy.timeout.connect(timmy.queue_free)
+			timmy.timeout.connect(indicator.show)
+			timmy.timeout.connect(closest.showOnMap)
+			add_child(timmy)
+			timmy.start()
+			
+			
+			
+			#indicator.global_rotation = (global_position - closest.global_position).normalized().rotated(PI / 2).angle()
+			#var vectorAngle = (global_position - closest.global_position).normalized()
+			#indicator.global_position += Vector2(-vectorAngle.x, -vectorAngle.y) * 64
+
+		
 	radCircle.global_position = global_position
 	radCircle.maxRadius = radarRange * rangeMultiplier
+	
 	
 func _transitionArea():
 	pass
@@ -616,8 +655,12 @@ func _showHint():
 	var coll = tutorial_hint_detector.get_collider()
 	#print(coll.name)
 	#print("nice")
-	if coll.has_method("showHint"):
-		coll.showHint()
+	if coll == null:
+		return
+	if coll.is_queued_for_deletion():
+		return
+	elif coll.has_method("showHint"):
+		coll.showHint(to_global(tutorial_hint_detector.target_position))
 	
 func _move(movevec: Vector2, delt):
 	if !tornadoThrownVelocity.is_zero_approx():
@@ -630,8 +673,7 @@ func _move(movevec: Vector2, delt):
 			#velocity = lerp(velocity.normalized(), ((velocity.normalized() * 2) + lastMovedDirection.normalized()).normalized(), delt * 100)
 			#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
 			velocity = lastMovedDirection
-			
-		elif ((areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("forceStream")) and layer == 1) or (areaFlag.match("wind") and (flying or forcedFly or layer == 2)):
+		elif (((areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("forceStream")) and layer != 1) or (areaFlag.match("wind") and (flying or forcedFly or layer == 2))) and streamRef != null:
 			velocity = movevec
 		else:
 			velocity = movevec.normalized()
@@ -709,7 +751,7 @@ func _move(movevec: Vector2, delt):
 			if areaFlag == "stream":
 				backwards_detector.enabled = true
 				backwards_detector.target_position = areaForce.normalized() * 16
-				if backwards_detector.is_colliding():
+				if backwards_detector.is_colliding() and streamRef != null:
 					GameManager.damagePlayer()
 				var streamForce: Vector2
 				var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier * agilityMultiplier
@@ -732,13 +774,13 @@ func _move(movevec: Vector2, delt):
 					
 					backwards_detector.enabled = true
 					backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 20
-					if backwards_detector.is_colliding():
+					if backwards_detector.is_colliding() and streamRef != null:
 						GameManager.damagePlayer()
 					
 			elif areaFlag.match("forcestream"):
 				backwards_detector.enabled = true
 				backwards_detector.target_position = areaForce.normalized() * 13
-				if backwards_detector.is_colliding():
+				if backwards_detector.is_colliding() and streamRef != null:
 					GameManager.damagePlayer()
 				velocity += areaForce * waterSpeedMultiplier * agilityMultiplier
 			else:
