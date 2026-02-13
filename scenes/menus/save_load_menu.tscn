@@ -51,8 +51,13 @@ vertical_alignment = 1
 [node name="HSeparator2" type="HSeparator" parent="menu/VBoxContainer"]
 layout_mode = 2
 
-[node name="slots" type="VBoxContainer" parent="menu/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 700)
+layout_mode = 2
+
+[node name="slots" type="VBoxContainer" parent="menu/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(410, 0)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="menu/VBoxContainer"]

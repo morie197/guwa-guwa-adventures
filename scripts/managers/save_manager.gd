@@ -4,7 +4,7 @@ var saveData: Dictionary = {}
 
 var saveDataAll: Array = []
 
-var saveSlotCount = 4
+var saveSlotCount = 6
 
 var autosave: bool = true
 
@@ -21,6 +21,9 @@ var tim: Timer
 
 func _ready():
 	loadAllData()
+	if saveDataAll.size() < saveSlotCount:
+		for i in range(saveDataAll.size(), saveSlotCount):
+			saveDataAll.append({})
 	autosaveCooldownTimer = Timer.new()
 	add_child(autosaveCooldownTimer)
 
@@ -75,7 +78,7 @@ func _SaveWarner():
 	tim.start()
 
 func loadAllData():
-	var baseData = [{}, {}, {}, {}]
+	var baseData = [{}, {}, {}, {}, {}, {}]
 	
 	var readFile = FileAccess.open(savePath, FileAccess.READ)
 	if readFile == null:

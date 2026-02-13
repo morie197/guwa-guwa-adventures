@@ -7,7 +7,7 @@ class_name DuckTreat
 @onready var duck_area = $duckArea
 @onready var treat_sprite = $duckArea/Sprite2D
 
-const FollowTarget = preload("uid://biqqorevcedwu")
+const TREAT_MAP_INDICATOR = preload("uid://luhbyxeky4e2")
 
 var hidden_treat_sound: float = -6
 
@@ -40,6 +40,7 @@ func _ready():
 		duck_treat_sound.volume_db = hidden_treat_sound
 	
 	GameManager.treatsUpdated.connect(_treatsUpdated)
+	
 
 func _process(delta):
 	if movingTreat:
@@ -64,27 +65,27 @@ func _treatsUpdated():
 		_enableDisable(true)
 
 func _updateCheck(enable: bool = true):
+	if GameManager.worldManager == null:
+		print("returning")
+		return
 	if enable:
 		treat_sprite.set_visibility_layer_bit(1, false)
 		showOnMap(false)
 		mapCheckRef.show()
-		if GameManager.worldManager == null:
-			print("returning")
-			return
 		if underground:
 			mapCheckRef.reparent(GameManager.worldManager.underMap)
 		else:
 			mapCheckRef.reparent(GameManager.worldManager.overMap)
 	else:
+		showOnMap(true)
 		if mapCheckRef.get_parent() != self:
 			mapCheckRef.reparent(self)
 		mapCheckRef.hide()
 			
 func showOnMap(show: bool = true):
 	if mapTreatIcon == null:
-		mapTreatIcon = treat_sprite.duplicate()
+		mapTreatIcon = TREAT_MAP_INDICATOR.instantiate()
 		mapTreatIcon.scale *= 2
-		mapTreatIcon.z_index += 1
 		mapTreatIcon.set_visibility_layer_bit(0, false)
 		mapTreatIcon.set_visibility_layer_bit(1, true)
 		if underground:
@@ -92,7 +93,7 @@ func showOnMap(show: bool = true):
 		else:
 			GameManager.worldManager.overMap.add_child(mapTreatIcon)
 		mapTreatIcon.global_position = global_position
-		mapTreatIcon.set_script(FollowTarget)
+		mapTreatIcon.target = self
 	
 	if show:
 		mapTreatIcon.show()

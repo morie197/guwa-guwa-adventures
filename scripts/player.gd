@@ -591,7 +591,6 @@ func _radar():
 			timmy.timeout.connect(found_treat_sound.play)
 			timmy.timeout.connect(timmy.queue_free)
 			timmy.timeout.connect(indicator.show)
-			timmy.timeout.connect(closest.showOnMap)
 			add_child(timmy)
 			timmy.start()
 			
