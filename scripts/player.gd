@@ -612,6 +612,13 @@ func _stateEffects():
 				if percent >= 95.0 or grass_foot_steps.playing == false:
 					grass_foot_steps.play()
 	
+func _showHint():
+	var coll = tutorial_hint_detector.get_collider()
+	#print(coll.name)
+	#print("nice")
+	if coll.has_method("showHint"):
+		coll.showHint()
+	
 func _move(movevec: Vector2, delt):
 	if !tornadoThrownVelocity.is_zero_approx():
 		velocity = tornadoThrownVelocity
@@ -632,10 +639,10 @@ func _move(movevec: Vector2, delt):
 		velocity *= moveSpeed
 		velocity *= speedMultiplier / 1.1
 		
-		tutorial_hint_detector.enabled = false
-		#tutorial_hint_detector.target_position = moveVector * 20
-		#if tutorial_hint_detector.is_colliding():
-		#	print("tutorial")
+		tutorial_hint_detector.enabled = true
+		tutorial_hint_detector.target_position = moveVector * 20
+		if tutorial_hint_detector.is_colliding():
+			_showHint()
 		
 		if !flying and (layer == 0 or layer == -1):
 			velocity *= waterSpeedMultiplier * agilityMultiplier

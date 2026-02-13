@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctrk2bwc2f63d"]
+
+[ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="1_byj6t"]
+[ext_resource type="Script" uid="uid://coqeulgsv40ep" path="res://skill_hint.gd" id="2_vmdup"]
+
+[node name="SkillHint" type="PanelContainer"]
+z_index = 22
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = ExtResource("1_byj6t")
+script = ExtResource("2_vmdup")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="skillName" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Required: Walking"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="skillTreats" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 22
+text = "13 Treats"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

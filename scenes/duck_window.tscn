@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddbias5728mqh"]
+
+[ext_resource type="Script" uid="uid://disflqwu5aqhi" path="res://duck_window.gd" id="1_1hb5k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hb5k"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.28627452, 0.28627452, 0.28627452, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="DuckWindow" type="PanelContainer"]
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1hb5k")
+script = ExtResource("1_1hb5k")
+
+[node name="DuckGrid" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 3

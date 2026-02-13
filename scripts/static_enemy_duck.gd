@@ -4,9 +4,15 @@ class_name StaticDuck
 @onready var quack_detector = $quackDetector
 @onready var collider = $collider
 
+const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
+
 @export var duckNames: Array[String] = ["Jerry"]
 @export var duckHP: Array[int] = [5]
 @export var stageName: String = "land_forest"
+
+@export var direction: Vector2 = Vector2.LEFT
+
+var duckContainer
 
 @export var owners: Array[Node2D] = [self]
 
@@ -27,12 +33,29 @@ func _ready():
 func _player_detected(_area):
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.connect(_quack)
-		
-	SaveManager.autoSave()
+		if duckContainer == null:
+			_duckWindowPopup()
+	if GameManager.healthValue > 3:
+		SaveManager.autoSave()
+	
+func _duckWindowPopup():
+	for i in duckNames.size():
+		var duckyCont = DUCK_CONTAINER.instantiate()
+		owners[i].add_child(duckyCont)
+		duckyCont.duckName.text = str(duckNames[i])
+		duckyCont.duckhp.text = "HP: " + str(duckHP[i])
+		duckyCont.global_position = owners[i].global_position
+		duckyCont.position.x -= duckyCont.size.x/2.0
+		duckyCont.position += Vector2.RIGHT * 32
+		owners[i].duckContainer = duckyCont
 	
 func _player_exited(_area):
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.disconnect(_quack)
+		for duck in owners:
+			if duck.duckContainer != null:
+				duck.duckContainer.queue_free()
+				duck.duckContainer = null
 
 func _quack():
 	if duckNames.size() > 0 and GameManager.minigame == false and GameManager.lost == false:

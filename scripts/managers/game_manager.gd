@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 28
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -25,6 +25,7 @@ var hpRestoredFromTreat: int = 3
 const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 const BRIGHT_NOTIFICATION_352449 = preload("uid://cbayh0an2p7ho")
+const DUCK_WINDOW = preload("uid://ddbias5728mqh")
 
 var upgradeLevels = {"range": 0, "endurance": 0, "speed": 0}
 var postgameUpgradeLevels = {"resistance": 0, "visibility": 0, "agility": 0}

@@ -276,7 +276,7 @@ enabled = false
 collide_with_areas = true
 
 [node name="tutorialHintDetector" type="RayCast2D" parent="."]
-collision_mask = 12
+collision_mask = 4096
 collide_with_areas = true
 
 [node name="damagedSound" type="AudioStreamPlayer2D" parent="."]

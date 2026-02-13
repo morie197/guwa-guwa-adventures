@@ -16,7 +16,7 @@ shape = SubResource("CircleShape2D_tsxgi")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 0.6627451, 0.6901961, 1)
-polygon = PackedVector2Array(-8, 0, 0, -16, 8, 0, 0, 16)
+polygon = PackedVector2Array(-8, 0, 0, -24, 8, 0, 0, 24)
 
 [node name="wallCollider" type="Area2D" parent="."]
 collision_layer = 0

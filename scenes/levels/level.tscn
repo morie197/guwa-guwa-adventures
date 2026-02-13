@@ -1,4 +1,4 @@
-[gd_scene load_steps=170 format=4 uid="uid://iw325qeeftst"]
+[gd_scene load_steps=173 format=4 uid="uid://iw325qeeftst"]
 
 [ext_resource type="Script" uid="uid://crksfl5ssd2u1" path="res://scripts/managers/world.gd" id="1_8iyoh"]
 [ext_resource type="TileSet" uid="uid://dlkfn2w1l7bh5" path="res://resources/tilesets/logicTileSet.tres" id="2_mq31s"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://ii1rt1h5f4o2" path="res://scripts/followPath.gd" id="13_mq31s"]
 [ext_resource type="PackedScene" uid="uid://bdgxe0o350b3g" path="res://scenes/menus/ui_manager.tscn" id="14_gwbx5"]
 [ext_resource type="AudioStream" uid="uid://bsy56u3df52mm" path="res://sounds/SFX/tornado-sound-better-quality-68141.mp3" id="15_b8j7q"]
+[ext_resource type="Script" uid="uid://bugiatvopwsmi" path="res://scenes/levels/tutorial_area.gd" id="16_jyre1"]
 [ext_resource type="Script" uid="uid://biqqorevcedwu" path="res://scripts/followTarget.gd" id="16_qhnmj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b8j7q"]
@@ -1092,6 +1093,12 @@ hue_variation_max = -2.2351742e-08
 turbulence_enabled = true
 turbulence_influence_min = 0.0
 turbulence_influence_max = 0.20600002
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwbx5"]
+radius = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kbcxf"]
+radius = 544.94037
 
 [sub_resource type="Curve2D" id="Curve2D_mq31s"]
 _data = {
@@ -4632,6 +4639,59 @@ blend_mode = 1
 texture = SubResource("GradientTexture2D_b8j7q")
 texture_scale = 1.08
 
+[node name="tutorialArea" type="Area2D" parent="Overground/areas"]
+position = Vector2(896, -1664)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_jyre1")
+requiredAbility = "quack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea"]
+position = Vector2(32, 32)
+shape = SubResource("CircleShape2D_gwbx5")
+
+[node name="tutorialArea2" type="Area2D" parent="Overground/areas"]
+position = Vector2(-64, -576)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_jyre1")
+requiredAbility = "sprint"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea2"]
+position = Vector2(32, 32)
+shape = SubResource("CircleShape2D_gwbx5")
+
+[node name="tutorialArea4" type="Area2D" parent="Overground/areas"]
+position = Vector2(3648, -6272)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_jyre1")
+requiredAbility = "dive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/tutorialArea4"]
+position = Vector2(32, 32)
+shape = SubResource("CircleShape2D_kbcxf")
+
+[node name="tutorialArea3" type="Area2D" parent="Overground/areas"]
+position = Vector2(3392, -3264)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_jyre1")
+requiredAbility = "walk"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea3"]
+polygon = PackedVector2Array(192, 192, -128, 192, -128, 128, -320, 128, -320, 64, -384, 64, -384, 0, -576, 0, -576, -64, 576, -64, 576, 0, 448, 0, 448, 64, 384, 64, 384, 128, 192, 128)
+
+[node name="tutorialArea5" type="Area2D" parent="Overground/areas"]
+position = Vector2(3456, -9280)
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("16_jyre1")
+requiredAbility = "fly"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Overground/areas/tutorialArea5"]
+polygon = PackedVector2Array(1280, 448, 1280, 384, 1216, 384, 1216, 320, 1088, 320, 1088, 256, 1024, 256, 1024, 192, 896, 192, 896, 128, 640, 128, 640, 64, 256, 64, 256, 128, -64, 128, -64, 192, -320, 192, -320, 256, -448, 256, -448, 320, -576, 320, -576, 384, -704, 384, -704, 448, -832, 448, -832, 512, -896, 512, -896, 576, -960, 576, -960, 640, -1024, 640, -1024, 704, -1088, 704, -1088, 448, -1024, 448, -1024, 320, -960, 320, -960, 0, 1152, 0, 1152, 128, 1216, 128, 1216, 192, 1344, 192, 1344, 448)
+
 [node name="treats" type="Node2D" parent="Overground"]
 light_mask = 3
 visibility_layer = 3
@@ -4821,6 +4881,7 @@ position = Vector2(7424, -5568)
 duckNames = Array[String](["Jimmy", "Ben"])
 duckHP = Array[int]([10, 13])
 stageName = "water"
+direction = Vector2(0, -1)
 owners = [NodePath("."), NodePath("../StaticEnemyDuck19")]
 
 [node name="StaticEnemyDuck19" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("12_xog87")]
@@ -4828,6 +4889,7 @@ position = Vector2(7360, -5568)
 duckNames = Array[String](["Jimmy", "Ben"])
 duckHP = Array[int]([10, 13])
 stageName = "water"
+direction = Vector2(0, -1)
 owners = [NodePath("../StaticEnemyDuck18"), NodePath(".")]
 
 [node name="StaticEnemyDuck5" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("12_xog87")]
