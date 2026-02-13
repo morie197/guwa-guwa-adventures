@@ -762,35 +762,39 @@ func _move(movevec: Vector2, delt):
 					var distanceFromCenter = global_position - streamRef.global_position
 					var absDistance = absf(distanceFromCenter.x) + absf(distanceFromCenter.y)
 					var whirlpoolvel = distanceFromCenter.normalized() * areaForce
-					
-					#backwards_detector.enabled = true
-					#backwards_detector.target_position = Vector2(whirlpoolvel.y, -whirlpoolvel.x).normalized() * 20
-					#if backwards_detector.is_colliding():
-					#	GameManager.damagePlayer()
+			
 					
 					velocity += Vector2(whirlpoolvel.y, -whirlpoolvel.x) * whirlPoolMultiplier * (streamRef.size / absDistance + 1)
 					velocity += (streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier * 5
 					
 					backwards_detector.enabled = true
 					backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * whirlPoolMultiplier)).normalized() * 20
-					if backwards_detector.is_colliding() and streamRef != null:
-						GameManager.damagePlayer()
+					#if backwards_detector.is_colliding() and streamRef != null:
+						#GameManager.damagePlayer()
 					
 			elif areaFlag.match("forcestream"):
 				backwards_detector.enabled = true
 				backwards_detector.target_position = areaForce.normalized() * 13
-				if backwards_detector.is_colliding() and streamRef != null:
-					GameManager.damagePlayer()
+				#if backwards_detector.is_colliding() and streamRef != null:
+					#GameManager.damagePlayer()
 				velocity += areaForce * waterSpeedMultiplier * agilityMultiplier
 			else:
+				backwards_detector.target_position = Vector2.ZERO
+				backwards_detector.force_raycast_update()
 				backwards_detector.enabled = false
 		if flyDelayTimer > 0:
 			if areaFlag != "tornado" and areaFlag != "tornadoSafe":
 				velocity = movevec.normalized() * moveSpeed / 1.4
 		
+	if streamRef == null:
+		backwards_detector.target_position = Vector2.ZERO
+		backwards_detector.enabled = false
+		
 	var colliding = move_and_slide()
-	if colliding and flying:
+	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forceStream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
 		GameManager.damagePlayer(1)
 		if !forcedFly:
 			_toggleFly(false)
-	
+	#else:
+		#backwards_detector.target_position = Vector2.ZERO
+		#backwards_detector.enabled = false

@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 17
+var initialLevel: int = 32
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -86,6 +86,8 @@ func enterLevel():
 	GameManager.worldManager.ui_manager.minimap.world_2d = get_tree().root.get_viewport().world_2d
 	minimapCam = GameManager.worldManager.ui_manager.minimap_camera
 	
+	showTutorial("basics")
+	
 	for i in range(initialLevel):
 		if worldManager.levelName == "Hidden Grove":
 			availableUpgradePoints = clamp(availableUpgradePoints, 0, 10)
@@ -98,7 +100,7 @@ func enterLevel():
 	playerRef.updatedStamina.connect(GameManager.worldManager.ui_manager.updateStaminaBar)
 	playerRef.emitUpdatedStaminaValue()
 	
-	showTutorial("basics")
+	
 	
 func saveValues():
 	SaveManager.saveData["player_pos_x"] = playerRef.global_position.x
