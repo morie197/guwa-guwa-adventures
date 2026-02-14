@@ -1,7 +1,7 @@
 extends Node
 
 var level: int = 0
-var initialLevel: int = 32
+var initialLevel: int = 0
 var paused: bool = false
 var minigame: bool = false
 var wonGame: bool = false
@@ -44,7 +44,7 @@ var shownTutorials = []
 var abilities := []
 
 var worldManager: WorldManager
-var playerRef
+var playerRef: Player
 var worldLayer = 1
 var switchedWorldLayer: bool = false
 
@@ -73,6 +73,8 @@ func enterLevel():
 	minigame = false
 	inUpgradeMenu = false
 	wonGame = false
+	
+	worldLayer = 1
 	
 	if worldManager.levelName == "Hidden Grove":
 		print("hidden grove")
@@ -205,24 +207,29 @@ func loadValues(resetRefs: bool = false):
 	if revTilesUnder != null:
 		revealedTilesUnder.assign(stringToVector2i(revTilesUnder))
 	
-	if worldManager != null:
-		worldManager.loadFOW()
-	
 	levelUp.emit()
 	
-	await get_tree().physics_frame
-	await get_tree().physics_frame
+	print(int(SaveManager.saveData.get("worldLayer", 1)))
+	print(worldLayer)
 	
-	if SaveManager.saveData.get("worldLayer", 1) != worldLayer:
+	if int(SaveManager.saveData.get("worldLayer", 1)) != worldLayer:
 		if worldManager == null:
 			print("null world manager")
 		else:
 			worldManager.switchUnderOverGround()
-	
-	canDamage = true
+			playerRef.tileCheck()
+			
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+			
 	treatsUpdated.emit()
 	
+	canDamage = true
+	
 	playerRef.loadGameChecks()
+	
+	if worldManager != null:
+		worldManager.loadFOW()
 	
 	calculateBonuses(false)
 	
@@ -232,8 +239,9 @@ func loadValues(resetRefs: bool = false):
 	
 	worldManager.ui_manager.updateNextAbility()
 	
+	worldManager.updateMinimap()
+	
 	loadingLevel = false
-	print("Now: " + str(loadingLevel))
 	
 
 func treatGet():
@@ -339,6 +347,8 @@ func cameraSwitchWorldLayer():
 	
 	
 func showTutorial(tutorialName: String):
+	if shownTutorials.size() == 0:
+		print("empty tutorials")
 	if shownTutorials.has(tutorialName):
 		return
 		

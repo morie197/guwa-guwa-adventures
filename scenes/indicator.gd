@@ -3,7 +3,12 @@ extends Node2D
 var pointAtCoords: Vector2
 var pointAt
 
-var delayTime: float = 0
+var delayTime:
+	set(newDelay):
+		print("nya")
+		delayTime = newDelay
+		pointer.normaldisplayTime += delayTime
+		pointer.normaldisplayTimer = pointer.normaldisplayTime
 
 @onready var pointer = $TextureRect
 
@@ -11,8 +16,7 @@ var delayTime: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pointer.normaldisplayTime += delayTime
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

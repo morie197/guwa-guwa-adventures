@@ -98,6 +98,7 @@ func pingSoundPlay(subtle: bool = false):
 		var timmy = Timer.new()
 		timmy.wait_time = pingCooldown
 		timmy.timeout.connect(func subtleReset(): pingSubtlePlayed = false)
+		add_child(timmy)
 		timmy.start()
 		
 	if subtle:

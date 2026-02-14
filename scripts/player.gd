@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const RADAR_CIRCLE = preload("uid://b0yv7nmxv7x5o")
 const INDICATOR = preload("uid://2n3n0g72rrmu")
@@ -576,7 +577,7 @@ func _radar():
 		#print("found:", closest)
 		var distanceToClosest = closest.global_position.distance_to(self.global_position)
 		var timmy = Timer.new()
-		timmy.wait_time = distanceToClosest/400.0
+		timmy.wait_time = clampf(distanceToClosest/400.0, 0.1, 5)
 		
 		#print(distanceToClosest)
 		if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0:
@@ -791,7 +792,7 @@ func _move(movevec: Vector2, delt):
 		backwards_detector.enabled = false
 		
 	var colliding = move_and_slide()
-	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forceStream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
+	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
 		GameManager.damagePlayer(1)
 		if !forcedFly:
 			_toggleFly(false)

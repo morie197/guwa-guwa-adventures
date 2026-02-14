@@ -181,7 +181,7 @@ func parry(damager):
 		else:
 			#damager.damage(1, self)
 			#damager.parent_duck.changeStates()
-			quacker.quack(damager.parentDuck.global_position - global_position, 5 * speedMultiplier)
+			quacker.quack((damager.global_position - global_position).normalized(), 5 * speedMultiplier)
 		quacker.hp_changed.emit()
 		invincibleDurationTimer = invincibleDuration
 		invincible = true

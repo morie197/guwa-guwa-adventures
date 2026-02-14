@@ -56,17 +56,17 @@ func _player_entered(body: Node2D):
 	_enableDisable(false)
 	
 func _treatsUpdated():
-	duck_area.monitoring = true
 	if GameManager.treatRegistry.has(id):
 		_updateCheck(true)
 		_enableDisable(false)
 	else:
 		_updateCheck(false)
 		_enableDisable(true)
+	duck_area.monitoring = true
 
 func _updateCheck(enable: bool = true):
 	if GameManager.worldManager == null:
-		print("returning")
+		#print("returning")
 		return
 	if enable:
 		treat_sprite.set_visibility_layer_bit(1, false)
@@ -103,7 +103,7 @@ func showOnMap(show: bool = true):
 		
 	
 		
-	print("showing on map")
+	#print("showing on map")
 	
 
 func _enableDisable(enable: bool = true):

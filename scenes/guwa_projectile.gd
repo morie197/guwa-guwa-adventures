@@ -59,12 +59,12 @@ func _duck_detected(body):
 	print(body.name)
 	
 	if body.name == "PlayerMinigame" and force == "enemy":
-		body.quacker.damage(attack_damage, self)
+		body.quacker.damage(attack_damage, parentDuck)
 		print("player")
 	elif body.name == "StaticBody2D" and force == "player":
 		print("enemy")
 		parentDuck.minigamemanager.player_minigame.enemy_hit.play()
-		body.get_parent().quacker.damage(attack_damage, self)
+		body.get_parent().quacker.damage(attack_damage, parentDuck)
 		
 	queue_free()
 	#

@@ -230,6 +230,14 @@ func openMap(switching: bool = false):
 		overMap.modulate = Color.WHITE
 		underMap.modulate = Color.TRANSPARENT
 
+func updateMinimap():
+	if mapLayer == 0:
+		underMap.modulate = Color.WHITE
+		overMap.modulate = Color.TRANSPARENT
+	else:
+		overMap.modulate = Color.WHITE
+		underMap.modulate = Color.TRANSPARENT
+
 func updateFOW(usual: bool = false):
 	if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/10.0:
 		return
@@ -294,6 +302,7 @@ func switchUnderOverGround():
 		_turnOnOffLayer(overgroundLayer, false)
 		overMap.modulate = Color.TRANSPARENT
 		underMap.modulate = Color.WHITE
+		print(overMap.modulate)
 		overground_collision_layer.collision_enabled = false
 		mapLayer = 0
 		
@@ -316,6 +325,7 @@ func switchUnderOverGround():
 		current_logic_layer = overground_logic_layer
 		
 	updateFOW()
+	
 
 func getTileUnderPos(globalPos: Vector2):
 	if current_logic_layer == null:

@@ -458,6 +458,7 @@ size_flags_vertical = 8
 
 [node name="minimap" type="SubViewport" parent="HUD/MiniMapPanel/SubViewportContainer"]
 unique_name_in_owner = true
+process_mode = 3
 disable_3d = true
 handle_input_locally = false
 canvas_cull_mask = 4294967294

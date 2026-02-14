@@ -39,6 +39,7 @@ visibility_layer = 3
 z_index = 1
 collision_layer = 0
 collision_mask = 16
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="duckArea"]
 z_index = 1
@@ -70,6 +71,7 @@ range_z_max = 2
 texture = SubResource("GradientTexture2D_08ia5")
 
 [node name="mapCheck" type="Sprite2D" parent="." node_paths=PackedStringArray("target")]
+visible = false
 light_mask = 2
 visibility_layer = 2
 z_index = 5
