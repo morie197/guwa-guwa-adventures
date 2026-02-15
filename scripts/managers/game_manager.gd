@@ -88,8 +88,6 @@ func enterLevel():
 	GameManager.worldManager.ui_manager.minimap.world_2d = get_tree().root.get_viewport().world_2d
 	minimapCam = GameManager.worldManager.ui_manager.minimap_camera
 	
-	showTutorial("basics")
-	
 	for i in range(initialLevel):
 		if worldManager.levelName == "Hidden Grove":
 			availableUpgradePoints = clamp(availableUpgradePoints, 0, 10)
@@ -156,7 +154,7 @@ func stringToVector2i(targets):
 
 
 func loadValues(resetRefs: bool = false):
-	print("loading values")
+	print("loading values, reset: ", resetRefs)
 	if resetRefs:
 		playerRef = null
 		worldManager = null
@@ -243,6 +241,8 @@ func loadValues(resetRefs: bool = false):
 	
 	loadingLevel = false
 	
+	showTutorial("basics")
+	
 
 func treatGet():
 	_levelUp()
@@ -252,6 +252,8 @@ func closeUpgrades():
 	calculateBonuses()
 	paused = false
 	upgraded.emit()
+	
+	print(abilities)
 	
 	if abilities.has("quack"):
 		showTutorial("quack")
@@ -366,8 +368,9 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	
 	worldManager.ui_manager.hud.hide()
 	
-	if worldLayer == 0:
+	if worldLayer == 0 or worldManager.levelName == "Hidden Grove":
 		worldManager.darkener.hide()
+		playerRef.point_light_2d_3.visible = false
 	var minigame_stage = DUCK_MINIGAME.instantiate()
 	if owners.size() == 0:
 		print("not properly setup!")
@@ -398,6 +401,13 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 	minigame_stage.won.connect(worldManager.ui_manager.hud.show)
 	minigame_stage.lost.connect(worldManager.ui_manager.hud.show)
 	
+	if worldLayer == 0 or worldManager.levelName == "Hidden Grove":
+		minigame_stage.won.connect(playerRef.point_light_2d_3.show)
+		minigame_stage.lost.connect(playerRef.point_light_2d_3.show)
+		
+		minigame_stage.won.connect(worldManager.darkener.show)
+		minigame_stage.lost.connect(worldManager.darkener.show)
+		
 
 func calculateBonuses(heal: bool = true):
 	if playerRef != null:

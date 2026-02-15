@@ -152,8 +152,14 @@ func _ready():
 	_getAreasOnly(overAreas, false)
 	_getAreasOnly(underAreas, true)
 	
+	undergroundLayer.visible = true
+	overgroundLayer.visible = true
+	
 	_turnOnOffLayer(undergroundLayer, false)
-	darkener.visible = false
+	if levelName == "Hidden Grove":
+		darkener.visible = true
+	else:
+		darkener.visible = false
 	lights.hide()
 	_turnOnOffLayer(overgroundLayer, true)
 	current_logic_layer = overground_logic_layer
@@ -182,12 +188,16 @@ func openMap(switching: bool = false):
 		inMap = false
 		GameManager.playerRef.healTimer.paused = false
 		if GameManager.worldLayer == 1:
-			darkener.hide()
+			if levelName == "Hidden Grove":
+				darkener.show()
+			else:
+				darkener.hide()
 			#overAreas.show()
 			#overAreas.process_mode = Node.PROCESS_MODE_ALWAYS
 			#overgroundTreats.show()
 			#overgroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
 		else:
+			#darkener.hide()
 			darkener.show()
 			#underAreas.show()
 			#underAreas.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -313,7 +323,11 @@ func switchUnderOverGround():
 	else:
 		GameManager.worldLayer = 1 
 		lights.hide()
-		darkener.hide()
+		if levelName == "Hidden Grove":
+			darkener.show()
+		else:
+			print(levelName)
+			darkener.hide()
 		_turnOnOffLayer(undergroundLayer, false)
 		overMap.modulate = Color.WHITE
 		underMap.modulate = Color.TRANSPARENT

@@ -19,6 +19,7 @@ const INDICATOR = preload("uid://2n3n0g72rrmu")
 @onready var wings_flapping_sound = $wingsFlappingSound
 @onready var found_treat_sound = $foundTreat
 
+@onready var treat_radius = %treatRadius
 
 var indicator
 
@@ -527,6 +528,8 @@ func initializeValues():
 	emitUpdatedStaminaValue()
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
+	if GameManager.abilities.has("travel"):
+		point_light_2d_3.texture_scale = 2.5 * visibilityMultiplier
 	
 func emitUpdatedStaminaValue():
 	updatedStamina.emit(round(stamina * 100), round(maxStamina * resistanceMultiplier * 100))

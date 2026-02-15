@@ -4,5 +4,6 @@
 [ext_resource type="Script" uid="uid://biqqorevcedwu" path="res://scripts/followTarget.gd" id="2_tbplm"]
 
 [node name="treatMapIndicator" type="Sprite2D"]
+z_index = 4
 texture = ExtResource("1_0te3a")
 script = ExtResource("2_tbplm")

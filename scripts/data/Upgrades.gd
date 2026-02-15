@@ -28,8 +28,8 @@ const POSTGAMEUPGRADES = {
 	},
 	"visibility": {
 		"levels": 10,
-		"percentIncrease": 10,
-		"description": "Increases hidden area visibility and player light radius by 10%."
+		"percentIncrease": 20,
+		"description": "Increases hidden area visibility by 5% and player light radius by 20%."
 	},
 	"agility": {
 		"levels": 10,

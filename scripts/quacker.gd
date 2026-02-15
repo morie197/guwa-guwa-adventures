@@ -79,6 +79,9 @@ func _process(delta):
 
 
 func damage(amount: int, damager):
+	if damager == null:
+		return
+	
 	var knockBackDirection
 	if parent_duck.name == "PlayerMinigame":
 		if parent_duck.lunging and amount > 0:
@@ -110,7 +113,7 @@ func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0):
 		projectile.force = "player"
 	else:
 		projectile.force = "enemy"
-	parent_duck.minigamemanager.add_child(projectile)
+	parent_duck.minigamemanager.call_deferred("add_child", projectile)
 	
 	
 	quacked.emit()

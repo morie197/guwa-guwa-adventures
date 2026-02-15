@@ -1,8 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0yv7nmxv7x5o"]
+[gd_scene load_steps=4 format=3 uid="uid://b0yv7nmxv7x5o"]
 
 [ext_resource type="Script" uid="uid://cp3aw2db0loa1" path="res://scripts/radarcircle.gd" id="1_7jcqj"]
+
+[sub_resource type="Gradient" id="Gradient_5cg8k"]
+offsets = PackedFloat32Array(0, 0.27272728, 0.59659094, 0.72159094)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jdqdi"]
+gradient = SubResource("Gradient_5cg8k")
+width = 1028
+height = 1028
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 1)
 
 [node name="radarCircle" type="Node2D"]
 z_index = 1
 script = ExtResource("1_7jcqj")
-circleColor = Color(0.5126621, 0.77984756, 0.9914145, 0.6)
+circleColor = Color(0.3882353, 0.70980394, 1, 0.89411765)
+
+[node name="radarLight" type="PointLight2D" parent="."]
+unique_name_in_owner = true
+color = Color(0.7210921, 1, 0.99570507, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_jdqdi")
