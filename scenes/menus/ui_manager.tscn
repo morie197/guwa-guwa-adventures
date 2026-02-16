@@ -10,9 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="7_tanoa"]
 [ext_resource type="Texture2D" uid="uid://be01o6n3ywk7v" path="res://sprites/sprites/arrow_decorative_s.svg" id="8_jo33p"]
 [ext_resource type="Texture2D" uid="uid://cst8o164y85ev" path="res://sprites/bars/whitebar.png" id="8_tanoa"]
-[ext_resource type="Shader" uid="uid://brcuvu54l8o6u" path="res://scenes/menus/treatCollected.gdshader" id="11_5dfom"]
 [ext_resource type="Texture2D" uid="uid://dq1i4suv57vi4" path="res://sprites/bars/yellowbar.png" id="12_4v62q"]
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="12_ipats"]
+[ext_resource type="Shader" uid="uid://pcr6yn1sw6l8" path="res://scenes/menus/treatCollected2.gdshader" id="12_lho24"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="12_ms7gl"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="13_4v62q"]
 [ext_resource type="Texture2D" uid="uid://v8u4bw6qf3fx" path="res://sprites/keys/escape, tab/keyboard_tab.svg" id="13_45cly"]
@@ -35,12 +35,12 @@ corner_detail = 5
 shader = ExtResource("14_lho24")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lho24"]
-shader = ExtResource("11_5dfom")
-shader_parameter/shine_speed = 0.50000002375
-shader_parameter/shine_width = 0.0010000000475
-shader_parameter/shine_intensity = 0.6000000285
-shader_parameter/global_brighten = 0.150000007125
-shader_parameter/line_intensity = 0.70000003325
+shader = ExtResource("12_lho24")
+shader_parameter/shine_speed = 1.0000000475
+shader_parameter/shine_width = 0.010000000475
+shader_parameter/shine_intensity = 0.50000002375
+shader_parameter/global_brighten = 0.2000000095
+shader_parameter/line_intensity = 1.0000000475
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45cly"]
 
@@ -433,8 +433,8 @@ stretch_mode = 5
 z_index = -1
 layout_mode = 0
 offset_left = 16.0
-offset_top = 14.0
-offset_right = 56.0
+offset_top = 24.0
+offset_right = 72.0
 offset_bottom = 58.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_prq0i")
 

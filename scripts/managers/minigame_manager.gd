@@ -15,6 +15,7 @@ const ENEMY_MINIGAME = preload("uid://5y4if4dkbvsj")
 @onready var lost_audio = $lostAudio
 
 
+
 const INFO_PANEL = preload("uid://dx2xq1xrwtf6t")
 
 const LAND_FOREST = preload("uid://n0e7krhcyk3k")
@@ -32,6 +33,9 @@ var level: int = 1
 var enemyCount: int = 1
 var enemyHealthValues: Array[int]
 var enemyNames: Array[String]
+var enemyAttackValues: Array[int]
+var enemySpeedValues: Array[int]
+var enemyRangeValues: Array[int]
 
 var playerPos: Vector2
 
@@ -49,6 +53,8 @@ var walking = false
 var diving = false
 
 var displaying = false
+
+var acculumatedTime: float
 
 signal won
 signal lost
@@ -95,15 +101,28 @@ func initValues():
 		enemyArray.append(enemy)
 		enemy.minigamemanager = self
 		
-		if GameManager.difficultyValue == GameManager.Difficulty.EASY:
-			enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
-			enemy.speed = enemy.speed * (speedMultiplier / 2)
-		else:
-			enemy.maxHealth = enemyHealthValues[ene]
-			if enemy.maxHealth <= 10:
-				enemy.speed = enemy.speed / (clampf(enemy.maxHealth - 10, 3, 10) / 2)
-			else:
-				enemy.speed = enemy.speed / (enemy.maxHealth / 8)
+		#if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+			#enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
+			##enemy.speed = enemy.speed * (speedMultiplier / 2)
+		#else:
+			#enemy.maxHealth = enemyHealthValues[ene]
+			#if enemy.maxHealth <= 10:
+				##enemy.speed = enemy.speed / (clampf(enemy.maxHealth - 10, 3, 10) / 2)
+				#enemy.speed = enemy.speed
+			#else:
+				##enemy.speed = enemy.speed / (enemy.maxHealth / 8)
+				#enemy.speed = enemy.speed / 2.0
+				
+		enemy.speed = (enemy.speed/4.0) + ((enemy.speed/8.0) * enemySpeedValues[ene])
+		enemy.quackCooldown = enemy.quackCooldown - ((enemy.quackCooldown/5.0)/enemySpeedValues[ene])
+		enemy.quackBaseRandomTimer = ((enemy.quackCooldown) + enemy.quackRandomTimerVariation) + enemy.quackDelay
+		
+		enemy.attackDamage = enemyAttackValues[ene]
+		
+		enemy.max_quack_range = enemy.max_quack_range + (enemy.max_quack_range/5.0 * enemyRangeValues[ene])
+		
+		enemy.maxHealth = enemyHealthValues[ene]
+				
 		enemy.initValues()
 		
 		var info = INFO_PANEL.instantiate()
@@ -128,6 +147,8 @@ func _player_hp_changed():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	acculumatedTime += delta
+	
 	if updateTimer <= 0:
 		_updatePlayerPos()
 	else:

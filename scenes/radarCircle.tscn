@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0yv7nmxv7x5o"]
+[gd_scene load_steps=5 format=3 uid="uid://b0yv7nmxv7x5o"]
 
 [ext_resource type="Script" uid="uid://cp3aw2db0loa1" path="res://scripts/radarcircle.gd" id="1_7jcqj"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5cg8k"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_5cg8k"]
 offsets = PackedFloat32Array(0, 0.27272728, 0.59659094, 0.72159094)
@@ -16,6 +19,7 @@ fill_to = Vector2(0, 1)
 
 [node name="radarCircle" type="Node2D"]
 z_index = 1
+material = SubResource("CanvasItemMaterial_5cg8k")
 script = ExtResource("1_7jcqj")
 circleColor = Color(0.3882353, 0.70980394, 1, 0.89411765)
 

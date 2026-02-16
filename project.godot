@@ -150,6 +150,7 @@ leftClick={
 2d_physics/layer_11="minigameEnemyCollision"
 2d_physics/layer_12="minigameRam"
 2d_physics/layer_13="tutorialHint"
+2d_physics/layer_14="minigameProjectile"
 
 [rendering]
 

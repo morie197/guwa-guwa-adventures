@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=51 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
@@ -14,11 +14,17 @@
 [ext_resource type="Texture2D" uid="uid://dxpwpg0jqnmli" path="res://sprites/keys/wasd/keyboard_w.svg" id="12_d6syi"]
 [ext_resource type="AudioStream" uid="uid://cbayh0an2p7ho" path="res://sounds/SFX/bright-notification-352449.mp3" id="12_nthku"]
 [ext_resource type="Texture2D" uid="uid://da538aprdc7p6" path="res://sprites/keys/wasd/keyboard_a.svg" id="13_u6wm1"]
+[ext_resource type="AudioStream" uid="uid://do81gfe4v0va7" path="res://sounds/SFX/flying.wav" id="13_u7pdh"]
 [ext_resource type="Texture2D" uid="uid://pwfqn4dbm23t" path="res://sprites/keys/wasd/keyboard_s.svg" id="14_06rur"]
+[ext_resource type="AudioStream" uid="uid://dhoy6u6bjts3f" path="res://sounds/SFX/flap1.wav" id="14_vf2ar"]
+[ext_resource type="AudioStream" uid="uid://dg30biujmjpd8" path="res://sounds/SFX/flap2.wav" id="15_dplsg"]
 [ext_resource type="Texture2D" uid="uid://c8tkgapar6k6b" path="res://sprites/keys/wasd/keyboard_d.svg" id="15_qf5xk"]
 [ext_resource type="Texture2D" uid="uid://cl23cb341umh" path="res://sprites/keys/qe/keyboard_e.svg" id="16_i4syp"]
+[ext_resource type="AudioStream" uid="uid://cvu7t2g27tluj" path="res://sounds/SFX/flap3.wav" id="16_xaff1"]
+[ext_resource type="AudioStream" uid="uid://bmsqcuam6e8ob" path="res://sounds/SFX/flap4.wav" id="17_d6syi"]
 [ext_resource type="Texture2D" uid="uid://cniriik63s5n8" path="res://sprites/sprites/mouse_left.svg" id="17_lx27d"]
 [ext_resource type="Texture2D" uid="uid://bodmqtlj1sj1a" path="res://sprites/keys/shift, space/keyboard_space.svg" id="18_8fesu"]
+[ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="18_u6wm1"]
 [ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="19_vhdu7"]
 [ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/bars/greenbar.png" id="20_sq7tm"]
 [ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="21_r2a71"]
@@ -127,6 +133,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6sb5u"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_06rur"]
+streams_count = 5
+stream_0/stream = ExtResource("14_vf2ar")
+stream_1/stream = ExtResource("15_dplsg")
+stream_2/stream = ExtResource("16_xaff1")
+stream_3/stream = ExtResource("17_d6syi")
+stream_4/stream = ExtResource("18_u6wm1")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsmep"]
 content_margin_left = 0.0
@@ -263,6 +277,18 @@ shape = SubResource("CircleShape2D_6sb5u")
 stream = ExtResource("12_nthku")
 volume_db = -5.0
 pitch_scale = 1.6
+bus = &"SFX"
+
+[node name="wingsFlyingSound" type="AudioStreamPlayer2D" parent="PlayerMinigame"]
+unique_name_in_owner = true
+stream = ExtResource("13_u7pdh")
+volume_db = 6.0
+bus = &"SFX"
+
+[node name="wingsFlappingSound" type="AudioStreamPlayer2D" parent="PlayerMinigame"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_06rur")
+volume_db = 6.0
 bus = &"SFX"
 
 [node name="Enemies" type="Node2D" parent="."]

@@ -361,7 +361,7 @@ func showTutorial(tutorialName: String):
 	shownTutorials.append(tutorialName)
 	startTutorial.emit(tutorialName)
 	
-func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stageName: String, owners):
+func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], entityAttack: Array[int], entitySpeed: Array[int], entityRange: Array[int], stageName: String, owners):
 	paused = true
 	minigame = true
 	playerRef.healTimer.paused = true
@@ -377,9 +377,17 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], stag
 		return
 	minigame_stage.global_position = owners[0].global_position
 	worldManager.add_child(minigame_stage)
-	for index in range(entityNames.size()):
-		minigame_stage.enemyNames.append(entityNames[index])
-		minigame_stage.enemyHealthValues.append(entityHealth[index])
+	
+	minigame_stage.enemyNames = entityNames
+	minigame_stage.enemyHealthValues = entityHealth.duplicate()
+	minigame_stage.enemyAttackValues = entityAttack.duplicate()
+	minigame_stage.enemySpeedValues = entitySpeed.duplicate()
+	minigame_stage.enemyRangeValues = entityRange.duplicate()
+	
+	#for index in range(entityNames.size()):
+	#	minigame_stage.enemyNames.append(entityNames[index])
+	#	minigame_stage.enemyHealthValues.append(entityHealth[index])
+	#	minigame_stage.enemyAttackValues.append(entityAttack[index])
 		
 	minigame_stage.enemyCount = entityNames.size()
 	minigame_stage.level = level

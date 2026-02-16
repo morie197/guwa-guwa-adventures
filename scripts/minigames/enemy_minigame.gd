@@ -8,17 +8,21 @@ extends CharacterBody2D
 @onready var quack_sound = $quackSound
 @onready var lunge_bar = $lungeBar
 
+@onready var a_tk = %ATk
+
 @export var speed: float = 110
-var max_quack_range
+@export var projectileSpeedMult: float = 2
+var max_quack_range: float = 100
 @export var maxHealth: int = 5
+var attackDamage: int = 1
 
 @export var healthToHealingRatio: int = 10
 
 @onready var quacker = $Quacker
 
-@export var quackCooldown: float = 0.6
+@export var quackCooldown: float = 2
 @export var quackBaseRandomTimer: float = 1.5
-@export var quackRandomTimerVariation: float = 0.5
+@export var quackRandomTimerVariation: float = 0.3
 
 @export var chaseSpeedMultiplier: float = 1.6
 @export var runningSpeedMultiplier: float = 1.2
@@ -83,23 +87,25 @@ var playerPos: Vector2 :
 
 func initValues():
 	quacker.parent_duck = self
-	quacker.attack_damage = 1
+	quacker.attack_damage = attackDamage
 	quacker.max_health = maxHealth
+	quacker.max_quack_range = max_quack_range
 	
-	
-	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
-		max_quack_range = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
-		max_quack_range = clampf(max_quack_range * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
-	else: 
+	#if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		#max_quack_range = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
+		#max_quack_range = clampf(max_quack_range * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
+	#else: 
 		#quackBaseRandomTimer += 2.0
 		#quackCooldown = quackCooldown * (((minigamemanager.enemyHealthValues.size() -1) / 4.0) + 1)
-		max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
+	
+	#max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
 		
-	var enemyScale = 0.5 + (maxHealth/25.0)
+	var enemyScale = clampf(0.5 + ((maxHealth/10.0) - (speed/200.0)), 0.5, 5)
 	swimming.scale = Vector2(enemyScale, enemyScale)
 	walking.scale = Vector2(enemyScale, enemyScale)
-		
-	quacker.max_quack_range = max_quack_range
+	
+	a_tk.text = "ATK: " + str(attackDamage)
+
 	
 	if minigamemanager.swimming == false:
 		swimming.visible = false
@@ -123,7 +129,7 @@ func _physics_process(delta):
 	if agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
-		
+
 	_move()
 
 func changeStates():
@@ -241,7 +247,8 @@ func quack():
 	tim.wait_time = quackDelay
 	add_child(tim)
 	tim.start()
-	tim.timeout.connect(quacker.quack.bind((playerPos - global_position).normalized(), 5 * minigamemanager.player_minigame.speedMultiplier))
+	tim.timeout.connect(quacker.quack.bind((minigamemanager.player_minigame.global_position - global_position).normalized(), 10 * attackDamage + speed/100.0))
+	#tim.timeout.connect(quacker.quack.bind((playerPos - global_position).normalized(), 10 + speed/100.0))
 	tim.timeout.connect(quack_sound.play)
 	tim.timeout.connect(lunge_bar.hide)
 	tim.timeout.connect(tim.queue_free)
@@ -263,11 +270,11 @@ func knockback(direction: Vector2):
 
 func _died():
 	minigamemanager.enemiesDefeated += 1
-	if minigamemanager.player_minigame.quacker.health < minigamemanager.player_minigame.quacker.max_health:
-		minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
-		minigamemanager.player_minigame.heal_sound.play(0.15)
-	minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
-	
+	#if minigamemanager.player_minigame.quacker.health < minigamemanager.player_minigame.quacker.max_health:
+		#minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
+		#minigamemanager.player_minigame.heal_sound.play(0.15)
+	#minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
+	#
 	infoBox.hpValue = 0
 	minigamemanager.enemyArray.erase(self)
 	queue_free()

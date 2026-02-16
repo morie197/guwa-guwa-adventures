@@ -6,15 +6,18 @@ class_name StaticDuck
 
 const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
 
-@export var duckNames: Array[String] = ["Jerry"]
-@export var duckHP: Array[int] = [5]
+@export var duckNames: Array[String]
+@export var duckHP: Array[int]
+@export var duckATK: Array[int]
+@export var duckSPD: Array[int]
+@export var duckRAN: Array[int]
 @export var stageName: String = "land_forest"
 
 @export var direction: Vector2 = Vector2.LEFT
 
 var duckContainer
 
-@export var owners: Array[Node2D] = [self]
+@export var owners: Array[Node2D]
 
 var id: int = 0
 var underground: bool = false
@@ -44,10 +47,15 @@ func _duckWindowPopup():
 		owners[i].add_child(duckyCont)
 		duckyCont.duckName.text = str(duckNames[i])
 		duckyCont.duckhp.text = "HP: " + str(duckHP[i])
+		duckyCont.duckatk.text = "ATK: " + str(duckATK[i])
+		duckyCont.duckspd.text = "SPD: " + str(duckSPD[i])
+		duckyCont.duckrange.text = "RAN: " + str(duckRAN[i])
+		
 		duckyCont.global_position = owners[i].global_position
 		duckyCont.position.x -= duckyCont.size.x/2.0
-		duckyCont.position += Vector2.RIGHT * 32
+		duckyCont.position += Vector2.RIGHT * 64
 		owners[i].duckContainer = duckyCont
+	
 	
 func _player_exited(_area):
 	if GameManager.playerRef != null:
@@ -59,7 +67,7 @@ func _player_exited(_area):
 
 func _quack():
 	if duckNames.size() > 0 and GameManager.minigame == false and GameManager.lost == false:
-		GameManager.initiateMinigame(duckNames, duckHP, stageName, owners)
+		GameManager.initiateMinigame(duckNames, duckHP, duckATK, duckSPD, duckRAN, stageName, owners)
 	
 func playerWon():
 	_exitMinigame()

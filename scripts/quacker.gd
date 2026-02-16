@@ -23,6 +23,7 @@ var health: int
 #var enemy_duck: Array[Quacker]
 
 const GUWA_PROJECTILE = preload("uid://utkhontokf0j")
+const DAMAGE_INDICATOR = preload("uid://cw53hm2wahaxq")
 
 var parent_duck
 
@@ -84,14 +85,18 @@ func damage(amount: int, damager):
 	
 	var knockBackDirection
 	if parent_duck.name == "PlayerMinigame":
-		if parent_duck.lunging and amount > 0:
-			if parent_duck.parry(damager) == false:
-				return
+		#if parent_duck.lunging and amount > 0:
+			#if parent_duck.parry(damager) == false:
+				#return
 		if amount > 0:
 			parent_duck.hit_sound.play()
 	health = clamp(health - amount, 0, max_health)
 	hp_changed.emit()
 	if amount > 0:
+		var damaged = DAMAGE_INDICATOR.instantiate()
+		add_child(damaged)
+		damaged.damageText.text = "-" + str(amount)
+		damaged.global_position = global_position + Vector2(-16, -32)
 		var multiplier: float = 1.0
 		var distance = global_position.distance_to(damager.global_position) + 1
 		if distance < 150:
@@ -102,7 +107,7 @@ func damage(amount: int, damager):
 	if health <= 0:
 		dead.emit()
 
-func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0):
+func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0, reflect: bool = false, damageOverride: int = 1, positionOverride: Vector2 = Vector2.ZERO):
 	var projectile = GUWA_PROJECTILE.instantiate()
 	projectile.direction = direction
 	projectile.speed = speed
@@ -111,8 +116,13 @@ func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0):
 	projectile.attackRange = quack_range
 	if parent_duck.name == "PlayerMinigame":
 		projectile.force = "player"
+		if reflect == true:
+			projectile.attack_damage = damageOverride
+			projectile.originPosition = positionOverride
+			projectile.reflected = true
 	else:
 		projectile.force = "enemy"
+		projectile.attack_damage = 2 + floor(max_health / 10.0)
 	parent_duck.minigamemanager.call_deferred("add_child", projectile)
 	
 	
