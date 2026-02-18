@@ -20,7 +20,7 @@ var testingCheats: bool = false
 enum Difficulty {EASY, NORMAL, HARD}
 var difficultyValue: Difficulty = Difficulty.NORMAL
 
-var hpRestoredFromTreat: int = 3
+var hpRestoredFromTreat: int = 2
 
 const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")

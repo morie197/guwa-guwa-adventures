@@ -19,6 +19,8 @@ var spawnTime: float
 
 var damaged = []
 
+var newDirection: Vector2
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	body_entered.connect(_duck_detected)
@@ -65,8 +67,14 @@ func _process(delta):
 func _physics_process(delta):
 	#print("Self: ", global_position, " | Parent: ", get_parent().global_position)
 	global_position += direction * speed * delta * forceMultiplier
-	#global_position += direction
+	if force == "enemy" and !parentDuck.is_queued_for_deletion():
+		newDirection = (parentDuck.minigamemanager.player_minigame.global_position - originPosition).normalized()
 	
+		global_rotation = lerp_angle(global_rotation, direction.rotated(PI / 2).angle(), 1.0 - clampf(25 * delta, 0, 1))
+	
+		direction = direction.lerp(newDirection, delta * 25)
+	
+	#global_position += direction
 func _duck_detected(body):
 	if is_queued_for_deletion():
 		return

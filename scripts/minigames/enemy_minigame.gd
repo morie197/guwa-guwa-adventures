@@ -20,8 +20,8 @@ var attackDamage: int = 1
 
 @onready var quacker = $Quacker
 
-@export var quackCooldown: float = 2
-@export var quackBaseRandomTimer: float = 1.5
+@export var quackCooldown: float = 1.3
+@export var quackBaseRandomTimer: float = 1
 @export var quackRandomTimerVariation: float = 0.3
 
 @export var chaseSpeedMultiplier: float = 1.6
@@ -247,7 +247,7 @@ func quack():
 	tim.wait_time = quackDelay
 	add_child(tim)
 	tim.start()
-	tim.timeout.connect(quacker.quack.bind((minigamemanager.player_minigame.global_position - global_position).normalized(), 10 * attackDamage + speed/100.0))
+	tim.timeout.connect(quacker.quack.bind((minigamemanager.player_minigame.global_position - global_position).normalized(), 13 * attackDamage/1.3 + speed/100.0))
 	#tim.timeout.connect(quacker.quack.bind((playerPos - global_position).normalized(), 10 + speed/100.0))
 	tim.timeout.connect(quack_sound.play)
 	tim.timeout.connect(lunge_bar.hide)
@@ -270,9 +270,11 @@ func knockback(direction: Vector2):
 
 func _died():
 	minigamemanager.enemiesDefeated += 1
-	#if minigamemanager.player_minigame.quacker.health < minigamemanager.player_minigame.quacker.max_health:
-		#minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
-		#minigamemanager.player_minigame.heal_sound.play(0.15)
+	if minigamemanager.player_minigame.quacker.health < minigamemanager.player_minigame.quacker.max_health:
+		minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
+		minigamemanager.player_minigame.heal_sound.play(0.15)
+	
+	minigamemanager.player_minigame.quacker.damage(-1, quacker)
 	#minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
 	#
 	infoBox.hpValue = 0

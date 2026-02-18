@@ -3649,8 +3649,8 @@ stageName = "water"
 owners = [NodePath(".")]
 
 [node name="StaticEnemyDuck8" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("12_ydw67")]
-position = Vector2(4480, -64)
-rotation = 1.5707964
+position = Vector2(4416, -64)
+rotation = 6.2831855
 duckNames = Array[String](["Matthew", "Ryan"])
 duckHP = Array[int]([10, 13])
 duckATK = Array[int]([2, 2])
@@ -3660,8 +3660,8 @@ stageName = "water"
 owners = [NodePath("../StaticEnemyDuck7"), NodePath(".")]
 
 [node name="StaticEnemyDuck7" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("12_ydw67")]
-position = Vector2(4544, -64)
-rotation = 1.5707964
+position = Vector2(4480, -64)
+rotation = 6.2831855
 duckNames = Array[String](["Matthew", "Ryan"])
 duckHP = Array[int]([10, 13])
 duckATK = Array[int]([2, 2])

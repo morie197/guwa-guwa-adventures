@@ -122,7 +122,7 @@ func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0, reflect: bool
 			projectile.reflected = true
 	else:
 		projectile.force = "enemy"
-		projectile.attack_damage = 2 + floor(max_health / 10.0)
+		projectile.attack_damage = attack_damage
 	parent_duck.minigamemanager.call_deferred("add_child", projectile)
 	
 	

@@ -25,6 +25,7 @@ var underground: bool = false
 func _ready():
 	quack_detector.area_entered.connect(_player_detected)
 	quack_detector.area_exited.connect(_player_exited)
+	global_rotation_degrees = 0
 	
 	if name.match("StaticEnemyDuck"):
 		id = 1
