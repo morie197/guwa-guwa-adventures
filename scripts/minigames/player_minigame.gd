@@ -38,6 +38,8 @@ var flying: bool = false
 @onready var wings_flying_sound = %wingsFlyingSound
 @onready var wings_flapping_sound = %wingsFlappingSound
 
+@onready var blocked_sound = $blockedSound
+
 var lunging: bool = false
 var tired: bool = false
 

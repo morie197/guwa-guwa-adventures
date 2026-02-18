@@ -93,16 +93,24 @@ func damage(amount: int, damager):
 	health = clamp(health - amount, 0, max_health)
 	hp_changed.emit()
 	if amount > 0:
-		var damaged = DAMAGE_INDICATOR.instantiate()
-		add_child(damaged)
-		damaged.damageText.text = "-" + str(amount)
-		damaged.global_position = global_position + Vector2(-16, -32)
 		var multiplier: float = 1.0
 		var distance = global_position.distance_to(damager.global_position) + 1
 		if distance < 150:
 			multiplier = 1 + 10/distance
 		knockBackDirection = (global_position - damager.global_position).normalized() * knockBackMultiplier * multiplier
 		parent_duck.knockback(knockBackDirection)
+	
+	if health != clamp(health - amount, -30, max_health):
+		var damaged = DAMAGE_INDICATOR.instantiate()
+		if amount < 0:
+			damaged.healing = true
+		add_child(damaged)
+		if amount > 0:
+			damaged.damageText.text = "-" + str(amount)
+		elif amount < 0:
+			damaged.damageText.text = "+" + str(abs(amount))
+			
+		damaged.global_position = global_position + Vector2(-16, -32)
 	
 	if health <= 0:
 		dead.emit()

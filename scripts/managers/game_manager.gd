@@ -444,7 +444,7 @@ func healPlayer(amount: int = 1, regenHeal: bool = false):
 		return
 	if healthValue < maxHP:
 		#print(healthValue, maxHP)
-		playerRef.heal_sound.pitch_scale = 1.6 + clampf(healthValue/maxHP, 0, 1)
+		playerRef.heal_sound.pitch_scale = 1.6 + clampf(healthValue/float(maxHP), 0, 1)
 		playerRef.heal_sound.play(0.15)
 	
 	healthValue = clamp(healthValue + amount, 0, maxHP)

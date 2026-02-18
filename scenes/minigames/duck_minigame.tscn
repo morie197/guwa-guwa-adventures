@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=52 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/SFX/quack.wav" id="6_wgwjx"]
 [ext_resource type="AudioStream" uid="uid://c7h4ypm8cr13p" path="res://sounds/SFX/shield-block-shortsword-143940.mp3" id="7_1v83y"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="8_u7pdh"]
+[ext_resource type="AudioStream" uid="uid://cqili45be6i0n" path="res://sounds/SFX/armor-hit-soft-01-266303.mp3" id="8_vf2ar"]
 [ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/bars/baroverlay.png" id="9_vf2ar"]
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="10_dplsg"]
 [ext_resource type="AudioStream" uid="uid://c87hxaituyd4j" path="res://sounds/SFX/sword-blade-slicing-flesh-352708.mp3" id="11_xaff1"]
@@ -229,6 +230,12 @@ bus = &"SFX"
 
 [node name="blockSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
 stream = ExtResource("7_1v83y")
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="blockedSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("8_vf2ar")
+pitch_scale = 1.25
 max_polyphony = 5
 bus = &"SFX"
 
