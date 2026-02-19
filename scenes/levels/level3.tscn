@@ -891,6 +891,9 @@ z_index = 1
 position = Vector2(-384, -3264)
 duckNames = Array[String](["Alexander", "Charles"])
 duckHP = Array[int]([25, 20])
+duckATK = Array[int]([4, 4])
+duckSPD = Array[int]([3, 5])
+duckRAN = Array[int]([5, 3])
 stageName = "water"
 owners = [NodePath("."), NodePath("../StaticEnemyDuck4")]
 
@@ -898,6 +901,9 @@ owners = [NodePath("."), NodePath("../StaticEnemyDuck4")]
 position = Vector2(-384, -3200)
 duckNames = Array[String](["Alexander", "Charles"])
 duckHP = Array[int]([25, 20])
+duckATK = Array[int]([4, 4])
+duckSPD = Array[int]([3, 5])
+duckRAN = Array[int]([5, 3])
 stageName = "water"
 owners = [NodePath("../StaticEnemyDuck"), NodePath(".")]
 
@@ -905,6 +911,9 @@ owners = [NodePath("../StaticEnemyDuck"), NodePath(".")]
 position = Vector2(2176, 192)
 duckNames = Array[String](["Henry", "William"])
 duckHP = Array[int]([30, 25])
+duckATK = Array[int]([5, 4])
+duckSPD = Array[int]([3, 5])
+duckRAN = Array[int]([3, 4])
 stageName = "water"
 owners = [NodePath("."), NodePath("../StaticEnemyDuck7")]
 
@@ -912,6 +921,9 @@ owners = [NodePath("."), NodePath("../StaticEnemyDuck7")]
 position = Vector2(2112, 192)
 duckNames = Array[String](["Henry", "William"])
 duckHP = Array[int]([30, 25])
+duckATK = Array[int]([5, 4])
+duckSPD = Array[int]([3, 5])
+duckRAN = Array[int]([3, 4])
 stageName = "water"
 owners = [NodePath("../StaticEnemyDuck6"), NodePath(".")]
 
@@ -919,6 +931,9 @@ owners = [NodePath("../StaticEnemyDuck6"), NodePath(".")]
 position = Vector2(-1152, -896)
 duckNames = Array[String](["George"])
 duckHP = Array[int]([35])
+duckATK = Array[int]([5])
+duckSPD = Array[int]([4])
+duckRAN = Array[int]([5])
 stageName = "water"
 owners = [NodePath(".")]
 
@@ -951,22 +966,31 @@ stageName = "water"
 owners = [null, null]
 
 [node name="StaticEnemyDuck8" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
-position = Vector2(-6272, -11776)
-duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
-duckHP = Array[int]([3, 10, 3, 7])
-owners = [null, null, null, null]
+position = Vector2(-192, 1984)
+duckNames = Array[String](["Edward", "Richard", "John"])
+duckHP = Array[int]([30, 30, 40])
+duckATK = Array[int]([4, 4, 6])
+duckSPD = Array[int]([3, 3, 2])
+duckRAN = Array[int]([2, 2, 3])
+owners = [NodePath("."), NodePath("../StaticEnemyDuck9"), NodePath("../StaticEnemyDuck10")]
 
 [node name="StaticEnemyDuck9" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
-position = Vector2(-6272, -11712)
-duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
-duckHP = Array[int]([3, 10, 3, 7])
-owners = [null, null, null, null]
+position = Vector2(-320, 1856)
+duckNames = Array[String](["Edward", "Richard", "John"])
+duckHP = Array[int]([30, 30, 40])
+duckATK = Array[int]([4, 4, 6])
+duckSPD = Array[int]([3, 3, 2])
+duckRAN = Array[int]([2, 2, 3])
+owners = [NodePath("../StaticEnemyDuck8"), NodePath("."), NodePath("../StaticEnemyDuck10")]
 
 [node name="StaticEnemyDuck10" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
-position = Vector2(-6272, -11648)
-duckNames = Array[String](["Terry", "Christopher", "Adam", "Travis"])
-duckHP = Array[int]([3, 10, 3, 7])
-owners = [null, null, null, null]
+position = Vector2(-64, 1856)
+duckNames = Array[String](["Edward", "Richard", "John"])
+duckHP = Array[int]([30, 30, 40])
+duckATK = Array[int]([4, 4, 6])
+duckSPD = Array[int]([3, 3, 2])
+duckRAN = Array[int]([2, 2, 3])
+owners = [NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck9"), NodePath(".")]
 
 [node name="StaticEnemyDuck11" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-6208, -11712)

@@ -39,7 +39,7 @@ var remainingUndergroundTreats
 
 @export var levelName: String = ""
 
-var FOWRadius: int = 3
+var FOWRadius: int = 6
 
 @onready var spawn_pos = $spawnPos
 
@@ -75,8 +75,18 @@ var revealedTilesUnderDict := {}
 
 var lastMousePos: Vector2 = Vector2.ZERO
 
+var updateTilesInFrameOver: Array[Vector2i]
+var updateTilesInFrameUnder: Array[Vector2i]
+
 var inMap: bool = false
 var mapCam: Camera2D
+
+var toUpdateTilesOver: Dictionary
+var toUpdateTilesUnder: Dictionary
+
+var maxUpdatesPerFrame: int = 60
+
+var updates: int = 0
 
 var sinceLastUpdate: float = 0.0
 
@@ -112,6 +122,35 @@ func _unhandled_input(event):
 func _process(delta):
 	if sinceLastUpdate < 30.0:
 		sinceLastUpdate += delta
+	
+	updates = 0
+	updateTilesInFrameUnder = []
+	updateTilesInFrameOver = []
+	
+	
+	for tile in toUpdateTilesUnder.duplicate():
+		if updates >= maxUpdatesPerFrame:
+			#print(updates, " >= ", maxUpdatesPerFrame)
+			break
+		updateTilesInFrameUnder.append(tile)
+		#underHidden.set_cell(tile, -1)
+		toUpdateTilesUnder.erase(tile)
+		updates += 1
+	updates = 0
+	for tile in toUpdateTilesOver.duplicate():
+		if updates >= maxUpdatesPerFrame:
+			#print(updates, " >= ", maxUpdatesPerFrame)
+			break
+		updateTilesInFrameOver.append(tile)
+		#overHidden.set_cell(tile, -1)
+		toUpdateTilesOver.erase(tile)
+		updates += 1
+	
+	underHidden.set_cells_terrain_connect(updateTilesInFrameUnder, 0, -1, false)
+	overHidden.set_cells_terrain_connect(updateTilesInFrameOver, 0, -1, false)
+		
+		
+	#print(updates)
 	
 	if inMap:
 		var newTargetCamPosition = moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
@@ -249,15 +288,18 @@ func updateMinimap():
 		underMap.modulate = Color.TRANSPARENT
 
 func updateFOW(usual: bool = false):
-	if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/10.0:
+	if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/20.0:
 		return
 	else:
 		sinceLastUpdate = 0
-	var FOWTileMap: TileMapLayer
+	#var FOWTileMap: TileMapLayer
+	var dict
 	if GameManager.worldLayer == 0:
-		FOWTileMap = underHidden
+		dict = toUpdateTilesUnder
+		#FOWTileMap = underHidden
 	elif GameManager.worldLayer == 1:
-		FOWTileMap = overHidden
+		dict = toUpdateTilesOver
+		#FOWTileMap = overHidden
 	else:
 		print("no tile map ;(")
 		return
@@ -267,7 +309,8 @@ func updateFOW(usual: bool = false):
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):
 			var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
-			FOWTileMap.set_cell(cellReveal, -1)
+			dict[cellReveal] = true
+			#FOWTileMap.set_cell(cellReveal, -1)
 			if GameManager.worldLayer == 0:
 				revealedTilesUnderDict[cellReveal] = true
 			elif GameManager.worldLayer == 1:
@@ -276,6 +319,11 @@ func updateFOW(usual: bool = false):
 func loadFOW():	
 	revealedTilesDict = {}
 	revealedTilesUnderDict = {}
+	
+	#for tile in GameManager.revealedTilesUnder:
+		#toUpdateTilesUnder[tile] = true
+	#for tile in GameManager.revealedTiles:
+		#toUpdateTilesOver[tile] = true
 	
 	overHidden.set_cells_terrain_connect(GameManager.revealedTiles, 0, -1, false)
 	underHidden.set_cells_terrain_connect(GameManager.revealedTilesUnder, 0, -1, false)
