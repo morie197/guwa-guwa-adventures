@@ -448,7 +448,8 @@ func _area_enter(area):
 		areaForce = area.force * streamMoveSpeed
 	
 	areaSwitchTimer.wait_time = areaTransitionTime
-	areaSwitchTimer.start()
+	if areaSwitchTimer.is_inside_tree():
+		areaSwitchTimer.start()
 	
 	if areaFlag == "stream" or "whirlpool":
 		#print("nya")
@@ -459,7 +460,8 @@ func _area_exit(_area):
 	#areaForce = Vector2.ZERO
 	newArea = Vector2.ZERO
 	areaSwitchTimer.wait_time = areaTransitionTime
-	areaSwitchTimer.start()
+	if areaSwitchTimer.is_inside_tree():
+		areaSwitchTimer.start()
 	
 func loadGameChecks():
 	tileCheck()

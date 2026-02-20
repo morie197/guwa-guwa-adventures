@@ -4,11 +4,16 @@ var saveData: Dictionary = {}
 
 var saveDataAll: Array = []
 
+var fowSaveDataAll: Dictionary[int, Dictionary] = {}
+
+var fowSaveData = {}
+
 var saveSlotCount = 6
 
 var autosave: bool = true
 
 var savePath = "user://save_data.json"
+var fowSavePath = "user://fow_data/"
 var saveWarningTime = 30
 var saveWarning = false
 
@@ -34,6 +39,20 @@ func save_game(slot: int = 0):
 	
 	_SaveWarner()
 	
+	save_fow(slot)
+	
+func save_fow(slot: int = 0):
+	var path = fowSavePath + str(slot)
+	if !DirAccess.dir_exists_absolute(path):
+		DirAccess.make_dir_recursive_absolute(path)
+	if fowSaveData != {}:
+		if fowSaveData.has(0):
+			var underImage = fowSaveData[0].convert_to_image()
+			underImage.save_png(path + "/0.png")
+		if fowSaveData.has(1):
+			var overImage = fowSaveData[1].convert_to_image()
+			overImage.save_png(path + "/1.png")
+			print(path + "/1.png")
 
 func load_game(slot: int = 0):
 	GameManager.loadingLevel = true
@@ -56,9 +75,57 @@ func load_game(slot: int = 0):
 	GameManager.loadValues(reloadRefs)
 	
 	_SaveWarner()
+	
+	load_fow(slot)
 		
+func load_fow(slot: int = 0):
+	fowSaveData = {}
+	print(fowSaveDataAll)
+	if fowSaveDataAll.has(slot):
+		fowSaveData = fowSaveDataAll[slot].duplicate()
+		print(fowSaveData)
+		
+func load_all_fow():
+	for slot in range(saveSlotCount):
+		var dict: Dictionary[int, BitMap] = {}
+		var path = fowSavePath + str(slot)
+		if !DirAccess.dir_exists_absolute(path):
+			DirAccess.make_dir_recursive_absolute(path)
+		if FileAccess.file_exists(path + "/0.png"):
+			var underImage = Image.load_from_file(path + "/0.png")
+			if underImage != null:
+				var underBitmap = bitmap_to_image(underImage)
+				if underBitmap != null:
+					dict[0] = underBitmap
+		if FileAccess.file_exists(path + "/1.png"):
+			var overImage = Image.load_from_file(path + "/1.png")
+			if overImage != null:
+				var overBitmap = bitmap_to_image(overImage)
+				if overBitmap != null:
+					dict[1] = overBitmap
+			
+		fowSaveDataAll[slot] = dict
+	
+func bitmap_to_image(img: Image) -> BitMap:
+	var bitmap = BitMap.new()
+	bitmap.create(img.get_size())
+	for y in img.get_height():
+		for x in img.get_width():
+			var color = img.get_pixel(x, y)
+			if color.v > 0.5:
+				bitmap.set_bit(x, y, true)
+	return bitmap
+	
 func delete_game(slot: int = 0):
 	saveDataAll[slot] = {}
+	
+	fowSaveDataAll[slot].erase(0)
+	fowSaveDataAll[slot].erase(1)
+	
+	if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-0.png"):
+		DirAccess.remove_absolute(fowSavePath + str(slot) + "-0.png")
+	if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-1.png"):
+		DirAccess.remove_absolute(fowSavePath + str(slot) + "-1.png")
 	
 	saveAllData()
 		
@@ -90,6 +157,8 @@ func loadAllData():
 	
 	if data != "":
 		saveDataAll = JSON.parse_string(data)
+		
+	load_all_fow()
 		
 func saveAllData():
 	if saveDataAll.is_empty():

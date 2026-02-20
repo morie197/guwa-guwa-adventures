@@ -116,9 +116,11 @@ func saveValues():
 	SaveManager.saveData["currentHP"] = healthValue
 	SaveManager.saveData["difficulty"] = difficultyValue
 	SaveManager.saveData["levelName"] = worldManager.levelName
-	SaveManager.saveData["revealedTiles"] = stringToVector2i(genericArrayToVector2i(worldManager.revealedTilesDict.keys()))
-	SaveManager.saveData["revealedTilesUnder"] = stringToVector2i(genericArrayToVector2i(worldManager.revealedTilesUnderDict.keys()))
+	#SaveManager.saveData["revealedTiles"] = stringToVector2i(genericArrayToVector2i(worldManager.revealedTilesDict.keys()))
+	#SaveManager.saveData["revealedTilesUnder"] = stringToVector2i(genericArrayToVector2i(worldManager.revealedTilesUnderDict.keys()))
 	SaveManager.saveData["hiddenRegistry"] = hiddenRegistry.duplicate()
+	SaveManager.fowSaveData[0] = worldManager.underFow.duplicate()
+	SaveManager.fowSaveData[1] = worldManager.overFow.duplicate()
 	
 	var saveText = SAVE_LABEL.instantiate()
 	worldManager.ui_manager.add_child(saveText)
@@ -196,20 +198,34 @@ func loadValues(resetRefs: bool = false):
 	revealedTiles = []
 	revealedTilesUnder = []
 	
-	var revTiles = SaveManager.saveData.get("revealedTiles", null)
-	if revTiles != null:
-		print("not null1")
-		revealedTiles.assign(stringToVector2i(revTiles))
+	#var revTiles = SaveManager.saveData.get("revealedTiles", null)
+	#if revTiles != null:
+		#print("not null1")
+		#revealedTiles.assign(stringToVector2i(revTiles))
+	#
+	#var revTilesUnder = SaveManager.saveData.get("revealedTilesUnder", null)
+	#if revTilesUnder != null:
+		#revealedTilesUnder.assign(stringToVector2i(revTilesUnder))
+	
+	var undFow = SaveManager.fowSaveData.get(0, null)
+	if undFow != null:
+		worldManager.underFow = undFow
+		print("set undFow")
+	else:
+		print("noUnderFow")
 		
-	var revTilesUnder = SaveManager.saveData.get("revealedTilesUnder", null)
-	if revTilesUnder != null:
-		revealedTilesUnder.assign(stringToVector2i(revTilesUnder))
+	var oveFow = SaveManager.fowSaveData.get(1, null)
+	if oveFow != null:
+		worldManager.overFow = oveFow
+		print("set oveFow")
+	else:
+		print("noOverFow")
 	
 	levelUp.emit()
-	
-	print(int(SaveManager.saveData.get("worldLayer", 1)))
-	print(worldLayer)
-	
+	#
+	#print(int(SaveManager.saveData.get("worldLayer", 1)))
+	#print(worldLayer)
+	#
 	if int(SaveManager.saveData.get("worldLayer", 1)) != worldLayer:
 		if worldManager == null:
 			print("null world manager")

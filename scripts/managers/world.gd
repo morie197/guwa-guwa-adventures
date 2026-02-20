@@ -73,6 +73,9 @@ var targetZoom: Vector2 = Vector2.ONE
 var revealedTilesDict := {}
 var revealedTilesUnderDict := {}
 
+var overFow: BitMap
+var underFow: BitMap
+
 var lastMousePos: Vector2 = Vector2.ZERO
 
 var updateTilesInFrameOver: Array[Vector2i]
@@ -89,6 +92,15 @@ var maxUpdatesPerFrame: int = 60
 var updates: int = 0
 
 var sinceLastUpdate: float = 0.0
+
+var underOrigin: Vector2i
+var overOrigin: Vector2i
+
+var underMat: ShaderMaterial
+var overMat: ShaderMaterial
+
+var underTexture: ImageTexture
+var overTexture: ImageTexture
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("openMap"):
@@ -146,8 +158,8 @@ func _process(delta):
 		toUpdateTilesOver.erase(tile)
 		updates += 1
 	
-	underHidden.set_cells_terrain_connect(updateTilesInFrameUnder, 0, -1, false)
-	overHidden.set_cells_terrain_connect(updateTilesInFrameOver, 0, -1, false)
+	#underHidden.set_cells_terrain_connect(updateTilesInFrameUnder, 0, -1, false)
+	#overHidden.set_cells_terrain_connect(updateTilesInFrameOver, 0, -1, false)
 		
 		
 	#print(updates)
@@ -177,6 +189,43 @@ func _ready():
 	mapCam.set_visibility_layer_bit(2, true)
 	mapCam.enabled = false
 	add_child(mapCam)
+	
+	underFow = BitMap.new()
+	var underRect: Rect2i = underground_logic_layer.get_used_rect()
+	underFow.create(underRect.size)
+	
+	underOrigin = underRect.position
+	
+	
+	underHidden.size = underRect.size * 64
+	underHidden.position = underOrigin * 64
+	
+	underMat = underHidden.material as ShaderMaterial
+	underMat.set_shader_parameter("map_size", underRect.size * 64)
+	underMat.set_shader_parameter("map_offset", underOrigin * 64)
+	
+	underTexture = ImageTexture.new()
+	
+	overFow = BitMap.new()
+	var overRect: Rect2i = overground_logic_layer.get_used_rect()
+	overFow.create(overRect.size)
+	
+	overOrigin = overRect.position
+	
+	
+	overHidden.size = overRect.size * 64
+	overHidden.position = overOrigin * 64
+	
+	overMat = overHidden.material as ShaderMaterial
+	overMat.set_shader_parameter("map_size", overRect.size * 64)
+	overMat.set_shader_parameter("map_offset", overOrigin * 64)
+	
+	overTexture = ImageTexture.new()
+	
+	underTexture.set_image(underFow.convert_to_image())
+	underMat.set_shader_parameter("fow_mask", underTexture)
+	overTexture.set_image(overFow.convert_to_image())
+	overMat.set_shader_parameter("fow_mask", overTexture)
 	
 	for treat in undergroundTreats.get_children():
 		treat.underground = true
@@ -309,24 +358,61 @@ func updateFOW(usual: bool = false):
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):
 			var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
-			dict[cellReveal] = true
+			#dict[cellReveal] = true
 			#FOWTileMap.set_cell(cellReveal, -1)
+		
 			if GameManager.worldLayer == 0:
 				revealedTilesUnderDict[cellReveal] = true
+				var til = cellReveal - underOrigin
+				if til.x < 0 or til.y < 0 or til.y > underFow.get_size().y - 1 or til.x > underFow.get_size().x:
+					return
+				else:
+					underFow.set_bitv(cellReveal - underOrigin, true)
 			elif GameManager.worldLayer == 1:
 				revealedTilesDict[cellReveal] = true
+				var til = cellReveal - overOrigin
+				if til.x < 0 or til.y < 0 or til.y > overFow.get_size().y - 1 or til.x > overFow.get_size().x - 1:
+					return
+				else:
+					overFow.set_bitv(cellReveal - overOrigin, true)
+			
+	if GameManager.worldLayer == 0:	
+		#var img = underFow.convert_to_image()
+		underTexture.set_image(underFow.convert_to_image())
+		#underTexture = ImageTexture.create_from_image(img)
+		#underTexture.update(img)
+		underMat.set_shader_parameter("fow_mask", underTexture)
+	elif GameManager.worldLayer == 1:
+		#var img = underFow.convert_to_image()
+		overTexture.set_image(overFow.convert_to_image())
+		#overTexture = ImageTexture.create_from_image(img)
+		#overTexture.update(img)
+		#overTexture.set_image(overFow.convert_to_image())
+		overMat.set_shader_parameter("fow_mask", overTexture)
+		
+	#print(underMat, overMat)
 			
 func loadFOW():	
-	revealedTilesDict = {}
-	revealedTilesUnderDict = {}
+	#revealedTilesDict = {}
+	#revealedTilesUnderDict = {}
+	
+	print("loaded FOW")
+	
+	print(underFow)
+	print(overFow)
+	
+	underTexture.set_image(underFow.convert_to_image())
+	underMat.set_shader_parameter("fow_mask", underTexture)
+	overTexture.set_image(overFow.convert_to_image())
+	overMat.set_shader_parameter("fow_mask", overTexture)
 	
 	#for tile in GameManager.revealedTilesUnder:
 		#toUpdateTilesUnder[tile] = true
 	#for tile in GameManager.revealedTiles:
 		#toUpdateTilesOver[tile] = true
 	
-	overHidden.set_cells_terrain_connect(GameManager.revealedTiles, 0, -1, false)
-	underHidden.set_cells_terrain_connect(GameManager.revealedTilesUnder, 0, -1, false)
+	#overHidden.set_cells_terrain_connect(GameManager.revealedTiles, 0, -1, false)
+	#underHidden.set_cells_terrain_connect(GameManager.revealedTilesUnder, 0, -1, false)
 	
 	for val in GameManager.revealedTiles:
 		revealedTilesDict[val] = true
@@ -336,16 +422,26 @@ func loadFOW():
 			
 
 func clearFOW():
-	var parentMap
-	parentMap = overHidden.get_parent()
-	overHidden.queue_free()
-	overHidden = HIDDEN.instantiate()
-	parentMap.add_child(overHidden)
+	print("cleared FOW")
 	
-	parentMap = underHidden.get_parent()
-	underHidden.queue_free()
-	underHidden = HIDDEN.instantiate()
-	parentMap.add_child(underHidden)
+	underFow = BitMap.new()
+	var underRect: Rect2i = underground_logic_layer.get_used_rect()
+	underFow.create(underRect.size)
+	
+	overFow = BitMap.new()
+	var overRect: Rect2i = overground_logic_layer.get_used_rect()
+	overFow.create(overRect.size)
+	
+	#var parentMap
+	#parentMap = overHidden.get_parent()
+	#overHidden.queue_free()
+	#overHidden = HIDDEN.instantiate()
+	#parentMap.add_child(overHidden)
+	
+	#parentMap = underHidden.get_parent()
+	#underHidden.queue_free()
+	#underHidden = HIDDEN.instantiate()
+	#parentMap.add_child(underHidden)
 
 func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
