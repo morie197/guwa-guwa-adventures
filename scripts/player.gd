@@ -217,16 +217,16 @@ func _unhandled_input(event):
 					GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
 					migrating = false
 		
-		if GameManager.abilities.has("travel"):
-			if flying and Input.is_action_pressed("search"):
-				traveling = true
-				if travelingTimer <= 0:
-					travelingTimer = travelingTime
-			else:
-				if traveling:
-					travelingTimer = 0
-					GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
-					traveling = false
+		#if GameManager.abilities.has("travel"):
+			#if flying and Input.is_action_pressed("search"):
+				#traveling = true
+				#if travelingTimer <= 0:
+					#travelingTimer = travelingTime
+			#else:
+				#if traveling:
+					#travelingTimer = 0
+					#GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
+					#traveling = false
 		
 		if GameManager.abilities.has("quack") and quackTimer <= 0:
 			if Input.is_action_just_pressed("quack"):
@@ -550,6 +550,8 @@ func _regenHeal():
 func _migrated():
 	if migrating == true:
 		migrating = false
+	if GameManager.worldManager.levelName == "Hidden Grove":
+		return
 	set_collision_mask_value(1, false)
 	set_collision_layer_value(5, false)
 	var timmy = Timer.new()
@@ -559,11 +561,13 @@ func _migrated():
 	timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
 	timmy.timeout.connect(timmy.queue_free)
 	timmy.timeout.connect(audio_listener_2d.queue_free)
+	if GameManager.abilities.has("travel"):
+		timmy.timeout.connect(GameManager.travelToMap)
 	timmy.start()
 	
-	GameManager.won()
-	
-	
+	if !GameManager.abilities.has("travel"):
+		GameManager.won()
+		
 	GameManager.paused = true
 	
 func _traveled():

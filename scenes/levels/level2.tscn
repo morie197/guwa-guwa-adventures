@@ -1309,7 +1309,6 @@ tile_map_data = PackedByteArray("AADS/2f/AQAAAAUAAADS/2b/AQAAAAUAAADR/2b/AQAAAAU
 tile_set = ExtResource("6_4wmb1")
 
 [node name="areas" type="Node2D" parent="Overground"]
-visible = false
 light_mask = 3
 visibility_layer = 3
 z_index = -7
@@ -3913,6 +3912,7 @@ position = Vector2(1920, -8320)
 position = Vector2(3008, -12160)
 
 [node name="MapLayers" type="Node2D" parent="."]
+visible = false
 light_mask = 2
 visibility_layer = 2
 

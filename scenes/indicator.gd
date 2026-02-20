@@ -21,9 +21,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pointAtCoords = pointAt.global_position
+	look_at(pointAtCoords)
 	global_position = GameManager.playerRef.global_position + (pointAtCoords - GameManager.playerRef.global_position).normalized() * 128
 	
-	look_at(pointAtCoords)
+	
 	#var vectorAngle = (global_position - pointAtCoords).normalized()
 	#position = Vector2.ZERO
 	#global_rotation = vectorAngle.rotated(PI / 2).angle()

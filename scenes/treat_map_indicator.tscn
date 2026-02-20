@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://luhbyxeky4e2"]
+[gd_scene load_steps=4 format=3 uid="uid://luhbyxeky4e2"]
 
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="1_0te3a"]
 [ext_resource type="Script" uid="uid://biqqorevcedwu" path="res://scripts/followTarget.gd" id="2_tbplm"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0te3a"]
+light_mode = 1
+
 [node name="treatMapIndicator" type="Sprite2D"]
 z_index = 4
+material = SubResource("CanvasItemMaterial_0te3a")
 texture = ExtResource("1_0te3a")
 script = ExtResource("2_tbplm")
