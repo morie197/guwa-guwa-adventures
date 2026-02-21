@@ -183,8 +183,8 @@ func loadValues(resetRefs: bool = false):
 	
 	var postgameUpgradeLevelsData = SaveManager.saveData.get("postgameUpgradeLevels", {})
 	postgameUpgradeLevels["resistance"] = int(postgameUpgradeLevelsData.get("resistance", 0))
-	postgameUpgradeLevels["visibility"] = int(postgameUpgradeLevelsData.get("visibility", 0))
-	postgameUpgradeLevels["agility"] = int(postgameUpgradeLevelsData.get("agility", 0))
+	postgameUpgradeLevels["reach"] = int(postgameUpgradeLevelsData.get("reach", 0))
+	postgameUpgradeLevels["power"] = int(postgameUpgradeLevelsData.get("power", 0))
 	
 	difficultyValue = SaveManager.saveData.get("difficulty", Difficulty.NORMAL)
 	
@@ -440,8 +440,8 @@ func calculateBonuses(heal: bool = true):
 		playerRef.speedMultiplier = _calculateBonus("speed")
 		
 		playerRef.resistanceMultiplier =  _calculateBonus("resistance", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
-		playerRef.visibilityMultiplier =  _calculateBonus("visibility", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
-		playerRef.agilityMultiplier =  _calculateBonus("agility", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
+		playerRef.visibilityMultiplier =  _calculateBonus("reach", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
+		playerRef.agilityMultiplier =  _calculateBonus("power", postgameUpgradeLevels, UpgradeData.POSTGAMEUPGRADES)
 		
 		playerRef.initializeValues()
 		

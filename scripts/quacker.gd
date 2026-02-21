@@ -124,6 +124,7 @@ func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0, reflect: bool
 	projectile.attackRange = quack_range
 	if parent_duck.name == "PlayerMinigame":
 		projectile.force = "player"
+		projectile.attack_damage = attack_damage
 		if reflect == true:
 			projectile.attack_damage = damageOverride
 			projectile.originPosition = positionOverride

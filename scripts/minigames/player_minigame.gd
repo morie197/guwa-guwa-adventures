@@ -6,7 +6,7 @@ var enduranceMultiplier: float = 1
 var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
-@export var moveSpeed: float = 160
+@export var moveSpeed: float = 120
 @export var staminaRecoveryRate: float = 0.8
 @export var baseQuackRange: float = 80.0
 @export var quackCooldown: float = 1.5
@@ -104,9 +104,10 @@ func initValues():
 	
 	quackCooldown = quackCooldown - ((speedMultiplier/5) * quackCooldown)
 	quacker.parent_duck = self
-	quacker.attack_damage = 1
+	quacker.attack_damage = 2 + floor(GameManager.postgameUpgradeLevels["power"] / 5.0)
 	quacker.max_health = GameManager.maxHP
-	quacker.max_quack_range = baseQuackRange * (((rangeMultiplier-1)/2)+1)
+	quacker.max_quack_range = baseQuackRange * (((rangeMultiplier-1)/2)+1) 
+	quacker.max_quack_range *= 1 + (GameManager.postgameUpgradeLevels["reach"] * UpgradeData.POSTGAMEUPGRADES["reach"]["percentIncrease"])/200.0
 	quacker.initValues()
 	quacker.health = GameManager.healthValue
 	quacker.hp_changed.connect(_hp_change)
@@ -308,7 +309,8 @@ func _move(movevec: Vector2):
 		velocity = movevec.normalized()
 			
 		velocity *= moveSpeed
-		velocity *= speedMultiplier / 1.1
+		velocity *= speedMultiplier / 1.8
+		#velocity *=  agilityMultiplier
 		#
 		#if flying:
 			#velocity *= flyMulti * agilityMultiplier

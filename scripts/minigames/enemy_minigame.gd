@@ -274,7 +274,7 @@ func _died():
 		minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
 		minigamemanager.player_minigame.heal_sound.play(0.15)
 	
-	minigamemanager.player_minigame.quacker.damage(-1 * clampi(1 + round(maxHealth/10.0), 1, 10), quacker)
+	minigamemanager.player_minigame.quacker.damage(-1 * clampi(floor(maxHealth/10.0), 1, 10), quacker)
 	#minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
 	#
 	infoBox.hpValue = 0

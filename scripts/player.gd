@@ -531,7 +531,7 @@ func initializeValues():
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	if GameManager.abilities.has("travel"):
-		point_light_2d_3.texture_scale = 2.5 * visibilityMultiplier
+		point_light_2d_3.texture_scale = 4 * visibilityMultiplier
 	
 func emitUpdatedStaminaValue():
 	updatedStamina.emit(round(stamina * 100), round(maxStamina * resistanceMultiplier * 100))
@@ -689,6 +689,7 @@ func _move(movevec: Vector2, delt):
 		
 		velocity *= moveSpeed
 		velocity *= speedMultiplier / 1.1
+		velocity *= agilityMultiplier
 		
 		tutorial_hint_detector.enabled = true
 		tutorial_hint_detector.target_position = moveVector * 20
@@ -696,12 +697,12 @@ func _move(movevec: Vector2, delt):
 			_showHint()
 		
 		if !flying and (layer == 0 or layer == -1):
-			velocity *= waterSpeedMultiplier * agilityMultiplier
+			velocity *= waterSpeedMultiplier
 			
 		if sprinting:
 			velocity *= sprintMult
 		elif flying:
-			velocity *= flyMulti * agilityMultiplier
+			velocity *= flyMulti
 
 		if !flying and !forcedFly:
 			if onThorns == true:

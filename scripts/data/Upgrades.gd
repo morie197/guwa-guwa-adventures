@@ -23,18 +23,18 @@ const UPGRADES = {
 const POSTGAMEUPGRADES = {
 	"resistance": {
 		"levels": 10,
-		"percentIncrease": 5,
-		"description": "+1 HP, +5% stamina and resistance to stream/wind forces."
+		"percentIncrease": 10,
+		"description": "+1 HP and +10% stamina."
 	},
-	"visibility": {
+	"reach": {
 		"levels": 10,
 		"percentIncrease": 20,
-		"description": "Increases hidden area visibility by 5% and player light radius by 20%."
+		"description": "Increases hidden area visibility by 5%, player light radius by 20%, and attack range by 10%."
 	},
-	"agility": {
+	"power": {
 		"levels": 10,
-		"percentIncrease": 10,
-		"description": "Increases swimming and flying speed by 10%."
+		"percentIncrease": 5,
+		"description": "Increases speed by 5%, +1 ATK per 5 levels."
 	}
 	
 }

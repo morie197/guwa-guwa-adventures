@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnvkkjoe28ls3"]
+[gd_scene load_steps=6 format=3 uid="uid://cnvkkjoe28ls3"]
 
 [ext_resource type="Script" uid="uid://c4eomqk86chx1" path="res://duck_container.gd" id="2_mhfnd"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2dyep"]
+light_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dyep"]
 content_margin_left = 6.0
@@ -38,6 +41,7 @@ vertical = true
 
 [node name="duckContainer" type="PanelContainer"]
 z_index = 10
+material = SubResource("CanvasItemMaterial_2dyep")
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.5, 0.5)
@@ -45,11 +49,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2dyep")
 script = ExtResource("2_mhfnd")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+use_parent_material = true
 layout_mode = 2
 theme_override_constants/separation = -1
 
 [node name="name" type="RichTextLabel" parent="VBoxContainer"]
 unique_name_in_owner = true
+use_parent_material = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 22
 text = "David"
@@ -59,21 +65,25 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 theme_override_constants/separation = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_i86lg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="hp" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(0.29311606, 0.7358641, 0.26846763, 1)
+use_parent_material = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "HP: 20"
@@ -85,6 +95,7 @@ vertical_alignment = 1
 [node name="ATK" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(0.9299814, 0.3322427, 0.32916787, 1)
+use_parent_material = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "ATK: 5"
@@ -94,16 +105,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_2dyep")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SPD" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 modulate = Color(0.3255, 0.72849995, 0.93, 1)
+use_parent_material = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "SPD: 20"
@@ -115,6 +129,7 @@ vertical_alignment = 1
 [node name="RAN" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 modulate = Color(0.93, 0.84940004, 0.3255, 1)
+use_parent_material = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "RAN: 5"

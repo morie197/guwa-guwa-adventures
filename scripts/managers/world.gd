@@ -364,14 +364,14 @@ func updateFOW(usual: bool = false):
 			if GameManager.worldLayer == 0:
 				revealedTilesUnderDict[cellReveal] = true
 				var til = cellReveal - underOrigin
-				if til.x < 0 or til.y < 0 or til.y > underFow.get_size().y - 1 or til.x > underFow.get_size().x:
+				if til.x < 0 or til.y < 0 or til.y >= underFow.get_size().y or til.x >= underFow.get_size().x:
 					return
 				else:
 					underFow.set_bitv(cellReveal - underOrigin, true)
 			elif GameManager.worldLayer == 1:
 				revealedTilesDict[cellReveal] = true
 				var til = cellReveal - overOrigin
-				if til.x < 0 or til.y < 0 or til.y > overFow.get_size().y - 1 or til.x > overFow.get_size().x - 1:
+				if til.x < 0 or til.y < 0 or til.y >= overFow.get_size().y or til.x >= overFow.get_size().x:
 					return
 				else:
 					overFow.set_bitv(cellReveal - overOrigin, true)

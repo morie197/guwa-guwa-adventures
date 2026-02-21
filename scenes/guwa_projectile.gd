@@ -62,7 +62,8 @@ func _process(delta):
 		return
 	#print("Self: ", global_position, " | Parent: ", get_parent().global_position)
 	#print(global_position)
-	
+	if attack_damage == 0:
+		queue_free()
 	
 	if parentDuck != null and !reflected:
 		if global_position.distance_to(originPosition) > attackRange - 20:
@@ -86,6 +87,8 @@ func _physics_process(delta):
 	
 	#global_position += direction
 func _duck_detected(body):
+	if attack_damage == 0:
+		return
 	if is_queued_for_deletion():
 		return	
 	if parentDuck.minigamemanager.displaying:
@@ -103,6 +106,7 @@ func _duck_detected(body):
 			damaged.append(body)
 		parentDuck.minigamemanager.player_minigame.enemy_hit.play()
 		body.get_parent().quacker.damage(attack_damage, parentDuck)
+		attack_damage -= 1
 	#
 #func _area_detected(area):
 	#if is_queued_for_deletion():
@@ -126,6 +130,7 @@ func _projectile_detected(area):
 				queue_free()
 			else:
 				parentDuck.minigamemanager.player_minigame.blocked_sound.play()
+				print("reduced damage")
 				
 				if abs(area.attack_damage - attack_damage) != 0:
 					var damageInd = DAMAGE_INDICATOR.instantiate()
