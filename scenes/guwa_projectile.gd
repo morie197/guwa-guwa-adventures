@@ -99,6 +99,7 @@ func _duck_detected(body):
 			return
 		else:
 			damaged.append(body)
+			queue_free()
 	elif body.name == "StaticBody2D" and force == "player":
 		if damaged.has(body):
 			return
