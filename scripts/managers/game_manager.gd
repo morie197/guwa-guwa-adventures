@@ -209,14 +209,14 @@ func loadValues(resetRefs: bool = false):
 	
 	var undFow = SaveManager.fowSaveData.get(0, null)
 	if undFow != null:
-		worldManager.underFow = undFow
+		worldManager.underFow = undFow.duplicate()
 		print("set undFow")
 	else:
 		print("noUnderFow")
 		
 	var oveFow = SaveManager.fowSaveData.get(1, null)
 	if oveFow != null:
-		worldManager.overFow = oveFow
+		worldManager.overFow = oveFow.duplicate()
 		print("set oveFow")
 	else:
 		print("noOverFow")

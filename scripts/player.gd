@@ -176,7 +176,7 @@ func _unhandled_input(event):
 		return
 	
 	if Input.is_action_just_pressed("menuback pause"):
-		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown:
+		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown or GameManager.worldManager.inMap:
 			return
 		if GameManager.worldManager.ui_manager != null:
 			GameManager.worldManager.ui_manager.pause()

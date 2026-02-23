@@ -53,6 +53,7 @@ func save_fow(slot: int = 0):
 			var overImage = fowSaveData[1].convert_to_image()
 			overImage.save_png(path + "/1.png")
 			print(path + "/1.png")
+		fowSaveDataAll[slot] = fowSaveData
 
 func load_game(slot: int = 0):
 	GameManager.loadingLevel = true
@@ -71,19 +72,20 @@ func load_game(slot: int = 0):
 	#if saveData.has("levelName"):
 	#	if saveData["levelName"] != saveDataAll[slot]["levelName"]:
 	#		print("loading level")
+
+	load_fow(slot)
 	
 	GameManager.loadValues(reloadRefs)
 	
 	_SaveWarner()
 	
-	load_fow(slot)
 		
 func load_fow(slot: int = 0):
 	fowSaveData = {}
 	print(fowSaveDataAll)
 	if fowSaveDataAll.has(slot):
 		fowSaveData = fowSaveDataAll[slot].duplicate()
-		print(fowSaveData)
+		#print(fowSaveData)
 		
 func load_all_fow():
 	for slot in range(saveSlotCount):

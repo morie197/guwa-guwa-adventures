@@ -172,6 +172,7 @@ func _wonGame():
 		else:
 			popup_text.text += ", " + enemyName
 	popup_text.text += "!"
+	GameManager.playerRef.healTimer.paused = false
 	
 	var displaytime = Timer.new()
 	add_child(displaytime)
