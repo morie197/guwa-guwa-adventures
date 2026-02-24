@@ -526,22 +526,31 @@ func getClosestTreat() -> Node2D:
 	remainingUndergroundTreats = _getTreats(undergroundTreats)
 	remainingOvergroundTreats = _getTreats(overgroundTreats)
 	
-	var closestTreat
+	var closestTreat  = null
 	var closestDistance: float = 9999999999999
+	var closestHiddenTreat = null
 	
 	if GameManager.worldLayer == 1:
 		for treat in remainingOvergroundTreats:
 			if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistance:
-				closestTreat = treat
-				closestDistance = treat.global_position.distance_to(GameManager.playerRef.global_position)
+				if treat.hiddenTreat:
+					closestHiddenTreat = treat
+				else:
+					closestTreat = treat
+					closestDistance = treat.global_position.distance_to(GameManager.playerRef.global_position)
 	elif GameManager.worldLayer == 0:
 		for treat in remainingUndergroundTreats:
 			if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistance:
-				closestTreat = treat
-				closestDistance = treat.global_position.distance_to(GameManager.playerRef.global_position)
-		
-	return closestTreat		
-			
+				if treat.hiddenTreat:
+					closestHiddenTreat = treat
+				else:
+					closestTreat = treat
+					closestDistance = treat.global_position.distance_to(GameManager.playerRef.global_position)
+	
+	if closestTreat != null:
+		return closestTreat
+	else:
+		return closestHiddenTreat
 func _getTreats(group) -> Array[Node2D]:
 	var treats: Array[Node2D] = []
 	for treat in group.get_children():

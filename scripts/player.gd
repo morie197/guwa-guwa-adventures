@@ -110,7 +110,7 @@ var tornadoRecoverSpeed: float = 0.1
 var areaTransitionTime: float = 0.9
 
 @export var radarRange: float = 400
-@export var radarCooldown: float = 3
+@export var radarCooldown: float = 6
 
 var tornadoThrownVelocity: Vector2 = Vector2.ZERO
 
@@ -141,7 +141,7 @@ var newArea: Vector2 = Vector2.ZERO
 
 var tilePosition: Vector2i
 
-var healRegenerationTime: float = 60.0
+var healRegenerationTime: float = 45.0
 
 signal quack
 signal radar

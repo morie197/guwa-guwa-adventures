@@ -1691,6 +1691,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Over" type="Node2D" parent="MapLayers"]
 light_mask = 2
@@ -1715,6 +1716,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("12_fhpi3")]
 light_mask = 3

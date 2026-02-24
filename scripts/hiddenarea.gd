@@ -14,7 +14,7 @@ var pingSubtlePlayed: bool = false
 var pingCooldown: float = 30.0
 
 var targetModulateColor: Color = Color.WHITE
-var pingHintColor: Color = Color(1, 0.85, 0.85, 0.90)
+var pingHintColor: Color = Color(1.0, 0.85, 0.85, 0.95)
 
 @export var modulateSpeed: float = 0.7
 @export var pingDelay: float = 0.1
@@ -23,6 +23,8 @@ var pingHintColor: Color = Color(1, 0.85, 0.85, 0.90)
 
 var underground: bool = false
 var found: bool = false
+
+@export var noRadar: bool = false
 
 var id: int = 0
 
@@ -93,6 +95,10 @@ func pingSoundPlay(subtle: bool = false):
 		
 	if pingSubtlePlayed and subtle:
 		return
+		
+	if noRadar:
+		return
+	
 	elif subtle:
 		pingSubtlePlayed = true
 		var timmy = Timer.new()
