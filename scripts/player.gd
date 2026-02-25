@@ -21,6 +21,9 @@ const INDICATOR = preload("uid://2n3n0g72rrmu")
 
 @onready var treat_radius = %treatRadius
 
+var timeBeingDamaged: float
+var timeBeingDamagedUntilHit: float = 0.5
+
 var indicator
 
 @onready var audio_listener_2d = $AudioListener2D
@@ -152,7 +155,7 @@ func _ready():
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
 	
-	bgmVolume = bgm.volume_db
+	
 	
 	healTimer = Timer.new()
 	add_child(healTimer)
@@ -268,20 +271,20 @@ func _process(delta):
 	
 	if GameManager.wonGame:
 		if bgm.volume_db <= -35 and bgm.playing:
-			bgm.stop()
+			bgm.stream_paused = true
 		else:
 			bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
 	elif GameManager.lost:
-		bgm.stop()
+		bgm.stream_paused = true
 		
 	elif GameManager.minigame:
 		flying = false
 		migrating = false
 		traveling = false
 		migrateTimer = 0
-		bgm.stop()
-	elif bgm.playing == false:
-		bgm.play()
+		bgm.stream_paused = true
+	elif bgm.stream_paused == true:
+		bgm.stream_paused = false
 	
 	if GameManager.paused:	
 		moveVector = Vector2.ZERO
@@ -589,7 +592,7 @@ func _radar():
 		timmy.wait_time = clampf(distanceToClosest/400.0, 0.1, 5)
 		
 		#print(distanceToClosest)
-		if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0:
+		if distanceToTreatFormula(closest.global_position):
 			if indicator != null and !is_queued_for_deletion():
 				indicator.queue_free()
 			indicator = INDICATOR.instantiate()
@@ -614,6 +617,12 @@ func _radar():
 	radCircle.global_position = global_position
 	radCircle.maxRadius = radarRange * rangeMultiplier
 	
+func distanceToTreatFormula(global_pos: Vector2) -> bool:
+	var distanceToClosest = global_pos.distance_to(self.global_position)
+	if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0:
+		return true
+	else:
+		return false
 	
 func _transitionArea():
 	pass
@@ -803,9 +812,17 @@ func _move(movevec: Vector2, delt):
 		
 	var colliding = move_and_slide()
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
-		GameManager.damagePlayer(1)
+		if timeBeingDamaged < timeBeingDamagedUntilHit:
+			timeBeingDamaged += delt
+			#print(timeBeingDamaged)
+		if timeBeingDamaged >= timeBeingDamagedUntilHit:
+			GameManager.damagePlayer(1)
 		if !forcedFly:
 			_toggleFly(false)
+	
+	elif timeBeingDamaged > 0:
+		timeBeingDamaged -= delt		
+	
 	#else:
 		#backwards_detector.target_position = Vector2.ZERO
 		#backwards_detector.enabled = false

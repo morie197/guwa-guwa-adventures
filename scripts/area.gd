@@ -13,11 +13,16 @@ extends Area2D
 @export var originalSound: AudioStreamPlayer2D
 @export var switchSound: AudioStreamPlayer2D
 @export var delayTime: float = 0.25
+var switchFromFlag: String
+@export var switchToFlag: String
 
 var tim: Timer
 var switchTimer: float = 0
 
 var switchValue: int = 1
+
+func _ready():
+	switchFromFlag = flag
 
 func _process(delta):
 	if !switch:
@@ -53,12 +58,16 @@ func _switch():
 	switchTimer = switchTime
 	if switchValue == 0:
 		force = switchForce
+		if switchToFlag != "":
+			flag = switchToFlag
 		if switchSound != null:
 			switchSound.play()
 		if switchToObject != null:
 			switchToObject.visible = true
 	elif switchValue == 1:
 		force = originalForce
+		if switchToFlag != "":
+			flag = switchFromFlag
 		if originalSound != null:
 			originalSound.play()
 		if switchFromObject != null:

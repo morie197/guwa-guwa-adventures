@@ -9,6 +9,7 @@ light_mode = 1
 
 [node name="indicator" type="Node2D"]
 light_mask = 0
+z_index = 10
 script = ExtResource("1_dik84")
 
 [node name="TextureRect" type="TextureRect" parent="." node_paths=PackedStringArray("deleteList")]

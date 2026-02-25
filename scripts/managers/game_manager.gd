@@ -26,6 +26,7 @@ const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
 const BRIGHT_NOTIFICATION_352449 = preload("uid://cbayh0an2p7ho")
 const DUCK_WINDOW = preload("uid://ddbias5728mqh")
+const DAMAGE_INDICATOR = preload("uid://cw53hm2wahaxq")
 
 var upgradeLevels = {"range": 0, "endurance": 0, "speed": 0}
 var postgameUpgradeLevels = {"resistance": 0, "visibility": 0, "agility": 0}
@@ -464,6 +465,7 @@ func healPlayer(amount: int = 1, regenHeal: bool = false):
 		playerRef.heal_sound.play(0.15)
 	
 	healthValue = clamp(healthValue + amount, 0, maxHP)
+	_changedHP(-1)
 	if worldManager != null:
 		worldManager.ui_manager._updateMaxHP()
 
@@ -541,6 +543,8 @@ func damagePlayer(amount: int = 1):
 	damageHealTimer.start()
 	canHealAfterDamage = false
 	
+	_changedHP(1)
+	
 	canDamage = false
 	playerRef.damaged_sound.play()
 	healthValue = clamp(healthValue - amount, 0, maxHP)
@@ -557,6 +561,19 @@ func damagePlayer(amount: int = 1):
 	
 func changeDifficulty(diff: Difficulty):
 	difficultyValue = diff
+		
+func _changedHP(amount: int = 0):
+	if healthValue != clamp(healthValue - amount, -30, maxHP):
+		var damaged = DAMAGE_INDICATOR.instantiate()
+		if amount < 0:
+			damaged.healing = true
+		add_child(damaged)
+		if amount > 0:
+			damaged.damageText.text = "-" + str(amount)
+		elif amount < 0:
+			damaged.damageText.text = "+" + str(abs(amount))
+			
+		damaged.global_position = playerRef.global_position + Vector2(-16, -32)
 		
 func travelToMap():
 	var oldAbilities = abilities.duplicate()

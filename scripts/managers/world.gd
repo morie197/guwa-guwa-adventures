@@ -260,12 +260,13 @@ func _ready():
 	underMap.modulate = Color.TRANSPARENT
 	
 	if levelName == "Hidden Grove":
-		GameManager.playerRef.bgm.volume_db += 5
 		GameManager.playerRef.bgm.stream = LEVEL_3_MUSIC
 	elif levelName == "Rocky Forest":
 		GameManager.playerRef.bgm.volume_db += 5
 		GameManager.playerRef.bgm.stream = LEVEL_0_MUSIC
 	GameManager.playerRef.bgm.play()
+	GameManager.playerRef.bgmVolume = GameManager.playerRef.bgm.volume_db
+	GameManager.playerRef.bgm.autoplay = true
 
 func openMap(switching: bool = false):
 	#print("opening", inMap)
@@ -528,29 +529,43 @@ func getClosestTreat() -> Node2D:
 	
 	var closestTreat  = null
 	var closestDistance: float = 9999999999999
+	var closestDistanceHidden: float = 9999999999999
 	var closestHiddenTreat = null
 	
 	if GameManager.worldLayer == 1:
 		for treat in remainingOvergroundTreats:
-			if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistance:
-				if treat.hiddenTreat:
-					closestHiddenTreat = treat
-				else:
+			if !treat.hiddenOnRadar:
+				if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistance:
 					closestTreat = treat
 					closestDistance = treat.global_position.distance_to(GameManager.playerRef.global_position)
+			if treat.hiddenOnRadar:
+				if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistanceHidden:
+					closestHiddenTreat = treat
+					closestDistanceHidden = treat.global_position.distance_to(GameManager.playerRef.global_position)
 	elif GameManager.worldLayer == 0:
 		for treat in remainingUndergroundTreats:
-			if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistance:
-				if treat.hiddenTreat:
-					closestHiddenTreat = treat
-				else:
+			if !treat.hiddenOnRadar:
+				if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistance:
 					closestTreat = treat
 					closestDistance = treat.global_position.distance_to(GameManager.playerRef.global_position)
+			if treat.hiddenOnRadar:
+				if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistanceHidden:
+					closestHiddenTreat = treat
+					closestDistanceHidden = treat.global_position.distance_to(GameManager.playerRef.global_position)
+					
+	print(closestTreat)
+	print(closestHiddenTreat)
 	
 	if closestTreat != null:
-		return closestTreat
-	else:
-		return closestHiddenTreat
+		if GameManager.playerRef.distanceToTreatFormula(closestTreat.global_position):
+			return closestTreat
+	if closestHiddenTreat != null:
+		if GameManager.playerRef.distanceToTreatFormula(closestHiddenTreat.global_position):
+			closestHiddenTreat.hiddenOnRadar = false
+			return closestHiddenTreat
+	print("null")
+	return null
+		
 func _getTreats(group) -> Array[Node2D]:
 	var treats: Array[Node2D] = []
 	for treat in group.get_children():

@@ -324,4 +324,4 @@ light_mask = 0
 visibility_layer = 2
 z_index = 10
 script = ExtResource("30_wnwbv")
-circleColor = Color(0.7882353, 0.7019608, 0.22745098, 0.4627451)
+circleColor = Color(0.79, 0.705865, 0.22910002, 0.25882354)

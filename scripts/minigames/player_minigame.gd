@@ -106,7 +106,7 @@ func initValues():
 	quacker.parent_duck = self
 	quacker.attack_damage = 2 + floor(GameManager.postgameUpgradeLevels["power"] / 5.0)
 	quacker.max_health = GameManager.maxHP
-	quacker.max_quack_range = baseQuackRange * (((rangeMultiplier-1)/2)+1) 
+	quacker.max_quack_range = baseQuackRange * (((rangeMultiplier-1)/1)+1) 
 	quacker.max_quack_range *= 1 + (GameManager.postgameUpgradeLevels["reach"] * UpgradeData.POSTGAMEUPGRADES["reach"]["percentIncrease"])/200.0
 	quacker.initValues()
 	quacker.health = GameManager.healthValue

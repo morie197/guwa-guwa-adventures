@@ -18,7 +18,8 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 1)
 
 [node name="radarCircle" type="Node2D"]
-z_index = 1
+visibility_layer = 3
+z_index = 10
 material = SubResource("CanvasItemMaterial_5cg8k")
 script = ExtResource("1_7jcqj")
 circleColor = Color(0.3882353, 0.70980394, 1, 0.89411765)

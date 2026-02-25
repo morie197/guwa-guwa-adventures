@@ -12,8 +12,9 @@ const TREAT_MAP_INDICATOR = preload("uid://luhbyxeky4e2")
 var hidden_treat_sound: float = -6
 
 @export var undergroundEnergy: float = 1.0
-@export var hiddenTreat = false
-@export var movingTreat = false
+@export var hiddenTreat: bool = false
+var hiddenOnRadar: bool
+@export var movingTreat: bool = false
 
 var origin: Vector2
 var mapTreatIcon
@@ -27,6 +28,7 @@ var underground: bool = false
 var mapCheckRef
 
 func _ready():
+	hiddenOnRadar = hiddenTreat
 	mapCheckRef = map_check
 	_updateCheck(false)
 	duck_area.body_entered.connect(_player_entered)
