@@ -18,6 +18,9 @@ func _ready():
 func _process(delta):
 	if GameManager.paused:
 		return
+	if GameManager.worldManager != null:
+		if GameManager.worldManager.inMap:
+			return
 	
 		
 	if peakPos == -1:

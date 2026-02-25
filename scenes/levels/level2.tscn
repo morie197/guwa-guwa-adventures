@@ -4145,7 +4145,6 @@ visibility_layer = 3
 position = Vector2(1920, -1080)
 
 [node name="UIManager" parent="." instance=ExtResource("19_liaw4")]
-visible = false
 
 [node name="spawnPos" type="Node2D" parent="."]
 position = Vector2(1920, -1080)

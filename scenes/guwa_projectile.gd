@@ -23,6 +23,8 @@ var spawnTime: float
 
 var damaged = []
 
+var halved: bool = false
+
 var newDirection: Vector2
 
 # Called when the node enters the scene tree for the first time.
@@ -67,7 +69,12 @@ func _process(delta):
 	
 	if parentDuck != null and !reflected:
 		if global_position.distance_to(originPosition) > attackRange - 20:
-			if attack_damage != 1:
+			if attack_damage != 1 and !halved:
+				print(attack_damage)
+				print((attack_damage/2.0))
+				print(round(attack_damage/2.0))
+				print(clampi(round(attack_damage/2.0), 1, 100))
+				halved = true
 				attack_damage = clampi(round(attack_damage/2.0), 1, 100)
 		if initAttackDamage > attack_damage:
 			var whiteness = attack_damage/float(initAttackDamage)

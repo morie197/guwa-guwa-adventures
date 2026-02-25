@@ -115,7 +115,7 @@ func initValues():
 	
 	quacker.dead.connect(_died)
 	
-	#ram.area_entered.connect(_rammed)
+	ram.area_entered.connect(_rammed)
 	
 	quackRandomTimer = randf_range(quackBaseRandomTimer - quackRandomTimerVariation, quackBaseRandomTimer + quackRandomTimerVariation)
 	
@@ -253,10 +253,9 @@ func quack():
 	tim.timeout.connect(lunge_bar.hide)
 	tim.timeout.connect(tim.queue_free)
 
-#func _rammed(area):
-#	if area.get_parent().name == "PlayerMinigame":
-#		if lunging:
-#			area.get_parent().quacker.damage(1, self)
+func _rammed(area):
+	if area.get_parent().name == "PlayerMinigame":
+		area.get_parent().quacker.damage(attackDamage, self)
 
 func knockback(direction: Vector2):
 	beingKnockedBack = true
@@ -274,7 +273,7 @@ func _died():
 		minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
 		minigamemanager.player_minigame.heal_sound.play(0.15)
 	
-	minigamemanager.player_minigame.quacker.damage(-1 * clampi(floor(maxHealth/10.0), 1, 10), quacker)
+	minigamemanager.player_minigame.quacker.damage(-1 * clampi(floor(maxHealth/10.0) + floor(attackDamage/2.0), 1, 10), quacker)
 	#minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
 	#
 	infoBox.hpValue = 0

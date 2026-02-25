@@ -22,7 +22,7 @@ const INDICATOR = preload("uid://2n3n0g72rrmu")
 @onready var treat_radius = %treatRadius
 
 var timeBeingDamaged: float
-var timeBeingDamagedUntilHit: float = 0.5
+var timeBeingDamagedUntilHit: float = 0.2
 
 var indicator
 
@@ -253,6 +253,9 @@ func _unhandled_input(event):
 func _physics_process(delta):
 	if GameManager.loadingLevel:
 		return
+	if GameManager.worldManager != null:
+		if GameManager.worldManager.inMap:
+			return
 	if GameManager.wonGame:
 		_move(Vector2.DOWN, delta)
 		return
@@ -276,7 +279,6 @@ func _process(delta):
 			bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
 	elif GameManager.lost:
 		bgm.stream_paused = true
-		
 	elif GameManager.minigame:
 		flying = false
 		migrating = false
@@ -285,6 +287,9 @@ func _process(delta):
 		bgm.stream_paused = true
 	elif bgm.stream_paused == true:
 		bgm.stream_paused = false
+	elif !bgm.playing:
+		bgm.play()
+		
 	
 	if GameManager.paused:	
 		moveVector = Vector2.ZERO
@@ -307,20 +312,20 @@ func _process(delta):
 	else:
 		point_light_2d_3.enabled = false
 		
-	if traveling:
-		if migrating:
-			migrating = false
-		if flying and GameManager.worldLayer == 1:
-			if travelingTimer > 0:
-				bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
-				travelingTimer -= delta
-				GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
-			else:
-				_traveled()
-		else:
-			bgm.volume_db = bgmVolume
-			travelingTimer = clampf(travelingTimer + delta * 1.5, 0, travelingTime)
-			GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
+	#if traveling:
+		#if migrating:
+			#migrating = false
+		#if flying and GameManager.worldLayer == 1:
+			#if travelingTimer > 0:
+				#bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
+				#travelingTimer -= delta
+				#GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
+			#else:
+				#_traveled()
+		#else:
+			#bgm.volume_db = bgmVolume
+			#travelingTimer = clampf(travelingTimer + delta * 1.5, 0, travelingTime)
+			#GameManager.worldManager.ui_manager.updateMigrateBar(floor(travelingTimer * 100), floor(travelingTime * 100))
 		
 	if GameManager.worldLayer == 0 and (layer != 1 and layer != 2):
 		underwater = true
@@ -529,6 +534,8 @@ func _toggleFly(value: bool):
 	flying = value
 	
 func initializeValues():
+	tornadoThrownVelocity = Vector2.ZERO
+	
 	stamina = maxStamina * resistanceMultiplier
 	emitUpdatedStaminaValue()
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
@@ -560,16 +567,18 @@ func _migrated():
 	var timmy = Timer.new()
 	add_child(timmy)
 	timmy.wait_time = wonDelay
-	timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
-	timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
+	if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level == 100):
+		timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
+		timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
+		timmy.timeout.connect(audio_listener_2d.queue_free)
 	timmy.timeout.connect(timmy.queue_free)
-	timmy.timeout.connect(audio_listener_2d.queue_free)
-	if GameManager.abilities.has("travel"):
+	if GameManager.abilities.has("travel") and !(GameManager.worldManager.levelName == "Hidden Grove"):
 		timmy.timeout.connect(GameManager.travelToMap)
 	timmy.start()
 	
-	if !GameManager.abilities.has("travel"):
+	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level == 100):
 		GameManager.won()
+		print("wongame")
 		
 	GameManager.paused = true
 	
@@ -587,6 +596,8 @@ func _radar():
 	var closest = GameManager.worldManager.getClosestTreat()
 	if closest != null:
 		#print("found:", closest)
+		
+		
 		var distanceToClosest = closest.global_position.distance_to(self.global_position)
 		var timmy = Timer.new()
 		timmy.wait_time = clampf(distanceToClosest/400.0, 0.1, 5)
@@ -604,6 +615,7 @@ func _radar():
 			timmy.timeout.connect(found_treat_sound.play)
 			timmy.timeout.connect(timmy.queue_free)
 			timmy.timeout.connect(indicator.show)
+			timmy.timeout.connect(_createTreatRadarCircle.bind(closest.global_position))
 			add_child(timmy)
 			timmy.start()
 			
@@ -616,6 +628,14 @@ func _radar():
 		
 	radCircle.global_position = global_position
 	radCircle.maxRadius = radarRange * rangeMultiplier
+	
+func _createTreatRadarCircle(global_pos: Vector2):
+	var treatRadCircle = RADAR_CIRCLE.instantiate()
+	GameManager.worldManager.add_child(treatRadCircle)
+	treatRadCircle.global_position = global_pos
+	treatRadCircle.circleColor = Color(0.863, 0.929, 0.0, 0.302)
+	treatRadCircle.radiusExpandSpeed = 120
+	treatRadCircle.maxRadius = (radarRange * rangeMultiplier)/2.0
 	
 func distanceToTreatFormula(global_pos: Vector2) -> bool:
 	var distanceToClosest = global_pos.distance_to(self.global_position)
@@ -743,7 +763,7 @@ func _move(movevec: Vector2, delt):
 				backwards_detector.enabled = true
 				backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * tornadoMultiplier)).normalized() * 13
 				#print(absDistance)
-				if backwards_detector.is_colliding() or absDistance < 110:
+				if absDistance < 110:
 					tornadoThrownVelocity = velocity
 					GameManager.damagePlayer(2)
 		elif areaFlag.match("tornadoSafe"):
@@ -762,16 +782,16 @@ func _move(movevec: Vector2, delt):
 				backwards_detector.enabled = true
 				backwards_detector.target_position = (Vector2(whirlpoolvel.y, -whirlpoolvel.x) + ((streamRef.global_position - global_position).normalized() * (streamRef.size / absDistance + 1) * tornadoMultiplier)).normalized() * 13
 				#print(absDistance)
-				if backwards_detector.is_colliding() or absDistance < 110:
-					tornadoThrownVelocity = velocity * streamRef.size/10
-					GameManager.damagePlayer(2)
+				#if absDistance < 110:
+				#	tornadoThrownVelocity = velocity * streamRef.size/10
+				#	GameManager.damagePlayer(2)
 
 		if !flying and !forcedFly and !layer == 1: 
 			if areaFlag == "stream":
 				backwards_detector.enabled = true
 				backwards_detector.target_position = areaForce.normalized() * 16
-				if backwards_detector.is_colliding() and streamRef != null:
-					GameManager.damagePlayer()
+				#if backwards_detector.is_colliding() and streamRef != null:
+					#GameManager.damagePlayer()
 				var streamForce: Vector2
 				var minMaxForce: Vector2 = Vector2.ONE * moveSpeed * (speedMultiplier / 1) * waterSpeedMultiplier * agilityMultiplier
 				streamForce.x = clampf(areaForce.x, -minMaxForce.x, minMaxForce.x)
@@ -814,14 +834,23 @@ func _move(movevec: Vector2, delt):
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
 		if timeBeingDamaged < timeBeingDamagedUntilHit:
 			timeBeingDamaged += delt
-			#print(timeBeingDamaged)
+			print(timeBeingDamaged)
 		if timeBeingDamaged >= timeBeingDamagedUntilHit:
+			print("damaging at: ", timeBeingDamaged)
 			GameManager.damagePlayer(1)
-		if !forcedFly:
-			_toggleFly(false)
-	
+			if !forcedFly:
+				_toggleFly(false)
+	#	if !forcedFly:
+	#		_toggleFly(false)
 	elif timeBeingDamaged > 0:
-		timeBeingDamaged -= delt		
+		timeBeingDamaged -= delt
+		#print(timeBeingDamaged)
+	#if colliding and flying:
+		#GameManager.damagePlayer(1)
+		#if !forcedFly:
+			#_toggleFly(false)
+	
+	
 	
 	#else:
 		#backwards_detector.target_position = Vector2.ZERO

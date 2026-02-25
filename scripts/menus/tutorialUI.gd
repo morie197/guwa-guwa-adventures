@@ -8,7 +8,7 @@ const KEY_PRESS_DISPLAY = preload("uid://cu2qa7tl2feks")
 @onready var dialogue_box = $DialogueBox
 @onready var nextDialogueButton = $TextureRect
 
-@export var maxDisplayTime: float = 30
+@export var maxDisplayTime: float = 15
 
 var keyDisplay
 var displayTime: float = 0.0
@@ -16,7 +16,7 @@ var itemNumber = 0
 
 func _process(delta):
 	displayTime += delta
-	if Input.is_action_just_pressed("nextTutorialItem") or displayTime >= maxDisplayTime:
+	if Input.is_action_just_pressed("nextTutorialItem") or displayTime >= maxDisplayTime or GameManager.minigame:
 		displayTime = 0.0
 		GameManager.tutorialOver.emit()
 		queue_free()

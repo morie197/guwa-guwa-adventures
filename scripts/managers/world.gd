@@ -12,6 +12,8 @@ class_name WorldManager
 @onready var undergroundDucks = $Underground/ducks
 
 @onready var overgroundTreats = $Overground/treats
+@onready var overgroundDucks = $Overground/ducks
+
 
 @onready var underMap = $MapLayers/Under
 @onready var overMap = $MapLayers/Over
@@ -254,6 +256,11 @@ func _ready():
 	underground_collision_layer.collision_enabled = false
 	GameManager.enterLevel()
 	
+	if underFow.get_size() != underRect.size:
+		underFow.create(underRect.size)
+	if overFow.get_size() != overRect.size:
+		overFow.create(overRect.size)
+	
 	#request_ready()
 	
 	overMap.modulate = Color.WHITE
@@ -273,31 +280,29 @@ func openMap(switching: bool = false):
 	if inMap and !switching:
 		get_viewport().canvas_cull_mask = 1
 		mapCam.enabled = false
-		GameManager.paused = false
+		#GameManager.paused = false
 		inMap = false
-		GameManager.playerRef.healTimer.paused = false
+		#GameManager.playerRef.healTimer.paused = false
 		if GameManager.worldLayer == 1:
 			if levelName == "Hidden Grove":
 				darkener.show()
 			else:
 				darkener.hide()
-			#overAreas.show()
-			#overAreas.process_mode = Node.PROCESS_MODE_ALWAYS
-			#overgroundTreats.show()
-			#overgroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
+			undergroundLayer.modulate = Color.TRANSPARENT
+			overgroundLayer.modulate = Color.WHITE
+			
+			
 		else:
 			#darkener.hide()
 			darkener.show()
-			#underAreas.show()
-			#underAreas.process_mode = Node.PROCESS_MODE_ALWAYS
-			#undergroundTreats.show()
-			#undergroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
+			overgroundLayer.modulate = Color.TRANSPARENT
+			undergroundLayer.modulate = Color.WHITE
 		#underMap.modulate = Color.TRANSPARENT
 		#overMap.modulate = Color.TRANSPARENT
 		return
 	
 	if inMap == false:
-		GameManager.playerRef.healTimer.paused = true
+		#GameManager.playerRef.healTimer.paused = true
 		darkener.hide()
 		#overAreas.hide()
 		#overAreas.process_mode = Node.PROCESS_MODE_DISABLED
@@ -317,7 +322,7 @@ func openMap(switching: bool = false):
 	inMap = true
 	mapCam.enabled = true
 	mapCam.make_current()
-	GameManager.paused = true
+	#GameManager.paused = true
 	
 	if switching:
 		mapLayer = abs(mapLayer - 1)
@@ -325,9 +330,13 @@ func openMap(switching: bool = false):
 	if mapLayer == 0:
 		underMap.modulate = Color.WHITE
 		overMap.modulate = Color.TRANSPARENT
+		overgroundLayer.modulate = Color.TRANSPARENT
+		undergroundLayer.modulate = Color.WHITE
 	else:
 		overMap.modulate = Color.WHITE
 		underMap.modulate = Color.TRANSPARENT
+		overgroundLayer.modulate = Color.WHITE
+		undergroundLayer.modulate = Color.TRANSPARENT
 
 func updateMinimap():
 	if mapLayer == 0:
@@ -376,6 +385,7 @@ func updateFOW(usual: bool = false):
 					return
 				else:
 					overFow.set_bitv(cellReveal - overOrigin, true)
+
 			
 	if GameManager.worldLayer == 0:	
 		#var img = underFow.convert_to_image()

@@ -55,14 +55,17 @@ func save_fow(slot: int = 0):
 			print(path + "/1.png")
 		fowSaveDataAll[slot] = fowSaveData
 
-func load_game(slot: int = 0):
+func load_game(slot: int = 0, forceLoad: bool = false):
 	GameManager.loadingLevel = true
 	var reloadRefs: bool = false
 	
-	if saveData.has("levelName"):
+	if forceLoad:
+		loadLevel(saveDataAll[slot]["levelName"], slot)
+		reloadRefs = true
+	elif saveData.has("levelName"):
 		if saveDataAll[slot].has("levelName"):
 			if saveData["levelName"] != saveDataAll[slot]["levelName"]:
-				loadLevel(saveDataAll[slot]["levelName"])
+				loadLevel(saveDataAll[slot]["levelName"], slot)
 				reloadRefs = true
 	else:
 		reloadRefs = true
@@ -124,9 +127,13 @@ func delete_game(slot: int = 0):
 	fowSaveDataAll[slot].erase(0)
 	fowSaveDataAll[slot].erase(1)
 	
+	print("deleting")
+	
 	if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-0.png"):
+		print("exists")
 		DirAccess.remove_absolute(fowSavePath + str(slot) + "-0.png")
 	if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-1.png"):
+		print("exists")
 		DirAccess.remove_absolute(fowSavePath + str(slot) + "-1.png")
 	
 	saveAllData()
@@ -191,14 +198,18 @@ func autoSave():
 	GameManager.saveValues()
 	save_game()
 	
-func loadLevel(levelName: String):
+func loadLevel(levelName: String, slot: int = -1):
 	if GameManager.worldManager != null:
 		if GameManager.worldManager.levelName.match(levelName):
 			#print("already loaded!")
 			return
-	
-	
-	
+	#if slot != -1:
+		#if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-0.png"):
+			#print("deleting0")
+			#DirAccess.remove_absolute(fowSavePath + str(slot) + "-0.png")
+		#if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-1.png"):
+			#print("deleting1")
+			#DirAccess.remove_absolute(fowSavePath + str(slot) + "-1.png")
 	if levelName.match("Quiet Gardens"):
 		get_tree().change_scene_to_file("res://scenes/levels/level2.tscn")
 		return

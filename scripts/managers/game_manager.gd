@@ -239,6 +239,8 @@ func loadValues(resetRefs: bool = false):
 			
 	treatsUpdated.emit()
 	
+	playerRef.healTimer.paused = false
+	
 	canDamage = true
 	
 	playerRef.loadGameChecks()
@@ -555,7 +557,7 @@ func damagePlayer(amount: int = 1):
 	add_child(tim)
 	tim.wait_time = damageCooldown
 	tim.timeout.connect(func canDamagePlayer(): canDamage = true)
-	tim.timeout.connect(func canDamagedPlayer(): print(canDamage))
+	#tim.timeout.connect(func canDamagedPlayer(): print(canDamage))
 	tim.timeout.connect(tim.queue_free)
 	tim.start()
 	
@@ -588,6 +590,9 @@ func travelToMap():
 	
 	upgradeSet = UpgradeData.POSTGAMEUPGRADES
 
-	SaveManager.saveDataAll[0] = {"abilities": oldAbilities, "upgradeLevels": oldUpgrades, "shownTutorials": oldShownTutorials, "currentHP": oldCurrentHP, "difficulty": oldDifficulty, "level": oldLevel, "levelName": "Hidden Grove"}
-	SaveManager.load_game(0)
+	SaveManager.saveData = {"abilities": oldAbilities, "upgradeLevels": oldUpgrades, "shownTutorials": oldShownTutorials, "currentHP": oldCurrentHP, "difficulty": oldDifficulty, "level": oldLevel, "levelName": "Hidden Grove"}
+	#SaveManager.saveDataAll[0] = {"abilities": oldAbilities, "upgradeLevels": oldUpgrades, "shownTutorials": oldShownTutorials, "currentHP": oldCurrentHP, "difficulty": oldDifficulty, "level": oldLevel, "levelName": "Hidden Grove"}
+	SaveManager.delete_game(0)
+	SaveManager.save_game(0)
+	SaveManager.load_game(0, true)
 	
