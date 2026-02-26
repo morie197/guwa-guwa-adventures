@@ -33,13 +33,20 @@ func _ready():
 	add_child(autosaveCooldownTimer)
 
 func save_game(slot: int = 0):
-	saveDataAll[slot] = saveData.duplicate()
+	print("before: ", saveDataAll)
+	#print(saveData)
+	saveDataAll[slot] = saveData.duplicate(true)
+	
 	
 	saveAllData()
 	
 	_SaveWarner()
 	
 	save_fow(slot)
+	
+	print("saved slot: ", slot)
+	print(saveDataAll)
+	#print(saveData)
 	
 func save_fow(slot: int = 0):
 	var path = fowSavePath + str(slot)
@@ -54,6 +61,7 @@ func save_fow(slot: int = 0):
 			overImage.save_png(path + "/1.png")
 			print(path + "/1.png")
 		fowSaveDataAll[slot] = fowSaveData
+
 
 func load_game(slot: int = 0, forceLoad: bool = false):
 	GameManager.loadingLevel = true
@@ -70,7 +78,7 @@ func load_game(slot: int = 0, forceLoad: bool = false):
 	else:
 		reloadRefs = true
 	
-	saveData = saveDataAll[slot].duplicate()
+	saveData = saveDataAll[slot].duplicate(true)
 	
 	#if saveData.has("levelName"):
 	#	if saveData["levelName"] != saveDataAll[slot]["levelName"]:
@@ -85,9 +93,9 @@ func load_game(slot: int = 0, forceLoad: bool = false):
 		
 func load_fow(slot: int = 0):
 	fowSaveData = {}
-	print(fowSaveDataAll)
+	#print(fowSaveDataAll)
 	if fowSaveDataAll.has(slot):
-		fowSaveData = fowSaveDataAll[slot].duplicate()
+		fowSaveData = fowSaveDataAll[slot].duplicate(true)
 		#print(fowSaveData)
 		
 func load_all_fow():
@@ -129,12 +137,22 @@ func delete_game(slot: int = 0):
 	
 	print("deleting")
 	
-	if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-0.png"):
-		print("exists")
-		DirAccess.remove_absolute(fowSavePath + str(slot) + "-0.png")
-	if DirAccess.dir_exists_absolute(fowSavePath + str(slot) + "-1.png"):
-		print("exists")
-		DirAccess.remove_absolute(fowSavePath + str(slot) + "-1.png")
+	var dict: Dictionary[int, BitMap] = {}
+	var path = fowSavePath + str(slot)
+	if FileAccess.file_exists(path + "/0.png"):
+		var underImage = Image.load_from_file(path + "/0.png")
+		if underImage != null:
+			var underBitmap = bitmap_to_image(underImage)
+			if underBitmap != null:
+				dict[0] = underBitmap
+		if FileAccess.file_exists(path + "/1.png"):
+			var overImage = Image.load_from_file(path + "/1.png")
+			if overImage != null:
+				var overBitmap = bitmap_to_image(overImage)
+				if overBitmap != null:
+					dict[1] = overBitmap
+	
+	fowSaveDataAll[slot] = dict
 	
 	saveAllData()
 		

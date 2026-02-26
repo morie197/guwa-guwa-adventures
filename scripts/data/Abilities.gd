@@ -21,7 +21,7 @@ const ABILITIES = {
 	8: {
 		"name": "sonar",
 		"displayName": "Sonar",
-		"description": "Press Q to search your sorroundings, potentially uncovering secret areas and finding treats!"
+		"description": "Press Q to search your sorroundings, potentially uncovering secret areas!"
 		},
 	13: {
 		"name": "walk",
@@ -39,9 +39,14 @@ const ABILITIES = {
 		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
 		}, 	  
 	26: {
+		"name": "treatdetect",
+		"displayName": "Treat Sonar",
+		"description": "Pressing Q to search your sorroundings now also reveals nearby treats!"
+		}, 	 
+	30: {
 		"name": "fly",
 		"displayName": "Flight",
-		"description": "Hold SPACEBAR to fly, moving much faster than usual and overcoming lower obstacles!"
+		"description": "Hold SPACEBAR to fly, moving faster than usual and overcoming lower obstacles!"
 		}, 	  
 	40: {
 		"name": "migrate",
@@ -51,7 +56,7 @@ const ABILITIES = {
 	65: {
 		"name": "travel",
 		"displayName": "???",
-		"description": "Hold SPACEBAR and Q for 5 seconds to travel to the hidden grove!"
+		"description": "Hold SPACEBAR and E for 5 seconds to travel to the hidden grove!"
 		}
 	
 	}

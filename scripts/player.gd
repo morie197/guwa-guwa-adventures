@@ -22,7 +22,7 @@ const INDICATOR = preload("uid://2n3n0g72rrmu")
 @onready var treat_radius = %treatRadius
 
 var timeBeingDamaged: float
-var timeBeingDamagedUntilHit: float = 0.2
+var timeBeingDamagedUntilHit: float = 0.15
 
 var indicator
 
@@ -593,31 +593,32 @@ func _radar():
 	radar.emit()
 	var radCircle = RADAR_CIRCLE.instantiate()
 	GameManager.worldManager.add_child(radCircle)
-	var closest = GameManager.worldManager.getClosestTreat()
-	if closest != null:
-		#print("found:", closest)
-		
-		
-		var distanceToClosest = closest.global_position.distance_to(self.global_position)
-		var timmy = Timer.new()
-		timmy.wait_time = clampf(distanceToClosest/400.0, 0.1, 5)
-		
-		#print(distanceToClosest)
-		if distanceToTreatFormula(closest.global_position):
-			if indicator != null and !is_queued_for_deletion():
-				indicator.queue_free()
-			indicator = INDICATOR.instantiate()
-			indicator.pointAt = closest
-			add_child(indicator)
-			indicator.delayTime = timmy.wait_time
-			indicator.hide()
+	if GameManager.abilities.has("treatdetect"):
+		var closest = GameManager.worldManager.getClosestTreat()
+		if closest != null:
+			#print("found:", closest)
 			
-			timmy.timeout.connect(found_treat_sound.play)
-			timmy.timeout.connect(timmy.queue_free)
-			timmy.timeout.connect(indicator.show)
-			timmy.timeout.connect(_createTreatRadarCircle.bind(closest.global_position))
-			add_child(timmy)
-			timmy.start()
+			
+			var distanceToClosest = closest.global_position.distance_to(self.global_position)
+			var timmy = Timer.new()
+			timmy.wait_time = clampf(distanceToClosest/400.0, 0.1, 5)
+			
+			#print(distanceToClosest)
+			if distanceToTreatFormula(closest.global_position):
+				if indicator != null and !is_queued_for_deletion():
+					indicator.queue_free()
+				indicator = INDICATOR.instantiate()
+				indicator.pointAt = closest
+				add_child(indicator)
+				indicator.delayTime = timmy.wait_time
+				indicator.hide()
+				
+				timmy.timeout.connect(found_treat_sound.play)
+				timmy.timeout.connect(timmy.queue_free)
+				timmy.timeout.connect(indicator.show)
+				timmy.timeout.connect(_createTreatRadarCircle.bind(closest.global_position))
+				add_child(timmy)
+				timmy.start()
 			
 			
 			

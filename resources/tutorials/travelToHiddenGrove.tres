@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Tutorial" load_steps=3 format=3 uid="uid://cc8n3b2vd0pgd"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_almdl"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/resourceBases/tutorial.gd" id="2_he5ow"]
+
+[resource]
+script = ExtResource("2_he5ow")
+displayText = "Congratulations on collecting all treats! Press SPACE + E to migrate to the hidden grove, a special map with new content!"
+metadata/_custom_type_script = "uid://c3vgn54satwgg"

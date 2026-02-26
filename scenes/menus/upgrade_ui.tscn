@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdqibxl2ctiqt"]
+[gd_scene load_steps=6 format=3 uid="uid://bdqibxl2ctiqt"]
 
 [ext_resource type="Script" uid="uid://becjwxni0umge" path="res://scripts/menus/upgrade_ui.gd" id="1_k1o73"]
 
@@ -25,25 +25,28 @@ bg_color = Color(0.99081105, 0.34563336, 0.35804167, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewqot"]
 bg_color = Color(0.16216752, 0.7096766, 0.40186605, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55gai"]
+bg_color = Color(0.5236085, 0.9955552, 0.68026197, 1)
+
 [node name="UpgradeUI" type="Control"]
 z_index = 1
-custom_minimum_size = Vector2(700, 80)
+custom_minimum_size = Vector2(896, 80)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 704.0
+offset_right = 896.0
 offset_bottom = 80.0
 script = ExtResource("1_k1o73")
 
 [node name="backgroundPanel" type="Panel" parent="."]
 z_index = -1
 layout_mode = 0
-offset_right = 704.0
+offset_right = 896.0
 offset_bottom = 80.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jc35x")
 
 [node name="UpgradeContent" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 704.0
+offset_right = 896.0
 offset_bottom = 80.0
 alignment = 1
 
@@ -56,7 +59,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-size_flags_stretch_ratio = 0.78
+size_flags_stretch_ratio = 0.35
 theme_override_font_sizes/normal_font_size = 25
 text = "Speed"
 scroll_active = false
@@ -76,7 +79,7 @@ vertical_alignment = 1
 [node name="UpgradeInfo" type="HBoxContainer" parent="UpgradeContent"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.8
+size_flags_stretch_ratio = 0.52
 
 [node name="upgradeLevel" type="RichTextLabel" parent="UpgradeContent/UpgradeInfo"]
 layout_mode = 2
@@ -122,7 +125,7 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_ewqot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ewqot")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ewqot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_55gai")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ewqot")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ewqot")
 text = "Upgrade!"

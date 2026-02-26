@@ -363,7 +363,7 @@ func updateFOW(usual: bool = false):
 		print("no tile map ;(")
 		return
 	
-	var finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"]/3.5)
+	var finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"])
 	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):

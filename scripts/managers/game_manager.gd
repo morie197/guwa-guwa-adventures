@@ -222,6 +222,8 @@ func loadValues(resetRefs: bool = false):
 	else:
 		print("noOverFow")
 	
+	print("has these abilities: ", abilities)
+	
 	levelUp.emit()
 	#
 	#print(int(SaveManager.saveData.get("worldLayer", 1)))
@@ -290,6 +292,11 @@ func closeUpgrades():
 		showTutorial("migrate")
 	if abilities.has("map"):
 		showTutorial("map")
+	if abilities.has("treatdetect"):
+		showTutorial("treatdetect")
+	if abilities.has("travel"):
+		print("has travel!")
+		showTutorial("travel")
 	
 	if testingCheats == true:
 		testingCheats = false

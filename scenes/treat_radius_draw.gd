@@ -12,5 +12,6 @@ func _process(delta):
 	pass
 
 func _draw():
-	var circleWidth = (GameManager.playerRef.radarRange * GameManager.playerRef.rangeMultiplier * GameManager.playerRef.treatFindRangeMult * GameManager.level/10.0)
-	draw_arc(Vector2.ZERO, circleWidth, 0, TAU, 60, circleColor, 64)
+	if GameManager.abilities.has("treatdetect"):
+		var circleWidth = (GameManager.playerRef.radarRange * GameManager.playerRef.rangeMultiplier * GameManager.playerRef.treatFindRangeMult * GameManager.level/10.0)
+		draw_arc(Vector2.ZERO, circleWidth, 0, TAU, 60, circleColor, 64)
