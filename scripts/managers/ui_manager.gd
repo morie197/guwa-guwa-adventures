@@ -149,9 +149,11 @@ func _physics_process(delta):
 			#print(game_won_bgm.volume_db)
 			winpanel.modulate = winpanel.modulate.lerp(Color.BLACK, delta * modulateSpeed)
 			if game_won_bgm.volume_db < -40:
-				GameManager.playerCamCredits.queue_free()
+				if GameManager.playerCamCredits != null:		
+					if !GameManager.playerCamCredits.is_queued_for_deletion():
+						GameManager.playerCamCredits.queue_free()
 				GameManager.wonGame = false
-				get_tree().change_scene_to_file("res://resources/main_menu.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 	
 	if hoverState == 1:
 		hoverTime += delta
@@ -254,7 +256,7 @@ func _load():
 func _quit():
 	GameManager.paused = false
 	GameManager.lost = false
-	get_tree().change_scene_to_file("res://resources/main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 
 func _inPopup():
 	inPopup = !inPopup

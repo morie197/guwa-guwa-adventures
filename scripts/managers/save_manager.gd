@@ -33,7 +33,7 @@ func _ready():
 	add_child(autosaveCooldownTimer)
 
 func save_game(slot: int = 0):
-	print("before: ", saveDataAll)
+	#print("before: ", saveDataAll)
 	#print(saveData)
 	saveDataAll[slot] = saveData.duplicate(true)
 	
@@ -44,8 +44,8 @@ func save_game(slot: int = 0):
 	
 	save_fow(slot)
 	
-	print("saved slot: ", slot)
-	print(saveDataAll)
+	#print("saved slot: ", slot)
+	#print(saveDataAll)
 	#print(saveData)
 	
 func save_fow(slot: int = 0):

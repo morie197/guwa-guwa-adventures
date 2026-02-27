@@ -348,10 +348,13 @@ func updateMinimap():
 
 func updateFOW(usual: bool = false):
 	if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/20.0:
+		#print("returning")
 		return
 	else:
 		sinceLastUpdate = 0
 	#var FOWTileMap: TileMapLayer
+	
+	#print("updating")
 	var dict
 	if GameManager.worldLayer == 0:
 		dict = toUpdateTilesUnder
@@ -375,15 +378,19 @@ func updateFOW(usual: bool = false):
 				revealedTilesUnderDict[cellReveal] = true
 				var til = cellReveal - underOrigin
 				if til.x < 0 or til.y < 0 or til.y >= underFow.get_size().y or til.x >= underFow.get_size().x:
-					return
+					print("returning")
+					#return
 				else:
+					print("updating0")
 					underFow.set_bitv(cellReveal - underOrigin, true)
 			elif GameManager.worldLayer == 1:
 				revealedTilesDict[cellReveal] = true
 				var til = cellReveal - overOrigin
 				if til.x < 0 or til.y < 0 or til.y >= overFow.get_size().y or til.x >= overFow.get_size().x:
-					return
+					print("returning")
+					#return
 				else:
+					print("updating1")
 					overFow.set_bitv(cellReveal - overOrigin, true)
 
 			

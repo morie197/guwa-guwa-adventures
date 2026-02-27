@@ -177,6 +177,8 @@ func _unhandled_input(event):
 	
 	if GameManager.lost:
 		return
+		
+
 	
 	if Input.is_action_just_pressed("menuback pause"):
 		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown or GameManager.worldManager.inMap:
@@ -187,12 +189,24 @@ func _unhandled_input(event):
 		return
 	
 	if event is InputEventMouseButton:
+		if GameManager.worldManager != null:
+			if GameManager.worldManager.inMap:
+				return
+		
 		if Input.is_action_just_pressed("zoomin"):
 			mouseScrollInput = zoomInAmount
 		elif Input.is_action_just_pressed("zoomout"):
 			mouseScrollInput = zoomOutAmount
 	
 	if event is InputEventKey:
+		if GameManager.abilities.has("sonar") and radarTimer <= 0:
+			if Input.is_action_pressed("search"):
+				_radar()
+				
+		if GameManager.worldManager != null:
+			if GameManager.worldManager.inMap:
+				return
+		
 		moveVector.y = Input.get_axis("up", "down")
 		moveVector.x = Input.get_axis("left", "right")
 		
@@ -235,9 +249,7 @@ func _unhandled_input(event):
 			if Input.is_action_just_pressed("quack"):
 				_quack()
 				
-		if GameManager.abilities.has("sonar") and radarTimer <= 0:
-			if Input.is_action_pressed("search"):
-				_radar()
+		
 			
 		if GameManager.abilities.has("dive") and layer == -1:
 			if Input.is_action_just_pressed("dive"):
@@ -640,7 +652,10 @@ func _createTreatRadarCircle(global_pos: Vector2):
 	
 func distanceToTreatFormula(global_pos: Vector2) -> bool:
 	var distanceToClosest = global_pos.distance_to(self.global_position)
-	if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0:
+	var mult: float = 1
+	if GameManager.worldManager.levelName == "Hidden Grove":
+		mult = 0.1 * visibilityMultiplier
+	if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0 * mult:
 		return true
 	else:
 		return false

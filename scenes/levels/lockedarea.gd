@@ -5,11 +5,15 @@ extends Polygon2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if GameManager.abilities.has(requiredAbility):
-		queue_free()
+		hide()
 	else:
+		show()
 		GameManager.levelUp.connect(_hide)
 
 
 func _hide():
 	if GameManager.abilities.has(requiredAbility):
-		queue_free()
+		hide()
+	else:
+		show()
+		

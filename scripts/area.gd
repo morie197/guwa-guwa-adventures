@@ -55,18 +55,19 @@ func _switchSounds(sound, start: bool = false):
 		_stopStartSoundsRecursive(sound, start)
 
 func _stopStartSoundsRecursive(sound, start: bool = false):
-	if sound is AudioStreamPlayer2D:
-		if !start:
-			sound.stop()
+	if sound != null:
+		if sound is AudioStreamPlayer2D:
+			if !start:
+				sound.stop()
+			else:
+				sound.play()
 		else:
-			sound.play()
-	else:
-		for s in sound.get_children():
-			if s is AudioStreamPlayer2D:
-				if !start:
-					s.stop()
-				else:
-					s.play()
+			for s in sound.get_children():
+				if s is AudioStreamPlayer2D:
+					if !start:
+						s.stop()
+					else:
+						s.play()
 		
 func _switch():
 	if !switch:

@@ -13,5 +13,8 @@ func _process(delta):
 
 func _draw():
 	if GameManager.abilities.has("treatdetect"):
-		var circleWidth = (GameManager.playerRef.radarRange * GameManager.playerRef.rangeMultiplier * GameManager.playerRef.treatFindRangeMult * GameManager.level/10.0)
+		var mult: float = 1.0
+		if GameManager.worldManager.levelName == "Hidden Grove":
+			mult =0.1 * GameManager.playerRef.visibilityMultiplier
+		var circleWidth = (GameManager.playerRef.radarRange * GameManager.playerRef.rangeMultiplier * GameManager.playerRef.treatFindRangeMult * GameManager.level/10.0) * mult
 		draw_arc(Vector2.ZERO, circleWidth, 0, TAU, 60, circleColor, 64)
