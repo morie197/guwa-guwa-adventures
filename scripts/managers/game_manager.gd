@@ -15,6 +15,8 @@ var lost: bool = false
 
 var loadingLevel: bool = false
 
+var fullscreen: bool = false
+
 var testingCheats: bool = false
 
 enum Difficulty {EASY, NORMAL, HARD}

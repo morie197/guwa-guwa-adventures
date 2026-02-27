@@ -260,14 +260,14 @@ light_mode = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wt4k6"]
 resource_local_to_scene = true
 shader = ExtResource("15_ahaer")
-shader_parameter/fog_color = Color(0, 0, 0, 1)
+shader_parameter/fog_color = Color(1, 1, 1, 1)
 shader_parameter/map_size = Vector2(0, 0)
 shader_parameter/map_offset = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wo5bm"]
 resource_local_to_scene = true
 shader = ExtResource("15_ahaer")
-shader_parameter/fog_color = Color(0, 0, 0, 1)
+shader_parameter/fog_color = Color(1, 1, 1, 1)
 shader_parameter/map_size = Vector2(0, 0)
 shader_parameter/map_offset = Vector2(0, 0)
 
@@ -451,6 +451,7 @@ shape = SubResource("CircleShape2D_dc8aq")
 [node name="ping" type="AudioStreamPlayer2D" parent="Underground/areas/hiddenArea"]
 stream = SubResource("AudioStreamMP3_5bnxw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="MapMask" type="TileMapLayer" parent="Underground/areas/hiddenArea"]
 light_mask = 2
@@ -482,6 +483,7 @@ shape = SubResource("CircleShape2D_swbdl")
 [node name="ping" type="AudioStreamPlayer2D" parent="Underground/areas/hiddenArea4"]
 stream = SubResource("AudioStreamMP3_5bnxw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="MapMask" type="TileMapLayer" parent="Underground/areas/hiddenArea4"]
 light_mask = 2
@@ -512,6 +514,7 @@ shape = SubResource("CircleShape2D_pj0a0")
 [node name="ping" type="AudioStreamPlayer2D" parent="Underground/areas/hiddenArea2"]
 stream = SubResource("AudioStreamMP3_5bnxw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="MapMask" type="TileMapLayer" parent="Underground/areas/hiddenArea2"]
 light_mask = 2
@@ -546,6 +549,7 @@ shape = SubResource("CircleShape2D_q7jno")
 [node name="ping" type="AudioStreamPlayer2D" parent="Underground/areas/hiddenArea3"]
 stream = SubResource("AudioStreamMP3_5bnxw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="MapMask" type="TileMapLayer" parent="Underground/areas/hiddenArea3"]
 light_mask = 2
@@ -576,6 +580,7 @@ shape = SubResource("CircleShape2D_fhpi3")
 [node name="ping" type="AudioStreamPlayer2D" parent="Underground/areas/hiddenArea5"]
 stream = SubResource("AudioStreamMP3_5bnxw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="MapMask" type="TileMapLayer" parent="Underground/areas/hiddenArea5"]
 light_mask = 2
@@ -617,6 +622,7 @@ shape = SubResource("CircleShape2D_v6yyo")
 [node name="ping" type="AudioStreamPlayer2D" parent="Underground/areas/hiddenArea6"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="treats" type="Node2D" parent="Underground"]
 light_mask = 3
@@ -875,6 +881,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea20" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -906,6 +913,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea20"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea19" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -937,6 +945,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea19"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea18" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -968,6 +977,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea18"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea17" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -999,6 +1009,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea17"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea16" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1030,6 +1041,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea16"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea15" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1061,6 +1073,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea15"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea14" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1092,6 +1105,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea14"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea13" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1123,6 +1137,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea13"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea12" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1154,6 +1169,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea12"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea11" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1190,6 +1206,7 @@ shape = SubResource("CircleShape2D_hl16f")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea11"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea10" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1220,6 +1237,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea10"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea9" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1253,6 +1271,7 @@ shape = SubResource("CapsuleShape2D_v6yyo")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea9"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea8" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1284,6 +1303,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea8"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea7" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1315,6 +1335,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea7"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea6" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1346,6 +1367,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea6"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea5" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1377,6 +1399,7 @@ shape = SubResource("CircleShape2D_022ip")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea5"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea4" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1408,6 +1431,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea4"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea3" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1439,6 +1463,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea3"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="hiddenArea2" type="Area2D" parent="Overground/areas"]
 light_mask = 3
@@ -1470,6 +1495,7 @@ shape = SubResource("CircleShape2D_wt4k6")
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea2"]
 stream = SubResource("AudioStreamMP3_a82vw")
 volume_db = -3.496
+bus = &"SFX"
 
 [node name="Path2D2" type="Path2D" parent="Overground/areas"]
 z_index = 1

@@ -5,6 +5,7 @@ extends PanelContainer
 @onready var sound_slider = $menu/VBoxContainer/sounds/soundSlider
 
 @onready var autosaves = $menu/VBoxContainer/HBoxContainer2/autosaves
+@onready var fullscreen = $menu/VBoxContainer/HBoxContainer3/fullscreen
 
 func _ready():
 	music_slider.value_changed.connect(_music_changed)
@@ -13,8 +14,11 @@ func _ready():
 	
 	if SaveManager.autosave == false:
 		autosaves.button_pressed = false
+	if GameManager.fullscreen == true:
+		fullscreen.button_pressed = true
 	
 	autosaves.pressed.connect(func toggleAutosaves(): SaveManager.autosave = !SaveManager.autosave)
+	fullscreen.toggled.connect(_switchFullscreen)
 	
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
 	sound_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
@@ -28,3 +32,12 @@ func _sound_changed(value: float):
 	var index = AudioServer.get_bus_index("SFX")
 	var db_value = linear_to_db(value)
 	AudioServer.set_bus_volume_db(index, db_value)
+
+func _switchFullscreen(on: bool):
+	print("toggled")
+	if !on:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		GameManager.fullscreen = false
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		GameManager.fullscreen = true
