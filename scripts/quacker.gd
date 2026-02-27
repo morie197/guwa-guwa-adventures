@@ -57,9 +57,9 @@ func _draw():
 	#collision_shape.shape = circle
 	
 	if parent_duck.name == "PlayerMinigame":
-		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 1, 1, 0.1), 5.0)
+		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 1, 1, 0.4), 5.0)
 	else:
-		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(1, 0, 0, 0.1), 5.0)
+		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(1, 0, 0, 0.15), 5.0)
 	#if (quack_range < max_quack_range):
 	#	draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 0.6, 0.6, 0.7), 5.0)
 

@@ -198,11 +198,11 @@ func saveAllData():
 	writeFile.store_string(JSON.stringify(saveDataAll))
 	writeFile.close()
 	
-func autoSave():
+func autoSave(forced: bool = false):
 	GameManager.showTutorial("saving")
 	#if autosaveCooldownTimer.time_left > 0.0:
 	#	return
-	if canAutosave == false:
+	if canAutosave == false and !forced:
 		return
 	if autosave == false:
 		return

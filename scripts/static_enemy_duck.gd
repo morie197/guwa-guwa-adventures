@@ -73,6 +73,7 @@ func _quack():
 func playerWon():
 	_exitMinigame()
 	GameManager.duckRegistry.append(id)
+	SaveManager.autoSave(true)
 	_enableDisable(false)
 	
 func playerLost():

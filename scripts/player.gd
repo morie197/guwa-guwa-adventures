@@ -349,6 +349,7 @@ func _process(delta):
 			stamina -= delta * underwaterStaminaDrain
 		else:
 			GameManager.damagePlayer(1)
+			modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
 		
 		emitUpdatedStaminaValue()
 		if under_water_sounds.playing == false: 
@@ -356,6 +357,10 @@ func _process(delta):
 	else:
 		if under_water_sounds.playing: 
 			under_water_sounds.stop()
+		
+	if timeBeingDamaged <= 0:
+		modulate = modulate.lerp(Color(1, clampf(1.0 - timeBeingDamaged * 2, 0, 1), clampf(1.0 - timeBeingDamaged * 2, 0, 1)), clampf(delta * 3, 0 , 1))
+		#print(modulate)
 		
 	if flyDelayTimer > 0:
 		flyDelayTimer -= delta
@@ -389,6 +394,7 @@ func _process(delta):
 
 	if layer == 2 and tired and forcedFly:
 		GameManager.damagePlayer(1)
+		modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
 	
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
@@ -754,6 +760,7 @@ func _move(movevec: Vector2, delt):
 				velocity *= thornSpeedMultiplier
 				if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
 					GameManager.damagePlayer()
+					modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
 				#if global_position.distance_to(tilePosition) < 64:
 		if areaFlag.match("wind"):
 			var windForce: Vector2
@@ -782,6 +789,7 @@ func _move(movevec: Vector2, delt):
 				if absDistance < 110:
 					tornadoThrownVelocity = velocity
 					GameManager.damagePlayer(2)
+					modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
 		elif areaFlag.match("tornadoSafe"):
 			if streamRef != null:
 				var distanceFromCenter = global_position - streamRef.global_position
@@ -850,9 +858,10 @@ func _move(movevec: Vector2, delt):
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
 		if timeBeingDamaged < timeBeingDamagedUntilHit:
 			timeBeingDamaged += delt
-			print(timeBeingDamaged)
+			modulate = Color(1, clampf(1.0 - timeBeingDamaged  * 2, 0, 1), clampf(1.0 - timeBeingDamaged * 2, 0, 1))
+			#print(timeBeingDamaged)
 		if timeBeingDamaged >= timeBeingDamagedUntilHit:
-			print("damaging at: ", timeBeingDamaged)
+			#print("damaging at: ", timeBeingDamaged)
 			GameManager.damagePlayer(1)
 			if !forcedFly:
 				_toggleFly(false)
