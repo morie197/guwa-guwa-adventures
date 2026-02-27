@@ -6,7 +6,7 @@ var maxRadius: float :
 		
 @export var circleColor: Color
 @export var circleWidth: float = 20
-@export var pointCount: int = 64
+@export var pointCount: int = 256
 @export var radiusExpandSpeed: float = 240
 
 @onready var radar_light = %radarLight

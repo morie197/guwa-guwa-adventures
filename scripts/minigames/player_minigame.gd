@@ -128,10 +128,10 @@ func _input(event):
 		moveVector.x = Input.get_axis("left", "right")
 			
 		if quackTimer <= 0:
-			if Input.is_action_just_pressed("quack") or Input.is_action_just_pressed("fly"):
+			if Input.is_action_just_pressed("attack"):
 				_quack()
 		
-		if (Input.is_action_pressed("sprint")) and !tired:
+		if (Input.is_action_pressed("lunge")) and !tired:
 			if moveVector == Vector2.ZERO:
 				return
 			lunging = true

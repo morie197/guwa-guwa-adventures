@@ -260,14 +260,14 @@ light_mode = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wt4k6"]
 resource_local_to_scene = true
 shader = ExtResource("15_ahaer")
-shader_parameter/fog_color = Color(1, 1, 1, 1)
+shader_parameter/fog_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 shader_parameter/map_size = Vector2(0, 0)
 shader_parameter/map_offset = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wo5bm"]
 resource_local_to_scene = true
 shader = ExtResource("15_ahaer")
-shader_parameter/fog_color = Color(1, 1, 1, 1)
+shader_parameter/fog_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 shader_parameter/map_size = Vector2(0, 0)
 shader_parameter/map_offset = Vector2(0, 0)
 

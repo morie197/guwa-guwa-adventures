@@ -56,6 +56,8 @@ var stateRandomTimerVariation: float = 2
 var stateRandomTimer: float = 0.0
 var knockBackSpeed: float = 1.3
 
+var lungeDelay: float = 0.25
+
 enum STATE{FOLLOWING, CHARGE, IDLE, RUNNING}
 var stateChances: Array[int] = [40, 40, 10, 10]
 var stateDurations: Array[float] = [1.3, 1.0, 0.3, 0.2]
@@ -67,8 +69,11 @@ var minigamemanager
 var beingKnockedBack: bool = false
 
 var tim: Timer
+var tom: Timer
 
 var moveVector: Vector2 = Vector2.ZERO
+
+var startingModulate: Color = Color.WHITE
 
 var playerPos: Vector2 :
 	set(new_pos):
@@ -91,6 +96,8 @@ func initValues():
 	quacker.max_health = maxHealth
 	quacker.max_quack_range = max_quack_range
 	
+	startingModulate = modulate
+	
 	#if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		#max_quack_range = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
 		#max_quack_range = clampf(max_quack_range * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
@@ -100,7 +107,7 @@ func initValues():
 	
 	#max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
 		
-	var enemyScale = clampf(0.5 + ((maxHealth/10.0) - (speed/200.0)), 0.5, 5)
+	var enemyScale = clampf(0.5 + ((maxHealth/30.0) - (speed/200.0)), 0.5, 2)
 	swimming.scale = Vector2(enemyScale, enemyScale)
 	walking.scale = Vector2(enemyScale, enemyScale)
 	
@@ -188,6 +195,7 @@ func _process(delta):
 		lungeTimer -= delta
 	elif lunging:
 		lunging = false
+		modulate = startingModulate
 	
 	if lungeCooldownTimer > 0:
 		lungeCooldownTimer -= delta
@@ -224,9 +232,16 @@ func _move():
 		if lunging == false and lungeCooldownTimer <= 0 and quackTimer <= 0:
 			if state != STATE.CHARGE:
 				state = STATE.CHARGE
-			lunging = true
-			lungeTimer = lungeLength
-			lungeCooldownTimer = lungeCooldown
+			if tom == null:
+				modulate = Color(clampf(modulate.r - 0.5, 0, 1), clampf(modulate.g - 0.5, 0, 1), 1)
+				tom = Timer.new()
+				add_child(tom)
+				tom.wait_time = lungeDelay
+				tom.timeout.connect(func dolunge(): lunging = true)
+				tom.timeout.connect(func dolungeTimer(): lungeTimer = lungeLength)
+				tom.timeout.connect(func dolungeCDTimer(): lungeCooldownTimer = lungeCooldown)
+				tom.timeout.connect(tom.queue_free)
+				tom.start()
 			lungeVelocity = velocity
 			velocity = Vector2.ZERO
 	

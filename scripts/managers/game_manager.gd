@@ -304,7 +304,7 @@ func closeUpgrades():
 		testingCheats = false
 		return
 	
-	SaveManager.autoSave()
+	SaveManager.autoSave(true)
 	
 func cameraShow(category: String):
 	paused = true
@@ -476,7 +476,7 @@ func healPlayer(amount: int = 1, regenHeal: bool = false):
 		playerRef.heal_sound.play(0.15)
 	
 	healthValue = clamp(healthValue + amount, 0, maxHP)
-	_changedHP(-1)
+	_changedHP(-amount)
 	if worldManager != null:
 		worldManager.ui_manager._updateMaxHP()
 
@@ -554,7 +554,7 @@ func damagePlayer(amount: int = 1):
 	damageHealTimer.start()
 	canHealAfterDamage = false
 	
-	_changedHP(1)
+	_changedHP(amount)
 	
 	canDamage = false
 	playerRef.damaged_sound.play()
@@ -574,6 +574,7 @@ func changeDifficulty(diff: Difficulty):
 	difficultyValue = diff
 		
 func _changedHP(amount: int = 0):
+	print(amount)
 	if healthValue != clamp(healthValue - amount, -30, maxHP):
 		var damaged = DAMAGE_INDICATOR.instantiate()
 		if amount < 0:

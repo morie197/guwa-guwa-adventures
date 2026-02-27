@@ -5,6 +5,7 @@ uniform vec4 fog_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 
 uniform vec2 map_size;
 uniform vec2 map_offset;
+render_mode unshaded;
 
 varying vec2 world_pos;
 
