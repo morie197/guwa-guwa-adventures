@@ -104,6 +104,7 @@ var overMat: ShaderMaterial
 var underTexture: ImageTexture
 var overTexture: ImageTexture
 
+
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("openMap"):
 		if GameManager.abilities.has("map"):
@@ -115,7 +116,8 @@ func _unhandled_input(event):
 				openMap()
 		
 	if inMap and (Input.is_action_just_pressed("nextTutorialItem") or Input.is_action_just_pressed("dive")):
-		openMap(true)
+		if underFow.get_true_bit_count() > 0:
+			openMap(true)
 		
 	#if event is InputEventMouseButton:
 	if Input.is_action_just_pressed("zoomin"):
@@ -280,7 +282,7 @@ func openMap(switching: bool = false):
 	if inMap and !switching:
 		get_viewport().canvas_cull_mask = 1
 		mapCam.enabled = false
-		#GameManager.paused = false
+		GameManager.paused = false
 		inMap = false
 		#GameManager.playerRef.healTimer.paused = false
 		if GameManager.worldLayer == 1:
@@ -302,6 +304,11 @@ func openMap(switching: bool = false):
 		return
 	
 	if inMap == false:
+		if ui_manager != null:
+			if underFow.get_true_bit_count() > 0:
+				ui_manager.switch.show()
+			else:
+				ui_manager.switch.hide()
 		#GameManager.playerRef.healTimer.paused = true
 		darkener.hide()
 		#overAreas.hide()
@@ -322,10 +329,11 @@ func openMap(switching: bool = false):
 	inMap = true
 	mapCam.enabled = true
 	mapCam.make_current()
-	#GameManager.paused = true
+	GameManager.paused = true
 	
 	if switching:
 		mapLayer = abs(mapLayer - 1)
+		GameManager.changedMapLevel.emit(mapLayer == GameManager.worldLayer)
 	
 	if mapLayer == 0:
 		underMap.modulate = Color.WHITE

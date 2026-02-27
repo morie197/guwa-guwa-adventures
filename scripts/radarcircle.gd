@@ -12,8 +12,11 @@ var maxRadius: float :
 @onready var radar_light = %radarLight
 		
 var radius: float = 1
+var startLevel: int = 1
 
 func _ready():
+	#startLevel = GameManager.worldLayer
+	
 	if GameManager.worldManager != null:
 		if GameManager.worldManager.levelName == "Hidden Grove":
 			radar_light.energy = 2.0
@@ -36,6 +39,11 @@ func _process(delta):
 			if radar_light.energy < 0.005:
 				print("freed")
 				queue_free()
+				
+	if GameManager.worldLayer == startLevel:
+		show()
+	else:
+		hide()
 
 func _draw():
 	draw_arc(Vector2.ZERO, radius, 0, TAU, pointCount, circleColor, circleWidth)

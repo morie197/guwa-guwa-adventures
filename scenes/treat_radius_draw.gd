@@ -5,7 +5,11 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.levelUp.connect(queue_redraw)
+	GameManager.changedMapLevel.connect(_showOnMap)
 
+func _showOnMap(on: bool):
+	visible = on
+	print(on)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -280,9 +280,9 @@ func parry(direction, damagerSpeed, reflectDamage, reflectPosition):
 	#return false
 	
 
-func knockback(direction: Vector2):
+func knockback(direction: Vector2, multiplier: float = 1):
 	beingKnockedBack = true
-	knockBackDirection = direction 
+	knockBackDirection = direction * multiplier
 	var tommy = Timer.new()
 	tommy.wait_time = knockBackDuration
 	tommy.timeout.connect(func turnOffKnockback(): beingKnockedBack = false)

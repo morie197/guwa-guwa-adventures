@@ -70,6 +70,7 @@ signal levelLoaded
 signal upgraded
 signal tutorialOver
 signal switchedWorldLevel
+signal changedMapLevel(onCurrent: bool)
 	
 func enterLevel():	
 	paused = false

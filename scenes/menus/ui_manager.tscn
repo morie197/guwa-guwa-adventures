@@ -400,6 +400,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="switch" type="HBoxContainer" parent="HUD"]
+unique_name_in_owner = true
 light_mask = 2
 visibility_layer = 2
 layout_mode = 0
@@ -438,8 +439,7 @@ offset_right = 72.0
 offset_bottom = 58.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_prq0i")
 
-[node name="MiniMapPanel" type="PanelContainer" parent="HUD"]
-unique_name_in_owner = true
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -450,13 +450,29 @@ offset_left = -408.0
 offset_top = -408.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="radarReady" type="RichTextLabel" parent="HUD/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.36862746, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 46
+text = "Radar Ready!"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MiniMapPanel" type="PanelContainer" parent="HUD/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_styles/panel = ExtResource("16_prq0i")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD/MiniMapPanel"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD/VBoxContainer2/MiniMapPanel"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="minimap" type="SubViewport" parent="HUD/MiniMapPanel/SubViewportContainer"]
+[node name="minimap" type="SubViewport" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer"]
 unique_name_in_owner = true
 process_mode = 3
 disable_3d = true
@@ -466,7 +482,7 @@ size = Vector2i(384, 384)
 size_2d_override = Vector2i(384, 384)
 render_target_update_mode = 4
 
-[node name="minimapCamera" type="Camera2D" parent="HUD/MiniMapPanel/SubViewportContainer/minimap"]
+[node name="minimapCamera" type="Camera2D" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer/minimap"]
 unique_name_in_owner = true
 position = Vector2(-464, 0)
 

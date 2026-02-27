@@ -155,7 +155,7 @@ func _ready():
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
 	
-	
+	GameManager.changedMapLevel.connect(_showOnMap)
 	
 	healTimer = Timer.new()
 	add_child(healTimer)
@@ -375,6 +375,10 @@ func _process(delta):
 			#print("else")
 			areaForce = Vector2.ZERO
 		
+	if GameManager.worldManager != null:
+		if GameManager.worldManager.ui_manager != null:
+			GameManager.worldManager.ui_manager.radar_ready.visible = radarTimer <= 0
+		
 	if moveVector != Vector2.ZERO:
 		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
 		
@@ -463,6 +467,11 @@ func _process(delta):
 		else:
 			tired = false
 
+func _showOnMap(on: bool):
+	if on:
+		%Polygon2D.color = Color.WHITE
+	else:
+		%Polygon2D.color = Color.GRAY
 func _area_enter(area):
 	streamRef = area
 	areaFlag = area.flag
@@ -610,6 +619,7 @@ func _radar():
 	radarTimer = radarCooldown
 	radar.emit()
 	var radCircle = RADAR_CIRCLE.instantiate()
+	radCircle.startLevel = GameManager.worldLayer
 	GameManager.worldManager.add_child(radCircle)
 	if GameManager.abilities.has("treatdetect"):
 		var closest = GameManager.worldManager.getClosestTreat()
@@ -634,7 +644,7 @@ func _radar():
 				timmy.timeout.connect(found_treat_sound.play)
 				timmy.timeout.connect(timmy.queue_free)
 				timmy.timeout.connect(indicator.show)
-				timmy.timeout.connect(_createTreatRadarCircle.bind(closest.global_position))
+				timmy.timeout.connect(_createTreatRadarCircle.bind(closest.global_position, GameManager.worldLayer))
 				add_child(timmy)
 				timmy.start()
 			
@@ -648,7 +658,7 @@ func _radar():
 	radCircle.global_position = global_position
 	radCircle.maxRadius = radarRange * rangeMultiplier
 	
-func _createTreatRadarCircle(global_pos: Vector2):
+func _createTreatRadarCircle(global_pos: Vector2, level: int = 1):
 	var treatRadCircle = RADAR_CIRCLE.instantiate()
 	GameManager.worldManager.add_child(treatRadCircle)
 	treatRadCircle.global_position = global_pos

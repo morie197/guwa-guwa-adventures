@@ -15,6 +15,8 @@ const HPPARTEMPTY = preload("uid://bnx8opkaadiwv")
 @onready var lostpanel = $lostpanel
 @onready var minimap_camera = %minimapCamera
 
+@onready var switch = %switch
+
 @onready var progress_to_complete_percent = %ProgressToCompletePercent
 
 var inPopup: bool = false
@@ -45,6 +47,8 @@ var inPopup: bool = false
 
 @onready var hp_text = %HPText
 @onready var hp_bars = %HPBars
+
+@onready var radar_ready = %radarReady
 
 @onready var loadGame = $lostpanel/VBoxContainer2/VBoxContainer/load
 @onready var quit = $lostpanel/VBoxContainer2/VBoxContainer/quit
