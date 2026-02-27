@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=52 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
@@ -29,7 +29,6 @@
 [ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="19_vhdu7"]
 [ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/bars/greenbar.png" id="20_sq7tm"]
 [ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="21_r2a71"]
-[ext_resource type="AudioStream" uid="uid://cn3pvo0qicqff" path="res://sounds/SFX/duck-calling-371054.mp3" id="22_wl8cf"]
 [ext_resource type="Texture2D" uid="uid://cogqfkcocl8by" path="res://mouse_right.svg" id="27_dplsg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
@@ -644,8 +643,3 @@ volume_db = -10.759
 autoplay = true
 bus = &"Music"
 parameters/looping = true
-
-[node name="lostAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("22_wl8cf")
-volume_db = -5.0
-pitch_scale = 0.9

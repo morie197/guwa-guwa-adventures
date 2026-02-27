@@ -450,9 +450,11 @@ offset_left = -408.0
 offset_top = -408.0
 grow_horizontal = 0
 grow_vertical = 0
+alignment = 2
 
 [node name="radarReady" type="RichTextLabel" parent="HUD/VBoxContainer2"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/default_color = Color(0.36862746, 1, 1, 1)
 theme_override_constants/outline_size = 10
@@ -465,6 +467,7 @@ vertical_alignment = 1
 
 [node name="MiniMapPanel" type="PanelContainer" parent="HUD/VBoxContainer2"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_styles/panel = ExtResource("16_prq0i")
 
@@ -480,7 +483,7 @@ handle_input_locally = false
 canvas_cull_mask = 4294967294
 size = Vector2i(384, 384)
 size_2d_override = Vector2i(384, 384)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="minimapCamera" type="Camera2D" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer/minimap"]
 unique_name_in_owner = true

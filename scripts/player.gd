@@ -18,6 +18,7 @@ const INDICATOR = preload("uid://2n3n0g72rrmu")
 @onready var wings_flying_sound = $wingsFlyingSound
 @onready var wings_flapping_sound = $wingsFlappingSound
 @onready var found_treat_sound = $foundTreat
+@onready var lost_audio = $lostAudio
 
 @onready var treat_radius = %treatRadius
 
@@ -377,7 +378,8 @@ func _process(delta):
 		
 	if GameManager.worldManager != null:
 		if GameManager.worldManager.ui_manager != null:
-			GameManager.worldManager.ui_manager.radar_ready.visible = radarTimer <= 0
+			if GameManager.abilities.has("sonar"): 
+				GameManager.worldManager.ui_manager.radar_ready.visible = radarTimer <= 0
 		
 	if moveVector != Vector2.ZERO:
 		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
@@ -662,6 +664,7 @@ func _createTreatRadarCircle(global_pos: Vector2, level: int = 1):
 	var treatRadCircle = RADAR_CIRCLE.instantiate()
 	GameManager.worldManager.add_child(treatRadCircle)
 	treatRadCircle.global_position = global_pos
+	treatRadCircle.startLevel = level
 	treatRadCircle.circleColor = Color(0.863, 0.929, 0.0, 0.302)
 	treatRadCircle.radiusExpandSpeed = 120
 	treatRadCircle.maxRadius = (radarRange * rangeMultiplier)/2.0

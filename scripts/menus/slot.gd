@@ -9,10 +9,12 @@ extends PanelContainer
 @onready var stage_name = %StageName
 @onready var empty_text = %emptyText
 
-@onready var h_box_container = $VBoxContainer/HBoxContainer
-@onready var h_box_container_2 = $VBoxContainer/HBoxContainer2
+@onready var h_box_container = %HBoxContainer
+@onready var h_box_container_2 = %HBoxContainer2
+@onready var h_box_container_3 = %HBoxContainer3
 
 @onready var button = %Button
+@onready var img = %img
 
 @onready var delete_button = %deleteButton
 
@@ -22,7 +24,6 @@ signal deleted(slot: int)
 var slotMode: String = "load"
 
 func setData(data, slotNumber: int = 0):
-	
 	if slotNumber == 0:
 		if slotMode.match("load"):
 			slot_name.text = "Autosave"
@@ -31,7 +32,9 @@ func setData(data, slotNumber: int = 0):
 		elif slotMode.match("save"):
 			queue_free()
 	else:
-		slot_name.text = "Slot " + str(slotNumber)
+		#slot_name.text = "Slot " + str(slotNumber)
+		h_box_container_3.hide()
+		slot_name.hide()
 		
 	button.pressed.connect(func emitPressed(): selected.emit(slotNumber))
 	delete_button.pressed.connect(func emitPressed(): deleted.emit(slotNumber))
@@ -40,19 +43,35 @@ func setData(data, slotNumber: int = 0):
 		empty_text.show()
 		h_box_container.hide()
 		h_box_container_2.hide()
+		h_box_container_3.hide()
 		return
 		
-	level.text = str(data["currentHP"])
-	upgrades.text = "R:" + str(int(data["upgradeLevels"]["range"])) + " | E:" + str(int(data["upgradeLevels"]["endurance"])) + " | S:" + str(int(data["upgradeLevels"]["speed"]))
-	level.text = "LVL: " + str(int(data["level"]))
-	if int(data["difficulty"]) == 0:
-		difficulty.text = "Difficulty: Easy"
-	elif int(data["difficulty"]) == 1:
-		difficulty.text = "Difficulty: Normal"
+	if FileAccess.file_exists(SaveManager.imageSavePath + str(slotNumber) + ".jpg"):
+		print("jpg exists")
+		var tex = ImageTexture.new()
+		var image = Image.load_from_file(SaveManager.imageSavePath + str(slotNumber) + ".jpg")
+		tex.set_image(image)
+		img.texture = tex
 		
-	stage_name.text = "Map: " + data["levelName"]
+		
+	level.text = str(data["currentHP"])
+	if data["abilities"].has("travel"):
+		upgrades.text = "RES:" + str(int(data["postgameUpgradeLevels"]["resistance"])) + " | REA:" + str(int(data["postgameUpgradeLevels"]["reach"])) + " | POW:" + str(int(data["postgameUpgradeLevels"]["power"]))
+	else:
+		upgrades.text = "RAN:" + str(int(data["upgradeLevels"]["range"])) + " | END:" + str(int(data["upgradeLevels"]["endurance"])) + " | SPE:" + str(int(data["upgradeLevels"]["speed"]))
+	level.text = "Treats: " + str(int(data["level"]))
+	if int(data["difficulty"]) == 0:
+		stage_name.text = data["levelName"]
+		difficulty.text = "Easy"
+		health.text = "HP: " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
+	elif int(data["difficulty"]) == 1:
+		stage_name.text = data["levelName"]
+		difficulty.text = "Normal"
+		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
+		
+	#stage_name.text = "Map: " + data["levelName"]
 	
-	health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
+	
 	
 
 	

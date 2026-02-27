@@ -18,7 +18,7 @@ func _ready():
 		fullscreen.button_pressed = true
 	
 	autosaves.pressed.connect(func toggleAutosaves(): SaveManager.autosave = !SaveManager.autosave)
-	fullscreen.toggled.connect(_switchFullscreen)
+	fullscreen.pressed.connect(GameManager.toggleFullscreen)
 	
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
 	sound_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
@@ -33,12 +33,6 @@ func _sound_changed(value: float):
 	var db_value = linear_to_db(value)
 	AudioServer.set_bus_volume_db(index, db_value)
 
-func _switchFullscreen(on: bool):
-	print("toggled")
-	if !on:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		GameManager.fullscreen = false
-	else:
-		if !Engine.is_embedded_in_editor(): 
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-			GameManager.fullscreen = true
+#func _switchFullscreen(on: bool):
+	#print("toggled")
+	

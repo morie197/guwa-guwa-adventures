@@ -14,6 +14,7 @@ var autosave: bool = true
 
 var savePath = "user://save_data.json"
 var fowSavePath = "user://fow_data/"
+var imageSavePath = "user://thumbnails/"
 var saveWarningTime = 30
 var saveWarning = false
 
@@ -37,12 +38,21 @@ func save_game(slot: int = 0):
 	#print(saveData)
 	saveDataAll[slot] = saveData.duplicate(true)
 	
+	save_game_image(slot)
 	
 	saveAllData()
 	
 	_SaveWarner()
 	
 	save_fow(slot)
+	
+	if GameManager.worldManager == null:
+		return
+		
+	await RenderingServer.frame_post_draw
+	
+	var saveText = GameManager.SAVE_LABEL.instantiate()
+	GameManager.worldManager.ui_manager.hud.add_child(saveText)
 	
 	#print("saved slot: ", slot)
 	#print(saveDataAll)
@@ -62,6 +72,20 @@ func save_fow(slot: int = 0):
 			print(path + "/1.png")
 		fowSaveDataAll[slot] = fowSaveData
 
+func save_game_image(slot: int = 0):
+	if GameManager.worldManager == null:
+		return
+	if GameManager.worldManager.ui_manager == null:
+		return
+		
+	if !DirAccess.dir_exists_absolute(imageSavePath):
+		DirAccess.make_dir_absolute(imageSavePath)
+		
+	GameManager.worldManager.ui_manager.hud.hide()
+	await RenderingServer.frame_post_draw
+	var image = get_viewport().get_texture().get_image()
+	image.save_jpg(imageSavePath + str(slot) + ".jpg", 0.5)
+	GameManager.worldManager.ui_manager.hud.show()
 
 func load_game(slot: int = 0, forceLoad: bool = false):
 	GameManager.loadingLevel = true
@@ -135,24 +159,16 @@ func delete_game(slot: int = 0):
 	fowSaveDataAll[slot].erase(0)
 	fowSaveDataAll[slot].erase(1)
 	
-	print("deleting")
+	#print("deleting")
 	
-	var dict: Dictionary[int, BitMap] = {}
 	var path = fowSavePath + str(slot)
 	if FileAccess.file_exists(path + "/0.png"):
-		var underImage = Image.load_from_file(path + "/0.png")
-		if underImage != null:
-			var underBitmap = bitmap_to_image(underImage)
-			if underBitmap != null:
-				dict[0] = underBitmap
-		if FileAccess.file_exists(path + "/1.png"):
-			var overImage = Image.load_from_file(path + "/1.png")
-			if overImage != null:
-				var overBitmap = bitmap_to_image(overImage)
-				if overBitmap != null:
-					dict[1] = overBitmap
+		DirAccess.remove_absolute(path + "/0.png")
+	if FileAccess.file_exists(path + "/1.png"):
+		DirAccess.remove_absolute(path + "/1.png")
 	
-	fowSaveDataAll[slot] = dict
+	if FileAccess.file_exists(imageSavePath + str(slot) + ".jpg"):
+		DirAccess.remove_absolute(imageSavePath + str(slot) + ".jpg")
 	
 	saveAllData()
 		

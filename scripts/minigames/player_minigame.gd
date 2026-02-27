@@ -9,7 +9,7 @@ var speedMultiplier: float = 1
 @export var moveSpeed: float = 120
 @export var staminaRecoveryRate: float = 0.8
 @export var baseQuackRange: float = 80.0
-@export var quackCooldown: float = 1.5
+@export var quackCooldown: float = 1.3
 @export var lungeTime: float = 0.15
 @export var lungeSpeed: float = 6
 
@@ -299,7 +299,7 @@ func _move(movevec: Vector2):
 	if lunging:
 		velocity = lungeVector.normalized() * lungeSpeed
 		velocity *= moveSpeed
-		velocity *= (speedMultiplier / 1.8)
+		velocity *= ((speedMultiplier - 1) / 5) + 1
 	else:
 		#if flying == true:
 				#velocity = lastMovedDirection
@@ -309,7 +309,7 @@ func _move(movevec: Vector2):
 		velocity = movevec.normalized()
 			
 		velocity *= moveSpeed
-		velocity *= speedMultiplier / 1.8
+		velocity *= ((speedMultiplier - 1) / 5) + 1
 		#velocity *=  agilityMultiplier
 		#
 		#if flying:

@@ -12,7 +12,7 @@ const ENEMY_MINIGAME = preload("uid://5y4if4dkbvsj")
 @onready var camera_2d = $Camera2D
 @onready var popup_panel = $PanelContainer/PopupPanel
 @onready var popup_text = $PanelContainer/PopupPanel/PopupText
-@onready var lost_audio = $lostAudio
+
 
 
 
@@ -181,7 +181,8 @@ func _wonGame():
 	displaytime.start()
 		
 func _lostGame():
-	lost_audio.play()
+	if GameManager.playerRef:
+		GameManager.playerRef.lost_audio.play(4.5)
 	
 	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		GameManager.lostGame()
@@ -207,6 +208,8 @@ func _lostGame():
 	displaytime.wait_time = textDisplayTime
 	displaytime.timeout.connect(lost.emit)
 	displaytime.start()
+	
+	
 	
 func _updatePlayerPos():
 	playerPos = player_minigame.global_position

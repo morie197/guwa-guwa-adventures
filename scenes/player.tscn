@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=57 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -30,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://dtegenwk8i4yl" path="res://sounds/SFX/ping-306439.mp3" id="29_wqfne"]
 [ext_resource type="Script" uid="uid://dwpu3ud4v0o1c" path="res://scenes/treat_radius_draw.gd" id="30_wnwbv"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="30_wqfne"]
+[ext_resource type="AudioStream" uid="uid://cn3pvo0qicqff" path="res://sounds/SFX/duck-calling-371054.mp3" id="31_wnwbv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_qhqgy")
@@ -330,3 +331,9 @@ z_index = 15
 material = SubResource("CanvasItemMaterial_wqfne")
 script = ExtResource("30_wnwbv")
 circleColor = Color(0.79, 0.705865, 0.22910002, 0.25882354)
+
+[node name="lostAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("31_wnwbv")
+volume_db = -3.0
+pitch_scale = 0.9
+bus = &"SFX"

@@ -72,6 +72,19 @@ signal tutorialOver
 signal switchedWorldLevel
 signal changedMapLevel(onCurrent: bool)
 	
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("fullscreen"):
+		toggleFullscreen()
+	
+func toggleFullscreen():
+	if fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		fullscreen = false
+	else:
+		if !Engine.is_embedded_in_editor(): 
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+			fullscreen = true
+	
 func enterLevel():	
 	paused = false
 	minigame = false
@@ -125,9 +138,6 @@ func saveValues():
 	SaveManager.saveData["hiddenRegistry"] = hiddenRegistry.duplicate()
 	SaveManager.fowSaveData[0] = worldManager.underFow.duplicate()
 	SaveManager.fowSaveData[1] = worldManager.overFow.duplicate()
-	
-	var saveText = SAVE_LABEL.instantiate()
-	worldManager.ui_manager.add_child(saveText)
 
 func genericArrayToVector2i(targets) -> Array[Vector2i]:
 	var typedArray: Array[Vector2i]
@@ -537,6 +547,12 @@ func abilityCheck():
 		worldManager.ui_manager.mini_map_panel.show()
 	else:
 		worldManager.ui_manager.mini_map_panel.hide()
+		
+	if abilities.has("sonar"): 
+		worldManager.ui_manager.radar_ready.show()
+		print("showingSonar")
+	else:
+		worldManager.ui_manager.radar_ready.hide()
 	
 func lostGame():
 	GameManager.paused = true
