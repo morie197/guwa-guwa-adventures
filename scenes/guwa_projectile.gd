@@ -98,6 +98,8 @@ func _duck_detected(body):
 		return
 	if is_queued_for_deletion():
 		return	
+	if parentDuck == null:
+		return
 	if parentDuck.minigamemanager.displaying:
 		return
 	if body.name == "PlayerMinigame" and force == "enemy":

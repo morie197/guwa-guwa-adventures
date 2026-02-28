@@ -11,7 +11,6 @@ var abilityUI
 
 func _ready():
 	GameManager.paused = true
-	
 	if AbilityData.ABILITIES.has(GameManager.level) and GameManager.level != 65:
 		abilityUI = NEW_ABILITY_UI.instantiate()
 		add_child(abilityUI)

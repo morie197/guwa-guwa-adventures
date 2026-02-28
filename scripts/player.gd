@@ -573,7 +573,7 @@ func initializeValues():
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	if GameManager.abilities.has("travel"):
-		point_light_2d_3.texture_scale = 4 * visibilityMultiplier
+		point_light_2d_3.texture_scale = 3 * visibilityMultiplier
 	
 func emitUpdatedStaminaValue():
 	updatedStamina.emit(round(stamina * 100), round(maxStamina * resistanceMultiplier * 100))
@@ -592,7 +592,7 @@ func _regenHeal():
 func _migrated():
 	if migrating == true:
 		migrating = false
-	if GameManager.worldManager.levelName == "Hidden Grove":
+	if GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level != 100:
 		return
 	set_collision_mask_value(1, false)
 	set_collision_layer_value(5, false)
@@ -634,7 +634,7 @@ func _radar():
 			
 			var distanceToClosest = closest.global_position.distance_to(self.global_position)
 			var timmy = Timer.new()
-			timmy.wait_time = clampf(distanceToClosest/400.0, 0.1, 5)
+			timmy.wait_time = clampf(distanceToClosest/1000.0, 0.1, 5)
 			
 			#print(distanceToClosest)
 			if distanceToTreatFormula(closest.global_position):

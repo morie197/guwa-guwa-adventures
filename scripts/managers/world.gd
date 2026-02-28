@@ -269,6 +269,7 @@ func _ready():
 	underMap.modulate = Color.TRANSPARENT
 	
 	if levelName == "Hidden Grove":
+		GameManager.playerRef.bgmVolume = 10
 		GameManager.playerRef.bgm.stream = LEVEL_3_MUSIC
 	elif levelName == "Rocky Forest":
 		GameManager.playerRef.bgm.volume_db += 5

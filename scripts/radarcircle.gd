@@ -44,6 +44,9 @@ func _process(delta):
 		show()
 	else:
 		hide()
+		
+	if GameManager.minigame:
+		queue_free()
 
 func _draw():
 	draw_arc(Vector2.ZERO, radius, 0, TAU, pointCount, circleColor, circleWidth)

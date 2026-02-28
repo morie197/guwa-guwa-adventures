@@ -22,7 +22,7 @@ var testingCheats: bool = false
 enum Difficulty {EASY, NORMAL, HARD}
 var difficultyValue: Difficulty = Difficulty.NORMAL
 
-var hpRestoredFromTreat: int = 2
+var hpRestoredFromTreat: int = 3
 
 const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
@@ -214,6 +214,7 @@ func loadValues(resetRefs: bool = false):
 	else:
 		upgradeSet = UpgradeData.UPGRADES
 	
+	inUpgradeMenu = false
 	
 	revealedTiles = []
 	revealedTilesUnder = []
@@ -245,7 +246,7 @@ func loadValues(resetRefs: bool = false):
 	
 	levelUp.emit()
 	
-	playerRef.healTimer.wait_time = playerRef.healRegenerationTime
+	playerRef.healTimer.start()
 	
 	#
 	#print(int(SaveManager.saveData.get("worldLayer", 1)))
@@ -510,9 +511,9 @@ func _levelUp():
 			if !abilities.has(AbilityData.ABILITIES[i]["name"]):
 				abilities.append(AbilityData.ABILITIES[i]["name"])
 		
-	if level <= 60 and worldManager.levelName == "Hidden Grove":
+	if level > 65 and worldManager.levelName == "Hidden Grove":
 		availableUpgradePoints += 1
-	elif level > 65:
+	elif level <= 60:
 		availableUpgradePoints += 1
 	inUpgradeMenu = true
 	levelUp.emit()

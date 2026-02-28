@@ -40,7 +40,8 @@ func _player_detected(_area):
 		if duckContainer == null:
 			_duckWindowPopup()
 	if GameManager.healthValue > 3:
-		SaveManager.autoSave()
+		if GameManager.abilities.has("quack"):
+			SaveManager.autoSave()
 	
 func _duckWindowPopup():
 	for i in duckNames.size():
