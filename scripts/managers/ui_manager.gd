@@ -156,6 +156,8 @@ func _physics_process(delta):
 				if GameManager.playerCamCredits != null:		
 					if !GameManager.playerCamCredits.is_queued_for_deletion():
 						GameManager.playerCamCredits.queue_free()
+				var ind = AudioServer.get_bus_index("SFX")
+				AudioServer.set_bus_mute(ind, false)
 				GameManager.wonGame = false
 				get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 	
@@ -321,7 +323,7 @@ func gameWon():
 	game_won_bgm.volume_db = -60.0
 	game_won_bgm.play()
 	
-	creditContentSize = 5700
+	creditContentSize = 7500
 
 func _showLevelUpUI():
 	collected_number.text = str(GameManager.level)
@@ -394,7 +396,7 @@ func _startTutorial(tutorialName: String):
 		tutorial.queue_free()
 		#return
 	tutorial = TUTORIAL.instantiate()
-	add_child(tutorial)
+	hud.add_child(tutorial)
 	if !ALL_TUTORIALS.tutorials.has(tutorialName):
 		print("No tutorial with name: ", tutorialName)
 		return

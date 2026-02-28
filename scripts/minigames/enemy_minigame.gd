@@ -262,7 +262,7 @@ func quack():
 	tim.wait_time = quackDelay
 	add_child(tim)
 	tim.start()
-	tim.timeout.connect(quacker.quack.bind((minigamemanager.player_minigame.global_position - global_position).normalized(), 13 * attackDamage/1.3 + speed/100.0))
+	tim.timeout.connect(quacker.quack.bind((minigamemanager.player_minigame.global_position - global_position).normalized(), 13 * ((attackDamage - 1)/4 + 1) + speed/80.0))
 	#tim.timeout.connect(quacker.quack.bind((playerPos - global_position).normalized(), 10 + speed/100.0))
 	tim.timeout.connect(quack_sound.play)
 	tim.timeout.connect(lunge_bar.hide)

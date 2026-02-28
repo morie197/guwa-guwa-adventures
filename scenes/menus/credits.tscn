@@ -267,6 +267,44 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TF" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TF"]
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/TF/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "TF"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TF/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TF/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "For playtesting my game and giving me detailed feedback!"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="You" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
@@ -491,4 +529,44 @@ text = "Kenny Input Prompts"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="spacer3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="assetsUsed2" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/assetsUsed2"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/assetsUsed2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Developed by"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/assetsUsed2/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="Title2" type="RichTextLabel" parent="VBoxContainer/assetsUsed2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 140
+theme_override_font_sizes/italics_font_size = 128
+bbcode_enabled = true
+text = "Ikuna Games"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
 vertical_alignment = 1

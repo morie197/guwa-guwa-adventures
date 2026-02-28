@@ -114,7 +114,7 @@ var tornadoRecoverSpeed: float = 0.1
 var areaTransitionTime: float = 0.9
 
 @export var radarRange: float = 400
-@export var radarCooldown: float = 6
+@export var radarCooldown: float = 3
 
 var tornadoThrownVelocity: Vector2 = Vector2.ZERO
 
@@ -225,15 +225,16 @@ func _unhandled_input(event):
 						_toggleFly(false)
 		
 		if GameManager.abilities.has("migrate"):
-			if flying and Input.is_action_pressed("quack"):
-				migrating = true
-				if migrateTimer <= 0:
-					migrateTimer = migrationTime
-			else:
-				if migrating:
-					migrateTimer = 0
-					GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
-					migrating = false
+			if !(GameManager.abilities.has("travel") and (GameManager.level < 100 and GameManager.worldManager.levelName == "Hidden Grove")):
+				if flying and Input.is_action_pressed("quack"):
+					migrating = true
+					if migrateTimer <= 0:
+						migrateTimer = migrationTime
+				else:
+					if migrating:
+						migrateTimer = 0
+						GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
+						migrating = false
 		
 		#if GameManager.abilities.has("travel"):
 			#if flying and Input.is_action_pressed("search"):
@@ -302,6 +303,8 @@ func _process(delta):
 		bgm.stream_paused = false
 	elif !bgm.playing:
 		bgm.play()
+	else:
+		bgm.volume_db = bgmVolume
 		
 	
 	if GameManager.paused:	
@@ -405,7 +408,7 @@ func _process(delta):
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
-	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool")) and streamRef != null):
+	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null):
 		_stateEffects()
 		
 		tileCheck()

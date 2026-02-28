@@ -13,6 +13,8 @@ extends PanelContainer
 @onready var h_box_container_2 = %HBoxContainer2
 @onready var h_box_container_3 = %HBoxContainer3
 
+@onready var img_panel_container = %imgPanelContainer
+
 @onready var button = %Button
 @onready var img = %img
 
@@ -44,6 +46,7 @@ func setData(data, slotNumber: int = 0):
 		h_box_container.hide()
 		h_box_container_2.hide()
 		h_box_container_3.hide()
+		img_panel_container.hide()
 		return
 		
 	if FileAccess.file_exists(SaveManager.imageSavePath + str(slotNumber) + ".jpg"):
@@ -52,13 +55,16 @@ func setData(data, slotNumber: int = 0):
 		var image = Image.load_from_file(SaveManager.imageSavePath + str(slotNumber) + ".jpg")
 		tex.set_image(image)
 		img.texture = tex
+	else:
+		img_panel_container.hide()
 		
 		
 	level.text = str(data["currentHP"])
-	if data["abilities"].has("travel"):
-		upgrades.text = "RES:" + str(int(data["postgameUpgradeLevels"]["resistance"])) + " | REA:" + str(int(data["postgameUpgradeLevels"]["reach"])) + " | POW:" + str(int(data["postgameUpgradeLevels"]["power"]))
-	else:
-		upgrades.text = "RAN:" + str(int(data["upgradeLevels"]["range"])) + " | END:" + str(int(data["upgradeLevels"]["endurance"])) + " | SPE:" + str(int(data["upgradeLevels"]["speed"]))
+	#if data["abilities"].has("travel"):
+		#if data.has("postgameUpgradeLevels"):
+			#upgrades.text = "RES:" + str(int(data["postgameUpgradeLevels"]["resistance"])) + " | REA:" + str(int(data["postgameUpgradeLevels"]["reach"])) + " | POW:" + str(int(data["postgameUpgradeLevels"]["power"]))
+	#else:
+		#upgrades.text = "RAN:" + str(int(data["upgradeLevels"]["range"])) + " | END:" + str(int(data["upgradeLevels"]["endurance"])) + " | SPE:" + str(int(data["upgradeLevels"]["speed"]))
 	level.text = "Treats: " + str(int(data["level"]))
 	if int(data["difficulty"]) == 0:
 		stage_name.text = data["levelName"]

@@ -131,11 +131,11 @@ func _input(event):
 			if Input.is_action_just_pressed("attack"):
 				_quack()
 		
-		if (Input.is_action_pressed("lunge")) and !tired:
-			if moveVector == Vector2.ZERO:
-				return
-			lunging = true
-			lungeVector = moveVector
+	if (Input.is_action_pressed("lunge")) and !tired:
+		if moveVector == Vector2.ZERO:
+			return
+		lunging = true
+		lungeVector = moveVector
 			
 		
 		#

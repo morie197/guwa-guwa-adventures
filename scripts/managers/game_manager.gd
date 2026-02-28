@@ -209,6 +209,12 @@ func loadValues(resetRefs: bool = false):
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
 	hiddenRegistry.assign(SaveManager.saveData.get("hiddenRegistry", []))
 	
+	if abilities.has("travel"):
+		upgradeSet = UpgradeData.POSTGAMEUPGRADES
+	else:
+		upgradeSet = UpgradeData.UPGRADES
+	
+	
 	revealedTiles = []
 	revealedTilesUnder = []
 	
@@ -224,20 +230,23 @@ func loadValues(resetRefs: bool = false):
 	var undFow = SaveManager.fowSaveData.get(0, null)
 	if undFow != null:
 		worldManager.underFow = undFow.duplicate()
-		print("set undFow")
-	else:
-		print("noUnderFow")
+		#print("set undFow")
+	#else:
+		#print("noUnderFow")
 		
 	var oveFow = SaveManager.fowSaveData.get(1, null)
 	if oveFow != null:
 		worldManager.overFow = oveFow.duplicate()
-		print("set oveFow")
-	else:
-		print("noOverFow")
+		#print("set oveFow")
+	#else:
+		#print("noOverFow")
 	
-	print("has these abilities: ", abilities)
+	#print("has these abilities: ", abilities)
 	
 	levelUp.emit()
+	
+	playerRef.healTimer.wait_time = playerRef.healRegenerationTime
+	
 	#
 	#print(int(SaveManager.saveData.get("worldLayer", 1)))
 	#print(worldLayer)
@@ -501,7 +510,10 @@ func _levelUp():
 			if !abilities.has(AbilityData.ABILITIES[i]["name"]):
 				abilities.append(AbilityData.ABILITIES[i]["name"])
 		
-	availableUpgradePoints += 1
+	if level <= 60 and worldManager.levelName == "Hidden Grove":
+		availableUpgradePoints += 1
+	elif level > 65:
+		availableUpgradePoints += 1
 	inUpgradeMenu = true
 	levelUp.emit()
 		
@@ -513,6 +525,8 @@ func won():
 	SaveManager.saveData = {}
 	worldManager.ui_manager.gameWon()
 	playerRef.healTimer.paused = true
+	var ind = AudioServer.get_bus_index("SFX")
+	AudioServer.set_bus_mute(ind, true)
 	
 func abilityCheck():
 	for i in range(level + 1):

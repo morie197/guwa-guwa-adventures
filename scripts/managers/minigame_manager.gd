@@ -181,8 +181,8 @@ func _wonGame():
 	displaytime.start()
 		
 func _lostGame():
-	if GameManager.playerRef:
-		GameManager.playerRef.lost_audio.play(4.5)
+	#if GameManager.playerRef:
+		#GameManager.playerRef.lost_audio.play(4.5)
 	
 	if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		GameManager.lostGame()

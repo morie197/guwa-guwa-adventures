@@ -70,10 +70,10 @@ func _process(delta):
 	if parentDuck != null and !reflected:
 		if global_position.distance_to(originPosition) > attackRange - 20:
 			if attack_damage != 1 and !halved:
-				print(attack_damage)
-				print((attack_damage/2.0))
-				print(round(attack_damage/2.0))
-				print(clampi(round(attack_damage/2.0), 1, 100))
+				#print(attack_damage)
+				#print((attack_damage/2.0))
+				#print(round(attack_damage/2.0))
+				#print(clampi(round(attack_damage/2.0), 1, 100))
 				halved = true
 				attack_damage = clampi(round(attack_damage/2.0), 1, 100)
 		if initAttackDamage > attack_damage:
@@ -138,7 +138,7 @@ func _projectile_detected(area):
 				queue_free()
 			else:
 				parentDuck.minigamemanager.player_minigame.blocked_sound.play()
-				print("reduced damage")
+				#print("reduced damage")
 				
 				if abs(area.attack_damage - attack_damage) != 0:
 					var damageInd = DAMAGE_INDICATOR.instantiate()
