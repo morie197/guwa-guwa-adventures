@@ -225,7 +225,7 @@ func _unhandled_input(event):
 						_toggleFly(false)
 		
 		if GameManager.abilities.has("migrate"):
-			if !(GameManager.abilities.has("travel") and (GameManager.level < 100 and GameManager.worldManager.levelName == "Hidden Grove")):
+			if !(GameManager.abilities.has("travel") and (GameManager.level < 90 and GameManager.worldManager.levelName == "Hidden Grove")):
 				if flying and Input.is_action_pressed("quack"):
 					migrating = true
 					if migrateTimer <= 0:
@@ -592,14 +592,14 @@ func _regenHeal():
 func _migrated():
 	if migrating == true:
 		migrating = false
-	if GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level != 100:
+	if GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level < 90:
 		return
 	set_collision_mask_value(1, false)
 	set_collision_layer_value(5, false)
 	var timmy = Timer.new()
 	add_child(timmy)
 	timmy.wait_time = wonDelay
-	if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level == 100):
+	if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
 		timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
 		timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
 		timmy.timeout.connect(audio_listener_2d.queue_free)
@@ -608,7 +608,7 @@ func _migrated():
 		timmy.timeout.connect(GameManager.travelToMap)
 	timmy.start()
 	
-	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level == 100):
+	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
 		GameManager.won()
 		print("wongame")
 		

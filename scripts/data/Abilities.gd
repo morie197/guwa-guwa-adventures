@@ -53,9 +53,9 @@ const ABILITIES = {
 		"displayName": "Migrate",
 		"description": "Hold SPACEBAR and E for 5 seconds to migrate, beating the game!"
 		},
-	65: {
+	60: {
 		"name": "travel",
-		"displayName": "???",
+		"displayName": "Travel",
 		"description": "Hold SPACEBAR and E for 5 seconds to travel to the hidden grove!"
 		}
 	

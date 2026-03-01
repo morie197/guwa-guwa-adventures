@@ -11,16 +11,18 @@ var abilityUI
 
 func _ready():
 	GameManager.paused = true
-	if AbilityData.ABILITIES.has(GameManager.level) and GameManager.level != 65:
+	if AbilityData.ABILITIES.has(GameManager.level):
 		abilityUI = NEW_ABILITY_UI.instantiate()
 		add_child(abilityUI)
 	
-	var upgradeLevels: int = 0
+	var upgradeLevelsCap: bool = false
 	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:
-		upgradeLevels = 95
+		if GameManager.postgameUpgradeLevels["power"] + GameManager.postgameUpgradeLevels["reach"] + GameManager.postgameUpgradeLevels["resistance"] >= 30:
+			upgradeLevelsCap = true
 	else:
-		upgradeLevels = 60
-	if GameManager.level > upgradeLevels:
+		if GameManager.upgradeLevels["speed"] + GameManager.upgradeLevels["endurance"] + GameManager.upgradeLevels["range"] >= 60:
+			upgradeLevelsCap = true
+	if upgradeLevelsCap:
 		GameManager.closeUpgrades()
 		queue_free()
 		return

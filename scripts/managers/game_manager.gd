@@ -71,6 +71,7 @@ signal upgraded
 signal tutorialOver
 signal switchedWorldLevel
 signal changedMapLevel(onCurrent: bool)
+signal loadedLevel
 	
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("fullscreen"):
@@ -209,7 +210,7 @@ func loadValues(resetRefs: bool = false):
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
 	hiddenRegistry.assign(SaveManager.saveData.get("hiddenRegistry", []))
 	
-	if abilities.has("travel"):
+	if worldManager.levelName == "Hidden Grove":
 		upgradeSet = UpgradeData.POSTGAMEUPGRADES
 	else:
 		upgradeSet = UpgradeData.UPGRADES
@@ -261,7 +262,7 @@ func loadValues(resetRefs: bool = false):
 			
 	await get_tree().physics_frame
 	await get_tree().physics_frame
-			
+	
 	treatsUpdated.emit()
 	
 	playerRef.healTimer.paused = false
@@ -285,11 +286,14 @@ func loadValues(resetRefs: bool = false):
 	
 	loadingLevel = false
 	
+	loadedLevel.emit()
+	
 	showTutorial("basics")
 	
 
 func treatGet():
 	_levelUp()
+	healPlayer(hpRestoredFromTreat)
 
 func closeUpgrades():
 	inUpgradeMenu = false
@@ -480,9 +484,7 @@ func calculateBonuses(heal: bool = true):
 		
 	maxHP = baseHealthValue + floor(upgradeLevels["endurance"] / 2.0) + postgameUpgradeLevels["resistance"]
 	playerRef.emitUpdatedStaminaValue()
-	
-	if heal:
-		healPlayer(hpRestoredFromTreat)
+		
 		
 func healPlayer(amount: int = 1, regenHeal: bool = false):
 	if canHealAfterDamage == false and regenHeal:
@@ -502,7 +504,14 @@ func healPlayer(amount: int = 1, regenHeal: bool = false):
 		worldManager.ui_manager._updateMaxHP()
 
 func _calculateBonus(upgradeName: String, upgSet = upgradeLevels, upgData = UpgradeData.UPGRADES):
-	return 1 + (upgSet[upgradeName] * upgData[upgradeName]["percentIncrease"])/100.0
+	if !upgSet.has(upgradeName):
+		upgSet[upgradeName] = 0
+	if upgData.has(upgradeName):
+		return 1 + (upgSet[upgradeName] * upgData[upgradeName]["percentIncrease"])/100.0
+	else:
+		print(upgradeName)
+	return 1
+		
 
 func _levelUp():
 	level += 1
@@ -511,14 +520,17 @@ func _levelUp():
 			if !abilities.has(AbilityData.ABILITIES[i]["name"]):
 				abilities.append(AbilityData.ABILITIES[i]["name"])
 		
-	if level > 65 and worldManager.levelName == "Hidden Grove":
-		availableUpgradePoints += 1
+	if level > 60 and worldManager.levelName == "Hidden Grove":
+		if not postgameUpgradeLevels["power"] + postgameUpgradeLevels["reach"] + postgameUpgradeLevels["resistance"] >= 30:
+			availableUpgradePoints += 1
 	elif level <= 60:
-		availableUpgradePoints += 1
-	inUpgradeMenu = true
-	levelUp.emit()
+		if not GameManager.upgradeLevels["speed"] + GameManager.upgradeLevels["endurance"] + GameManager.upgradeLevels["range"] >= 60:
+			availableUpgradePoints += 1
+	if availableUpgradePoints > 0:
+		inUpgradeMenu = true
 		
 	abilityCheck()
+	levelUp.emit()
 		
 func won():
 	wonGame = true

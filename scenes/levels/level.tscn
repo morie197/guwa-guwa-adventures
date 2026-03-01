@@ -5067,7 +5067,6 @@ position = Vector2(1472, -9600)
 collision_layer = 0
 collision_mask = 256
 script = ExtResource("10_c3o0d")
-noRadar = true
 
 [node name="MapMask" type="TileMapLayer" parent="Overground/areas/hiddenArea42"]
 visibility_layer = 2
@@ -5234,7 +5233,6 @@ position = Vector2(10624, -7104)
 collision_layer = 0
 collision_mask = 256
 script = ExtResource("10_c3o0d")
-noRadar = true
 
 [node name="MapMask" type="TileMapLayer" parent="Overground/areas/hiddenArea25"]
 visibility_layer = 2

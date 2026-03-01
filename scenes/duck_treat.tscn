@@ -130,6 +130,7 @@ z_index = 1
 collision_layer = 0
 collision_mask = 16
 monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="duckArea"]
 z_index = 1

@@ -31,6 +31,8 @@ func _ready():
 	hiddenOnRadar = hiddenTreat
 	mapCheckRef = map_check
 	_updateCheck(false)
+	GameManager.loadedLevel.connect(_turnOn)
+	GameManager.levelLoaded.connect(_turnOff)
 	duck_area.body_entered.connect(_player_entered)
 	origin = duck_area.global_position
 	if name.match("duckTreat"):
@@ -52,8 +54,10 @@ func _process(delta):
 	
 
 func _player_entered(body: Node2D):
-	GameManager.treatGet()
+	if GameManager.loadingLevel:
+		return
 	GameManager.treatRegistry.append(id)
+	GameManager.treatGet()
 	_updateCheck(true)
 	_enableDisable(false)
 	
@@ -64,7 +68,18 @@ func _treatsUpdated():
 	else:
 		_updateCheck(false)
 		_enableDisable(true)
-	duck_area.monitoring = true
+
+func _turnOn():
+	#print("turned on")
+	if !GameManager.treatRegistry.has(id):
+		print(GameManager.treatRegistry)
+		duck_area.monitoring = true
+		duck_area.monitorable = true
+	
+func _turnOff():
+	#print("turned off")
+	duck_area.monitoring = false
+	duck_area.monitorable = false
 
 func _updateCheck(enable: bool = true):
 	if GameManager.worldManager == null:

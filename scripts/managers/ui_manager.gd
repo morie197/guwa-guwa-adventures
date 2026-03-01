@@ -329,6 +329,8 @@ func _showLevelUpUI():
 	collected_number.text = str(GameManager.level)
 	if GameManager.level <= 40:
 		until_next_goal.text = "Migration: "
+	elif GameManager.worldManager.levelName == "Hidden Grove":
+		until_next_goal.text = "Migration Back: "
 	else:
 		until_next_goal.text = "All Treats: "
 	if GameManager.level > 40:
@@ -340,11 +342,11 @@ func _showLevelUpUI():
 			progress_to_completion.max_value = 65.0
 			progress_to_complete_percent.max_value = 65.0
 		elif GameManager.worldManager.levelName == "Hidden Grove":
-			if GameManager.level >= 100:
+			if GameManager.level >= 90:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
 				collectedAll = true
-			progress_to_completion.max_value = 100.0
-			progress_to_complete_percent.max_value = 100.0
+			progress_to_completion.max_value = 90.0
+			progress_to_complete_percent.max_value = 90.0
 		else:
 			if GameManager.level >= 65:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
@@ -357,6 +359,8 @@ func _showLevelUpUI():
 	
 	if GameManager.availableUpgradePoints <= 0:
 		return
+	
+	print(GameManager.availableUpgradePoints)
 	
 	GameManager.paused = true
 	GameManager.playerRef.healTimer.paused = true
