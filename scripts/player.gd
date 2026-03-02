@@ -386,7 +386,7 @@ func _process(delta):
 			if GameManager.abilities.has("sonar"): 
 				GameManager.worldManager.ui_manager.radar_ready.visible = radarTimer <= 0
 		
-	if moveVector != Vector2.ZERO:
+	if moveVector != Vector2.ZERO and tornadoThrownVelocity.is_zero_approx():
 		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
 		
 	if !Input.is_action_pressed("fly") and (flying or forcedFly) and layer != 2:
@@ -425,40 +425,42 @@ func _process(delta):
 	if camera_2d.zoom != targetZoom:
 		camera_2d.zoom = lerp(camera_2d.zoom, targetZoom, zoomSpeed * delta)
 	
-	if moveVector.x < 0:
-		walking.flip_h = true
-		swimming.flip_h = true
-	elif moveVector.x > 0:
-		walking.flip_h = false
-		swimming.flip_h = false
+	if tornadoThrownVelocity.is_zero_approx():
+		if moveVector.x < 0:
+			walking.flip_h = true
+			swimming.flip_h = true
+		elif moveVector.x > 0:
+			walking.flip_h = false
+			swimming.flip_h = false
 	
-	if moveVector != Vector2.ZERO:
-		if layer == 0 or layer == -1:
-			walking.visible = false
+	if tornadoThrownVelocity.is_zero_approx():
+		if moveVector != Vector2.ZERO:
+			if layer == 0 or layer == -1:
+				walking.visible = false
+				if walking.is_playing():
+					walking.stop()
+				swimming.visible = true
+				swimming.play()
+			if layer == 1:
+				swimming.visible = false
+				if swimming.is_playing():
+					swimming.stop()
+				walking.visible = true
+				walking.play()
+		else:
 			if walking.is_playing():
 				walking.stop()
-			swimming.visible = true
-			swimming.play()
-		if layer == 1:
-			swimming.visible = false
-			if swimming.is_playing():
-				swimming.stop()
-			walking.visible = true
-			walking.play()
-	else:
-		if walking.is_playing():
-			walking.stop()
-		elif swimming.is_playing():
+			elif swimming.is_playing():
 				swimming.stop()
 			
 	if sprinting or flying:
 		if stamina > 0: # prevent negative stamina values
 			if sprinting:
-				if moveVector != Vector2.ZERO:
+				if moveVector != Vector2.ZERO and tornadoThrownVelocity.is_zero_approx():
 					stamina -= delta
 				else:
 					sprinting = false
-			if flying:
+			if flying and tornadoThrownVelocity.is_zero_approx():
 				stamina -= delta / flyStaminaMulti
 			emitUpdatedStaminaValue()
 		else:
