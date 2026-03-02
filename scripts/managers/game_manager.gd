@@ -76,6 +76,7 @@ signal loadedLevel
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("fullscreen"):
 		toggleFullscreen()
+		SaveManager.saveConfigData()
 	
 func toggleFullscreen():
 	if fullscreen:
@@ -85,6 +86,8 @@ func toggleFullscreen():
 		if !Engine.is_embedded_in_editor(): 
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 			fullscreen = true
+			
+	SaveManager.configData["toggles"]["fullscreen"] = fullscreen
 	
 func enterLevel():	
 	paused = false

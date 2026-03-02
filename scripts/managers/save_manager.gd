@@ -8,6 +8,8 @@ var fowSaveDataAll: Dictionary[int, Dictionary] = {}
 
 var fowSaveData = {}
 
+var configData = {}
+
 var saveSlotCount = 6
 
 var autosave: bool = true
@@ -15,6 +17,7 @@ var autosave: bool = true
 var savePath = "user://save_data.json"
 var fowSavePath = "user://fow_data/"
 var imageSavePath = "user://thumbnails/"
+var settingsSavePath = "user://settings.cfg"
 var saveWarningTime = 30
 var saveWarning = false
 
@@ -188,6 +191,9 @@ func _SaveWarner():
 	tim.start()
 
 func loadAllData():
+	loadConfigData()
+	applyConfigData()
+	
 	var baseData = [{}, {}, {}, {}, {}, {}]
 	
 	var readFile = FileAccess.open(savePath, FileAccess.READ)
@@ -203,6 +209,63 @@ func loadAllData():
 		
 	load_all_fow()
 		
+func loadConfigData():
+	var config = ConfigFile.new()
+	var err = config.load(settingsSavePath)
+
+	if err != OK:
+		return
+	
+	for section in config.get_sections():
+		configData[section] = {}
+		for key in config.get_section_keys(section):
+			configData[section][key] = config.get_value(section, key)
+		
+func applyConfigData():
+	if configData == {}:
+		configData = {"toggles": 
+			{"fullscreen" = false,"autosave" = true}, 
+			"audio": 
+				{"music" = 0.0, "sfx" = 0.0}}
+	
+	if configData["toggles"]["fullscreen"] == true:
+		print("fullscreen")
+		GameManager.toggleFullscreen()
+	if configData["toggles"]["autosave"] == false:
+		autosave = false
+	
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), configData["audio"]["music"])
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), configData["audio"]["sfx"])
+				#
+	#if configData.has("toggles"):
+		#if configData["toggles"].has("fullscreen"):
+			#if configData["toggles"]["fullscreen"] == true:
+				#GameManager.toggleFullscreen()
+		#if configData["toggles"].has("autosave"):
+			#if configData["toggles"]["autosave"] == false:
+				#autosave = false
+	#
+	#if configData.has("audio"):
+		#if configData["audio"].has("music"):
+			#var index = AudioServer.get_bus_index("Music")
+			#AudioServer.set_bus_volume_db(index, configData["audio"]["music"])
+		#if configData["audio"].has("sfx"):		
+			#var index = AudioServer.get_bus_index("SFX")
+			#AudioServer.set_bus_volume_db(index, configData["audio"]["sfx"])
+	
+func saveConfigData():
+	var config = ConfigFile.new()
+	
+	for section in configData:
+		var sectionData = configData[section]
+		for key in sectionData:
+			config.set_value(section, key, sectionData[key])
+			
+	var err = config.save(settingsSavePath)
+	
+	if err != OK:
+		print("Save failed! Error code: ", err)
+
 func saveAllData():
 	if saveDataAll.is_empty():
 		print("empty save data!")

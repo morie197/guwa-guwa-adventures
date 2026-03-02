@@ -11,27 +11,37 @@ func _ready():
 	music_slider.value_changed.connect(_music_changed)
 	sound_slider.value_changed.connect(_sound_changed)
 	back_button.pressed.connect(queue_free)
+	back_button.pressed.connect(SaveManager.saveConfigData)
 	
 	if SaveManager.autosave == false:
 		autosaves.button_pressed = false
 	if GameManager.fullscreen == true:
 		fullscreen.button_pressed = true
 	
-	autosaves.pressed.connect(func toggleAutosaves(): SaveManager.autosave = !SaveManager.autosave)
+	autosaves.pressed.connect(toggleAutosaves)
 	fullscreen.pressed.connect(GameManager.toggleFullscreen)
 	
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
 	sound_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
+
+func toggleAutosaves():
+	SaveManager.autosave = !SaveManager.autosave
+	
+	SaveManager.configData["toggles"]["autosave"] = SaveManager.autosave
 
 func _music_changed(value: float):
 	var index = AudioServer.get_bus_index("Music")
 	var db_value = linear_to_db(value)
 	AudioServer.set_bus_volume_db(index, db_value)
 	
+	SaveManager.configData["audio"]["music"] = db_value
+	
 func _sound_changed(value: float):
 	var index = AudioServer.get_bus_index("SFX")
 	var db_value = linear_to_db(value)
 	AudioServer.set_bus_volume_db(index, db_value)
+	
+	SaveManager.configData["audio"]["sfx"] = db_value
 
 #func _switchFullscreen(on: bool):
 	#print("toggled")
