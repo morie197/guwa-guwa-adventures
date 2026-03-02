@@ -249,6 +249,8 @@ func loadValues(resetRefs: bool = false):
 	
 	playerRef.healTimer.start()
 	
+	availableUpgradePoints = 0
+	
 	#
 	#print(int(SaveManager.saveData.get("worldLayer", 1)))
 	#print(worldLayer)
@@ -589,6 +591,8 @@ func lostGame():
 	
 func damagePlayer(amount: int = 1):
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
+		return
+	if GameManager.wonGame:
 		return
 	if canDamage == false:
 		return

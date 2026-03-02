@@ -118,4 +118,4 @@ theme_override_constants/margin_bottom = 16
 [node name="keyPresses" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = 16
+theme_override_constants/separation = 11

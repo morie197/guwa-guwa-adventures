@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://cl23cb341umh" path="res://sprites/keys/qe/keyboard_e.svg" id="1_d8ndx"]
 [ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_nu8br"]
-[ext_resource type="Texture2D" uid="uid://bodmqtlj1sj1a" path="res://sprites/keys/shift, space/keyboard_space.svg" id="2_d1q32"]
+[ext_resource type="Texture2D" uid="uid://cmvjlyn5pb885" path="res://sprites/spaceAtlas.tres" id="2_xr86u"]
 
 [resource]
 script = ExtResource("1_nu8br")
-icons = Array[Texture2D]([ExtResource("1_d8ndx"), ExtResource("2_d1q32")])
+icons = Array[Texture2D]([ExtResource("1_d8ndx"), ExtResource("2_xr86u")])
 text = "Migrate: "
-type = "plus"
+type = "plusWide"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

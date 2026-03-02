@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="TutorialItem" load_steps=3 format=3 uid="uid://bypaye5gf826"]
 
 [ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_7s1ix"]
-[ext_resource type="Texture2D" uid="uid://cl23cb341umh" path="res://sprites/keys/qe/keyboard_e.svg" id="1_e3ukm"]
+[ext_resource type="Texture2D" uid="uid://bq6bus1p6d74e" path="res://sprites/keys/qe/keyboard_q.svg" id="1_ilx28"]
 
 [resource]
 script = ExtResource("1_7s1ix")
-icons = Array[Texture2D]([ExtResource("1_e3ukm")])
+icons = Array[Texture2D]([ExtResource("1_ilx28")])
 text = "Quack: "
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

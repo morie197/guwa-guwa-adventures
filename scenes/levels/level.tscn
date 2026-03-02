@@ -942,7 +942,7 @@ height = 768.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kbcxf"]
 radius = 128.0
-height = 768.0
+height = 896.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nijtg"]
 radius = 64.0

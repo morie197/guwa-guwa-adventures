@@ -24,14 +24,25 @@ func setData(keyDataOriginal: Array[Texture2D], text: String, type: String):
 		
 		for image in keyData:
 			_addImage(image)
-	elif type.match("plus"):
+	elif type == "plus":
 		_addImage(keyData[0])
 		keyData.erase(keyData[0])
 		
 		_addText(" + ")
 		
 		for image in keyData:
-			_addImage(image)
+			_addImage(image)		
+	elif type == "plusWide":
+		_addImage(keyData[0])
+		keyData.erase(keyData[0])
+		
+		_addText(" + ")
+		
+		for image in keyData:
+			_addImageWide(image)		
+	elif type.match("wide"):	
+		for image in keyData:	
+			_addImageWide(image)	
 	else:
 		for image in keyData:
 			_addImage(image)
@@ -40,6 +51,13 @@ func _addImage(image: Texture2D, target = h_box_container):
 	var tr = TextureRect.new()
 	tr.texture = image
 	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	target.add_child(tr)
+	
+func _addImageWide(image: Texture2D, target = h_box_container):
+	var tr = TextureRect.new()
+	tr.texture = image
+	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	tr.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	target.add_child(tr)
 	
 func _addText(text: String, target = h_box_container):

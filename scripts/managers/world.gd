@@ -101,6 +101,9 @@ var overOrigin: Vector2i
 var underMat: ShaderMaterial
 var overMat: ShaderMaterial
 
+var underMapSize: Vector2 = Vector2.ZERO
+var overMapSize: Vector2 = Vector2.ZERO
+
 var underTexture: ImageTexture
 var overTexture: ImageTexture
 
@@ -132,36 +135,37 @@ func _unhandled_input(event):
 		
 	if GameManager.abilities.has("map") and inMap:
 		if event is InputEventMouseMotion and Input.is_action_pressed("leftClick"):
-			mouseMoveVector -= event.relative * 0.3
+			mouseMoveVector = event.relative
 		else:
 			mouseMoveVector = Vector2.ZERO
 
 func _process(delta):
 	if sinceLastUpdate < 30.0:
 		sinceLastUpdate += delta
-	
-	updates = 0
-	updateTilesInFrameUnder = []
-	updateTilesInFrameOver = []
-	
-	
-	for tile in toUpdateTilesUnder.duplicate():
-		if updates >= maxUpdatesPerFrame:
-			#print(updates, " >= ", maxUpdatesPerFrame)
-			break
-		updateTilesInFrameUnder.append(tile)
-		#underHidden.set_cell(tile, -1)
-		toUpdateTilesUnder.erase(tile)
-		updates += 1
-	updates = 0
-	for tile in toUpdateTilesOver.duplicate():
-		if updates >= maxUpdatesPerFrame:
-			#print(updates, " >= ", maxUpdatesPerFrame)
-			break
-		updateTilesInFrameOver.append(tile)
-		#overHidden.set_cell(tile, -1)
-		toUpdateTilesOver.erase(tile)
-		updates += 1
+		
+	#
+	#updates = 0
+	#updateTilesInFrameUnder = []
+	#updateTilesInFrameOver = []
+	#
+	#
+	#for tile in toUpdateTilesUnder.duplicate():
+		#if updates >= maxUpdatesPerFrame:
+			##print(updates, " >= ", maxUpdatesPerFrame)
+			#break
+		#updateTilesInFrameUnder.append(tile)
+		##underHidden.set_cell(tile, -1)
+		#toUpdateTilesUnder.erase(tile)
+		#updates += 1
+	#updates = 0
+	#for tile in toUpdateTilesOver.duplicate():
+		#if updates >= maxUpdatesPerFrame:
+			##print(updates, " >= ", maxUpdatesPerFrame)
+			#break
+		#updateTilesInFrameOver.append(tile)
+		##overHidden.set_cell(tile, -1)
+		#toUpdateTilesOver.erase(tile)
+		#updates += 1
 	
 	#underHidden.set_cells_terrain_connect(updateTilesInFrameUnder, 0, -1, false)
 	#overHidden.set_cells_terrain_connect(updateTilesInFrameOver, 0, -1, false)
@@ -170,8 +174,10 @@ func _process(delta):
 	#print(updates)
 	
 	if inMap:
-		var newTargetCamPosition = moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
-		newTargetCamPosition += mouseMoveVector * 2
+		#var newTargetCamPosition = moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
+		var newTargetCamPosition = (moveVector * cameraMoveSpeed) / (mapCam.zoom * 3)
+		newTargetCamPosition -= (mouseMoveVector * 10) / (mapCam.zoom * 5)
+		#newTargetCamPosition -= (mouseMoveVector) * ((zoomMin - mapCam.zoom.x) + 1)
 		
 		targetCamPosition = targetCamPosition.lerp(newTargetCamPosition, 1.0 - exp(delta * -8))
 		mapCam.global_position += targetCamPosition
@@ -197,32 +203,34 @@ func _ready():
 	
 	underFow = BitMap.new()
 	var underRect: Rect2i = underground_logic_layer.get_used_rect()
+	underMapSize = underRect.size * 64
 	underFow.create(underRect.size)
 	
 	underOrigin = underRect.position
 	
 	
-	underHidden.size = underRect.size * 64
+	underHidden.size = underMapSize
 	underHidden.position = underOrigin * 64
 	
 	underMat = underHidden.material as ShaderMaterial
-	underMat.set_shader_parameter("map_size", underRect.size * 64)
+	underMat.set_shader_parameter("map_size", underMapSize)
 	underMat.set_shader_parameter("map_offset", underOrigin * 64)
 	
 	underTexture = ImageTexture.new()
 	
 	overFow = BitMap.new()
 	var overRect: Rect2i = overground_logic_layer.get_used_rect()
+	overMapSize = overRect.size * 64
 	overFow.create(overRect.size)
 	
 	overOrigin = overRect.position
 	
 	
-	overHidden.size = overRect.size * 64
+	overHidden.size = overMapSize
 	overHidden.position = overOrigin * 64
 	
 	overMat = overHidden.material as ShaderMaterial
-	overMat.set_shader_parameter("map_size", overRect.size * 64)
+	overMat.set_shader_parameter("map_size", overMapSize)
 	overMat.set_shader_parameter("map_offset", overOrigin * 64)
 	
 	overTexture = ImageTexture.new()

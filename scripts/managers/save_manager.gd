@@ -218,6 +218,8 @@ func autoSave(forced: bool = false):
 	GameManager.showTutorial("saving")
 	#if autosaveCooldownTimer.time_left > 0.0:
 	#	return
+	if GameManager.lost:
+		return
 	if canAutosave == false and !forced:
 		return
 	if autosave == false:

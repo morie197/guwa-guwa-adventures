@@ -122,6 +122,7 @@ func _ready():
 	
 
 func updateNextAbility():
+	until_next_ability.text = ""
 	for ability in AbilityData.ABILITIES:
 		if GameManager.level >= ability:
 			continue

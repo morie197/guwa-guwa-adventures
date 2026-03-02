@@ -569,6 +569,11 @@ func _toggleFly(value: bool):
 	
 func initializeValues():
 	tornadoThrownVelocity = Vector2.ZERO
+	timeBeingDamaged = 0
+	modulate = Color.WHITE
+	tileCheck()
+	if streamRef == null:
+		areaForce = Vector2.ZERO
 	
 	stamina = maxStamina * resistanceMultiplier
 	emitUpdatedStaminaValue()
@@ -742,6 +747,7 @@ func _showHint():
 	
 func _move(movevec: Vector2, delt):
 	if !tornadoThrownVelocity.is_zero_approx():
+		modulate = Color(1, 0.4, 0.4)
 		velocity = tornadoThrownVelocity
 		tornadoThrownVelocity = tornadoThrownVelocity.lerp(Vector2.ZERO, tornadoRecoverSpeed)
 		#print(tornadoThrownVelocity.is_zero_approx())

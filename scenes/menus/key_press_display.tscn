@@ -23,6 +23,8 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [node name="PanelContainer" type="PanelContainer"]
+offset_right = 296.0
+offset_bottom = 92.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ckq4c")
 script = ExtResource("1_03oao")
 
