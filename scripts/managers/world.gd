@@ -106,10 +106,11 @@ var overTexture: ImageTexture
 
 
 func _unhandled_input(event):
+	
 	if Input.is_action_just_pressed("openMap"):
 		if GameManager.abilities.has("map"):
 			if mapLayer != GameManager.worldLayer:
-				print(mapLayer, " ", GameManager.worldLayer)
+			#	print(mapLayer, " ", GameManager.worldLayer)
 				openMap(true)
 				openMap()
 			else:
@@ -305,6 +306,8 @@ func openMap(switching: bool = false):
 		return
 	
 	if inMap == false:
+		if GameManager.paused:
+			return
 		if ui_manager != null:
 			if underFow.get_true_bit_count() > 0:
 				ui_manager.switch.show()

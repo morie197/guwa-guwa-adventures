@@ -306,7 +306,6 @@ func _process(delta):
 	else:
 		bgm.volume_db = bgmVolume
 		
-	
 	if GameManager.paused:	
 		moveVector = Vector2.ZERO
 		return
@@ -368,6 +367,9 @@ func _process(delta):
 		
 	if flyDelayTimer > 0:
 		flyDelayTimer -= delta
+		
+	if healTimer.paused:
+		healTimer.paused = false
 		
 	if areaForce != newArea:
 		areaForce = lerp(areaForce, newArea, delta * areaForceTransitionSpeed)

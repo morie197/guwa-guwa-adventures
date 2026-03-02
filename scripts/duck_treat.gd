@@ -54,7 +54,8 @@ func _process(delta):
 	
 
 func _player_entered(body: Node2D):
-	if GameManager.loadingLevel:
+	if GameManager.loadingLevel or GameManager.paused:
+		print("inplayer")
 		return
 	GameManager.treatRegistry.append(id)
 	GameManager.treatGet()
@@ -72,7 +73,7 @@ func _treatsUpdated():
 func _turnOn():
 	#print("turned on")
 	if !GameManager.treatRegistry.has(id):
-		print(GameManager.treatRegistry)
+		#print(GameManager.treatRegistry)
 		duck_area.monitoring = true
 		duck_area.monitorable = true
 	
