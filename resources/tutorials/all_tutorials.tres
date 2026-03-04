@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="tutorialList" load_steps=15 format=3 uid="uid://babei73ri162t"]
+[gd_resource type="Resource" script_class="tutorialList" load_steps=16 format=3 uid="uid://babei73ri162t"]
 
 [ext_resource type="Script" uid="uid://df8cvxetmidef" path="res://scripts/resourceBases/tutorialList.gd" id="1_plr7i"]
 [ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/resourceBases/tutorial.gd" id="2_jvs0w"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://pvn8psjwvqq6" path="res://resources/tutorials/map.tres" id="12_ikdx2"]
 [ext_resource type="Resource" uid="uid://cxfin1nrckk3f" path="res://resources/tutorials/treatFinder.tres" id="13_uviob"]
 [ext_resource type="Resource" uid="uid://cc8n3b2vd0pgd" path="res://resources/tutorials/travelToHiddenGrove.tres" id="14_45kta"]
+[ext_resource type="Resource" uid="uid://bdapj8ncckthg" path="res://resources/tutorials/hiddengrove.tres" id="15_tnl36"]
 
 [resource]
 script = ExtResource("1_plr7i")
@@ -21,6 +22,7 @@ tutorials = Dictionary[String, ExtResource("2_jvs0w")]({
 "basics": ExtResource("2_plr7i"),
 "dive": ExtResource("9_rv2hx"),
 "fly": ExtResource("10_vdjrm"),
+"grove": ExtResource("15_tnl36"),
 "land": ExtResource("8_rv2hx"),
 "map": ExtResource("12_ikdx2"),
 "migrate": ExtResource("11_vdjrm"),

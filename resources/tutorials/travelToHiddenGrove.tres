@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("2_he5ow")
-displayText = "Congratulations on collecting all treats! Press SPACE + E to migrate to the hidden grove, a special map with new content!"
+displayText = "Congratulations on collecting all treats! You may now travel to the hidden grove, which is full of enemy ducks and hazards!"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_iv7yu")
 items = Array[ExtResource("1_adpya")]([ExtResource("2_tg3cn")])
-displayText = "Pressing Q will now also point to the nearest treat, and show a hint on the map!"
+displayText = "Pressing E will now also point to the nearest treat, and show a hint on the map!"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

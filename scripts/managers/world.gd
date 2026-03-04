@@ -367,7 +367,10 @@ func updateMinimap():
 		underMap.modulate = Color.TRANSPARENT
 
 func updateFOW(usual: bool = false):
-	if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/20.0:
+	#if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/20.0:
+		##print("returning")
+		#return
+	if usual and sinceLastUpdate < 0.3:
 		#print("returning")
 		return
 	else:
@@ -385,8 +388,12 @@ func updateFOW(usual: bool = false):
 	else:
 		print("no tile map ;(")
 		return
-	
-	var finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"])
+		
+	var finalFOWRadius
+	if levelName == "Hidden Grove":
+		finalFOWRadius = FOWRadius/2 + (GameManager.postgameUpgradeLevels["reach"])
+	else:
+		finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"])
 	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):
@@ -582,8 +589,8 @@ func getClosestTreat() -> Node2D:
 					closestHiddenTreat = treat
 					closestDistanceHidden = treat.global_position.distance_to(GameManager.playerRef.global_position)
 					
-	print(closestTreat)
-	print(closestHiddenTreat)
+	#print(closestTreat)
+	#print(closestHiddenTreat)
 	
 	if closestTreat != null:
 		if GameManager.playerRef.distanceToTreatFormula(closestTreat.global_position):

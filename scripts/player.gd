@@ -608,13 +608,14 @@ func _migrated():
 	var timmy = Timer.new()
 	add_child(timmy)
 	timmy.wait_time = wonDelay
-	if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
-		timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
-		timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
-		timmy.timeout.connect(audio_listener_2d.queue_free)
+	timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
+	timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
+	timmy.timeout.connect(audio_listener_2d.queue_free)
+	#if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
+		
 	timmy.timeout.connect(timmy.queue_free)
 	if GameManager.abilities.has("travel") and !(GameManager.worldManager.levelName == "Hidden Grove"):
-		timmy.timeout.connect(GameManager.travelToMap)
+		_travelOrWin()
 	timmy.start()
 	
 	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
@@ -622,11 +623,23 @@ func _migrated():
 		print("wongame")
 		
 	GameManager.paused = true
-	
-func _traveled():
-	if traveling == true:
-		traveling = false
-	GameManager.travelToMap()
+
+func _travelOrWin():
+	if GameManager.worldManager == null:
+		return
+	if GameManager.worldManager.ui_manager == null:
+		return
+		
+	var popup = GameManager.worldManager.ui_manager.POPUP.instantiate()
+	popup.warningText = "Travel to the hidden grove?"
+	GameManager.worldManager.ui_manager.add_child(popup)
+	#
+	#popup.noButton.text = "Travel"
+	#popup.yesButton.text = "Credits"
+		
+	popup.no.connect(popup.queue_free)
+	popup.no.connect(GameManager.won)
+	popup.yes.connect(GameManager.travelToMap)
 	
 func _radar():
 	radar_sound.play()

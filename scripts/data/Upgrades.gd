@@ -29,7 +29,7 @@ const POSTGAMEUPGRADES = {
 	"reach": {
 		"levels": 10,
 		"percentIncrease": 20,
-		"description": "Increases hidden area visibility by 5%, player light radius by 20%, and attack range by 10%."
+		"description": "Increases map reveal range by 1 tile, player light radius by 20%, and attack range by 10%."
 	},
 	"power": {
 		"levels": 10,

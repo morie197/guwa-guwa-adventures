@@ -295,6 +295,9 @@ func loadValues(resetRefs: bool = false):
 	
 	showTutorial("basics")
 	
+	if worldManager.levelName == "Hidden Grove":
+		showTutorial("grove")	
+	
 
 func treatGet():
 	_levelUp()
