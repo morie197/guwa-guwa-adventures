@@ -1,4 +1,4 @@
-[gd_scene load_steps=215 format=4 uid="uid://iw325qeeftst"]
+[gd_scene load_steps=216 format=4 uid="uid://iw325qeeftst"]
 
 [ext_resource type="Script" uid="uid://crksfl5ssd2u1" path="res://scripts/managers/world.gd" id="1_8iyoh"]
 [ext_resource type="TileSet" uid="uid://dlkfn2w1l7bh5" path="res://resources/tilesets/logicTileSet.tres" id="2_mq31s"]
@@ -1095,6 +1095,9 @@ gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 3.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfh7l"]
+radius = 348.01294
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qblvb"]
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(400, 400, 1)
@@ -1479,6 +1482,7 @@ script = ExtResource("1_8iyoh")
 levelName = "Rocky Forest"
 
 [node name="Underground" type="Node2D" parent="."]
+visible = false
 light_mask = 3
 visibility_layer = 3
 z_index = -4
@@ -6170,7 +6174,7 @@ flag = "whirlpool"
 size = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/stream60"]
-shape = SubResource("CircleShape2D_2e2fo")
+shape = SubResource("CircleShape2D_sfh7l")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Overground/areas/stream60"]
 amount = 100
@@ -7372,6 +7376,7 @@ position = Vector2(3648, -6208)
 position = Vector2(3392, -9152)
 
 [node name="MapLayers" type="Node2D" parent="."]
+visible = false
 light_mask = 2
 visibility_layer = 2
 

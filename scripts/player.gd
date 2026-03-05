@@ -467,7 +467,7 @@ func _process(delta):
 			tired = true
 			if sprinting: 
 				sprinting = false
-			elif flying and areaFlag != "air" and !areaFlag.match("wind") and !forcedFly: 
+			elif flying and layer != 2 and !areaFlag.match("wind") and !forcedFly: 
 				_toggleFly(false)
 	else:
 		if stamina < maxStamina * resistanceMultiplier and !underwater: 
@@ -521,7 +521,8 @@ func tileCheck():
 	if tile != newtile:
 		if GameManager.worldManager != null:
 			GameManager.worldManager.updateFOW(true)
-		if (areaFlag.match("air") and !areaFlag.match("wind")):
+		if (layer == 2 and !(areaFlag.match("wind") or areaFlag == "tornado")):
+			print("nah")
 			areaFlag = ""
 		tile = newtile
 		tilePosition = (tile * 64) + Vector2i(0, 0)
@@ -534,8 +535,6 @@ func tileCheck():
 			layer = -1
 		elif atlascoords == Vector2i(1, 1):
 			layer = 2
-			if !areaFlag.match("wind"):
-				areaFlag = "air"
 			if flying == false:
 				sprinting = false
 				forcedFly = true

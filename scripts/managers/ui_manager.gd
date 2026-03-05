@@ -327,6 +327,7 @@ func gameWon():
 	creditContentSize = 7500
 
 func _showLevelUpUI():
+	collected_number.add_theme_color_override("default_color", Color.WHITE)
 	collected_number.text = str(GameManager.level)
 	if GameManager.level <= 40:
 		until_next_goal.text = "Migration: "
