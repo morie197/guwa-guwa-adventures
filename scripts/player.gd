@@ -771,7 +771,7 @@ func _move(movevec: Vector2, delt):
 			#velocity = lerp(velocity.normalized(), ((velocity.normalized() * 2) + lastMovedDirection.normalized()).normalized(), delt * 100)
 			#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
 			velocity = lastMovedDirection
-		elif (((areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("forceStream")) and layer != 1) or (areaFlag.match("wind") and (flying or forcedFly or layer == 2))) and streamRef != null:
+		elif (((areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("forcestream")) and layer != 1) or (areaFlag.match("wind") and (flying or forcedFly or layer == 2))) and streamRef != null:
 			velocity = movevec
 		else:
 			velocity = movevec.normalized()
@@ -897,24 +897,18 @@ func _move(movevec: Vector2, delt):
 		if timeBeingDamaged < timeBeingDamagedUntilHit:
 			timeBeingDamaged += delt
 			modulate = Color(1, clampf(1.0 - timeBeingDamaged  * 2, 0, 1), clampf(1.0 - timeBeingDamaged * 2, 0, 1))
-			#print(timeBeingDamaged)
 		if timeBeingDamaged >= timeBeingDamagedUntilHit:
-			#print("damaging at: ", timeBeingDamaged)
 			GameManager.damagePlayer(1)
 			if !forcedFly:
 				_toggleFly(false)
-	#	if !forcedFly:
-	#		_toggleFly(false)
 	elif timeBeingDamaged > 0:
 		timeBeingDamaged -= delt
-		#print(timeBeingDamaged)
-	#if colliding and flying:
-		#GameManager.damagePlayer(1)
-		#if !forcedFly:
-			#_toggleFly(false)
 	
-	
-	
-	#else:
-		#backwards_detector.target_position = Vector2.ZERO
-		#backwards_detector.enabled = false
+	if colliding and (movevec != Vector2.ZERO) and (movevec != movevec.normalized()) and (((areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("forcestream")) and layer != 1) or (areaFlag.match("wind") and (flying or forcedFly or layer == 2))) and streamRef != null:
+		%slide.emitting = true
+	else:
+		%slide.emitting = false
+		
+		
+		
+		
