@@ -7,6 +7,8 @@ const INDICATOR = preload("uid://2n3n0g72rrmu")
 @onready var swimming = $swimming
 @onready var walking = $walking
 
+var flytoLand: bool = false
+
 @onready var point_light_2d_3 = $PointLight2D3
 
 @onready var camera_2d = $Camera2D
@@ -262,7 +264,83 @@ func _unhandled_input(event):
 		elif Input.is_action_just_pressed("zoomout") and mouseScrollInput == 0:
 			mouseScrollInput = zoomOutAmount / keyZoomMult
 		
+func _animateDuck():
+	if tornadoThrownVelocity.is_zero_approx():
+		if moveVector.x < 0:
+			walking.flip_h = true
+			%walktofly.flip_h = true
+			%flying.flip_h = true
+			swimming.flip_h = true
+		elif moveVector.x > 0:
+			walking.flip_h = false
+			%walktofly.flip_h = false
+			%flying.flip_h = false
+			swimming.flip_h = false
 	
+	if tornadoThrownVelocity.is_zero_approx():
+		if flyDelayTimer >= 0:
+			if %flying.is_playing():
+				flytoLand = true
+				%flying.stop()
+			%flying.visible = false
+			%walktofly.visible = true
+			var progFrame: float = 0.0
+			if flytoLand:
+				progFrame = (clampf(flyDelayTimer / flyDelay, 0, 1))
+			else:
+				progFrame = (1.0 - clampf(flyDelayTimer / flyDelay, 0, 1))
+			%walktofly.frame = %walktofly.sprite_frames.get_frame_count("default") * progFrame
+			#print(%walktofly.frame)
+			#print(clampf(flyDelayTimer / flyDelay, 0, 1))
+			walking.visible = false
+			if walking.is_playing():
+				walking.stop()
+			swimming.visible = false
+			if swimming.is_playing():
+				swimming.stop()
+		elif flying or forcedFly:
+			%walktofly.visible = false
+			%flying.visible = true
+			%flying.play()
+			
+			walking.visible = false
+			if walking.is_playing():
+				walking.stop()
+			swimming.visible = false
+			if swimming.is_playing():
+				swimming.stop()
+		else:
+			flytoLand = false
+			if %flying.is_playing():
+				%flying.stop()
+			%flying.visible = false
+			%walktofly.visible = false
+			
+			if layer == 0 or layer == -1:
+				walking.visible = false
+				swimming.visible = true
+			if layer == 1:
+				swimming.visible = false
+				walking.visible = true
+			if moveVector != Vector2.ZERO:
+				if layer == 0 or layer == -1:
+					if walking.is_playing():
+						walking.stop()
+					swimming.play()
+				if layer == 1:
+					if swimming.is_playing():
+						swimming.stop()
+					walking.play()
+			else:
+				if walking.is_playing():
+					walking.stop()
+				elif swimming.is_playing():
+					swimming.stop()
+			
+			
+	if flying:
+		if %flying.frame == 3:
+			wings_flying_sound.play()
 
 func _physics_process(delta):
 	if GameManager.loadingLevel:
@@ -395,7 +473,6 @@ func _process(delta):
 	if flying and !wings_flying_sound.playing:
 		if GameManager.loadingLevel:
 			return
-		wings_flying_sound.play()
 	
 	if quackTimer > 0:
 		quackTimer -= delta
@@ -425,34 +502,8 @@ func _process(delta):
 	if camera_2d.zoom != targetZoom:
 		camera_2d.zoom = lerp(camera_2d.zoom, targetZoom, zoomSpeed * delta)
 	
-	if tornadoThrownVelocity.is_zero_approx():
-		if moveVector.x < 0:
-			walking.flip_h = true
-			swimming.flip_h = true
-		elif moveVector.x > 0:
-			walking.flip_h = false
-			swimming.flip_h = false
+	_animateDuck()
 	
-	if tornadoThrownVelocity.is_zero_approx():
-		if moveVector != Vector2.ZERO:
-			if layer == 0 or layer == -1:
-				walking.visible = false
-				if walking.is_playing():
-					walking.stop()
-				swimming.visible = true
-				swimming.play()
-			if layer == 1:
-				swimming.visible = false
-				if swimming.is_playing():
-					swimming.stop()
-				walking.visible = true
-				walking.play()
-		else:
-			if walking.is_playing():
-				walking.stop()
-			elif swimming.is_playing():
-				swimming.stop()
-			
 	if sprinting or flying:
 		if stamina > 0: # prevent negative stamina values
 			if sprinting:
@@ -826,6 +877,7 @@ func _move(movevec: Vector2, delt):
 				#print(absDistance)
 				if absDistance < 110:
 					tornadoThrownVelocity = velocity
+					_toggleFly(false)
 					GameManager.damagePlayer(2)
 					modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
 		elif areaFlag.match("tornadoSafe"):
@@ -899,8 +951,7 @@ func _move(movevec: Vector2, delt):
 			modulate = Color(1, clampf(1.0 - timeBeingDamaged  * 2, 0, 1), clampf(1.0 - timeBeingDamaged * 2, 0, 1))
 		if timeBeingDamaged >= timeBeingDamagedUntilHit:
 			GameManager.damagePlayer(1)
-			if !forcedFly:
-				_toggleFly(false)
+			#_toggleFly(false)
 	elif timeBeingDamaged > 0:
 		timeBeingDamaged -= delt
 	
