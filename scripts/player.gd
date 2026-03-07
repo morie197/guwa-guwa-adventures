@@ -278,7 +278,7 @@ func _animateDuck():
 			swimming.flip_h = false
 	
 	if tornadoThrownVelocity.is_zero_approx():
-		if flyDelayTimer >= 0:
+		if flyDelayTimer > 0.0:
 			if %flying.is_playing():
 				flytoLand = true
 				%flying.stop()
@@ -298,7 +298,7 @@ func _animateDuck():
 			swimming.visible = false
 			if swimming.is_playing():
 				swimming.stop()
-		elif flying or forcedFly:
+		elif flying:
 			%walktofly.visible = false
 			%flying.visible = true
 			%flying.play()
@@ -573,7 +573,6 @@ func tileCheck():
 		if GameManager.worldManager != null:
 			GameManager.worldManager.updateFOW(true)
 		if (layer == 2 and !(areaFlag.match("wind") or areaFlag == "tornado")):
-			print("nah")
 			areaFlag = ""
 		tile = newtile
 		tilePosition = (tile * 64) + Vector2i(0, 0)
