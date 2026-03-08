@@ -25,6 +25,8 @@ var underground: bool = false
 var found: bool = false
 
 @export var noRadar: bool = false
+@export var transitionArea: bool = false
+@export var requiredIDs: Array[int] = []
 
 var id: int = 0
 
@@ -44,13 +46,24 @@ func _ready():
 	
 	area_entered.connect(_player_detected)
 	area_exited.connect(_player_exited)
-	body_entered.connect(func(_body): _showarea())
 	
+	if transitionArea:
+		GameManager.hiddenUpdated.connect(_transitionUpdate)
+		modulateSpeed = 100
+	else:
+		body_entered.connect(func(_body): _showarea())
+
 	GameManager.treatsUpdated.connect(_areasUpdated)
+
+func _transitionUpdate():
+	for idNumber in requiredIDs:
+		if GameManager.hiddenRegistry.has(idNumber):
+			_showarea()
+	
 
 func _process(delta):
 	if mask.modulate != targetModulateColor:
-		mask.modulate = mask.modulate.lerp(targetModulateColor, delta * modulateSpeed)
+		mask.modulate = mask.modulate.lerp(targetModulateColor, clampf(delta * modulateSpeed, 0, 1))
 		
 	if GameManager.abilities.has("sonar") and GameManager.playerRef != null:
 		var playR = GameManager.playerRef
@@ -84,6 +97,7 @@ func _showarea():
 	targetModulateColor = showColor
 	if !GameManager.hiddenRegistry.has(id):
 		GameManager.hiddenRegistry.append(id)
+		GameManager.hiddenUpdated.emit()
 		found = true
 	if mapMaskRef == null:
 		return
@@ -127,6 +141,7 @@ func pingSoundPlay(subtle: bool = false):
 	
 func _hidearea():
 	targetModulateColor = Color.WHITE
+	GameManager.hiddenUpdated.emit()
 	if mapMaskRef == null:
 		return
 	mapMaskRef.modulate = Color.WHITE

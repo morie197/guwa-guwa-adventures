@@ -43,6 +43,7 @@ func _newGame():
 		SaveManager.saveData = {"levelName":"Quiet Gardens", "player_pos_x":1920.0,"player_pos_y":-1080.0, "difficulty": GameManager.difficultyValue}
 	else:
 		SaveManager.saveData = {"levelName":"Rocky Forest","difficulty": GameManager.difficultyValue}
+	SaveManager.fowSaveData = {}
 	GameManager.loadValues()
 	SaveManager.loadLevel(selectedStage)
 

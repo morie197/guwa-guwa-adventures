@@ -67,6 +67,7 @@ signal levelUp
 signal startTutorial(String)
 signal treatsUpdated
 signal levelLoaded
+signal hiddenUpdated
 signal upgraded
 signal tutorialOver
 signal switchedWorldLevel

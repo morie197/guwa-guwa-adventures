@@ -226,6 +226,8 @@ func _updateHP():
 		hpBars[lostHealth - 1].texture = HPPARTEMPTY
 	
 func pause():
+	if visible == false:
+		visible = true
 	#print("pause called")
 	#print(inPauseMenu)
 	if !inPauseMenu:

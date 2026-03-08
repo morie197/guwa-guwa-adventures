@@ -278,7 +278,6 @@ func saveAllData():
 	writeFile.close()
 	
 func autoSave(forced: bool = false):
-	GameManager.showTutorial("saving")
 	#if autosaveCooldownTimer.time_left > 0.0:
 	#	return
 	if GameManager.lost:
@@ -289,6 +288,8 @@ func autoSave(forced: bool = false):
 		return
 	if GameManager.wonGame == true or GameManager.playerRef.migrating == true:
 		return
+	
+	GameManager.showTutorial("saving")
 	autosaveCooldownTimer.wait_time = autosaveCooldown
 	canAutosave = false
 	autosaveCooldownTimer.timeout.connect(func toggleAutosaveCooldown(): canAutosave = true)
