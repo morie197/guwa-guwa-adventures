@@ -13,11 +13,9 @@ var parentMenu
 
 func _ready():
 	if mode.match("load"):
-		text.text = "Load"
+		text.text = tr("LOAD")
 	elif mode.match("save"):
-		text.text = "Save"
-		
-	print("updated")
+		text.text = tr("SAVE")
 	
 	_updateSlots()
 		
@@ -74,7 +72,7 @@ func _slotSelected(slotNumber: int = 0):
 		
 func _slotDeleted(slotNumber: int = 0):
 	var popup = parentMenu.POPUP.instantiate()
-	popup.warningText = "Are you sure you want to delete slot " + str(slotNumber) + "?"
+	popup.warningText = tr("DELETE_WARNING") % str(slotNumber)
 	add_child(popup)
 	
 	popup.yes.connect(SaveManager.delete_game.bind(slotNumber))

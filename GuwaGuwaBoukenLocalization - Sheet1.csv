@@ -1,0 +1,43 @@
+keys,en,ja
+TITLE,Guwa Guwa Adventures,ぐわぐわ冒険
+NEW_GAME,New Game,最初から
+CONTINUE,Continue,続きから
+SETTINGS,Settings,設定
+QUIT,Quit,終了
+STAGE_1,Quiet Gardens,静かな庭園
+STAGE_1_DESC,"Map with a balance of hazards, battles, and hidden areas.",危険、戦闘、隠しアリアのバランス
+STAGE_2,Rocky Forest,岩の森
+STAGE_2_DESC,"Map focusing on hazards, with some battles and hidden areas.",危険集中で戦闘と隠しアリアが少ない
+DIFFICULTY,Difficulty:,難易度：
+EASY,Easy,簡単
+MEDIUM,Normal,普通
+HARD,Hard,難しい
+EASY_HINT,Easy: No damage from hazards | save anytime,簡単ー危険からダメージ無し・いつでもセーブ出来る
+MEDIUM_HINT,Normal: Damage from hazards | save anytime,普通ー危険からダメージ受ける・いつでもセーブ出来る
+HARD_HINT,Hard: Damage from hazards | save every 5 treats,難しいー危険からダメージ受ける・トリート5個集めたらもセーブ出来る
+NEW_GAME_CREATE,New game!,始める！
+LOAD,Load,ロード
+SAVE,Save,セーブ
+AUTOSAVES,Autosaves:,自動セーブ：
+FULLSCREEN,Fullscreen:,フルスクリーン：
+MUSIC,Music:,音楽：
+SFX,SFX:,SFX：
+LANGUAGE,Language:,言語：
+BACK,Back,戻る
+NEXT_TEXT,Next,次
+TOGGLE_MAP,Toggle Map,マップの切り替え
+DELETE_WARNING,Are you sure you  want to delete slot %s?,スロット%sを削除しますか？
+RANGE,Range,範囲
+ENDURANCE,Endurance,体力
+SPEED,Speed,速さ
+RANGE_HINT,"Increases quack, sonar, map reveal, and zoom out range",クワック・ソナー・マップ解放・ズームアウトの範囲が増加
+ENDURANCE_HINT,"+1 max HP every 2 levels, +5% stamina recovery",２レベルごとに最大HP＋１、スタミナ回復＋５％
+SPEED_HINT,Increases player movement and attack speed.,移動速度と攻撃速度が増加
+RESISTANCE,Resistance,耐力
+REACH,Reach,リーチ
+POWER,Power,力
+RESISTANCE_HINT,+1 max HP and +10% max stamina,最大HP＋１、最大スタミナ＋１０％
+REACH_HINT,Increases visibility by 20% and attack range by 10%,視認性＋２０％、攻撃範囲＋１０％
+POWER_HINT,"+1 ATK per 5 levels, +5% speed",５レベルごとに＋１攻撃力、移動速度＋５％
+UPGRADE,Upgrade!,アップグレード
+REMAINING_POINTS,Remaining Points: ,残ってるポイント：

@@ -5,36 +5,41 @@ const UPGRADES = {
 	"range": {
 		"levels": 20,
 		"percentIncrease": 5,
-		"description": "Increases quack, sonar, map reveal, and zoom out range."
+		"displayName": "RANGE",
+		"description": "RANGE_HINT"
 	},
 	"endurance": {
 		"levels": 20,
 		"percentIncrease": 5,
-		"description": "+1 max HP every 2 levels, " + "+5%" + " stamina recovery."
+		"displayName": "ENDURANCE",
+		"description": "ENDURANCE_HINT"
 	},
 	"speed": {
 		"levels": 20,
 		"percentIncrease": 3,
-		"description": "Increases player movement and attack speed."
+		"displayName": "SPEED",
+		"description": "SPEED_HINT"
 	}
-	
 }
 
 const POSTGAMEUPGRADES = {
 	"resistance": {
 		"levels": 10,
 		"percentIncrease": 10,
-		"description": "+1 max HP and +10% max stamina."
+		"displayName": "RESISTANCE",
+		"description": "RESISTANCE_HINT"
 	},
 	"reach": {
 		"levels": 10,
 		"percentIncrease": 20,
-		"description": "Increases map reveal range by 1 tile, player light radius by 20%, and attack range by 10%."
+		"displayName": "REACH",
+		"description": "REACH_HINT"
 	},
 	"power": {
 		"levels": 10,
 		"percentIncrease": 5,
-		"description": "Increases speed by 5%, +1 ATK per 5 levels."
+		"displayName": "POWER",
+		"description": "POWER_HINT"
 	}
 	
 }

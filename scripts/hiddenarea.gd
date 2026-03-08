@@ -49,7 +49,7 @@ func _ready():
 	
 	if transitionArea:
 		GameManager.hiddenUpdated.connect(_transitionUpdate)
-		modulateSpeed = 100
+		modulateSpeed = 3
 	else:
 		body_entered.connect(func(_body): _showarea())
 

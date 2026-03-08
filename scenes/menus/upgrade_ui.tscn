@@ -128,4 +128,4 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ewqot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_55gai")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ewqot")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ewqot")
-text = "Upgrade!"
+text = "UPGRADE"

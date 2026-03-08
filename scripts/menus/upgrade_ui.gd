@@ -12,6 +12,7 @@ var upgradeSelectionUI
 
 var percentage: int
 var upgradeName: String
+var upgradeText: String
 var description: String
 
 
@@ -23,7 +24,7 @@ func _ready():
 
 func initialize():
 	#textName.text = "+" + str(GameManager.upgradeSet[upgradeName]["percentIncrease"]) + "% " + upgradeName
-	textName.text = upgradeName.capitalize()
+	textName.text = upgradeText
 	descriptionText.text = description
 	_updateUI()
 

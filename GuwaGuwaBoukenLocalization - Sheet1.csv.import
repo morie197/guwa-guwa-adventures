@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://c2hpjf27k8vmo"
+
+[deps]
+
+files=["res://GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.ja.translation"]
+
+source_file="res://GuwaGuwaBoukenLocalization - Sheet1.csv"
+dest_files=["res://GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.ja.translation"]
+
+[params]
+
+compress=true
+delimiter=0

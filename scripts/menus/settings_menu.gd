@@ -23,6 +23,28 @@ func _ready():
 	
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
 	sound_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
+	
+	_localeButtonSetup()
+	
+func _localeButtonSetup():
+	var nativeNames = {
+		"en": "English",
+		"ja": "日本語"
+	}
+	
+	var locales = TranslationServer.get_loaded_locales()
+	
+	for i in range(locales.size()):
+		var localCode = locales[i]
+		
+		%languages.add_item(nativeNames[localCode])
+		%languages.set_item_metadata(i, localCode)
+		
+		if localCode == TranslationServer.get_locale().split("_")[0]:
+			%languages.selected = i
+			
+		%languages.item_selected.connect(func(index): TranslationServer.set_locale(%languages.get_item_metadata(index)))
+	
 
 func toggleAutosaves():
 	SaveManager.autosave = !SaveManager.autosave

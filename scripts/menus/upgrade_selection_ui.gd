@@ -15,10 +15,11 @@ func _ready():
 		card.upgradeSelectionUI = self
 		card.percentage = GameManager.upgradeSet[k]["percentIncrease"]
 		card.upgradeName = k
-		card.description = GameManager.upgradeSet[k]["description"]
+		card.upgradeText = tr(GameManager.upgradeSet[k]["displayName"])
+		card.description = tr(GameManager.upgradeSet[k]["description"])
 		card.initialize()
 	reset_size()
 
 func updateRemainingPoints():
-	upgrade_points.text = "Remaining Points: " + str(GameManager.availableUpgradePoints)
+	upgrade_points.text = tr("REMAINING_POINTS") + str(GameManager.availableUpgradePoints)
 	

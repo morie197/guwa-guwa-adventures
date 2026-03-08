@@ -154,6 +154,10 @@ fullscreen={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.ja.translation")
+
 [layer_names]
 
 2d_render/layer_2="minimap"
