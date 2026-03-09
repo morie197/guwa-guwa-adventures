@@ -43,7 +43,13 @@ func _localeButtonSetup():
 		if localCode == TranslationServer.get_locale().split("_")[0]:
 			%languages.selected = i
 			
-		%languages.item_selected.connect(func(index): TranslationServer.set_locale(%languages.get_item_metadata(index)))
+		%languages.item_selected.connect(selectLanguage)
+		
+
+func selectLanguage(index):
+	TranslationServer.set_locale(%languages.get_item_metadata(index))
+	
+	SaveManager.configData["other"]["language"] = %languages.get_item_metadata(index)
 	
 
 func toggleAutosaves():

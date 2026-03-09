@@ -15,7 +15,7 @@ MEDIUM,Normal,普通
 HARD,Hard,難しい
 EASY_HINT,Easy: No damage from hazards | save anytime,簡単ー危険からダメージ無し・いつでもセーブ出来る
 MEDIUM_HINT,Normal: Damage from hazards | save anytime,普通ー危険からダメージ受ける・いつでもセーブ出来る
-HARD_HINT,Hard: Damage from hazards | save every 5 treats,難しいー危険からダメージ受ける・おやつを5個集めたらもセーブ出来る
+HARD_HINT,Hard: Damage from hazards | save every 5 treats,難しいー危険からダメージ受ける・おやつを5個集めたらセーブ出来る
 NEW_GAME_CREATE,New game!,始める！
 PAUSED,Paused,ポーズ中
 LOAD,Load,ロード
@@ -24,8 +24,8 @@ RESUME,Resume,再開
 BACK_TO_MAIN_MENU,Title Screen,タイトルへ
 AUTOSAVES,Autosaves:,自動セーブ：
 FULLSCREEN,Fullscreen:,フルスクリーン：
-MUSIC,Music:,音楽：
-SFX,SFX:,SFX：
+MUSIC,Music:,BGM：
+SFX,SFX:,SE：
 LANGUAGE,Language:,言語：
 BACK,Back,戻る
 NEXT_TEXT,Next,次
@@ -131,3 +131,5 @@ REQUIRED_TREATS,%s Treats,%s個のおやつ
 LOST_TO_TEXT,You've lost to %s!,%sに負けました
 DEFEATED_TEXT,You've defeated %s!,%sを倒しました
 DUCK_TREAT_OBTAINED,Duck Treat Obtained!,アヒルのおやつを獲得！
+TRAVEL_HIDDEN_GROVE_PROMPT,Travel to the hidden grove?,隠れた林に移動しますか？
+POPUP_WARNING_DEFAULT,Are you sure?,よろしいですか？

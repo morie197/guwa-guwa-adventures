@@ -155,6 +155,7 @@ signal radar
 signal updatedStamina(current: int, max: int)
 
 func _ready():
+	camera_2d.make_current()
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
 	
@@ -360,6 +361,10 @@ func _physics_process(delta):
 	_move(moveVector, delta)
 	
 func _process(delta):
+	#print(camera_2d.global_position)
+	#print(camera_2d.is_current())
+	#print(global_position)
+	
 	if GameManager.loadingLevel:
 		#print("returning")
 		return
@@ -654,24 +659,30 @@ func _migrated():
 		return
 	set_collision_mask_value(1, false)
 	set_collision_layer_value(5, false)
+	#if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
+		
+	
+	if GameManager.abilities.has("travel") and !(GameManager.worldManager.levelName == "Hidden Grove"):
+		_travelOrWin()
+	
+	
+	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
+		GameManager.won()	
+		
+		_winGameCamera()
+		
+	
+	GameManager.paused = true
+
+func _winGameCamera():
 	var timmy = Timer.new()
 	add_child(timmy)
 	timmy.wait_time = wonDelay
 	timmy.timeout.connect(camera_2d.reparent.bind(GameManager, true))
 	timmy.timeout.connect(func assignCamera(): GameManager.playerCamCredits = camera_2d)
 	timmy.timeout.connect(audio_listener_2d.queue_free)
-	#if !GameManager.abilities.has("travel") and GameManager.levelLoaded and !(GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
-		
 	timmy.timeout.connect(timmy.queue_free)
-	if GameManager.abilities.has("travel") and !(GameManager.worldManager.levelName == "Hidden Grove"):
-		_travelOrWin()
 	timmy.start()
-	
-	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
-		GameManager.won()
-		print("wongame")
-		
-	GameManager.paused = true
 
 func _travelOrWin():
 	if GameManager.worldManager == null:
@@ -680,14 +691,16 @@ func _travelOrWin():
 		return
 		
 	var popup = GameManager.worldManager.ui_manager.POPUP.instantiate()
-	popup.warningText = "Travel to the hidden grove?"
+	popup.warningText = tr("TRAVEL_HIDDEN_GROVE_PROMPT")
 	GameManager.worldManager.ui_manager.add_child(popup)
 	#
 	#popup.noButton.text = "Travel"
 	#popup.yesButton.text = "Credits"
 		
 	popup.no.connect(popup.queue_free)
+	popup.yes.connect(popup.queue_free)
 	popup.no.connect(GameManager.won)
+	popup.no.connect(_winGameCamera)
 	popup.yes.connect(GameManager.travelToMap)
 	
 func _radar():

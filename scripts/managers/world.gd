@@ -143,6 +143,8 @@ func _process(delta):
 	if sinceLastUpdate < 30.0:
 		sinceLastUpdate += delta
 		
+	#print(get_viewport().canvas_cull_mask)
+		
 	#
 	#updates = 0
 	#updateTilesInFrameUnder = []

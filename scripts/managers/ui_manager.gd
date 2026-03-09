@@ -95,6 +95,7 @@ var hpBars: Array[Node] = []
 func _ready():
 	mini_map_panel.hide()
 	updateNextAbility()
+	%winpanel.hide()
 	
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		hp_text.hide()
@@ -317,6 +318,7 @@ func gameLost():
 func gameWon():
 	migrate_bar.hide()
 	stamina_bar.hide()
+	%winpanel.show()
 	migrate_down_indicator.hide()
 	if credits != null:
 		credits.queue_free()

@@ -226,7 +226,10 @@ func applyConfigData():
 		configData = {"toggles": 
 			{"fullscreen" = false,"autosave" = true}, 
 			"audio": 
-				{"music" = 0.0, "sfx" = 0.0}}
+				{"music" = 0.0, "sfx" = 0.0},
+			"other":
+				{"language" = TranslationServer.get_locale()}
+			}
 	
 	if configData["toggles"]["fullscreen"] == true:
 		print("fullscreen")
@@ -234,8 +237,16 @@ func applyConfigData():
 	if configData["toggles"]["autosave"] == false:
 		autosave = false
 	
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), configData["audio"]["music"])
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), configData["audio"]["sfx"])
+	if configData.has("audio"):
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), configData["audio"]["music"])
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), configData["audio"]["sfx"])
+	
+	if configData.has("other"):
+		if configData["other"].has("language"):
+			TranslationServer.set_locale(SaveManager.configData["other"]["language"])
+	else:
+		configData["other"] = {"language" = TranslationServer.get_locale()}
+	
 				#
 	#if configData.has("toggles"):
 		#if configData["toggles"].has("fullscreen"):
