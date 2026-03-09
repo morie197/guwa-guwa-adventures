@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_7a7fe")
 icons = Array[Texture2D]([ExtResource("1_r470k")])
-text = "Pause: "
+text = "PAUSE_ACTION"
 includeInPause = false
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

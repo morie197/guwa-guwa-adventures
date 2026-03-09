@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_7s1ix")
 icons = Array[Texture2D]([ExtResource("1_ilx28")])
-text = "Quack: "
+text = "QUACK_ACTION"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

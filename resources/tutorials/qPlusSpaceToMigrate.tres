@@ -7,6 +7,6 @@
 [resource]
 script = ExtResource("1_nu8br")
 icons = Array[Texture2D]([ExtResource("1_xr86u"), ExtResource("2_xr86u")])
-text = "Migrate: "
+text = "MIGRATE_ACTION"
 type = "plusWide"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

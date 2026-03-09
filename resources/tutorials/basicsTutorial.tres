@@ -8,5 +8,5 @@
 [resource]
 script = ExtResource("3_56f33")
 items = Array[ExtResource("1_kmwkl")]([ExtResource("2_eyc42"), ExtResource("3_eyc42")])
-displayText = "You are a duck. Eat 40 duck treats to evolve, then migrate south. (TAB to hide)"
+displayText = "BASICS_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

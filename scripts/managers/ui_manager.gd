@@ -127,13 +127,13 @@ func updateNextAbility():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = AbilityData.ABILITIES[ability]["displayName"] + ": " + str(ability)
+			until_next_ability.text = tr(AbilityData.ABILITIES[ability]["displayName"]) + ": " + str(ability)
 			break
 	
 	if GameManager.level <= 40:
-		until_next_goal.text = "Migration: "
+		until_next_goal.text = tr("MIGRATION_GOAL")
 	else:
-		until_next_goal.text = "All Treats: "
+		until_next_goal.text = tr("ALL_TREAT_GOAL")
 	
 func _physics_process(delta):
 	if credits != null:
@@ -332,11 +332,11 @@ func _showLevelUpUI():
 	collected_number.add_theme_color_override("default_color", Color.WHITE)
 	collected_number.text = str(GameManager.level)
 	if GameManager.level <= 40:
-		until_next_goal.text = "Migration: "
+		until_next_goal.text = tr("MIGRATION_GOAL")
 	elif GameManager.worldManager.levelName == "Hidden Grove":
-		until_next_goal.text = "Migration Back: "
+		until_next_goal.text = tr("MIGRATION_BACK_GOAL")
 	else:
-		until_next_goal.text = "All Treats: "
+		until_next_goal.text = tr("ALL_TREAT_GOAL")
 	if GameManager.level > 40:
 		progress_to_completion.self_modulate = Color.TEAL
 		if GameManager.worldManager.levelName == "Quiet Gardens":
@@ -375,7 +375,7 @@ func _showLevelUpUI():
 		if GameManager.level >= ability:
 			continue
 		else:
-			until_next_ability.text = AbilityData.ABILITIES[ability]["displayName"] + ": " + str(ability)
+			until_next_ability.text = tr(AbilityData.ABILITIES[ability]["displayName"]) + ": " + str(ability)
 			foundNextAbility = true
 			break
 			

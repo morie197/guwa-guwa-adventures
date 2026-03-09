@@ -48,10 +48,10 @@ func _duckWindowPopup():
 		var duckyCont = DUCK_CONTAINER.instantiate()
 		owners[i].add_child(duckyCont)
 		duckyCont.duckName.text = str(duckNames[i])
-		duckyCont.duckhp.text = "HP: " + str(duckHP[i])
-		duckyCont.duckatk.text = "ATK: " + str(duckATK[i])
-		duckyCont.duckspd.text = "SPD: " + str(duckSPD[i])
-		duckyCont.duckrange.text = "RAN: " + str(duckRAN[i])
+		duckyCont.duckhp.text = tr("DUCK_HP_STAT") + str(duckHP[i])
+		duckyCont.duckatk.text = tr("DUCK_ATK_STAT") + str(duckATK[i])
+		duckyCont.duckspd.text = tr("DUCK_SPD_STAT") + str(duckSPD[i])
+		duckyCont.duckrange.text = tr("DUCK_RAN_STAT") + str(duckRAN[i])
 		
 		duckyCont.global_position = owners[i].global_position
 		duckyCont.position.x -= duckyCont.size.x/2.0

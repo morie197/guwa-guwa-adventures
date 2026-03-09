@@ -14,6 +14,8 @@ func _ready():
 	if AbilityData.ABILITIES.has(GameManager.level):
 		abilityUI = NEW_ABILITY_UI.instantiate()
 		add_child(abilityUI)
+		
+	%levelUpText.text = tr("DUCK_TREAT_OBTAINED")
 	
 	var upgradeLevelsCap: bool = false
 	if GameManager.upgradeSet == UpgradeData.POSTGAMEUPGRADES:

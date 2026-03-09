@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_ps8hc")
 icons = Array[Texture2D]([ExtResource("1_5ii6i")])
-text = "Sprint: "
+text = "SPRINT_ACTION"
 type = "wide"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

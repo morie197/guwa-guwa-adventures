@@ -141,7 +141,7 @@ func _hp_changed(infoBox):
 	
 func _player_hp_changed():
 	
-	playerText.text = "Duck " + str(player_minigame.quacker.health) + "/" + str(player_minigame.quacker.max_health)
+	playerText.text = tr("DUCK_NAME") + " " + str(player_minigame.quacker.health) + "/" + str(player_minigame.quacker.max_health)
 	playerHPBar.max_value = player_minigame.quacker.max_health
 	playerHPBar.value = player_minigame.quacker.health
 
@@ -165,13 +165,13 @@ func _wonGame():
 		
 	displaying = true
 	popup_panel.visible = true
-	popup_text.text = "You've defeated "
+	var enemyText = ""
 	for enemyName in enemyNames:
 		if enemyNames[0] == enemyName:
-			popup_text.text += enemyName
+			enemyText += enemyName
 		else:
-			popup_text.text += ", " + enemyName
-	popup_text.text += "!"
+			enemyText += ", " + enemyName
+	popup_text.text = tr("DEFEATED_TEXT") % enemyText
 	GameManager.playerRef.healTimer.paused = false
 	
 	var displaytime = Timer.new()
@@ -195,13 +195,13 @@ func _lostGame():
 	player_minigame.hide()
 	displaying = true
 	popup_panel.visible = true
-	popup_text.text = "You've lost to "
+	var enemyText = ""
 	for enemyName in enemyNames:
 		if enemyNames[0] == enemyName:
-			popup_text.text += enemyName
+			enemyText += enemyName
 		else:
-			popup_text.text += ", " + enemyName
-	popup_text.text += "!"
+			enemyText += ", " + enemyName
+	popup_text.text = tr("LOST_TO_TEXT") % enemyText
 	
 	var displaytime = Timer.new()
 	add_child(displaytime)

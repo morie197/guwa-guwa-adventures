@@ -15,9 +15,9 @@ var speed: float = 5
 func _ready():
 	normaldisplayTimer = normaldisplayTime
 
-func setText(skillName: String = "Walking", treats: int = 13):
-	skill_name.text = "Required: " + skillName
-	skill_treats.text = str(treats) + " Treats"
+func setText(skillName: String = "WALKING", treats: int = 13):
+	skill_name.text = tr("REQUIRED_TEXT") + tr(skillName)
+	skill_treats.text = tr("REQUIRED_TREATS") % str(treats)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

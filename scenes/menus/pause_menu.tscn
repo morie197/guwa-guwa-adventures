@@ -45,7 +45,7 @@ layout_mode = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
-text = "Paused"
+text = "PAUSED"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -61,7 +61,7 @@ theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
 theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
-text = "Resume"
+text = "RESUME"
 
 [node name="settings" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -72,7 +72,7 @@ theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
 theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
-text = "Settings"
+text = "SETTINGS"
 
 [node name="save" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -83,7 +83,7 @@ theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
 theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
-text = "Save"
+text = "SAVE"
 
 [node name="load" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -94,7 +94,7 @@ theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
 theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
-text = "Load"
+text = "LOAD"
 
 [node name="quit" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -105,7 +105,7 @@ theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
 theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
-text = "Quit"
+text = "BACK_TO_MAIN_MENU"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -26,7 +26,7 @@ func setData(tutorial: Tutorial):
 		dialogue_box.hide()
 		nextDialogueButton.hide()
 	else:
-		tutorial_text.text = tutorial.displayText
+		tutorial_text.text = tr(tutorial.displayText)
 	_setTutorialItems(tutorial.items)
 
 func _setTutorialItems(items: Array[TutorialItem]):

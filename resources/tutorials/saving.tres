@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_jmwgb")
 items = Array[ExtResource("1_kec0q")]([ExtResource("2_lqvkb")])
-displayText = "The game autosaves by default, but you may turn it off in the settings or save manually in the pause menu."
+displayText = "AUTOSAVE_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

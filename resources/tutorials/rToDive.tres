@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_dufc8")
 icons = Array[Texture2D]([ExtResource("1_e8wct")])
-text = "Dive: "
+text = "DIVE_ACTION"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

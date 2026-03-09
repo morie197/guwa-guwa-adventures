@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_qhmod")
 icons = Array[Texture2D]([ExtResource("1_gbkw8")])
-text = "Scan: "
+text = "SCAN_ACTION"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

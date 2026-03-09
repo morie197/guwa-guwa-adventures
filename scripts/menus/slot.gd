@@ -28,7 +28,7 @@ var slotMode: String = "load"
 func setData(data, slotNumber: int = 0):
 	if slotNumber == 0:
 		if slotMode.match("load"):
-			slot_name.text = "Autosave"
+			slot_name.text = tr("AUTOSAVE_SLOT")
 			delete_button.disabled = true
 			delete_button.hide()
 		elif slotMode.match("save"):
@@ -59,20 +59,25 @@ func setData(data, slotNumber: int = 0):
 		img_panel_container.hide()
 		
 		
-	level.text = str(data["currentHP"])
+	#level.text = str(data["currentHP"])
 	#if data["abilities"].has("travel"):
 		#if data.has("postgameUpgradeLevels"):
 			#upgrades.text = "RES:" + str(int(data["postgameUpgradeLevels"]["resistance"])) + " | REA:" + str(int(data["postgameUpgradeLevels"]["reach"])) + " | POW:" + str(int(data["postgameUpgradeLevels"]["power"]))
 	#else:
 		#upgrades.text = "RAN:" + str(int(data["upgradeLevels"]["range"])) + " | END:" + str(int(data["upgradeLevels"]["endurance"])) + " | SPE:" + str(int(data["upgradeLevels"]["speed"]))
-	level.text = "Treats: " + str(int(data["level"]))
+	level.text = tr("TREATS") + ": " + str(int(data["level"]))
+	var levelName = data["levelName"]
+	if levelName == "Quiet Gardens":
+		stage_name.text = tr("STAGE_1")
+	elif levelName == "Rocky Forest":
+		stage_name.text = tr("STAGE_2")
+	elif levelName == "Hidden Grove":
+		stage_name.text = tr("STAGE_3")
 	if int(data["difficulty"]) == 0:
-		stage_name.text = data["levelName"]
-		difficulty.text = "Easy"
+		difficulty.text = tr("EASY")
 		health.text = "HP: " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
 	elif int(data["difficulty"]) == 1:
-		stage_name.text = data["levelName"]
-		difficulty.text = "Normal"
+		difficulty.text = tr("MEDIUM")
 		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
 		
 	#stage_name.text = "Map: " + data["levelName"]

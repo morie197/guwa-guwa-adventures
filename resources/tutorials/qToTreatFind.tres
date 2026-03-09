@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_bewkj")
 icons = Array[Texture2D]([ExtResource("1_n3pve")])
-text = "Search: "
+text = "SEARCH_ACTION"
 includeInPause = false
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

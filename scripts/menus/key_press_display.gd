@@ -63,7 +63,7 @@ func _addImageWide(image: Texture2D, target = h_box_container):
 func _addText(text: String, target = h_box_container):
 	var richText = RichTextLabel.new()
 	target.add_child(richText)
-	richText.text = text
+	richText.text = tr(text)
 	richText.fit_content = true
 	richText.horizontal_alignment =HORIZONTAL_ALIGNMENT_CENTER
 	richText.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

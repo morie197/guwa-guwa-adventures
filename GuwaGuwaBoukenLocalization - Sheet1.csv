@@ -1,5 +1,5 @@
 keys,en,ja
-TITLE,Guwa Guwa Adventures,ぐわぐわ冒険
+TITLE,Quack Quack Adventures,ぐわぐわ冒険
 NEW_GAME,New Game,最初から
 CONTINUE,Continue,続きから
 SETTINGS,Settings,設定
@@ -8,16 +8,20 @@ STAGE_1,Quiet Gardens,静かな庭園
 STAGE_1_DESC,"Map with a balance of hazards, battles, and hidden areas.",危険、戦闘、隠しアリアのバランス
 STAGE_2,Rocky Forest,岩の森
 STAGE_2_DESC,"Map focusing on hazards, with some battles and hidden areas.",危険集中で戦闘と隠しアリアが少ない
+STAGE_3,Hidden Grove,隠れた林
 DIFFICULTY,Difficulty:,難易度：
 EASY,Easy,簡単
 MEDIUM,Normal,普通
 HARD,Hard,難しい
 EASY_HINT,Easy: No damage from hazards | save anytime,簡単ー危険からダメージ無し・いつでもセーブ出来る
 MEDIUM_HINT,Normal: Damage from hazards | save anytime,普通ー危険からダメージ受ける・いつでもセーブ出来る
-HARD_HINT,Hard: Damage from hazards | save every 5 treats,難しいー危険からダメージ受ける・トリート5個集めたらもセーブ出来る
+HARD_HINT,Hard: Damage from hazards | save every 5 treats,難しいー危険からダメージ受ける・おやつを5個集めたらもセーブ出来る
 NEW_GAME_CREATE,New game!,始める！
+PAUSED,Paused,ポーズ中
 LOAD,Load,ロード
 SAVE,Save,セーブ
+RESUME,Resume,再開
+BACK_TO_MAIN_MENU,Title Screen,タイトルへ
 AUTOSAVES,Autosaves:,自動セーブ：
 FULLSCREEN,Fullscreen:,フルスクリーン：
 MUSIC,Music:,音楽：
@@ -41,3 +45,89 @@ REACH_HINT,Increases visibility by 20% and attack range by 10%,視認性＋２�
 POWER_HINT,"+1 ATK per 5 levels, +5% speed",５レベルごとに＋１攻撃力、移動速度＋５％
 UPGRADE,Upgrade!,アップグレード
 REMAINING_POINTS,Remaining Points: ,残ってるポイント：
+MAXED,MAX,最大
+GAME_SAVED,Game Saved!,ゲームが保存されました！
+MIGRATION_GOAL,Migration: ,渡り：
+MIGRATION_BACK_GOAL,Migration back: ,帰還の渡り：
+ALL_TREAT_GOAL,All Treats: ,全部のおやつ：
+SWIM,Swim,泳ぐ
+SPRINT,Sprint,走る
+QUACK,Quack,クワック
+SONAR,Sonar,ソナー
+WALK,Walk,歩く
+MAP,Map,マップ
+DIVE,Dive,潜る
+TREAT_SONAR,Treat Sonar,おやつのソナー
+FLY,Flight,飛行
+MIGRATE,Migrate,渡り
+TRAVEL,Travel,トラベル
+BASICS_TUTORIAL,"You are a duck. Eat 40 duck treats to evolve, then migrate south. (TAB to hide)",あなたはアヒルです。アヒルのおやつを４０個食べて進化し、南へ渡りましょう。（TABで非表示）
+DIVING_TUTORIAL,"Darker water spots can be dived in. Once underwater, if you run out of stamina you start taking damage.",暗い水に潜られるようになりました。水没してる間にスタミナがなくなるとダメージ受け始めます。
+FLYING_TUTORIAL,"Hold SPACEBAR to fly, allowing you to fly over cliffs. Once out of stamina or upon hitting an obstacle you take damage.",SPACEを長押しすると飛行出来るようになりました。飛行してる間、スタミナがなくなると、または物に打つかるとダメージを受けます。
+HIDDEN_GROVE_TUTORIAL,"Welcome to the hidden grove! Survive by getting to 90 duck treats, then migrate back north.",隠れた林へようこそ！生存するためにアヒルのおやつを９０個集めてから、北へ戻って渡りましょう。
+WALKING_TUTORIAL,You can now walk on land! Walking on land is slower than swimming in water.,地面に歩けるようになりました。地面歩けるのが水に泳ぐより遅いです。
+MAP_TUTORIAL,"Press M to open the map. All previously visited places will show up, and the mapping range can be improved with range upgrades.",Mでマップが開けます。過去に訪れた場所が表示されます。マップされる範囲がアップグレードで増加できます。
+MIGRATE_TUTORIAL,Hold Q and SPACEBAR while moving to migrate and beat the game!,動きながらQとスペースを押したら渡って勝てます。
+QUACK_TUTORIAL,Pressing Q near enemy ducks will initiate a battle. Winning makes them move out of the way.,敵アヒルの近くにQを押すと戦闘できます。勝ったら敵アヒルがどけます。
+RADAR_TUTORIAL,Pressing E will scan the area for hidden areas.,Eを押すと隠しアリア見つけます。
+AUTOSAVE_TUTORIAL,"The game autosaves by default, but you may turn it off in the settings or save manually in the pause menu.",デフォルトで自動セーブされますが、設定でオフに変えます。セーブはポーズメニューで手動でも出来ます。
+SPRINT_TUTORIAL,You can sprint with SHIFT. Once running out of stamina you are unable to sprint for a short while.,SHIFTで走れます。スタミナがなくなると暫く走れなくなります。
+TRAVEL_TUTORIAL,"Congratulations on collecting 60 treats! You may now travel to the hidden grove upon migrating, which is full of enemy ducks and hazards!",６０個のおやつを集めておめでとうございます。「隠された林」に渡るようになりました。「隠された林」には敵アヒルが多くて危険が多いです。
+TREAT_SONAR_TUTORIAL,"Pressing E will now also point to the nearest treat, and show a hint on the map!",Eを押すと最も近い範囲内のおやつに指示されてマップにもヒントが表示されます。
+AUTOSAVE_SLOT,Autosave,自動セーブ
+SLOT,Slot,スロット
+TREATS,Treats,おやつ
+RADAR_READY,Radar Ready!,ソナー使えます。
+LOST_TEXT,You have fallen...,負けました。
+BASICS_MOVE_ACTION,Move: ,移動：
+BASICS_ZOOM_ACTION,Zoom: ,ズーム：
+PAUSE_ACTION,Pause: ,ポーズ：
+DIVE_ACTION,Dive: ,潜る：
+MAP_ACTION,Map: ,マップ：
+QUACK_ACTION,Quack: ,クワック：
+SCAN_ACTION,Scan: ,スキャン：
+FLY_ACTION,Fly: ,飛行：
+SPRINT_ACTION,Sprint: ,走る：
+MIGRATE_ACTION,Migrate: ,渡る：
+SEARCH_ACTION,Search: ,おやつを探す：
+ATTACK_ACTION,Attack: ,攻撃：
+LUNGE_ACTION,Lunge: ,突っかかる：
+AIM_ACTION,Aim: ,エイム：
+PROJECTILE_RANGE_TUTORIAL,- Projectiles deal half damage outside of range.,・射程外では射撃攻撃のダメージが半減します。
+REFLECT_TUTORIAL,- Attacking AFTER an enemy will cause the enemy projectile to be reflected.,・敵の後に攻撃を放つと、その敵の射撃攻撃が敵に反射されます。
+BLOCK_TUTORIAL,- Attacking BEFORE an enemy will cause the projectiles to damage each other.,・敵の前に攻撃を放つと、射撃攻撃が打つかって攻撃力が同等だと両方が消えて、一方が高いともう一方が消えます。
+DUCK_NAME,Duck,アヒル
+NEW_ABILITY_TEXT,"New Ability ""%s"" unlocked!",新しい能力「%s」が解除されました！
+DUCK_HP_STAT,HP: ,HP: 
+DUCK_ATK_STAT,ATK: ,攻撃力:
+DUCK_SPD_STAT,SPD: ,速度:
+DUCK_RAN_STAT,RAN: ,射程:
+CREDITS_DUCK_QUACKING,Quack Quack!,ぐわぐわ！
+CREDITS_HUGE_THANKS,Special thanks to,Special thanks to
+CREDITS_TOA_NAME,Toa,とあ。
+CREDITS_TOA_DESCRIPTION,For reigniting my game-making passion! Happy birthday!!,"私のゲーム作りへの熱情を再熱してありがとう
+誕生日おめでとう！"
+CREDITS_MYOKUN_NAME,Myoujikun,名字君
+CREDITS_MYOKUN_DESCRIPTION,For supporting me through this project!,私を支えてくれてありがとう
+CREDITS_AYRTON_NAME,Ayrton Muniz,Ayrton Muniz
+CREDITS_AYRTON_DESCRIPTION,For providing valuable feedback and helping me make this game possible!,大切なフィードバックをくれてこのゲームを可能にしてありがとう
+CREDITS_TF_NAME,TF,TF
+CREDITS_TF_DESCRIPTION,For playtesting my game and giving me detailed feedback!,私のゲームをプレイテストして詳らかなフィードバックをくれてありがとう
+CREDITS_YOU_NAME,You,あなた
+CREDITS_YOU_DESCRIPTION,"For taking the time to play and beat my game!
+Any feedback, negative or positive is welcome!","大切な時間を、私のゲームをプレイするために使ってもらってクリアまでやってくれてありがとうございました
+必須ではありませんが、フィードバックをいただけると嬉しいです。"
+CREDITS_ASSETS_USED,Assets used,使ったアセット
+CREDITS_MUSIC,Music,音楽
+CREDITS_SFX,SFX,SFX
+CREDITS_IMAGES,UI Assets,UI素材
+CREDITS_DEVELOPED_BY,Developed by,開発者
+CREDITS_DEVELOPER,Ikuna Games,いくなGames
+CREDITS_YOU_DESCRIPTION_FULL,"For taking the time to play and 100% my game!
+Any feedback, negative or positive is welcome!","大切な時間を、私のゲームをプレイするために使ってもらって100％までやってくれてありがとうございました
+必須ではありませんが、フィードバックをいただけると嬉しいです。"
+REQUIRED_TEXT,Required: ,必要：
+REQUIRED_TREATS,%s Treats,%s個のおやつ
+LOST_TO_TEXT,You've lost to %s!,%sに負けました
+DEFEATED_TEXT,You've defeated %s!,%sを倒しました
+DUCK_TREAT_OBTAINED,Duck Treat Obtained!,アヒルのおやつを獲得！

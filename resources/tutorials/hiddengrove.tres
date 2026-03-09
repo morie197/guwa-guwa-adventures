@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("2_ytylw")
-displayText = "Welcome to the hidden grove! Survive by getting to 90 duck treats, then migrate back north."
+displayText = "HIDDEN_GROVE_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

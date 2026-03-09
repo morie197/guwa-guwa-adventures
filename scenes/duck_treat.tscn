@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dlea1st48lkyn"]
+[gd_scene load_steps=14 format=3 uid="uid://dlea1st48lkyn"]
 
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="1_c7hxw"]
 [ext_resource type="Script" uid="uid://c516hnq6mf1ro" path="res://scripts/duck_treat.gd" id="1_r1g13"]
+[ext_resource type="Material" uid="uid://dxsku7oqhc85r" path="res://scenes/duck_treatParticles.tres" id="3_bom71"]
 [ext_resource type="AudioStream" uid="uid://x725xf3ffm8s" path="res://sounds/SFX/shimmering-object-79354.mp3" id="3_sckgt"]
 [ext_resource type="Texture2D" uid="uid://bj5nd6nday274" path="res://sprites/sprites/icon_checkmark.svg" id="4_08ia5"]
 [ext_resource type="Script" uid="uid://biqqorevcedwu" path="res://scripts/followTarget.gd" id="5_n3t4i"]
@@ -76,32 +77,6 @@ shader_parameter/line_intensity = 0.50000002375
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bom71"]
 light_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_2hubb"]
-offsets = PackedFloat32Array(0, 0.5206612, 0.9917355)
-colors = PackedColorArray(1, 1, 1, 1, 0.9882353, 0.9098039, 0.61960787, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pfctk"]
-gradient = SubResource("Gradient_2hubb")
-
-[sub_resource type="Curve" id="Curve_n3t4i"]
-_limits = [1.0, 5.0, 0.0, 1.0156863]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1.0156863, 2.0752373), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_bom71"]
-curve = SubResource("Curve_n3t4i")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r1g13"]
-particle_flag_disable_z = true
-spread = 0.0
-radial_velocity_min = 19.999977
-radial_velocity_max = 39.999977
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 2.0
-scale_curve = SubResource("CurveTexture_bom71")
-color_ramp = SubResource("GradientTexture1D_pfctk")
-
 [sub_resource type="Gradient" id="Gradient_sckgt"]
 offsets = PackedFloat32Array(0, 0.7099567)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -147,7 +122,7 @@ preprocess = 1.0
 local_coords = true
 trail_enabled = true
 trail_lifetime = 3.0
-process_material = SubResource("ParticleProcessMaterial_r1g13")
+process_material = ExtResource("3_bom71")
 
 [node name="duckTreatSound" type="AudioStreamPlayer2D" parent="duckArea"]
 stream = ExtResource("3_sckgt")

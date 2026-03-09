@@ -5,5 +5,5 @@ extends PanelContainer
 
 
 func _ready():
-	new_ability_text.text = "New ability unlocked: " + str(AbilityData.ABILITIES[GameManager.level]["displayName"]) + "!"
-	description.text = AbilityData.ABILITIES[GameManager.level]["description"]
+	new_ability_text.text = tr("NEW_ABILITY_TEXT") % tr(str(AbilityData.ABILITIES[GameManager.level]["displayName"]))
+	#description.text = AbilityData.ABILITIES[GameManager.level]["description"]

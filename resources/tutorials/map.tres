@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_k4kc4")
 items = Array[ExtResource("1_n0l7f")]([ExtResource("2_bmiq4")])
-displayText = "Press M to open the map. All previously visited places will show up, and the mapping range can be improved with range upgrades."
+displayText = "MAP_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

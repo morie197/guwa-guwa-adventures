@@ -7,4 +7,5 @@
 [resource]
 script = ExtResource("2_ec85x")
 items = Array[ExtResource("1_0acnv")]([ExtResource("2_hnunu")])
+displayText = "SPRINT_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

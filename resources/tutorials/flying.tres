@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_04rcc")
 items = Array[ExtResource("1_jdy4n")]([ExtResource("2_u1x25")])
-displayText = "Hold SPACEBAR to fly, allowing you to fly over cliffs. Once out of stamina or upon hitting an obstacle you take damage."
+displayText = "FLYING_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

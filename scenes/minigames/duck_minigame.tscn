@@ -347,7 +347,7 @@ layout_mode = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/movement"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
-text = "Move: "
+text = "BASICS_MOVE_ACTION"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -427,8 +427,8 @@ layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/attack"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 56
-text = "Attack: "
+theme_override_font_sizes/normal_font_size = 48
+text = "ATTACK_ACTION"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -482,9 +482,9 @@ theme_override_constants/separation = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/lunge"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 56
+theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "Lunge:"
+text = "LUNGE_ACTION"
 fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
@@ -558,7 +558,7 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
-text = "Aim:"
+text = "AIM_ACTION"
 fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
@@ -590,7 +590,12 @@ offset_right = 81.0
 offset_bottom = 82.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/controls"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
@@ -598,9 +603,29 @@ theme_override_constants/line_separation = 0
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/normal_font_size = 32
-text = "- Projectiles deal half damage outside of range.
-- Attacking AFTER an enemy will cause the enemy projectile to be reflected.
-- Attacking BEFORE an enemy will cause the projectiles to damage each other."
+text = "PROJECTILE_RANGE_TUTORIAL"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/line_separation = 0
+theme_override_constants/paragraph_separation = 25
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+text = "REFLECT_TUTORIAL"
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/line_separation = 0
+theme_override_constants/paragraph_separation = 25
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+text = "BLOCK_TUTORIAL"
 fit_content = true
 
 [node name="EnemyInfo" type="VBoxContainer" parent="PanelContainer"]

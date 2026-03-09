@@ -7,4 +7,5 @@
 [resource]
 script = ExtResource("2_8km0j")
 items = Array[ExtResource("1_hf7ks")]([ExtResource("2_ptych")])
+displayText = "RADAR_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

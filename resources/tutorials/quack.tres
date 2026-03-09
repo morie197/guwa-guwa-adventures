@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_iqepm")
 items = Array[ExtResource("1_jikfp")]([ExtResource("2_wgkuu")])
-displayText = "Pressing Q near enemy ducks will initiate a battle. Winning makes them move out of the way."
+displayText = "QUACK_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

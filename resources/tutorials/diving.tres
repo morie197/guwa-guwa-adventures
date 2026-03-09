@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_3qgd0")
 items = Array[ExtResource("1_b5qge")]([ExtResource("2_r2ua7")])
-displayText = "Darker water spots can be dived in. Once underwater, if you run out of stamina you start taking damage."
+displayText = "DIVING_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

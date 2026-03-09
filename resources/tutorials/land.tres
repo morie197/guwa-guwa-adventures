@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("2_rn4js")
-displayText = "You can now walk on land! Walking on land is slower than swimming in water."
+displayText = "WALKING_TUTORIAL"
 metadata/_custom_type_script = "uid://c3vgn54satwgg"

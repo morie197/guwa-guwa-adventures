@@ -8,6 +8,6 @@
 [resource]
 script = ExtResource("1_ol4ge")
 icons = Array[Texture2D]([ExtResource("1_lt66m"), ExtResource("2_ejk4x"), ExtResource("3_q3q5o")])
-text = "Zoom: "
+text = "BASICS_ZOOM_ACTION"
 type = "or1"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"

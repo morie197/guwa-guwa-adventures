@@ -9,6 +9,6 @@
 [resource]
 script = ExtResource("1_ckr12")
 icons = Array[Texture2D]([ExtResource("1_bnr14"), ExtResource("2_2071y"), ExtResource("3_0ihlw"), ExtResource("4_dutyu")])
-text = "Move: "
+text = "BASICS_MOVE_ACTION"
 type = "triangle"
 metadata/_custom_type_script = "uid://osfvc8pe6lad"
