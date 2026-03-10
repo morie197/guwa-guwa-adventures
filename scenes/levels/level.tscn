@@ -1,4 +1,4 @@
-[gd_scene load_steps=217 format=4 uid="uid://iw325qeeftst"]
+[gd_scene load_steps=218 format=4 uid="uid://iw325qeeftst"]
 
 [ext_resource type="Script" uid="uid://crksfl5ssd2u1" path="res://scripts/managers/world.gd" id="1_8iyoh"]
 [ext_resource type="TileSet" uid="uid://dlkfn2w1l7bh5" path="res://resources/tilesets/logicTileSet.tres" id="2_mq31s"]
@@ -190,6 +190,23 @@ color = Color(0, 0.9490196, 1, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c8ctg"]
 size = Vector2(896, 3377.823)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tkw3v"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-250, -1600, 0)
+emission_shape_scale = Vector3(16, 2, 1)
+emission_shape = 3
+emission_box_extents = Vector3(30, 650, 1)
+direction = Vector3(1, -200, 0)
+spread = 0.55
+initial_velocity_min = 1800.0
+initial_velocity_max = 1800.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6frpu"]
+size = Vector2(896, 2222.2524)
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wuciw"]
 particle_flag_disable_z = true
 emission_shape_offset = Vector3(-250, -1600, 0)
@@ -203,9 +220,6 @@ initial_velocity_max = 1800.0
 gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 3.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6frpu"]
-size = Vector2(896, 2222.2524)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xog87"]
 size = Vector2(896, 711.1199)
@@ -2089,13 +2103,13 @@ position = Vector2(320, 2222.2524)
 shape = SubResource("RectangleShape2D_c8ctg")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Underground/areas/stream40"]
-position = Vector2(63.99997, 977.7909)
+position = Vector2(63.999973, 177.78009)
 rotation = -3.1415927
 amount = 80
 lifetime = 0.2
 visibility_rect = Rect2(-750, -3250, 1000, 4000)
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_wuciw")
+process_material = SubResource("ParticleProcessMaterial_tkw3v")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Underground/areas/stream40"]
 position = Vector2(319.99997, 2222.2522)

@@ -29,21 +29,26 @@ func _ready():
 func _localeButtonSetup():
 	var nativeNames = {
 		"en": "English",
-		"ja": "日本語"
+		"ja": "日本語",
+		"zh_CN": "简体中文",
+		'zh_TW': "繁體中文"
 	}
 	
 	var locales = TranslationServer.get_loaded_locales()
 	
 	for i in range(locales.size()):
 		var localCode = locales[i]
+		print(localCode)
 		
 		%languages.add_item(nativeNames[localCode])
 		%languages.set_item_metadata(i, localCode)
 		
-		if localCode == TranslationServer.get_locale().split("_")[0]:
-			%languages.selected = i
+		if SaveManager.configData["other"]:
+			if SaveManager.configData["other"]["language"]:
+				if localCode == SaveManager.configData["other"]["language"]:
+					%languages.selected = i
 			
-		%languages.item_selected.connect(selectLanguage)
+	%languages.item_selected.connect(selectLanguage)
 		
 
 func selectLanguage(index):

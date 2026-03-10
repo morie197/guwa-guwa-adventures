@@ -156,7 +156,7 @@ fullscreen={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.ja.translation")
+locale/translations=PackedStringArray("res://GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.ja.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.zh_CN.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.zh_TW.translation")
 
 [layer_names]
 
