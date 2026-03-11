@@ -43,8 +43,8 @@ func _localeButtonSetup():
 		%languages.add_item(nativeNames[localCode])
 		%languages.set_item_metadata(i, localCode)
 		
-		if SaveManager.configData["other"]:
-			if SaveManager.configData["other"]["language"]:
+		if SaveManager.configData.has("other"):
+			if SaveManager.configData["other"].has("language"):
 				if localCode == SaveManager.configData["other"]["language"]:
 					%languages.selected = i
 			

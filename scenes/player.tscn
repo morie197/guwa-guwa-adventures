@@ -325,10 +325,10 @@ emission_ring_radius = 7.0
 emission_ring_inner_radius = 10.0
 emission_ring_cone_angle = 90.0
 spread = 180.0
-initial_velocity_min = 120.0
+initial_velocity_min = 100.0
 initial_velocity_max = 120.0
-orbit_velocity_min = -0.19999991
-orbit_velocity_max = 0.2000001
+orbit_velocity_min = -0.009999906
+orbit_velocity_max = 0.010000096
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 3.0
@@ -350,16 +350,19 @@ frame_progress = 0.5237696
 visible = false
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_fulsm")
+speed_scale = 1.3
 
 [node name="walktofly" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_cs1tg")
 speed_scale = 2.0
 
 [node name="flying" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
+position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_u2ulf")
 speed_scale = 2.0
 
@@ -457,6 +460,7 @@ bus = &"SFX"
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
+visible = false
 light_mask = 0
 visibility_layer = 2
 z_index = 6
@@ -502,6 +506,6 @@ unique_name_in_owner = true
 z_index = 5
 emitting = false
 amount = 60
-lifetime = 2.0
+lifetime = 1.5
 explosiveness = 0.4
 process_material = SubResource("ParticleProcessMaterial_wnwbv")

@@ -512,6 +512,7 @@ func _process(delta):
 	if sprinting or flying:
 		if stamina > 0: # prevent negative stamina values
 			if sprinting:
+				walking.speed_scale = 2.5
 				if moveVector != Vector2.ZERO and tornadoThrownVelocity.is_zero_approx():
 					stamina -= delta
 				else:
@@ -520,12 +521,14 @@ func _process(delta):
 				stamina -= delta / flyStaminaMulti
 			emitUpdatedStaminaValue()
 		else:
+			walking.speed_scale = 1.3
 			tired = true
 			if sprinting: 
 				sprinting = false
 			elif flying and layer != 2 and !areaFlag.match("wind") and !forcedFly: 
 				_toggleFly(false)
 	else:
+		walking.speed_scale = 1.3
 		if stamina < maxStamina * resistanceMultiplier and !underwater: 
 			stamina+=delta * staminaRecoveryRate * enduranceMultiplier
 			emitUpdatedStaminaValue()
