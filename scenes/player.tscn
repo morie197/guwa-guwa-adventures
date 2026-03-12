@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://bo5k27tj5txjb"]
+[gd_scene load_steps=100 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://dfe3hpb60k1ex" path="res://sprites/duckfly.png" id="5_md1ol"]
 [ext_resource type="AudioStream" uid="uid://dcvinj1r6tfnp" path="res://sounds/SFX/sonarping-38269.mp3" id="5_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://ddkn8idn5mfsu" path="res://sounds/SFX/footstep grass light step 1.wav" id="6_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://dilh5d86xkd0r" path="res://sprites/duckunderwater.png" id="6_j2b1d"]
+[ext_resource type="Texture2D" uid="uid://utiqqop333kt" path="res://sprites/duckunderwaterswim.png" id="7_cs1tg"]
 [ext_resource type="AudioStream" uid="uid://bsqnvhva4gdd7" path="res://sounds/SFX/footstep grass light step 2.wav" id="7_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://cw3el3leaehep" path="res://sprites/duckwatersurface.png" id="8_cs1tg"]
 [ext_resource type="AudioStream" uid="uid://morsllpt47n5" path="res://sounds/SFX/footstep grass light step 3.wav" id="8_fulsm"]
 [ext_resource type="AudioStream" uid="uid://ccmvlwvbnpnjs" path="res://sounds/SFX/footstep grass light step 4.wav" id="9_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://bicpa6prsa066" path="res://sounds/SFX/footstep grass light step 5.wav" id="10_60mlk"]
@@ -37,6 +40,7 @@
 [ext_resource type="Script" uid="uid://dwpu3ud4v0o1c" path="res://scenes/treat_radius_draw.gd" id="30_wnwbv"]
 [ext_resource type="AudioStream" uid="uid://0m8ovs4u2gcq" path="res://sounds/SFX/classic-punch-impact-352711.mp3" id="30_wqfne"]
 [ext_resource type="AudioStream" uid="uid://cn3pvo0qicqff" path="res://sounds/SFX/duck-calling-371054.mp3" id="31_wnwbv"]
+[ext_resource type="AudioStream" uid="uid://dixyxkeqnfpwy" path="res://sounds/SFX/splashing-water-443136.mp3" id="41_2dvfe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_qhqgy")
@@ -245,6 +249,107 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2ulf"]
+atlas = ExtResource("6_j2b1d")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e8lb"]
+atlas = ExtResource("6_j2b1d")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gdjj"]
+atlas = ExtResource("6_j2b1d")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sc3ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2ulf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e8lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gdjj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
+atlas = ExtResource("7_cs1tg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha2mi"]
+atlas = ExtResource("7_cs1tg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apa73"]
+atlas = ExtResource("7_cs1tg")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74r1k"]
+atlas = ExtResource("7_cs1tg")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8svfe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxlsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha2mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apa73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74r1k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc3ue"]
+atlas = ExtResource("8_cs1tg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8svfe"]
+atlas = ExtResource("8_cs1tg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a3c5"]
+atlas = ExtResource("8_cs1tg")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42b1b"]
+atlas = ExtResource("8_cs1tg")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7ic4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc3ue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8svfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2a3c5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42b1b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(16, 16)
 
@@ -366,6 +471,26 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_u2ulf")
 speed_scale = 2.0
 
+[node name="underwatertransition" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_sc3ue")
+
+[node name="underwaterswim" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_8svfe")
+
+[node name="underwatersurface" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_h7ic4")
+frame = 3
+frame_progress = 0.71678096
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_onrkg")
 
@@ -471,6 +596,7 @@ polygon = PackedVector2Array(-64, -96, 64, -96, 64, 32, -64, 32)
 [node name="healSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("29_dt7fs")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="PointLight2D3" type="PointLight2D" parent="."]
 color = Color(0.8646751, 0.86467516, 0.8646751, 0.61960787)
@@ -509,3 +635,9 @@ amount = 60
 lifetime = 1.5
 explosiveness = 0.4
 process_material = SubResource("ParticleProcessMaterial_wnwbv")
+
+[node name="underwaterSwitchSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("41_2dvfe")
+pitch_scale = 1.4
+bus = &"SFX"

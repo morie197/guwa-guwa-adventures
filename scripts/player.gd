@@ -27,11 +27,16 @@ var flytoLand: bool = false
 var timeBeingDamaged: float
 var timeBeingDamagedUntilHit: float = 0.15
 
+var animations = []
+
 var indicator
 
 @onready var audio_listener_2d = $AudioListener2D
 
 var tornadoMultiplier: float = 5.0
+
+var waterSurfaceSwitchDelay: float = 0.5
+var waterSurfaceSwitchDelayTimer: float = 0.0
 
 @onready var bgm = $BGM
 
@@ -113,6 +118,8 @@ var tornadoRecoverSpeed: float = 0.1
 @export var quackFalloffZoom: float = 2
 @export var quackFalloffAmountMulti: float = 8
 
+var isBreathable: bool = true
+
 var areaTransitionTime: float = 0.9
 
 @export var radarRange: float = 400
@@ -158,6 +165,8 @@ func _ready():
 	camera_2d.make_current()
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
+	
+	animations = [swimming, walking, %walktofly, %flying, %underwatersurface, %underwaterswim, %underwatertransition]
 	
 	GameManager.changedMapLevel.connect(_showOnMap)
 	
@@ -258,32 +267,54 @@ func _unhandled_input(event):
 			
 		if GameManager.abilities.has("dive") and layer == -1:
 			if Input.is_action_just_pressed("dive"):
+				waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
 				GameManager.worldManager.switchUnderOverGround()
+				%underwaterSwitchSound.play()
 				
 		if Input.is_action_just_pressed("zoomin") and mouseScrollInput == 0:
 			mouseScrollInput = zoomInAmount * keyZoomMult
 		elif Input.is_action_just_pressed("zoomout") and mouseScrollInput == 0:
 			mouseScrollInput = zoomOutAmount / keyZoomMult
 		
+func _stopAnimations(exclusion: AnimatedSprite2D, hide: bool = true):
+	for anim in animations:
+		if anim != exclusion:
+			anim.stop()
+			if hide:
+				anim.visible = false
+		
 func _animateDuck():
 	if tornadoThrownVelocity.is_zero_approx():
 		if moveVector.x < 0:
-			walking.flip_h = true
-			%walktofly.flip_h = true
-			%flying.flip_h = true
-			swimming.flip_h = true
+			for anim in animations:
+				anim.flip_h = true
 		elif moveVector.x > 0:
-			walking.flip_h = false
-			%walktofly.flip_h = false
-			%flying.flip_h = false
-			swimming.flip_h = false
+			for anim in animations:
+				anim.flip_h = false
 	
 	if tornadoThrownVelocity.is_zero_approx():
-		if flyDelayTimer > 0.0:
+		
+		if waterSurfaceSwitchDelayTimer > 0.0:
+			var target = %underwatersurface
+			if underwater and !isBreathable:
+				_stopAnimations(%underwatertransition)
+				print("2")
+				target = %underwatertransition
+				%underwatertransition.visible = true
+			else:
+				_stopAnimations(%underwatersurface)
+				%underwatersurface.visible = true
+			var progFrame: float = 0.0
+			progFrame = (1.0 - clampf(waterSurfaceSwitchDelayTimer / waterSurfaceSwitchDelay, 0, 1))
+			target.frame = target.sprite_frames.get_frame_count("default") * progFrame
+		elif underwater and !isBreathable:
+			_stopAnimations(%underwaterswim)
+			%underwaterswim.play()
+			%underwaterswim.visible = true
+		elif flyDelayTimer > 0.0:
 			if %flying.is_playing():
 				flytoLand = true
-				%flying.stop()
-			%flying.visible = false
+			_stopAnimations(%walktofly)
 			%walktofly.visible = true
 			var progFrame: float = 0.0
 			if flytoLand:
@@ -291,52 +322,25 @@ func _animateDuck():
 			else:
 				progFrame = (1.0 - clampf(flyDelayTimer / flyDelay, 0, 1))
 			%walktofly.frame = %walktofly.sprite_frames.get_frame_count("default") * progFrame
-			#print(%walktofly.frame)
-			#print(clampf(flyDelayTimer / flyDelay, 0, 1))
-			walking.visible = false
-			if walking.is_playing():
-				walking.stop()
-			swimming.visible = false
-			if swimming.is_playing():
-				swimming.stop()
 		elif flying:
-			%walktofly.visible = false
 			%flying.visible = true
 			%flying.play()
-			
-			walking.visible = false
-			if walking.is_playing():
-				walking.stop()
-			swimming.visible = false
-			if swimming.is_playing():
-				swimming.stop()
+			_stopAnimations(%flying)
 		else:
 			flytoLand = false
-			if %flying.is_playing():
-				%flying.stop()
-			%flying.visible = false
-			%walktofly.visible = false
-			
 			if layer == 0 or layer == -1:
-				walking.visible = false
+				_stopAnimations(swimming)
 				swimming.visible = true
 			if layer == 1:
-				swimming.visible = false
+				_stopAnimations(walking)
 				walking.visible = true
 			if moveVector != Vector2.ZERO:
 				if layer == 0 or layer == -1:
-					if walking.is_playing():
-						walking.stop()
 					swimming.play()
 				if layer == 1:
-					if swimming.is_playing():
-						swimming.stop()
 					walking.play()
 			else:
-				if walking.is_playing():
-					walking.stop()
-				elif swimming.is_playing():
-					swimming.stop()
+				_stopAnimations(null, false)
 			
 			
 	if flying:
@@ -430,7 +434,7 @@ func _process(delta):
 	else:
 		underwater = false
 	
-	if underwater:
+	if underwater and !isBreathable:
 		if stamina > 0:
 			stamina -= delta * underwaterStaminaDrain
 		else:
@@ -450,6 +454,9 @@ func _process(delta):
 		
 	if flyDelayTimer > 0:
 		flyDelayTimer -= delta
+		
+	if waterSurfaceSwitchDelayTimer > 0:
+		waterSurfaceSwitchDelayTimer -= delta
 		
 	if healTimer.paused:
 		healTimer.paused = false
@@ -529,7 +536,7 @@ func _process(delta):
 				_toggleFly(false)
 	else:
 		walking.speed_scale = 1.3
-		if stamina < maxStamina * resistanceMultiplier and !underwater: 
+		if stamina < maxStamina * resistanceMultiplier and !(underwater and !isBreathable): 
 			stamina+=delta * staminaRecoveryRate * enduranceMultiplier
 			emitUpdatedStaminaValue()
 		else:
@@ -578,6 +585,7 @@ func tileCheck():
 		return
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
 	if tile != newtile:
+		var oldBreathable = isBreathable
 		if GameManager.worldManager != null:
 			GameManager.worldManager.updateFOW(true)
 		if (layer == 2 and !(areaFlag.match("wind") or areaFlag == "tornado")):
@@ -587,11 +595,21 @@ func tileCheck():
 		var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
 		if atlascoords == Vector2i(0, 2):
 			layer = 0
+			isBreathable = true
+		elif atlascoords == Vector2i(2, 2):
+			layer = 0
+			isBreathable = false
+		elif atlascoords == Vector2i(2, 3):
+			layer = 0
+			isBreathable = false
 		elif atlascoords == Vector2i(0, 0):
+			isBreathable = true
 			layer = 1
 		elif atlascoords == Vector2i(0, 3):
 			layer = -1
+			isBreathable = false
 		elif atlascoords == Vector2i(1, 1):
+			isBreathable = true
 			layer = 2
 			if flying == false:
 				sprinting = false
@@ -599,6 +617,7 @@ func tileCheck():
 				_toggleFly(true)
 						
 		if atlascoords == Vector2i(1, 0):
+			isBreathable = true
 			layer = 1
 			onThorns = true
 		else:
@@ -608,6 +627,10 @@ func tileCheck():
 			if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
 				forcedFly = false
 				_toggleFly(false)
+	
+		if (isBreathable != oldBreathable) and underwater:
+			waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
+			%underwaterSwitchSound.play()
 	
 func _toggleFly(value: bool):
 	if flying == value: 
@@ -958,6 +981,9 @@ func _move(movevec: Vector2, delt):
 	if streamRef == null:
 		backwards_detector.target_position = Vector2.ZERO
 		backwards_detector.enabled = false
+		
+	if waterSurfaceSwitchDelayTimer > 0:
+		velocity *= 0.2
 		
 	var colliding = move_and_slide()
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
