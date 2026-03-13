@@ -1,7 +1,7 @@
 [gd_scene load_steps=100 format=3 uid="uid://bo5k27tj5txjb"]
 
 [ext_resource type="Script" uid="uid://qdj21vcsef0v" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bv8tu48g87iat" path="res://sprites/duckwater2.png" id="2_2dvfe"]
 [ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://3b3i7hvxh0v4" path="res://sprites/ducklandtofly.png" id="4_487ah"]
 [ext_resource type="AudioStream" uid="uid://cwto40x23gmxe" path="res://sounds/SFX/quack.wav" id="4_dqkch"]
@@ -42,36 +42,36 @@
 [ext_resource type="AudioStream" uid="uid://cn3pvo0qicqff" path="res://sounds/SFX/duck-calling-371054.mp3" id="31_wnwbv"]
 [ext_resource type="AudioStream" uid="uid://dixyxkeqnfpwy" path="res://sounds/SFX/splashing-water-443136.mp3" id="41_2dvfe"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
-atlas = ExtResource("2_qhqgy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7ic4"]
+atlas = ExtResource("2_2dvfe")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
-atlas = ExtResource("2_qhqgy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_au7lq"]
+atlas = ExtResource("2_2dvfe")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
-atlas = ExtResource("2_qhqgy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nubpm"]
+atlas = ExtResource("2_2dvfe")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
-atlas = ExtResource("2_qhqgy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua5cf"]
+atlas = ExtResource("2_2dvfe")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ur7pv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_51ujp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
+"texture": SubResource("AtlasTexture_h7ic4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
+"texture": SubResource("AtlasTexture_au7lq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fjrip")
+"texture": SubResource("AtlasTexture_nubpm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_smehm")
+"texture": SubResource("AtlasTexture_ua5cf")
 }],
 "loop": true,
 "name": &"default",
@@ -448,8 +448,7 @@ script = ExtResource("1_3vyb7")
 
 [node name="swimming" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
-sprite_frames = SubResource("SpriteFrames_ur7pv")
-frame_progress = 0.5237696
+sprite_frames = SubResource("SpriteFrames_51ujp")
 
 [node name="walking" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -585,7 +584,6 @@ bus = &"SFX"
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
-visible = false
 light_mask = 0
 visibility_layer = 2
 z_index = 6

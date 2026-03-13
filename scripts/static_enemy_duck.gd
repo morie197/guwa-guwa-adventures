@@ -15,7 +15,10 @@ const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
 
 @export var direction: Vector2 = Vector2.LEFT
 
+@export var landDuck: bool = false
+
 var duckContainer
+var detected: bool = false
 
 @export var owners: Array[Node2D]
 
@@ -34,7 +37,21 @@ func _ready():
 	
 	GameManager.treatsUpdated.connect(_ducksUpdated)
 
+func _process(delta):
+	if GameManager.playerRef != null:
+		if GameManager.playerRef.global_position.distance_to(global_position) < 300:
+			if GameManager.playerRef.global_position.x < global_position.x:
+				%waterSprite.flip_h = true
+				%landSprite.flip_h = true
+			else:
+				%waterSprite.flip_h = false
+				%landSprite.flip_h = false
+
 func _player_detected(_area):
+	detected = true
+	if landDuck:
+		%landSprite.visible = true
+		%waterSprite.visible = false
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.connect(_quack)
 		if duckContainer == null:
@@ -60,6 +77,10 @@ func _duckWindowPopup():
 	
 	
 func _player_exited(_area):
+	detected = false
+	if landDuck:
+		%landSprite.visible = false
+		%waterSprite.visible = true
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.disconnect(_quack)
 		for duck in owners:

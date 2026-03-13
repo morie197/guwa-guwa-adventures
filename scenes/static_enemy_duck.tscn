@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci28hqjsp8qk0"]
+[gd_scene load_steps=22 format=3 uid="uid://ci28hqjsp8qk0"]
 
 [ext_resource type="Script" uid="uid://dd6y7ulfqglxn" path="res://scripts/static_enemy_duck.gd" id="1_4px4l"]
+[ext_resource type="Texture2D" uid="uid://dywooodxrl7f5" path="res://sprites/enemyduckwater.png" id="2_n0s84"]
+[ext_resource type="Texture2D" uid="uid://cyibqpgjgnj0n" path="res://sprites/enemyduckland.png" id="3_jtqbu"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ng3w3"]
 light_mode = 1
@@ -11,14 +13,121 @@ size = Vector2(64, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ng3w3"]
 size = Vector2(64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqfdp"]
+atlas = ExtResource("2_n0s84")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqxyy"]
+atlas = ExtResource("2_n0s84")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fga21"]
+atlas = ExtResource("2_n0s84")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_new7s"]
+atlas = ExtResource("2_n0s84")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mw0tl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqfdp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqxyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fga21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_new7s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjuad"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i12q0"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heuxd"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0etj8"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyyby"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl6bm"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st3gq"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3y0w"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8g08"]
+atlas = ExtResource("3_jtqbu")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dnioa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjuad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i12q0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heuxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0etj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyyby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl6bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st3gq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3y0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8g08")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="StaticEnemyDuck" type="Node2D"]
 light_mask = 3
 visibility_layer = 3
 script = ExtResource("1_4px4l")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-light_mask = 3
-visibility_layer = 3
+light_mask = 2
+visibility_layer = 2
 z_index = 5
 material = SubResource("CanvasItemMaterial_ng3w3")
 color = Color(1, 0.66999996, 0.66999996, 1)
@@ -37,3 +146,18 @@ shape = SubResource("RectangleShape2D_2icpk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collider"]
 position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_ng3w3")
+
+[node name="waterSprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-16, -16)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_mw0tl")
+centered = false
+
+[node name="landSprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-16, -28)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_dnioa")
+centered = false

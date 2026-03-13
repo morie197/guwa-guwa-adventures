@@ -107,7 +107,7 @@ func initValues():
 	
 	#max_quack_range = ((minigamemanager.player_minigame.baseQuackRange * clampf(minigamemanager.rangeMultiplier/3, 1, 10))/2 + (maxHealth * playerEnemyRangeDiff)/4) - (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1)
 		
-	var enemyScale = clampf(0.5 + ((maxHealth/30.0) - (speed/200.0)), 0.5, 2)
+	var enemyScale = clampf(0.5 + ((maxHealth/40.0) - (speed/90.0)), 1, 2)
 	swimming.scale = Vector2(enemyScale, enemyScale)
 	walking.scale = Vector2(enemyScale, enemyScale)
 	
@@ -180,6 +180,13 @@ func _process(delta):
 	elif moveVector.x > 0:
 		walking.flip_h = false
 		swimming.flip_h = false
+		
+	if moveVector != Vector2.ZERO:
+		swimming.play()
+		walking.play()
+	else:
+		swimming.stop()
+		walking.stop()
 	
 	if tim != null and !tim.is_queued_for_deletion():
 		lunge_bar.show()

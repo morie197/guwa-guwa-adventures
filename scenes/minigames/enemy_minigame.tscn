@@ -1,107 +1,114 @@
-[gd_scene load_steps=25 format=3 uid="uid://5y4if4dkbvsj"]
+[gd_scene load_steps=26 format=3 uid="uid://5y4if4dkbvsj"]
 
 [ext_resource type="Script" uid="uid://dcosv8pqa8a2r" path="res://scripts/minigames/enemy_minigame.gd" id="1_uucyl"]
-[ext_resource type="Texture2D" uid="uid://bjm8dxah8qinq" path="res://sprites/sprites/duckwater.png" id="2_hk6hf"]
-[ext_resource type="Texture2D" uid="uid://mpjetyvh16sm" path="res://sprites/sprites/duckland.png" id="3_nk8nx"]
+[ext_resource type="Texture2D" uid="uid://dywooodxrl7f5" path="res://sprites/enemyduckwater.png" id="2_nkgv4"]
+[ext_resource type="Texture2D" uid="uid://cyibqpgjgnj0n" path="res://sprites/enemyduckland.png" id="3_lkhxo"]
 [ext_resource type="PackedScene" uid="uid://dadgukmdghdhw" path="res://scenes/quacker.tscn" id="4_qsa8o"]
 [ext_resource type="AudioStream" uid="uid://cj2xrus2jcqgb" path="res://sounds/SFX/single-quack-from-a-duck-14494.mp3" id="5_hk6hf"]
 [ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/bars/baroverlay.png" id="6_qsa8o"]
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="7_udwa8"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
-atlas = ExtResource("2_hk6hf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hyqi"]
+atlas = ExtResource("2_nkgv4")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
-atlas = ExtResource("2_hk6hf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo855"]
+atlas = ExtResource("2_nkgv4")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
-atlas = ExtResource("2_hk6hf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlsk8"]
+atlas = ExtResource("2_nkgv4")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
-atlas = ExtResource("2_hk6hf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ciocj"]
+atlas = ExtResource("2_nkgv4")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rpuvt"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_4a3so"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
+"texture": SubResource("AtlasTexture_7hyqi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
+"texture": SubResource("AtlasTexture_fo855")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fjrip")
+"texture": SubResource("AtlasTexture_mlsk8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_smehm")
+"texture": SubResource("AtlasTexture_ciocj")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt7k6"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ajsd"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5eix"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3w5u"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_084mf"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7ro8"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubo3u"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(384, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
-atlas = ExtResource("3_nk8nx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo402"]
+atlas = ExtResource("3_lkhxo")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_gsmep"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwrtt"]
+atlas = ExtResource("3_lkhxo")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kw16i"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y4r1p")
+"texture": SubResource("AtlasTexture_gt7k6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d2wvv")
+"texture": SubResource("AtlasTexture_7ajsd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3v2ag")
+"texture": SubResource("AtlasTexture_q5eix")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jej6c")
+"texture": SubResource("AtlasTexture_p3w5u")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f1ej7")
+"texture": SubResource("AtlasTexture_084mf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oprun")
+"texture": SubResource("AtlasTexture_u7ro8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a8ls1")
+"texture": SubResource("AtlasTexture_ubo3u")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qfm1y")
+"texture": SubResource("AtlasTexture_vo402")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwrtt")
 }],
 "loop": true,
 "name": &"default",
@@ -125,14 +132,16 @@ motion_mode = 1
 script = ExtResource("1_uucyl")
 
 [node name="swimming" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(0.92, 0.13799998, 0.13799998, 1)
-sprite_frames = SubResource("SpriteFrames_rpuvt")
+modulate = Color(0.99031264, 0.50367135, 0.6053174, 1)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_4a3so")
 flip_h = true
 
 [node name="walking" type="AnimatedSprite2D" parent="."]
 visible = false
-self_modulate = Color(0.92, 0.13799998, 0.13799998, 1)
-sprite_frames = SubResource("SpriteFrames_gsmep")
+modulate = Color(0.99215686, 0.5019608, 0.6039216, 1)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_kw16i")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

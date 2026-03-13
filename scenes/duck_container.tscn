@@ -40,6 +40,7 @@ grow_end = 5.0
 vertical = true
 
 [node name="duckContainer" type="PanelContainer"]
+modulate = Color(1, 1, 1, 0.75000006)
 z_index = 10
 material = SubResource("CanvasItemMaterial_2dyep")
 offset_right = 40.0

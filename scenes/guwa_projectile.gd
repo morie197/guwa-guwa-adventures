@@ -150,7 +150,7 @@ func _projectile_detected(area):
 					damageInd.damageText.fadeoutSpeed = 10
 				
 					damageInd.damageText.text = "-" + str(abs(area.attack_damage - attack_damage))
-					damageInd.global_position = global_position + Vector2(-16, -32)
+					damageInd.global_position = global_position + Vector2(-32, -48)
 			
 				if area.attack_damage > attack_damage:
 					area.attack_damage -= attack_damage
