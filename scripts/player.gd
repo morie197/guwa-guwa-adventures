@@ -298,7 +298,7 @@ func _animateDuck():
 			var target = %underwatersurface
 			if underwater and !isBreathable:
 				_stopAnimations(%underwatertransition)
-				print("2")
+				#print("2")
 				target = %underwatertransition
 				%underwatertransition.visible = true
 			else:

@@ -57,6 +57,6 @@ func _inPopup():
 		buttons = [newgame, settings, quit]
 	else:
 		buttons = [newgame, settings, continueButton, quit]
-	inPopup = !inPopup
+	#inPopup = !inPopup
 	for button in buttons:
 		button.disabled = inPopup

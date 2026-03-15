@@ -190,6 +190,20 @@ max_distance = 800.0
 bus = &"SFX"
 parameters/looping = true
 
+[node name="versionText" type="RichTextLabel" parent="PanelContainer2"]
+custom_minimum_size = Vector2(160, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/shadow_outline_size = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 50
+text = "v0.9.5"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -6
 position = Vector2(-688, -96)
