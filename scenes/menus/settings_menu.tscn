@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnkbdoidjjxng"]
+[gd_scene load_steps=11 format=3 uid="uid://dnkbdoidjjxng"]
 
 [ext_resource type="Script" uid="uid://bj5mu5aofixvm" path="res://scripts/menus/settings_menu.gd" id="1_wswnh"]
 [ext_resource type="Texture2D" uid="uid://bdhn7vnr0riyv" path="res://sprites/sprites/check_square_grey_checkmark.png" id="2_labj1"]
@@ -18,6 +18,38 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2d1y"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojvp1"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.19076231, 0.19076234, 0.19076231, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufg0w"]
@@ -156,7 +188,7 @@ alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 40
 text = "LANGUAGE"
 fit_content = true
 autowrap_mode = 0
@@ -164,6 +196,15 @@ autowrap_mode = 0
 [node name="languages" type="OptionButton" parent="menu/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_s2d1y")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_s2d1y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s2d1y")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_s2d1y")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ojvp1")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ojvp1")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ojvp1")
+alignment = 1
 
 [node name="HSeparator5" type="HSeparator" parent="menu/VBoxContainer"]
 layout_mode = 2

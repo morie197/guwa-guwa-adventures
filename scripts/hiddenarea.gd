@@ -21,6 +21,8 @@ var pingHintColor: Color = Color(1.0, 0.85, 0.85, 0.95)
 
 @export var pingRadarVolume: float = -3.496
 
+@export var underwaterBreathable: bool = false
+
 var underground: bool = false
 var found: bool = false
 
@@ -43,6 +45,8 @@ func _ready():
 		mapMaskRef = map_mask
 	else:
 		print("no map mask for: ", id)
+		
+	GameManager.changeBreathableLayer.connect(_changeBreathable)
 	
 	area_entered.connect(_player_detected)
 	area_exited.connect(_player_exited)
@@ -60,6 +64,13 @@ func _transitionUpdate():
 		if GameManager.hiddenRegistry.has(idNumber):
 			_showarea()
 	
+func _changeBreathable(breathable: bool):
+	if !underground:
+		return
+	if underwaterBreathable == breathable:
+		mask.visible = true
+	else:
+		mask.visible = false
 
 func _process(delta):
 	if mask.modulate != targetModulateColor:

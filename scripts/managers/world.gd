@@ -21,6 +21,11 @@ class_name WorldManager
 @onready var underAreas = $Underground/areas
 @onready var overAreas = $Overground/areas
 
+@onready var underwater_land_layer = $Underground/LandLayer
+#@onready var borders = $Underground/LandLayer/borders
+@onready var water = $Underground/LandLayer/water
+@onready var water_layer_border = $Underground/WaterLayer3
+
 
 @onready var lights = $Underground/lights
 
@@ -288,6 +293,36 @@ func _ready():
 	GameManager.playerRef.bgm.play()
 	GameManager.playerRef.bgmVolume = GameManager.playerRef.bgm.volume_db
 	GameManager.playerRef.bgm.autoplay = true
+	
+	switchBreathableArea(GameManager.playerRef.isBreathable)
+
+func switchBreathableArea(breathable: bool = false):
+	print("called")
+	if breathable:
+		undergroundTreats.visible = true
+		#undergroundDucks.visible = true
+		undergroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
+			
+		GameManager.changeBreathableLayer.emit(breathable)
+			
+		water_layer_border.modulate = Color.TRANSPARENT
+		underwater_land_layer.self_modulate = Color.WHITE
+		
+		for child in underwater_land_layer.get_children():
+			child.modulate = Color.WHITE
+	else:
+		undergroundTreats.visible = false
+		#undergroundDucks.visible = false
+		undergroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
+			
+		GameManager.changeBreathableLayer.emit(breathable)
+			
+		water_layer_border.modulate = Color.WHITE
+		underwater_land_layer.self_modulate = Color.TRANSPARENT
+		
+		for child in underwater_land_layer.get_children():
+			child.modulate = Color.TRANSPARENT
+		water.modulate = Color(1,1,1,0.4)
 
 func openMap(switching: bool = false):
 	#print("opening", inMap)

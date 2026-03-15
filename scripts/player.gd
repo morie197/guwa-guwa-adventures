@@ -77,6 +77,7 @@ var areaSwitchTimer: Timer
 var onThorns: bool = false
 
 var underwaterStaminaDrain: float = 0.6
+var newBreathable: bool = false
 
 var underwater: bool = false
 
@@ -264,12 +265,18 @@ func _unhandled_input(event):
 				_quack()
 				
 		
-			
-		if GameManager.abilities.has("dive") and layer == -1:
-			if Input.is_action_just_pressed("dive"):
-				waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
-				GameManager.worldManager.switchUnderOverGround()
-				%underwaterSwitchSound.play()
+		if Input.is_action_just_pressed("dive"):
+			if GameManager.abilities.has("dive") and layer == -1:
+				if waterSurfaceSwitchDelayTimer <= 0:
+					waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
+					GameManager.worldManager.switchUnderOverGround()
+					tileCheck(true)
+					%underwaterSwitchSound.play()
+				
+			elif GameManager.abilities.has("dive") and layer == 0 and (newBreathable != !underwater) and GameManager.worldLayer == 0:
+				if waterSurfaceSwitchDelayTimer <= 0:
+					newBreathable = !isBreathable
+					switchUnderwater()
 				
 		if Input.is_action_just_pressed("zoomin") and mouseScrollInput == 0:
 			mouseScrollInput = zoomInAmount * keyZoomMult
@@ -583,36 +590,47 @@ func loadGameChecks():
 	sprinting = false
 	migrating = false
 	
-func tileCheck():
+func tileCheck(forced: bool = false):
 	if GameManager.worldManager == null:
 		return
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
-	if tile != newtile:
-		var oldBreathable = isBreathable
+	var pos = global_position + moveVector * 32
+	var nextTile = GameManager.worldManager.getTileUnderPos(pos)
+	var nextAtlascoords = null
+	
+	if GameManager.worldLayer == 0:			
+		nextAtlascoords = GameManager.worldManager.tileToAtlasCoords(nextTile)
+	
+	if tile != newtile or forced:
+		#var oldBreathable = isBreathable
+		
+		
+			#print(nextAtlascoords)
+		
 		if GameManager.worldManager != null:
 			GameManager.worldManager.updateFOW(true)
 		if (layer == 2 and !(areaFlag.match("wind") or areaFlag == "tornado")):
 			areaFlag = ""
 		tile = newtile
-		tilePosition = (tile * 64) + Vector2i(0, 0)
+		#tilePosition = (tile * 64) + Vector2i(0, 0)
 		var atlascoords = GameManager.worldManager.tileToAtlasCoords(tile)
 		if atlascoords == Vector2i(0, 2):
 			layer = 0
-			isBreathable = true
+			newBreathable = true
 		elif atlascoords == Vector2i(2, 2):
 			layer = 0
-			isBreathable = false
+			newBreathable = false
 		elif atlascoords == Vector2i(2, 3):
 			layer = 0
-			isBreathable = false
+			newBreathable = false
 		elif atlascoords == Vector2i(0, 0):
-			isBreathable = true
+			newBreathable = true
 			layer = 1
 		elif atlascoords == Vector2i(0, 3):
 			layer = -1
-			isBreathable = false
+			newBreathable = false
 		elif atlascoords == Vector2i(1, 1):
-			isBreathable = true
+			newBreathable = true
 			layer = 2
 			if flying == false:
 				sprinting = false
@@ -620,7 +638,7 @@ func tileCheck():
 				_toggleFly(true)
 						
 		if atlascoords == Vector2i(1, 0):
-			isBreathable = true
+			newBreathable = true
 			layer = 1
 			onThorns = true
 		else:
@@ -630,10 +648,33 @@ func tileCheck():
 			if layer != 2 and !(!tired and Input.is_action_pressed("fly")):
 				forcedFly = false
 				_toggleFly(false)
+		
+	if nextAtlascoords != null:
+		var switch = false
+		if (isBreathable == newBreathable):
+			switch = false
+		elif (nextAtlascoords == Vector2i(0, 0) and newBreathable):
+			switch = true
+		elif ((nextAtlascoords == Vector2i(2, 3) or nextAtlascoords == Vector2i(0, 3)) and !newBreathable):
+			switch = true
+				
+			#print(nextAtlascoords)
+			#print(isBreathable == newBreathable)
+			#print(switch, newBreathable)
+				
+		if switch:
+			switchUnderwater(forced)
 	
-		if (isBreathable != oldBreathable) and underwater:
-			waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
-			%underwaterSwitchSound.play()
+func switchUnderwater(forced: bool = false):
+	isBreathable = newBreathable
+	print("foced: ", forced)
+	if forced == false:
+		waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
+		%underwaterSwitchSound.play()
+	else:
+		waterSurfaceSwitchDelayTimer = 0
+	if GameManager.worldManager:
+		GameManager.worldManager.switchBreathableArea(isBreathable)
 	
 func _toggleFly(value: bool):
 	if flying == value: 
@@ -985,7 +1026,7 @@ func _move(movevec: Vector2, delt):
 		backwards_detector.enabled = false
 		
 	if waterSurfaceSwitchDelayTimer > 0:
-		velocity *= 0.2
+		velocity *= 0
 		
 	var colliding = move_and_slide()
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):

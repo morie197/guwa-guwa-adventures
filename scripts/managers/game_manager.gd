@@ -73,6 +73,7 @@ signal tutorialOver
 signal switchedWorldLevel
 signal changedMapLevel(onCurrent: bool)
 signal loadedLevel
+signal changeBreathableLayer(breathable: bool)
 	
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("fullscreen"):
@@ -252,6 +253,8 @@ func loadValues(resetRefs: bool = false):
 	levelUp.emit()
 	
 	playerRef.healTimer.start()
+	
+	#changeBreathableLayer.emit(playerRef.isBreathable)
 	
 	availableUpgradePoints = 0
 	

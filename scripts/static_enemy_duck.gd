@@ -4,6 +4,10 @@ class_name StaticDuck
 @onready var quack_detector = $quackDetector
 @onready var collider = $collider
 
+@onready var water_sprite = %waterSprite
+@onready var land_sprite = %landSprite
+
+
 const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
 
 @export var duckNames: Array[String]
@@ -21,6 +25,7 @@ var duckContainer
 var detected: bool = false
 
 @export var owners: Array[Node2D]
+@export var inBreathable: bool = true
 
 var id: int = 0
 var underground: bool = false
@@ -36,6 +41,15 @@ func _ready():
 		id = name.trim_prefix("StaticEnemyDuck").to_int()
 	
 	GameManager.treatsUpdated.connect(_ducksUpdated)
+	GameManager.changeBreathableLayer.connect(_breathLayerChanged)
+
+func _breathLayerChanged(breathable: bool = false):
+	if breathable and inBreathable:
+		land_sprite.modulate = Color.WHITE
+		water_sprite.modulate = Color.WHITE
+	else:
+		land_sprite.modulate = Color.TRANSPARENT
+		water_sprite.modulate = Color.TRANSPARENT
 
 func _process(delta):
 	if GameManager.playerRef != null:
