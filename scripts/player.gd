@@ -532,6 +532,9 @@ func _process(delta):
 			tired = true
 			if sprinting: 
 				sprinting = false
+			if flying:
+				#flying = false
+				forcedFly = true
 			elif flying and layer != 2 and !areaFlag.match("wind") and !forcedFly: 
 				_toggleFly(false)
 	else:
@@ -881,11 +884,10 @@ func _move(movevec: Vector2, delt):
 			velocity *= sprintMult
 		elif flying:
 			velocity *= flyMulti
-
 		if !flying and !forcedFly:
 			if onThorns == true:
 				velocity *= thornSpeedMultiplier
-				if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
+				if !(GameManager.difficultyValue == GameManager.Difficulty.EASY):
 					GameManager.damagePlayer()
 					modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
 				#if global_position.distance_to(tilePosition) < 64:
