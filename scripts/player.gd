@@ -506,8 +506,9 @@ func _process(delta):
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
-	if (moveVector != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null):
+	if (moveVector != Vector2.ZERO) or (areaForce != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null):
 		_stateEffects()
+		
 		
 		tileCheck()
 		#print(layer)
@@ -602,6 +603,7 @@ func tileCheck(forced: bool = false):
 		nextAtlascoords = GameManager.worldManager.tileToAtlasCoords(nextTile)
 	
 	if tile != newtile or forced:
+		#print("check")
 		#var oldBreathable = isBreathable
 		
 		
