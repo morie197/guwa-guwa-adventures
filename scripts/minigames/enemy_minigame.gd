@@ -86,8 +86,8 @@ var playerPos: Vector2 :
 			agent.target_position = global_position
 		if state == STATE.RUNNING:
 			#agent.target_position = global_position + -playerPos.normalized() * 100
-			var potential_target = (global_position - playerPos).normalized() * 100
-			agent.target_position = NavigationServer2D.map_get_closest_point(get_world_2d().get_navigation_map(), potential_target)
+			var potential_target = (global_position - playerPos).normalized() * 200
+			agent.target_position = NavigationServer2D.map_get_closest_point(get_world_2d().get_navigation_map(), global_position + potential_target)
 		
 
 func initValues():
@@ -173,6 +173,10 @@ func _process(delta):
 	if minigamemanager.displaying == true:
 		velocity = Vector2.ZERO
 		return
+	
+	if state == STATE.RUNNING:
+		if global_position.distance_to(agent.target_position) < 30:
+			changeStates()
 	
 	if moveVector.x < 0:
 		walking.flip_h = true
