@@ -16,8 +16,11 @@ const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
 @export var duckSPD: Array[int]
 @export var duckRAN: Array[int]
 @export var stageName: String = "land_forest"
+@export var revealedAreas: Array[Node2D]
 
-@export var direction: Vector2 = Vector2.LEFT
+@export var facingLeft: bool = false
+
+var activationDistance: float = 350
 
 @export var landDuck: bool = false
 
@@ -42,24 +45,33 @@ func _ready():
 	
 	GameManager.treatsUpdated.connect(_ducksUpdated)
 	GameManager.changeBreathableLayer.connect(_breathLayerChanged)
+	
+	if facingLeft:
+		%waterSprite.flip_h = true
+		%landSprite.flip_h = true
+		
+	GameManager.moved.connect(_updateDirection)
 
 func _breathLayerChanged(breathable: bool = false):
-	if breathable and inBreathable:
+	#print(GameManager.worldLayer)
+	if (breathable and inBreathable) or GameManager.worldLayer == 1:
 		land_sprite.modulate = Color.WHITE
 		water_sprite.modulate = Color.WHITE
 	else:
 		land_sprite.modulate = Color.TRANSPARENT
 		water_sprite.modulate = Color.TRANSPARENT
 
-func _process(delta):
+func _updateDirection():
 	if GameManager.playerRef != null:
-		if GameManager.playerRef.global_position.distance_to(global_position) < 300:
+		if GameManager.playerRef.global_position.distance_to(global_position) < activationDistance:
 			if GameManager.playerRef.global_position.x < global_position.x:
 				%waterSprite.flip_h = true
 				%landSprite.flip_h = true
 			else:
 				%waterSprite.flip_h = false
 				%landSprite.flip_h = false
+
+	
 
 func _player_detected(_area):
 	detected = true
@@ -108,6 +120,9 @@ func _quack():
 	
 func playerWon():
 	_exitMinigame()
+	for area in revealedAreas:
+		if area is HiddenArea:
+			area._showarea()
 	GameManager.duckRegistry.append(id)
 	SaveManager.autoSave(true)
 	_enableDisable(false)

@@ -74,6 +74,7 @@ signal switchedWorldLevel
 signal changedMapLevel(onCurrent: bool)
 signal loadedLevel
 signal changeBreathableLayer(breathable: bool)
+signal moved
 	
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("fullscreen"):

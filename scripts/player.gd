@@ -270,6 +270,11 @@ func _unhandled_input(event):
 				if waterSurfaceSwitchDelayTimer <= 0:
 					waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
 					GameManager.worldManager.switchUnderOverGround()
+					if GameManager.worldManager:
+						if GameManager.worldLayer == 1:
+							GameManager.worldManager.switchBreathableArea(true)
+						if GameManager.worldLayer == 0:
+							GameManager.worldManager.switchBreathableArea(false)
 					tileCheck(true)
 					%underwaterSwitchSound.play()
 				
@@ -603,6 +608,7 @@ func tileCheck(forced: bool = false):
 		nextAtlascoords = GameManager.worldManager.tileToAtlasCoords(nextTile)
 	
 	if tile != newtile or forced:
+		GameManager.moved.emit()
 		#print("check")
 		#var oldBreathable = isBreathable
 		

@@ -738,9 +738,11 @@ position = Vector2(-768, 384)
 
 [node name="duckTreat2" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(5184, 3072)
+hiddenTreat = true
 
 [node name="duckTreat7" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(5440, 2112)
+hiddenTreat = true
 
 [node name="duckTreat3" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(4992, -1024)
@@ -750,21 +752,25 @@ position = Vector2(4928, -7424)
 
 [node name="duckTreat9" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(1920, -4864)
+hiddenTreat = true
 
 [node name="duckTreat10" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(7744, -7168)
+hiddenTreat = true
 
 [node name="duckTreat11" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(4800, -7232)
 
 [node name="duckTreat4" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-4416, -5952)
+hiddenTreat = true
 
 [node name="duckTreat5" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-2624, -7296)
 
 [node name="duckTreat6" parent="Underground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-6272, -4544)
+hiddenTreat = true
 
 [node name="ducks" type="Node2D" parent="Underground"]
 light_mask = 3
@@ -779,9 +785,11 @@ duckATK = Array[int]([8])
 duckSPD = Array[int]([1])
 duckRAN = Array[int]([5])
 stageName = "underwater"
+facingLeft = true
+landDuck = true
 owners = [NodePath(".")]
 
-[node name="StaticEnemyDuck9" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck9" parent="Underground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(4608, 3328)
 duckNames = Array[String](["Enrique", "Ryker", "Enzo"])
 duckHP = Array[int]([20, 40, 15])
@@ -789,9 +797,12 @@ duckATK = Array[int]([5, 6, 4])
 duckSPD = Array[int]([3, 2, 4])
 duckRAN = Array[int]([3, 4, 2])
 stageName = "underwater"
+revealedAreas = [NodePath("../../areas/hiddenArea3")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck10"), NodePath("../StaticEnemyDuck11")]
 
-[node name="StaticEnemyDuck10" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck10" parent="Underground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(4608, 3392)
 duckNames = Array[String](["Enrique", "Ryker", "Enzo"])
 duckHP = Array[int]([20, 40, 15])
@@ -799,9 +810,12 @@ duckATK = Array[int]([5, 6, 4])
 duckSPD = Array[int]([3, 2, 4])
 duckRAN = Array[int]([3, 4, 2])
 stageName = "underwater"
+revealedAreas = [NodePath("../../areas/hiddenArea3")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck9"), NodePath("."), NodePath("../StaticEnemyDuck11")]
 
-[node name="StaticEnemyDuck11" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck11" parent="Underground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(4608, 3456)
 duckNames = Array[String](["Enrique", "Ryker", "Enzo"])
 duckHP = Array[int]([20, 40, 15])
@@ -809,6 +823,9 @@ duckATK = Array[int]([5, 6, 4])
 duckSPD = Array[int]([3, 2, 4])
 duckRAN = Array[int]([3, 4, 2])
 stageName = "underwater"
+revealedAreas = [NodePath("../../areas/hiddenArea3")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck9"), NodePath("../StaticEnemyDuck10"), NodePath(".")]
 
 [node name="StaticEnemyDuck6" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -819,6 +836,7 @@ duckATK = Array[int]([3, 3, 3, 4, 8, 5])
 duckSPD = Array[int]([2, 2, 2, 2, 1, 5])
 duckRAN = Array[int]([3, 3, 3, 3, 6, 2])
 stageName = "underwater"
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck7"), NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14")]
 
 [node name="StaticEnemyDuck7" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -829,6 +847,7 @@ duckATK = Array[int]([3, 3, 3, 4, 8, 5])
 duckSPD = Array[int]([2, 2, 2, 2, 1, 5])
 duckRAN = Array[int]([3, 3, 3, 3, 6, 2])
 stageName = "underwater"
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck6"), NodePath("."), NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14")]
 
 [node name="StaticEnemyDuck8" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -839,6 +858,7 @@ duckATK = Array[int]([3, 3, 3, 4, 8, 5])
 duckSPD = Array[int]([2, 2, 2, 2, 1, 5])
 duckRAN = Array[int]([3, 3, 3, 3, 6, 2])
 stageName = "underwater"
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7"), NodePath("."), NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14")]
 
 [node name="StaticEnemyDuck12" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -849,6 +869,7 @@ duckATK = Array[int]([3, 3, 3, 4, 8, 5])
 duckSPD = Array[int]([2, 2, 2, 2, 1, 5])
 duckRAN = Array[int]([3, 3, 3, 3, 6, 2])
 stageName = "underwater"
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7"), NodePath("../StaticEnemyDuck8"), NodePath("."), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14")]
 
 [node name="StaticEnemyDuck13" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -859,6 +880,7 @@ duckATK = Array[int]([3, 3, 3, 4, 8, 5])
 duckSPD = Array[int]([2, 2, 2, 2, 1, 5])
 duckRAN = Array[int]([3, 3, 3, 3, 6, 2])
 stageName = "underwater"
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7"), NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck12"), NodePath("."), NodePath("../StaticEnemyDuck14")]
 
 [node name="StaticEnemyDuck14" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -869,6 +891,7 @@ duckATK = Array[int]([3, 3, 3, 4, 8, 5])
 duckSPD = Array[int]([2, 2, 2, 2, 1, 5])
 duckRAN = Array[int]([3, 3, 3, 3, 6, 2])
 stageName = "underwater"
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck6"), NodePath("../StaticEnemyDuck7"), NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath(".")]
 
 [node name="StaticEnemyDuck5" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -879,6 +902,8 @@ duckATK = Array[int]([6, 5, 5, 4])
 duckSPD = Array[int]([3, 2, 4, 5])
 duckRAN = Array[int]([3, 4, 2, 3])
 stageName = "underwater"
+facingLeft = true
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck4"), NodePath("../StaticEnemyDuck2"), NodePath("../StaticEnemyDuck3")]
 
 [node name="StaticEnemyDuck4" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -889,6 +914,8 @@ duckATK = Array[int]([6, 5, 5, 4])
 duckSPD = Array[int]([3, 2, 4, 5])
 duckRAN = Array[int]([3, 4, 2, 3])
 stageName = "underwater"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck5"), NodePath("."), NodePath("../StaticEnemyDuck2"), NodePath("../StaticEnemyDuck3")]
 
 [node name="StaticEnemyDuck2" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -899,6 +926,8 @@ duckATK = Array[int]([6, 5, 5, 4])
 duckSPD = Array[int]([3, 2, 4, 5])
 duckRAN = Array[int]([3, 4, 2, 3])
 stageName = "underwater"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck5"), NodePath("../StaticEnemyDuck4"), NodePath("."), NodePath("../StaticEnemyDuck3")]
 
 [node name="StaticEnemyDuck3" parent="Underground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -909,6 +938,8 @@ duckATK = Array[int]([6, 5, 5, 4])
 duckSPD = Array[int]([3, 2, 4, 5])
 duckRAN = Array[int]([3, 4, 2, 3])
 stageName = "underwater"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck5"), NodePath("../StaticEnemyDuck4"), NodePath("../StaticEnemyDuck2"), NodePath(".")]
 
 [node name="darkener" type="CanvasModulate" parent="Underground"]
@@ -2118,6 +2149,7 @@ visibility_layer = 3
 
 [node name="duckTreat" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-1536, -832)
+hiddenTreat = true
 
 [node name="duckTreat3" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(640, -2880)
@@ -2125,12 +2157,14 @@ hiddenTreat = true
 
 [node name="duckTreat4" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(0, -3840)
+hiddenTreat = true
 
 [node name="duckTreat5" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(3264, -2432)
 
 [node name="duckTreat7" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(2240, 384)
+hiddenTreat = true
 
 [node name="duckTreat8" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(6464, -2048)
@@ -2142,6 +2176,7 @@ hiddenTreat = true
 
 [node name="duckTreat10" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-5504, 576)
+hiddenTreat = true
 
 [node name="duckTreat11" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-4608, -384)
@@ -2156,6 +2191,7 @@ position = Vector2(-192, 1920)
 
 [node name="duckTreat14" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-6464, -1600)
+hiddenTreat = true
 
 [node name="duckTreat16" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-1600, -4608)
@@ -2167,24 +2203,30 @@ hiddenTreat = true
 
 [node name="duckTreat18" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(3136, -7040)
+hiddenTreat = true
 
 [node name="duckTreat19" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(12288, -1856)
+hiddenTreat = true
 
 [node name="duckTreat20" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(-192, -5632)
+hiddenTreat = true
 
 [node name="duckTreat21" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(7488, -768)
+hiddenTreat = true
 
 [node name="duckTreat22" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(7360, -704)
+hiddenTreat = true
 
 [node name="duckTreat24" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(10368, -8000)
 
 [node name="duckTreat28" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(6848, -5568)
+hiddenTreat = true
 
 [node name="duckTreat25" parent="Overground/treats" instance=ExtResource("10_hl16f")]
 position = Vector2(10304, -7872)
@@ -2202,7 +2244,7 @@ light_mask = 3
 visibility_layer = 3
 z_index = 1
 
-[node name="StaticEnemyDuck" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-384, -3264)
 duckNames = Array[String](["Alexander", "Charles"])
 duckHP = Array[int]([25, 20])
@@ -2210,9 +2252,11 @@ duckATK = Array[int]([4, 4])
 duckSPD = Array[int]([3, 5])
 duckRAN = Array[int]([5, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea3")]
+facingLeft = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck4")]
 
-[node name="StaticEnemyDuck4" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck4" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-384, -3200)
 duckNames = Array[String](["Alexander", "Charles"])
 duckHP = Array[int]([25, 20])
@@ -2220,9 +2264,11 @@ duckATK = Array[int]([4, 4])
 duckSPD = Array[int]([3, 5])
 duckRAN = Array[int]([5, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea3")]
+facingLeft = true
 owners = [NodePath("../StaticEnemyDuck"), NodePath(".")]
 
-[node name="StaticEnemyDuck6" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck6" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(2176, 192)
 duckNames = Array[String](["Henry", "William"])
 duckHP = Array[int]([30, 25])
@@ -2230,9 +2276,11 @@ duckATK = Array[int]([5, 4])
 duckSPD = Array[int]([3, 5])
 duckRAN = Array[int]([3, 4])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea5")]
+facingLeft = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck7")]
 
-[node name="StaticEnemyDuck7" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck7" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(2112, 192)
 duckNames = Array[String](["Henry", "William"])
 duckHP = Array[int]([30, 25])
@@ -2240,9 +2288,11 @@ duckATK = Array[int]([5, 4])
 duckSPD = Array[int]([3, 5])
 duckRAN = Array[int]([3, 4])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea5")]
+facingLeft = true
 owners = [NodePath("../StaticEnemyDuck6"), NodePath(".")]
 
-[node name="StaticEnemyDuck28" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck28" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(7360, -320)
 duckNames = Array[String](["Richard", "Derek", "Arthur", "Eric"])
 duckHP = Array[int]([30, 25, 25, 45])
@@ -2250,9 +2300,10 @@ duckATK = Array[int]([5, 4, 4, 8])
 duckSPD = Array[int]([3, 5, 3, 1])
 duckRAN = Array[int]([5, 3, 6, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea7")]
 owners = [NodePath("."), NodePath("../StaticEnemyDuck29"), NodePath("../StaticEnemyDuck30"), NodePath("../StaticEnemyDuck31")]
 
-[node name="StaticEnemyDuck29" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck29" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(7424, -320)
 duckNames = Array[String](["Richard", "Derek", "Arthur", "Eric"])
 duckHP = Array[int]([30, 25, 25, 45])
@@ -2260,9 +2311,10 @@ duckATK = Array[int]([5, 4, 4, 8])
 duckSPD = Array[int]([3, 5, 3, 1])
 duckRAN = Array[int]([5, 3, 6, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea7")]
 owners = [NodePath("../StaticEnemyDuck28"), NodePath("."), NodePath("../StaticEnemyDuck30"), NodePath("../StaticEnemyDuck31")]
 
-[node name="StaticEnemyDuck30" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck30" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(7488, -320)
 duckNames = Array[String](["Richard", "Derek", "Arthur", "Eric"])
 duckHP = Array[int]([30, 25, 25, 45])
@@ -2270,9 +2322,11 @@ duckATK = Array[int]([5, 4, 4, 8])
 duckSPD = Array[int]([3, 5, 3, 1])
 duckRAN = Array[int]([5, 3, 6, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea7")]
+facingLeft = true
 owners = [NodePath("../StaticEnemyDuck28"), NodePath("../StaticEnemyDuck29"), NodePath("."), NodePath("../StaticEnemyDuck31")]
 
-[node name="StaticEnemyDuck31" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck31" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(7424, -256)
 duckNames = Array[String](["Richard", "Derek", "Arthur", "Eric"])
 duckHP = Array[int]([30, 25, 25, 45])
@@ -2280,9 +2334,10 @@ duckATK = Array[int]([5, 4, 4, 8])
 duckSPD = Array[int]([3, 5, 3, 1])
 duckRAN = Array[int]([5, 3, 6, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea7")]
 owners = [NodePath("../StaticEnemyDuck28"), NodePath("../StaticEnemyDuck29"), NodePath("../StaticEnemyDuck30"), NodePath(".")]
 
-[node name="StaticEnemyDuck5" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck5" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-1152, -896)
 duckNames = Array[String](["George"])
 duckHP = Array[int]([35])
@@ -2290,6 +2345,7 @@ duckATK = Array[int]([5])
 duckSPD = Array[int]([4])
 duckRAN = Array[int]([5])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea")]
 owners = [NodePath(".")]
 
 [node name="StaticEnemyDuck18" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2312,7 +2368,7 @@ duckRAN = Array[int]([5, 2])
 stageName = "water"
 owners = [NodePath("../StaticEnemyDuck18"), NodePath(".")]
 
-[node name="StaticEnemyDuck2" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck2" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-5440, 896)
 duckNames = Array[String](["Alfred", "Alfonso"])
 duckHP = Array[int]([25, 20])
@@ -2320,9 +2376,11 @@ duckATK = Array[int]([3, 5])
 duckSPD = Array[int]([4, 2])
 duckRAN = Array[int]([5, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea11")]
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck3")]
 
-[node name="StaticEnemyDuck3" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck3" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-5248, 320)
 duckNames = Array[String](["Alfred", "Alfonso"])
 duckHP = Array[int]([25, 20])
@@ -2330,6 +2388,8 @@ duckATK = Array[int]([3, 5])
 duckSPD = Array[int]([4, 2])
 duckRAN = Array[int]([5, 3])
 stageName = "water"
+revealedAreas = [NodePath("../../areas/hiddenArea11")]
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck2"), NodePath(".")]
 
 [node name="StaticEnemyDuck8" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2339,6 +2399,7 @@ duckHP = Array[int]([20, 20, 30])
 duckATK = Array[int]([4, 4, 6])
 duckSPD = Array[int]([2, 2, 1])
 duckRAN = Array[int]([2, 2, 3])
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck9"), NodePath("../StaticEnemyDuck10")]
 
 [node name="StaticEnemyDuck9" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2348,6 +2409,8 @@ duckHP = Array[int]([20, 20, 30])
 duckATK = Array[int]([4, 4, 6])
 duckSPD = Array[int]([2, 2, 1])
 duckRAN = Array[int]([2, 2, 3])
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck8"), NodePath("."), NodePath("../StaticEnemyDuck10")]
 
 [node name="StaticEnemyDuck10" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2357,24 +2420,31 @@ duckHP = Array[int]([20, 20, 30])
 duckATK = Array[int]([4, 4, 6])
 duckSPD = Array[int]([2, 2, 1])
 duckRAN = Array[int]([2, 2, 3])
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck8"), NodePath("../StaticEnemyDuck9"), NodePath(".")]
 
-[node name="StaticEnemyDuck11" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck11" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(2752, -7040)
 duckNames = Array[String](["Frederick", "Ivan"])
 duckHP = Array[int]([35, 25])
 duckATK = Array[int]([6, 4])
 duckSPD = Array[int]([2, 5])
 duckRAN = Array[int]([7, 4])
+revealedAreas = [NodePath("../../areas/hiddenArea15")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck20")]
 
-[node name="StaticEnemyDuck20" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck20" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(2816, -7040)
 duckNames = Array[String](["Frederick", "Ivan"])
 duckHP = Array[int]([35, 25])
 duckATK = Array[int]([6, 4])
 duckSPD = Array[int]([2, 5])
 duckRAN = Array[int]([7, 4])
+revealedAreas = [NodePath("../../areas/hiddenArea15")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck11"), NodePath(".")]
 
 [node name="StaticEnemyDuck12" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2385,9 +2455,11 @@ duckATK = Array[int]([6, 2, 4, 5, 2, 4])
 duckSPD = Array[int]([1, 5, 3, 1, 5, 2])
 duckRAN = Array[int]([2, 3, 3, 6, 3, 4])
 stageName = "land_rocks"
+facingLeft = true
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14"), NodePath("../StaticEnemyDuck15"), NodePath("../StaticEnemyDuck16"), NodePath("../StaticEnemyDuck17")]
 
-[node name="StaticEnemyDuck24" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck24" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(6592, -5312)
 duckNames = Array[String](["Cyrus", "Napolean", "Reagen", "Leroy"])
 duckHP = Array[int]([25, 50, 25, 20])
@@ -2395,9 +2467,12 @@ duckATK = Array[int]([3, 7, 3, 5])
 duckSPD = Array[int]([3, 1, 3, 5])
 duckRAN = Array[int]([3, 1, 3, 4])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea18")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck25"), NodePath("../StaticEnemyDuck26"), NodePath("../StaticEnemyDuck27")]
 
-[node name="StaticEnemyDuck25" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck25" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(6656, -5312)
 duckNames = Array[String](["Cyrus", "Napolean", "Reagen", "Leroy"])
 duckHP = Array[int]([25, 50, 25, 20])
@@ -2405,9 +2480,12 @@ duckATK = Array[int]([3, 7, 3, 5])
 duckSPD = Array[int]([3, 1, 3, 5])
 duckRAN = Array[int]([3, 1, 3, 4])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea18")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck24"), NodePath("."), NodePath("../StaticEnemyDuck26"), NodePath("../StaticEnemyDuck27")]
 
-[node name="StaticEnemyDuck26" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck26" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(6720, -5312)
 duckNames = Array[String](["Cyrus", "Napolean", "Reagen", "Leroy"])
 duckHP = Array[int]([25, 50, 25, 20])
@@ -2415,9 +2493,12 @@ duckATK = Array[int]([3, 7, 3, 5])
 duckSPD = Array[int]([3, 1, 3, 5])
 duckRAN = Array[int]([3, 1, 3, 4])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea18")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck24"), NodePath("../StaticEnemyDuck25"), NodePath("."), NodePath("../StaticEnemyDuck27")]
 
-[node name="StaticEnemyDuck27" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck27" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(6656, -5248)
 duckNames = Array[String](["Cyrus", "Napolean", "Reagen", "Leroy"])
 duckHP = Array[int]([25, 50, 25, 20])
@@ -2425,6 +2506,9 @@ duckATK = Array[int]([3, 7, 3, 5])
 duckSPD = Array[int]([3, 1, 3, 5])
 duckRAN = Array[int]([3, 1, 3, 4])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea18")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck24"), NodePath("../StaticEnemyDuck25"), NodePath("../StaticEnemyDuck26"), NodePath(".")]
 
 [node name="StaticEnemyDuck13" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2435,6 +2519,8 @@ duckATK = Array[int]([6, 2, 4, 5, 2, 4])
 duckSPD = Array[int]([1, 5, 3, 1, 5, 2])
 duckRAN = Array[int]([2, 3, 3, 6, 3, 4])
 stageName = "land_rocks"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck12"), NodePath("."), NodePath("../StaticEnemyDuck14"), NodePath("../StaticEnemyDuck15"), NodePath("../StaticEnemyDuck16"), NodePath("../StaticEnemyDuck17")]
 
 [node name="StaticEnemyDuck14" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2445,6 +2531,8 @@ duckATK = Array[int]([6, 2, 4, 5, 2, 4])
 duckSPD = Array[int]([1, 5, 3, 1, 5, 2])
 duckRAN = Array[int]([2, 3, 3, 6, 3, 4])
 stageName = "land_rocks"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("."), NodePath("../StaticEnemyDuck15"), NodePath("../StaticEnemyDuck16"), NodePath("../StaticEnemyDuck17")]
 
 [node name="StaticEnemyDuck15" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2455,6 +2543,8 @@ duckATK = Array[int]([6, 2, 4, 5, 2, 4])
 duckSPD = Array[int]([1, 5, 3, 1, 5, 2])
 duckRAN = Array[int]([2, 3, 3, 6, 3, 4])
 stageName = "land_rocks"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14"), NodePath("."), NodePath("../StaticEnemyDuck16"), NodePath("../StaticEnemyDuck17")]
 
 [node name="StaticEnemyDuck16" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2465,6 +2555,8 @@ duckATK = Array[int]([6, 2, 4, 5, 2, 4])
 duckSPD = Array[int]([1, 5, 3, 1, 5, 2])
 duckRAN = Array[int]([2, 3, 3, 6, 3, 4])
 stageName = "land_rocks"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14"), NodePath("../StaticEnemyDuck15"), NodePath("."), NodePath("../StaticEnemyDuck17")]
 
 [node name="StaticEnemyDuck17" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
@@ -2475,9 +2567,11 @@ duckATK = Array[int]([6, 2, 4, 5, 2, 4])
 duckSPD = Array[int]([1, 5, 3, 1, 5, 2])
 duckRAN = Array[int]([2, 3, 3, 6, 3, 4])
 stageName = "land_rocks"
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck12"), NodePath("../StaticEnemyDuck13"), NodePath("../StaticEnemyDuck14"), NodePath("../StaticEnemyDuck15"), NodePath("../StaticEnemyDuck16"), NodePath(".")]
 
-[node name="StaticEnemyDuck32" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck32" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(12032, -1920)
 duckNames = Array[String](["Adira", "Astrid", "Alaric"])
 duckHP = Array[int]([25, 40, 30])
@@ -2485,9 +2579,12 @@ duckATK = Array[int]([6, 5, 4])
 duckSPD = Array[int]([3, 4, 2])
 duckRAN = Array[int]([3, 8, 5])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea19")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck33"), NodePath("../StaticEnemyDuck34")]
 
-[node name="StaticEnemyDuck33" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck33" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(12032, -1856)
 duckNames = Array[String](["Adira", "Astrid", "Alaric"])
 duckHP = Array[int]([25, 40, 30])
@@ -2495,9 +2592,12 @@ duckATK = Array[int]([6, 5, 4])
 duckSPD = Array[int]([3, 4, 2])
 duckRAN = Array[int]([3, 8, 5])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea19")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck32"), NodePath("."), NodePath("../StaticEnemyDuck34")]
 
-[node name="StaticEnemyDuck34" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck34" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(12032, -1792)
 duckNames = Array[String](["Adira", "Astrid", "Alaric"])
 duckHP = Array[int]([25, 40, 30])
@@ -2505,9 +2605,12 @@ duckATK = Array[int]([6, 5, 4])
 duckSPD = Array[int]([3, 4, 2])
 duckRAN = Array[int]([3, 8, 5])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea19")]
+facingLeft = true
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck32"), NodePath("../StaticEnemyDuck33"), NodePath(".")]
 
-[node name="StaticEnemyDuck21" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck21" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-64, -5888)
 duckNames = Array[String](["Rex", "Malik", "Raj"])
 duckHP = Array[int]([25, 40, 30])
@@ -2515,9 +2618,11 @@ duckATK = Array[int]([7, 3, 4])
 duckSPD = Array[int]([3, 1, 3])
 duckRAN = Array[int]([2, 4, 2])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea14")]
+landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck22"), NodePath("../StaticEnemyDuck23")]
 
-[node name="StaticEnemyDuck22" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck22" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-64, -5824)
 duckNames = Array[String](["Rex", "Malik", "Raj"])
 duckHP = Array[int]([25, 40, 30])
@@ -2525,9 +2630,11 @@ duckATK = Array[int]([7, 3, 4])
 duckSPD = Array[int]([3, 1, 3])
 duckRAN = Array[int]([2, 4, 2])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea14")]
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck21"), NodePath("."), NodePath("../StaticEnemyDuck23")]
 
-[node name="StaticEnemyDuck23" parent="Overground/ducks" node_paths=PackedStringArray("owners") instance=ExtResource("11_v6yyo")]
+[node name="StaticEnemyDuck23" parent="Overground/ducks" node_paths=PackedStringArray("revealedAreas", "owners") instance=ExtResource("11_v6yyo")]
 position = Vector2(-64, -5760)
 duckNames = Array[String](["Rex", "Malik", "Raj"])
 duckHP = Array[int]([25, 40, 30])
@@ -2535,6 +2642,8 @@ duckATK = Array[int]([7, 3, 4])
 duckSPD = Array[int]([3, 1, 3])
 duckRAN = Array[int]([2, 4, 2])
 stageName = "land_rocks"
+revealedAreas = [NodePath("../../areas/hiddenArea14")]
+landDuck = true
 owners = [NodePath("../StaticEnemyDuck21"), NodePath("../StaticEnemyDuck22"), NodePath(".")]
 
 [node name="cameraNodes" type="Node2D" parent="Overground"]
