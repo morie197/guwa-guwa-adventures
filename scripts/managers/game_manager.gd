@@ -22,7 +22,7 @@ var testingCheats: bool = false
 enum Difficulty {EASY, NORMAL, HARD}
 var difficultyValue: Difficulty = Difficulty.NORMAL
 
-var hpRestoredFromTreat: int = 3
+var hpRestoredFromTreat
 
 const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
@@ -279,6 +279,13 @@ func loadValues(resetRefs: bool = false):
 	
 	canDamage = true
 	
+	if difficultyValue == Difficulty.HARD:
+		SaveManager.hardAutosaved = true
+		hpRestoredFromTreat = 2
+	else:
+		hpRestoredFromTreat = 3
+		
+	
 	playerRef.loadGameChecks()
 	
 	if worldManager != null:
@@ -427,7 +434,7 @@ func showTutorial(tutorialName: String):
 	shownTutorials.append(tutorialName)
 	startTutorial.emit(tutorialName)
 	
-func initiateMinigame(entityNames: Array[String], entityHealth: Array[int], entityAttack: Array[int], entitySpeed: Array[int], entityRange: Array[int], stageName: String, owners):
+func initiateMinigame(entityNames: Array[String], entityHealth: Array, entityAttack: Array, entitySpeed: Array, entityRange: Array, stageName: String, owners):
 	paused = true
 	minigame = true
 	playerRef.healTimer.paused = true
@@ -500,11 +507,12 @@ func calculateBonuses(heal: bool = true):
 		
 		
 func healPlayer(amount: int = 1, regenHeal: bool = false):
+	if difficultyValue == Difficulty.HARD:
+		if regenHeal == true:
+			return
 	if canHealAfterDamage == false and regenHeal:
 		if damageHealTimer.time_left == 0.0:
-			print("0 damage heal delay")
 			return
-		print("delayed")
 		return
 	if healthValue < maxHP:
 		#print(healthValue, maxHP)

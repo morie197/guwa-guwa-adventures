@@ -661,7 +661,7 @@ func tileCheck(forced: bool = false):
 		var switch = false
 		if (isBreathable == newBreathable):
 			switch = false
-		elif (nextAtlascoords == Vector2i(0, 0) and newBreathable):
+		elif ((nextAtlascoords == Vector2i(0, 0) or nextAtlascoords == Vector2i(1, 0)) and newBreathable):
 			switch = true
 		elif ((nextAtlascoords == Vector2i(2, 3) or nextAtlascoords == Vector2i(0, 3)) and !newBreathable):
 			switch = true

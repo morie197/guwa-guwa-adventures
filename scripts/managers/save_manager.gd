@@ -24,6 +24,8 @@ var saveWarning = false
 var autosaveCooldown = 30
 var canAutosave: bool = true
 
+var hardAutosaved: bool = true
+
 var autosaveCooldownTimer: Timer
 
 var tim: Timer
@@ -72,7 +74,7 @@ func save_fow(slot: int = 0):
 		if fowSaveData.has(1):
 			var overImage = fowSaveData[1].convert_to_image()
 			overImage.save_png(path + "/1.png")
-			print(path + "/1.png")
+			#print(path + "/1.png")
 		fowSaveDataAll[slot] = fowSaveData
 
 func save_game_image(slot: int = 0):
@@ -232,7 +234,7 @@ func applyConfigData():
 			}
 	
 	if configData["toggles"]["fullscreen"] == true:
-		print("fullscreen")
+		#print("fullscreen")
 		GameManager.toggleFullscreen()
 	if configData["toggles"]["autosave"] == false:
 		autosave = false
@@ -275,15 +277,15 @@ func saveConfigData():
 	var err = config.save(settingsSavePath)
 	
 	if err != OK:
-		print("Save failed! Error code: ", err)
+		return
 
 func saveAllData():
 	if saveDataAll.is_empty():
-		print("empty save data!")
+		#print("empty save data!")
 		return
 	var writeFile = FileAccess.open(savePath, FileAccess.WRITE)
 	if writeFile == null:
-		print("failed to open!")
+		#print("failed to open!")
 		return
 	writeFile.store_string(JSON.stringify(saveDataAll))
 	writeFile.close()
@@ -297,6 +299,12 @@ func autoSave(forced: bool = false):
 		return
 	if autosave == false:
 		return
+	if hardAutosaved == true:
+		return
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		if !(GameManager.level % 5 == 0):
+			hardAutosaved = false
+			return
 	if GameManager.wonGame == true or GameManager.playerRef.migrating == true:
 		return
 	

@@ -29,9 +29,12 @@ func _ready():
 	
 	easy_button.pressed.connect(GameManager.changeDifficulty.bind(GameManager.Difficulty.EASY))
 	normal_button.pressed.connect(GameManager.changeDifficulty.bind(GameManager.Difficulty.NORMAL))
+	%hardButton.pressed.connect(GameManager.changeDifficulty.bind(GameManager.Difficulty.HARD))
 	
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		easy_button.button_pressed = true
+	elif GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		%hardButton.button_pressed = true
 	
 	new_game_button.pressed.connect(_newGame)
 	

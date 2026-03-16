@@ -297,7 +297,7 @@ func _ready():
 	switchBreathableArea(GameManager.playerRef.isBreathable)
 
 func switchBreathableArea(breathable: bool = false):
-	print("called")
+	#print("called")
 	if breathable:
 		undergroundTreats.visible = true
 		#undergroundDucks.visible = true
@@ -423,7 +423,7 @@ func updateFOW(usual: bool = false):
 		dict = toUpdateTilesOver
 		#FOWTileMap = overHidden
 	else:
-		print("no tile map ;(")
+		#print("no tile map ;(")
 		return
 		
 	var finalFOWRadius
@@ -470,10 +470,10 @@ func loadFOW():
 	#revealedTilesDict = {}
 	#revealedTilesUnderDict = {}
 	
-	print("loaded FOW")
+	#print("loaded FOW")
 	
-	print(underFow)
-	print(overFow)
+	#print(underFow)
+	#print(overFow)
 	
 	underTexture.set_image(underFow.convert_to_image())
 	underMat.set_shader_parameter("fow_mask", underTexture)
@@ -496,7 +496,7 @@ func loadFOW():
 			
 
 func clearFOW():
-	print("cleared FOW")
+	#print("cleared FOW")
 	
 	underFow = BitMap.new()
 	var underRect: Rect2i = underground_logic_layer.get_used_rect()
@@ -519,7 +519,7 @@ func clearFOW():
 
 func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
-		print("no overground or underground tilemap")
+		#print("no overground or underground tilemap")
 		return
 		
 	GameManager.switchedWorldLevel.emit()
@@ -530,7 +530,7 @@ func switchUnderOverGround():
 		_turnOnOffLayer(overgroundLayer, false)
 		overMap.modulate = Color.TRANSPARENT
 		underMap.modulate = Color.WHITE
-		print(overMap.modulate)
+		#print(overMap.modulate)
 		overground_collision_layer.collision_enabled = false
 		mapLayer = 0
 		
@@ -544,7 +544,7 @@ func switchUnderOverGround():
 		if levelName == "Hidden Grove":
 			darkener.show()
 		else:
-			print(levelName)
+			#print(levelName)
 			darkener.hide()
 		_turnOnOffLayer(undergroundLayer, false)
 		overMap.modulate = Color.WHITE
@@ -561,7 +561,7 @@ func switchUnderOverGround():
 
 func getTileUnderPos(globalPos: Vector2):
 	if current_logic_layer == null:
-		print("no logic layer present")
+		#print("no logic layer present")
 		return
 		
 	if current_logic_layer.z_index == 0: 
@@ -572,7 +572,7 @@ func getTileUnderPos(globalPos: Vector2):
 func tileToAtlasCoords(localToMapCoords: Vector2i):
 	#print("updating FOW")
 	if current_logic_layer == null:
-		print("no logic layer present")
+		#print("no logic layer present")
 		return
 	
 	return current_logic_layer.get_cell_atlas_coords(localToMapCoords)
@@ -636,7 +636,7 @@ func getClosestTreat() -> Node2D:
 		if GameManager.playerRef.distanceToTreatFormula(closestHiddenTreat.global_position):
 			closestHiddenTreat.hiddenOnRadar = false
 			return closestHiddenTreat
-	print("null")
+	#print("null")
 	return null
 		
 func _getTreats(group) -> Array[Node2D]:

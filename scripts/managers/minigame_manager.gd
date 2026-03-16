@@ -31,11 +31,11 @@ var	enduranceMultiplier: float = 1.0
 
 var level: int = 1
 var enemyCount: int = 1
-var enemyHealthValues: Array[int]
+var enemyHealthValues: Array
 var enemyNames: Array[String]
-var enemyAttackValues: Array[int]
-var enemySpeedValues: Array[int]
-var enemyRangeValues: Array[int]
+var enemyAttackValues: Array
+var enemySpeedValues: Array
+var enemyRangeValues: Array
 
 var playerPos: Vector2
 

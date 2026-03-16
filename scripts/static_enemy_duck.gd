@@ -18,6 +18,17 @@ const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
 @export var stageName: String = "land_forest"
 @export var revealedAreas: Array[Node2D]
 
+var hardAddHP: int = 5
+var hardAddATK: int = 1
+var hardAddSPD: int = 2
+var hardAddRAN: int = 1
+
+
+var duckHPFinal: Array
+var duckATKFinal: Array
+var duckSPDFinal: Array
+var duckRANFinal: Array
+
 @export var facingLeft: bool = false
 
 var activationDistance: float = 350
@@ -51,6 +62,8 @@ func _ready():
 		%landSprite.flip_h = true
 		
 	GameManager.moved.connect(_updateDirection)
+	
+	GameManager.levelLoaded.connect(_ducksUpdated)
 
 func _breathLayerChanged(breathable: bool = false):
 	#print(GameManager.worldLayer)
@@ -91,10 +104,10 @@ func _duckWindowPopup():
 		var duckyCont = DUCK_CONTAINER.instantiate()
 		owners[i].add_child(duckyCont)
 		duckyCont.duckName.text = str(duckNames[i])
-		duckyCont.duckhp.text = tr("DUCK_HP_STAT") + str(duckHP[i])
-		duckyCont.duckatk.text = tr("DUCK_ATK_STAT") + str(duckATK[i])
-		duckyCont.duckspd.text = tr("DUCK_SPD_STAT") + str(duckSPD[i])
-		duckyCont.duckrange.text = tr("DUCK_RAN_STAT") + str(duckRAN[i])
+		duckyCont.duckhp.text = tr("DUCK_HP_STAT") + str(duckHPFinal[i])
+		duckyCont.duckatk.text = tr("DUCK_ATK_STAT") + str(duckATKFinal[i])
+		duckyCont.duckspd.text = tr("DUCK_SPD_STAT") + str(duckSPDFinal[i])
+		duckyCont.duckrange.text = tr("DUCK_RAN_STAT") + str(duckRANFinal[i])
 		
 		duckyCont.global_position = owners[i].global_position
 		duckyCont.position.x -= duckyCont.size.x/2.0
@@ -116,7 +129,7 @@ func _player_exited(_area):
 
 func _quack():
 	if duckNames.size() > 0 and GameManager.minigame == false and GameManager.lost == false:
-		GameManager.initiateMinigame(duckNames, duckHP, duckATK, duckSPD, duckRAN, stageName, owners)
+		GameManager.initiateMinigame(duckNames, duckHPFinal, duckATKFinal, duckSPDFinal, duckRANFinal, stageName, owners)
 	
 func playerWon():
 	_exitMinigame()
@@ -139,6 +152,17 @@ func _exitMinigame():
 	GameManager.worldManager.ui_manager.stamina_bar_minigame.hide()
 	
 func _ducksUpdated():
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		duckHPFinal = duckHP.map(func(n): return n + hardAddHP)
+		duckATKFinal = duckATK.map(func(n): return n + hardAddATK)
+		duckSPDFinal = duckSPD.map(func(n): return n + hardAddSPD)
+		duckRANFinal = duckRAN.map(func(n): return n + hardAddRAN)
+	else:
+		duckHPFinal = duckHP.duplicate()
+		duckATKFinal = duckATK.duplicate()
+		duckSPDFinal = duckSPD.duplicate()
+		duckRANFinal = duckRAN.duplicate()
+	
 	if GameManager.duckRegistry.has(id):
 		_enableDisable(false)
 	else:

@@ -27,6 +27,9 @@ func _ready():
 	if SaveManager.check_save() == false:
 		loadGame.disabled = true
 		
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		save.disabled = true
+		
 	#if !GameManager.difficultyValue == GameManager.Difficulty.EASY:
 	#	save.disabled = true
 	#	save.hide()
@@ -80,5 +83,9 @@ func _inPopup():
 		buttons.erase(loadGame)
 	else:
 		save.show()
+		
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		buttons.erase(save)
+		
 	for button in buttons:
 		button.disabled = inPopup
