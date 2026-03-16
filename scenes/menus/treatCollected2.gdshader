@@ -12,6 +12,8 @@ uniform float shine_intensity : hint_range(0.0, 5.0) = 1.0; // Over 1.0 for Bloo
 uniform float global_brighten : hint_range(0.0, 1.0) = 0.2; // How much the whole sprite lights up
 uniform float line_intensity : hint_range(0.0, 5.0) = 0.5; // The extra brightness of the line
 
+uniform vec4 uv_offset : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+
 
 
 //
@@ -42,7 +44,7 @@ void fragment() {
     float total_brightness = (wave * global_brighten) + (line_mask * line_intensity);
     
     // 4. Apply brightness, keeping it confined to the sprite's shape (alpha)
-    vec3 bright_color = base_color.rgb + (total_brightness * base_color.a);
+    vec3 bright_color = (base_color.rgb + uv_offset.rgb) + (total_brightness * base_color.a);
     
     COLOR = vec4(bright_color, base_color.a);
 }

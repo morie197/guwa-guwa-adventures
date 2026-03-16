@@ -14,8 +14,11 @@ var parentMenu
 func _ready():
 	if mode.match("load"):
 		text.text = tr("LOAD")
-	elif mode.match("save"):
+	elif mode.match("save") or mode == "saveHard":
 		text.text = tr("SAVE")
+	
+	if mode == "saveHard":
+		back_button.text = "exit"
 	
 	_updateSlots()
 		
@@ -40,14 +43,13 @@ func _updateSlots():
 		slot.setData(SaveManager.saveDataAll[i], i)
 
 func _slotSelected(slotNumber: int = 0):
-	if mode.match("load"):
+	if mode == "load":
 		if !SaveManager.saveDataAll[slotNumber].has("levelName"):
-			print("invalid save")
 			return
 	var popup = parentMenu.POPUP.instantiate()
 	add_child(popup)
 	
-	if mode.match("load"):
+	if mode == "load":
 		if !parentMenu.has_method("_newgame") and !parentMenu.has_method("gameLost"):
 			popup.yes.connect(parentMenu.ui_manager.pause)
 		if parentMenu.has_method("gameLost"):
@@ -61,7 +63,7 @@ func _slotSelected(slotNumber: int = 0):
 		popup.no.connect(popup.queue_free)
 		#popup.no.connect(parentMenu._inPopup)
 	
-	elif mode.match("save"):
+	elif mode == "save":
 		if !parentMenu.has_method("gameLost"):
 			popup.yes.connect(parentMenu.ui_manager.pause)
 		popup.yes.connect(GameManager.saveValues)
@@ -69,6 +71,17 @@ func _slotSelected(slotNumber: int = 0):
 	
 		popup.no.connect(popup.queue_free)
 		#popup.no.connect(parentMenu._inPopup)
+		
+	elif mode == "saveHard":
+		if GameManager.worldManager == null:
+			return
+		if GameManager.worldManager.ui_manager == null:
+			return
+		popup.yes.connect(func unpause(): GameManager.paused = false)
+		popup.yes.connect(GameManager.saveValues)
+		popup.yes.connect(queue_free)
+		popup.yes.connect(SaveManager.save_game.bind(slotNumber))
+		popup.no.connect(popup.queue_free)
 		
 func _slotDeleted(slotNumber: int = 0):
 	var popup = parentMenu.POPUP.instantiate()
@@ -83,5 +96,9 @@ func _slotDeleted(slotNumber: int = 0):
 	#popup.no.connect(parentMenu._inPopup)
 	
 func _back():
-	parentMenu._inPopup()
+	if parentMenu.has_method("_inPopup"):
+		if parentMenu.inPopup:
+			parentMenu._inPopup()
+	if mode == "saveHard":
+		GameManager.paused = false
 	queue_free()

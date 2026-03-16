@@ -98,6 +98,9 @@ func initValues():
 	
 	startingModulate = modulate
 	
+
+		
+	
 	#if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		#max_quack_range = minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier / (((minigamemanager.enemyHealthValues.size() -1) / 2.0) + 1) * (maxHealth / 5)
 		#max_quack_range = clampf(max_quack_range * minigamemanager.speedMultiplier * 2, minigamemanager.player_minigame.baseQuackRange, minigamemanager.player_minigame.baseQuackRange * minigamemanager.rangeMultiplier - playerEnemyRangeDiff)
@@ -273,11 +276,18 @@ func quack():
 	tim.wait_time = quackDelay
 	add_child(tim)
 	tim.start()
-	tim.timeout.connect(quacker.quack.bind((minigamemanager.player_minigame.global_position - global_position).normalized(), 13 * ((attackDamage - 1)/4 + 1) + speed/80.0))
+	tim.timeout.connect(_attackQuack)
 	#tim.timeout.connect(quacker.quack.bind((playerPos - global_position).normalized(), 10 + speed/100.0))
 	tim.timeout.connect(quack_sound.play)
 	tim.timeout.connect(lunge_bar.hide)
 	tim.timeout.connect(tim.queue_free)
+
+func _attackQuack():
+	var direction = (minigamemanager.player_minigame.global_position - global_position).normalized()
+	var projSpeed = 13.0 * ((attackDamage - 1)/4.0 + 1) + speed/80.0
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		projSpeed *= 1.4
+	quacker.quack(direction, projSpeed)
 
 func _rammed(area):
 	if area.get_parent().name == "PlayerMinigame":

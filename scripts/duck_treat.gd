@@ -6,6 +6,7 @@ class_name DuckTreat
 @onready var map_check = $mapCheck
 @onready var duck_area = $duckArea
 @onready var treat_sprite = $duckArea/Sprite2D
+@onready var gpu_particles_2d = $duckArea/GPUParticles2D
 
 const TREAT_MAP_INDICATOR = preload("uid://luhbyxeky4e2")
 
@@ -63,6 +64,13 @@ func _player_entered(body: Node2D):
 	_enableDisable(false)
 	
 func _treatsUpdated():
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		treat_sprite.material.set_shader_parameter("uv_offset", Color(1, 0.0, 0.0, 1.0))
+		gpu_particles_2d.modulate = Color(1, 0.8, 0.8, 1.0)
+	else:
+		treat_sprite.material.set_shader_parameter("uv_offset", Color(0, 0, 0, 1))
+		gpu_particles_2d.modulate = Color.WHITE
+	
 	if GameManager.treatRegistry.has(id):
 		_updateCheck(true)
 		_enableDisable(false)

@@ -75,6 +75,7 @@ signal changedMapLevel(onCurrent: bool)
 signal loadedLevel
 signal changeBreathableLayer(breathable: bool)
 signal moved
+signal saved
 	
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("fullscreen"):
@@ -177,16 +178,16 @@ func stringToVector2i(targets):
 
 
 func loadValues(resetRefs: bool = false):
-	print("loading values, reset: ", resetRefs)
+	#print("loading values, reset: ", resetRefs)
 	if resetRefs:
 		playerRef = null
 		worldManager = null
 	
 	if playerRef == null or worldManager == null:
-		print("waiting")
+		#print("waiting")
 		await levelLoaded
 	
-	print("level loaded")
+	#print("level loaded")
 	
 	worldManager.clearFOW()
 	
@@ -255,6 +256,8 @@ func loadValues(resetRefs: bool = false):
 	
 	playerRef.healTimer.start()
 	
+	playerRef.visible = true
+	
 	#changeBreathableLayer.emit(playerRef.isBreathable)
 	
 	availableUpgradePoints = 0
@@ -321,7 +324,7 @@ func closeUpgrades():
 	paused = false
 	upgraded.emit()
 	
-	print(abilities)
+	#print(abilities)
 	
 	if abilities.has("quack"):
 		showTutorial("quack")
@@ -342,7 +345,7 @@ func closeUpgrades():
 	if abilities.has("treatdetect"):
 		showTutorial("treatdetect")
 	if abilities.has("travel"):
-		print("has travel!")
+		#print("has travel!")
 		showTutorial("travel")
 	
 	if testingCheats == true:
@@ -422,10 +425,16 @@ func cameraSwitchWorldLayer():
 	
 	
 func showTutorial(tutorialName: String):
-	if shownTutorials.size() == 0:
-		print("empty tutorials")
 	if shownTutorials.has(tutorialName):
 		return
+	
+	if GameManager.level % 5 == 0 and difficultyValue == Difficulty.HARD and !SaveManager.hardAutosaved:
+		shownTutorials.append(tutorialName)
+		GameManager.saved.connect(showTutorial.bind(tutorialName))
+		return
+		
+	if GameManager.saved.is_connected(showTutorial):
+		GameManager.saved.disconnect(showTutorial)
 		
 	if tutorialName.match("quack") or tutorialName.match("land") or tutorialName.match("dive") or tutorialName.match("fly"):
 		#print("showing")
@@ -446,7 +455,7 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array, entityAtt
 		playerRef.point_light_2d_3.visible = false
 	var minigame_stage = DUCK_MINIGAME.instantiate()
 	if owners.size() == 0:
-		print("not properly setup!")
+		#print("not properly setup!")
 		return
 	minigame_stage.global_position = owners[0].global_position
 	worldManager.add_child(minigame_stage)
@@ -592,13 +601,14 @@ func abilityCheck():
 		playerRef.set_collision_mask_value(4, true)
 		
 	if abilities.has("map"):
-		worldManager.ui_manager.mini_map_panel.show()
+		worldManager.ui_manager.mini_map_panel.visible = !worldManager.ui_manager.showmap_text.visible
 	else:
 		worldManager.ui_manager.mini_map_panel.hide()
+		worldManager.ui_manager.showmap_text.visible = false
 		
 	if abilities.has("sonar"): 
 		worldManager.ui_manager.radar_ready.show()
-		print("showingSonar")
+		#print("showingSonar")
 	else:
 		worldManager.ui_manager.radar_ready.hide()
 	
@@ -606,6 +616,7 @@ func lostGame():
 	GameManager.paused = true
 	lost = true
 	playerRef.healTimer.paused = true
+	playerRef.visible = false
 	worldManager.ui_manager.gameLost()
 	
 func damagePlayer(amount: int = 1):

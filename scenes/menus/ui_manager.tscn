@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene load_steps=26 format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/managers/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="AudioStream" uid="uid://dugxx4l44rqni" path="res://sounds/SFX/level-up-08-402152.mp3" id="3_2oyku"]
@@ -37,6 +37,7 @@ shader_parameter/shine_width = 0.010000000475
 shader_parameter/shine_intensity = 0.50000002375
 shader_parameter/global_brighten = 0.2000000095
 shader_parameter/line_intensity = 1.0000000475
+shader_parameter/uv_offset = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45cly"]
 
@@ -53,6 +54,17 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fft06"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.83900005)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 
 [node name="UIManager" type="CanvasLayer"]
 script = ExtResource("1_rwj1f")
@@ -283,7 +295,8 @@ autowrap_mode = 0
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="HUD/VBoxContainer/HBoxContainer"]
+[node name="treatIcon" type="TextureRect" parent="HUD/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 self_modulate = Color(0.8047426, 0.80474263, 0.8047425, 1)
 material = SubResource("ShaderMaterial_lho24")
 custom_minimum_size = Vector2(192, 192)
@@ -291,7 +304,7 @@ layout_mode = 2
 texture = ExtResource("12_ipats")
 stretch_mode = 4
 
-[node name="collectedNumber" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="collectedNumber" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer/treatIcon"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -499,6 +512,17 @@ render_target_update_mode = 0
 [node name="minimapCamera" type="Camera2D" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer/minimap"]
 unique_name_in_owner = true
 position = Vector2(-464, 0)
+
+[node name="showmapText" type="RichTextLabel" parent="HUD/VBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_fft06")
+text = "Show Minimap: "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="lostpanel" type="PanelContainer" parent="."]
 visible = false

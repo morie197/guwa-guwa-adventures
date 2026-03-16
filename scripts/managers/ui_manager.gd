@@ -44,6 +44,7 @@ var inPopup: bool = false
 
 @onready var minimap = %minimap
 @onready var mini_map_panel = %MiniMapPanel
+@onready var showmap_text = %showmapText
 
 @onready var hp_text = %HPText
 @onready var hp_bars = %HPBars
@@ -94,6 +95,7 @@ var hpBars: Array[Node] = []
 
 func _ready():
 	mini_map_panel.hide()
+	%showmapText.visible = false
 	updateNextAbility()
 	%winpanel.hide()
 	
@@ -106,6 +108,7 @@ func _ready():
 	GameManager.levelUp.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
 	GameManager.upgraded.connect(_updateMaxHP)
+	GameManager.loadedLevel.connect(_updateGoal)
 	origin = migrate_down_indicator.global_position
 	
 	for bar in hp_bars.get_children():
@@ -120,7 +123,12 @@ func _ready():
 		stamina_bar.hide()
 
 
-	
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("closeMap"):
+		if GameManager.abilities.has("map"):
+			mini_map_panel.visible = !mini_map_panel.visible
+			%showmapText.visible = !mini_map_panel.visible
+			%showmapText.text = tr("SHOW_MINIMAP") + "H"
 
 func updateNextAbility():
 	until_next_ability.text = ""
@@ -131,10 +139,12 @@ func updateNextAbility():
 			until_next_ability.text = tr(AbilityData.ABILITIES[ability]["displayName"]) + ": " + str(ability)
 			break
 	
-	if GameManager.level <= 40:
-		until_next_goal.text = tr("MIGRATION_GOAL")
-	else:
-		until_next_goal.text = tr("ALL_TREAT_GOAL")
+	#if GameManager.level <= 40:
+		#until_next_goal.text = tr("MIGRATION_GOAL")
+	#elif GameManager.level <= 90 and GameManager.worldManager.levelName == "Hidden Grove":
+		#until_next_goal.text = tr("MIGRATION_BACK_GOAL")
+	#else:
+		#until_next_goal.text = tr("ALL_TREAT_GOAL")
 	
 func _physics_process(delta):
 	if credits != null:
@@ -330,12 +340,17 @@ func gameWon():
 	
 	creditContentSize = 7500
 
-func _showLevelUpUI():
+func _updateGoal():
 	collected_number.add_theme_color_override("default_color", Color.WHITE)
-	collected_number.text = str(GameManager.level)
+	
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		%treatIcon.material.set_shader_parameter("uv_offset", Color(1, 0.0, 0.0, 1.0))
+	else:
+		%treatIcon.material.set_shader_parameter("uv_offset", Color(0, 0, 0, 1))
+	
 	if GameManager.level <= 40:
 		until_next_goal.text = tr("MIGRATION_GOAL")
-	elif GameManager.worldManager.levelName == "Hidden Grove":
+	elif GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level <= 90:
 		until_next_goal.text = tr("MIGRATION_BACK_GOAL")
 	else:
 		until_next_goal.text = tr("ALL_TREAT_GOAL")
@@ -362,6 +377,12 @@ func _showLevelUpUI():
 		
 	progress_to_completion.value = GameManager.level
 	progress_to_complete_percent.value = GameManager.level
+	
+	updateNextAbility()
+	
+
+func _showLevelUpUI():
+	collected_number.text = str(GameManager.level)
 	
 	if GameManager.availableUpgradePoints <= 0:
 		return

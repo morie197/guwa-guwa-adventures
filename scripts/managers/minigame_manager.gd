@@ -114,8 +114,12 @@ func initValues():
 				#enemy.speed = enemy.speed / 2.0
 				
 		enemy.speed = (enemy.speed/4.0) + ((enemy.speed/8.0) * enemySpeedValues[ene])
-		enemy.quackCooldown = enemy.quackCooldown - ((enemy.quackCooldown/5.0)/enemySpeedValues[ene])
-		enemy.quackBaseRandomTimer = ((enemy.quackCooldown) + enemy.quackRandomTimerVariation) + enemy.quackDelay
+		if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+			enemy.quackCooldown = enemy.quackCooldown - ((enemy.quackCooldown/3.0)/enemySpeedValues[ene])
+			enemy.quackBaseRandomTimer = ((enemy.quackCooldown) + enemy.quackRandomTimerVariation) + enemy.quackDelay
+		else:
+			enemy.quackCooldown = enemy.quackCooldown - ((enemy.quackCooldown/5.0)/enemySpeedValues[ene])
+			enemy.quackBaseRandomTimer = ((enemy.quackCooldown) + enemy.quackRandomTimerVariation) + enemy.quackDelay
 		
 		enemy.attackDamage = enemyAttackValues[ene]
 		

@@ -31,7 +31,7 @@ func setData(data, slotNumber: int = 0):
 			slot_name.text = tr("AUTOSAVE_SLOT")
 			delete_button.disabled = true
 			delete_button.hide()
-		elif slotMode.match("save"):
+		elif slotMode == "save" or slotMode == "saveHard":
 			queue_free()
 	else:
 		#slot_name.text = "Slot " + str(slotNumber)
@@ -50,7 +50,7 @@ func setData(data, slotNumber: int = 0):
 		return
 		
 	if FileAccess.file_exists(SaveManager.imageSavePath + str(slotNumber) + ".jpg"):
-		print("jpg exists")
+		#print("jpg exists")
 		var tex = ImageTexture.new()
 		var image = Image.load_from_file(SaveManager.imageSavePath + str(slotNumber) + ".jpg")
 		tex.set_image(image)

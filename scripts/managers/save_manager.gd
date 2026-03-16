@@ -1,5 +1,7 @@
 extends Node
 
+const SAVE_LOAD_MENU = preload("uid://b8nmevsdid6a6")
+
 var saveData: Dictionary = {}
 
 var saveDataAll: Array = []
@@ -42,6 +44,8 @@ func save_game(slot: int = 0):
 	#print("before: ", saveDataAll)
 	#print(saveData)
 	saveDataAll[slot] = saveData.duplicate(true)
+	
+	GameManager.saved.emit()
 	
 	save_game_image(slot)
 	
@@ -293,18 +297,38 @@ func saveAllData():
 func autoSave(forced: bool = false):
 	#if autosaveCooldownTimer.time_left > 0.0:
 	#	return
+	
+	
 	if GameManager.lost:
 		return
-	if canAutosave == false and !forced:
-		return
-	if autosave == false:
-		return
-	if hardAutosaved == true:
-		return
 	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
-		if !(GameManager.level % 5 == 0):
+		if (GameManager.level % 5 != 0):
 			hardAutosaved = false
 			return
+		elif (GameManager.level % 5 == 0) and hardAutosaved:
+			hardAutosaved = true
+			return
+		if hardAutosaved == true:
+			return
+		if GameManager.worldManager == null:
+			return
+		if GameManager.worldManager.ui_manager == null:
+			return
+			
+		print("saveHard")
+		GameManager.paused = true
+		var saveLoadMenu = SAVE_LOAD_MENU.instantiate()
+		saveLoadMenu.mode = "saveHard"
+		GameManager.worldManager.ui_manager.add_child(saveLoadMenu)
+		saveLoadMenu.parentMenu = GameManager.worldManager.ui_manager
+		hardAutosaved = true
+		return
+	else:
+		if canAutosave == false and !forced:
+			return
+		if autosave == false:
+			return
+	
 	if GameManager.wonGame == true or GameManager.playerRef.migrating == true:
 		return
 	
