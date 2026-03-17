@@ -82,7 +82,7 @@ func initValues():
 		"underwater":
 			stageMap = UNDERWATER
 			stage_title.text = "Underwater"
-			diving = true
+			walking = true
 	var map = stageMap.instantiate()
 	terrain_variations.add_child(map)
 	player_minigame.minigamemanager = self
@@ -114,12 +114,18 @@ func initValues():
 				#enemy.speed = enemy.speed / 2.0
 				
 		enemy.speed = (enemy.speed/4.0) + ((enemy.speed/8.0) * enemySpeedValues[ene])
+		
+		if enemyNames.size() > 3:
+			enemy.quackCooldown *= 1.3
+		
 		if GameManager.difficultyValue == GameManager.Difficulty.HARD:
 			enemy.quackCooldown = enemy.quackCooldown - ((enemy.quackCooldown/4.0)/enemySpeedValues[ene])
 			enemy.quackBaseRandomTimer = ((enemy.quackCooldown) + enemy.quackRandomTimerVariation) + enemy.quackDelay
 		else:
 			enemy.quackCooldown = enemy.quackCooldown - ((enemy.quackCooldown/5.0)/enemySpeedValues[ene])
 			enemy.quackBaseRandomTimer = ((enemy.quackCooldown) + enemy.quackRandomTimerVariation) + enemy.quackDelay
+			
+		
 		
 		enemy.attackDamage = enemyAttackValues[ene]
 		

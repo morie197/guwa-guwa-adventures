@@ -846,7 +846,7 @@ func distanceToTreatFormula(global_pos: Vector2) -> bool:
 	var distanceToClosest = global_pos.distance_to(self.global_position)
 	var mult: float = 1
 	if GameManager.worldManager.levelName == "Hidden Grove":
-		mult = 0.1 * visibilityMultiplier
+		mult = 0.1 * visibilityMultiplier * GameManager.treatRegistry.size()/15.0
 	if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0 * mult:
 		return true
 	else:

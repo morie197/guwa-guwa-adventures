@@ -192,6 +192,13 @@ func _updateMaxHP():
 		hp_text.hide()
 		return
 		
+	if maxHP >= 25:
+		hp_bars.custom_minimum_size.y = 60
+		hp_bars.add_theme_constant_override("separation", -34)
+	else:
+		hp_bars.custom_minimum_size.y = 70
+		hp_bars.add_theme_constant_override("separation", -38)
+		
 	hp_bars.show()
 	hp_text.show()
 	hp_text.text = "HP: " + str(GameManager.healthValue) + "/" + str(maxHP)
@@ -364,11 +371,17 @@ func _updateGoal():
 			progress_to_completion.max_value = 65.0
 			progress_to_complete_percent.max_value = 65.0
 		elif GameManager.worldManager.levelName == "Hidden Grove":
-			if GameManager.level >= 90:
+			if GameManager.level <= 90:
+				progress_to_completion.max_value = 90.0
+				progress_to_complete_percent.max_value = 90.0
+			elif 35 - GameManager.treatRegistry.size() > 0:
+				progress_to_completion.max_value = 35 + (GameManager.level - GameManager.treatRegistry.size())
+				progress_to_complete_percent.max_value =  35 + (GameManager.level - GameManager.treatRegistry.size())
+			elif 35 - GameManager.treatRegistry.size() <= 0:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)
 				collectedAll = true
-			progress_to_completion.max_value = 90.0
-			progress_to_complete_percent.max_value = 90.0
+				
+				
 		else:
 			if GameManager.level >= 65:
 				collected_number.add_theme_color_override("default_color", Color.BLUE)

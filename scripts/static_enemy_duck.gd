@@ -7,6 +7,8 @@ class_name StaticDuck
 @onready var water_sprite = %waterSprite
 @onready var land_sprite = %landSprite
 
+@onready var polygon_2d = $Polygon2D
+
 
 const DUCK_CONTAINER = preload("uid://cnvkkjoe28ls3")
 
@@ -161,7 +163,7 @@ func _ducksUpdated():
 		else:
 			duckHPFinal = duckHP.map(func(n): return n + hardAddHP)
 			duckATKFinal = duckATK.duplicate()
-			duckSPDFinal = duckSPD.map(func(n): return n + round(hardAddSPD/2.0))
+			duckSPDFinal = duckSPD.map(func(n): return n + roundi(hardAddSPD/2.0))
 			duckRANFinal = duckRAN.duplicate()
 	else:
 		duckHPFinal = duckHP.duplicate()
@@ -185,11 +187,14 @@ func _enableDisable(enable: bool = true):
 		
 	collider.set_collision_layer_value(1, enable)
 	quack_detector.set_collision_mask_value(6, enable)
+	polygon_2d.visible = enable
 	
 	if enable and onWorldlayer:
-		show()
+		water_sprite.visible = true
+		land_sprite.visible = true
 		process_mode = PROCESS_MODE_ALWAYS
 	else:
-		hide()
+		water_sprite.visible = false
+		land_sprite.visible = false
 		process_mode = PROCESS_MODE_DISABLED
 	

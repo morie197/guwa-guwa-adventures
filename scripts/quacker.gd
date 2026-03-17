@@ -85,10 +85,12 @@ func damage(amount: int, damager):
 	
 	var knockBackDirection
 	if parent_duck.name == "PlayerMinigame":
-		if parent_duck.lunging and amount > 0:
+		if (parent_duck.invincibleDurationTimer > 0) and amount > 0:
+			parent_duck.dodge_sound.play()
 			print("iframe")
 			return
 		if amount > 0:
+			parent_duck.displayColor = Color(1, 0.6, 0.6, 1)
 			parent_duck.hit_sound.play()
 	health = clamp(health - amount, 0, max_health)
 	hp_changed.emit()

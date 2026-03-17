@@ -428,7 +428,7 @@ func updateFOW(usual: bool = false):
 		
 	var finalFOWRadius
 	if levelName == "Hidden Grove":
-		finalFOWRadius = FOWRadius/2 + (GameManager.postgameUpgradeLevels["reach"])
+		finalFOWRadius = FOWRadius/2 + (GameManager.postgameUpgradeLevels["reach"] * GameManager.treatRegistry.size()/10.0)
 	else:
 		finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"])
 	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)

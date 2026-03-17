@@ -13,6 +13,8 @@ var speedMultiplier: float = 1
 @export var lungeTime: float = 0.15
 @export var lungeSpeed: float = 6
 
+var displayColor: Color = Color.WHITE
+
 var flyLerpSpeed: float
 
 var layer: int = 1
@@ -20,8 +22,8 @@ var layer: int = 1
 #var invincible: bool = false
 #var invincibleCoolDown: float = 0.1
 #var invincibleTimer: float = 0.0
-#var invincibleDuration: float = 0.6
-#var invincibleDurationTimer: float = 0.0
+var invincibleDuration: float = 0.1
+var invincibleDurationTimer: float = 0.0
 
 var beingKnockedBack: bool = false
 var knockBackDirection: Vector2
@@ -82,6 +84,7 @@ var sprinting: bool = false
 @onready var hit_sound = $hitSound
 @onready var enemy_hit = $enemyHit
 @onready var heal_sound = $healSound
+@onready var dodge_sound = $dodgeSound
 
 func _ready():
 	agilityMultiplier = GameManager.playerRef.agilityMultiplier
@@ -133,6 +136,7 @@ func _input(event):
 		
 	if event.is_action_pressed("lunge") and !tired and !event.is_echo():
 		lunging = true
+		invincibleDurationTimer = lungeTime + invincibleDuration
 		
 			
 		
@@ -165,14 +169,17 @@ func _process(delta):
 	else:
 		quacking = false
 			#
-	#if invincibleDurationTimer > 0:
-		#invincibility_bar.max_value = invincibleDuration * 100
-		#invincibility_bar.value = invincibleDurationTimer * 100
-		#invincibleDurationTimer -= delta
-	#elif invincible:
-		#invincibleTimer = invincibleCoolDown
-		#invincibility_bar.hide()
-		#invincible = false
+	if invincibleDurationTimer > 0:
+		invincibleDurationTimer -= delta
+		displayColor = Color(0.5, 0.7, 0.9, 1)
+	else:
+		if displayColor.is_equal_approx(Color.WHITE):
+			displayColor = Color.WHITE
+		else:
+			displayColor = displayColor.lerp(Color.WHITE, clampf(delta * 5, 0, 1))
+		
+	walking.modulate = displayColor
+	swimming.modulate = displayColor
 		
 	GameManager.worldManager.ui_manager.updateStaminaBar(round(quackCooldown * 100) - round(quackTimer * 100), round(quackCooldown * 100))
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene load_steps=55 format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
@@ -28,6 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://dk0ah577qf4mt" path="res://sounds/SFX/flap5.wav" id="18_u6wm1"]
 [ext_resource type="Texture2D" uid="uid://ch7jerop1ewvb" path="res://sprites/keys/shift, space/keyboard_shift.svg" id="19_vhdu7"]
 [ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/bars/greenbar.png" id="20_sq7tm"]
+[ext_resource type="AudioStream" uid="uid://cua5k258p5d25" path="res://sounds/SFX/swing-whoosh-metal-hit-2-234619.mp3" id="20_xaff1"]
 [ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="21_r2a71"]
 [ext_resource type="Texture2D" uid="uid://cogqfkcocl8by" path="res://mouse_right.svg" id="27_dplsg"]
 [ext_resource type="Texture2D" uid="uid://43pdb5wjf2fl" path="res://mouse_move.svg" id="29_dplsg"]
@@ -134,6 +135,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fq1qg"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dplsg"]
+light_mode = 1
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_6sb5u"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_06rur"]
@@ -223,6 +227,7 @@ sprite_frames = SubResource("SpriteFrames_gsmep")
 shape = SubResource("RectangleShape2D_fq1qg")
 
 [node name="Quacker" parent="PlayerMinigame" instance=ExtResource("5_v7abb")]
+material = SubResource("CanvasItemMaterial_dplsg")
 
 [node name="quackSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
 stream = ExtResource("6_wgwjx")
@@ -297,6 +302,12 @@ bus = &"SFX"
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_06rur")
 volume_db = 6.0
+bus = &"SFX"
+
+[node name="dodgeSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+stream = ExtResource("20_xaff1")
+volume_db = -8.0
+pitch_scale = 3.0
 bus = &"SFX"
 
 [node name="Enemies" type="Node2D" parent="."]
