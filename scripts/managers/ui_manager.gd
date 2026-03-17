@@ -109,6 +109,7 @@ func _ready():
 	GameManager.startTutorial.connect(_startTutorial)
 	GameManager.upgraded.connect(_updateMaxHP)
 	GameManager.loadedLevel.connect(_updateGoal)
+	GameManager.levelUp.connect(_updateGoal)
 	origin = migrate_down_indicator.global_position
 	
 	for bar in hp_bars.get_children():

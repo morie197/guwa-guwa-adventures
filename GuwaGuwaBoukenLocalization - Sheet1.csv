@@ -133,3 +133,4 @@ DEFEATED_TEXT,You've defeated %s!,%sを倒しました,击败了%s,擊敗了%s
 DUCK_TREAT_OBTAINED,Duck Treat Obtained!,アヒルのおやつを獲得！,获得谷物！,獲得穀物！
 TRAVEL_HIDDEN_GROVE_PROMPT,Travel to the hidden grove?,隠れた林に移動しますか？,前往隐秘森林？,前往隱秘森林？
 POPUP_WARNING_DEFAULT,Are you sure?,よろしいですか？,确定吗？,確定嗎？
+SHOW_MINIMAP,Show Minimap: ,ミニマップを表示：,,

@@ -15,6 +15,7 @@ extends Area2D
 @export var delayTime: float = 0.25
 var switchFromFlag: String
 @export var switchToFlag: String
+@export var isInBreathable: bool = false
 
 var tim: Timer
 var switchTimer: float = 0
@@ -23,6 +24,7 @@ var switchValue: int = 1
 
 func _ready():
 	switchFromFlag = flag
+	GameManager.changeBreathableLayer.connect(_updateBreathable)
 
 func _process(delta):
 	if !switch:
@@ -47,6 +49,12 @@ func _process(delta):
 			
 	else:
 		switchTimer -= delta
+
+func _updateBreathable(breathable):
+	if isInBreathable and breathable:
+		visible = true
+	elif isInBreathable and !breathable:
+		visible = false
 
 func _switchSounds(sound, start: bool = false):
 	if originalSound != null:

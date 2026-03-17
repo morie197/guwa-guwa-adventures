@@ -57,9 +57,9 @@ func _draw():
 	#collision_shape.shape = circle
 	
 	if parent_duck.name == "PlayerMinigame":
-		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 1, 1, 0.4), 5.0)
+		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 1, 1, 0.3), 5.0)
 	else:
-		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(1, 0, 0, 0.15), 5.0)
+		draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(1, 0, 0, 0.10), 5.0)
 	#if (quack_range < max_quack_range):
 	#	draw_arc(Vector2.ZERO, quack_range - 8, 0, TAU, 64, Color(0, 0.6, 0.6, 0.7), 5.0)
 
@@ -85,9 +85,9 @@ func damage(amount: int, damager):
 	
 	var knockBackDirection
 	if parent_duck.name == "PlayerMinigame":
-		#if parent_duck.lunging and amount > 0:
-			#if parent_duck.parry(damager) == false:
-				#return
+		if parent_duck.lunging and amount > 0:
+			print("iframe")
+			return
 		if amount > 0:
 			parent_duck.hit_sound.play()
 	health = clamp(health - amount, 0, max_health)

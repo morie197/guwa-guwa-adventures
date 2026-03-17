@@ -139,6 +139,8 @@ func _projectile_detected(area):
 				area.queue_free()
 				queue_free()
 			else:
+				if reflected:
+					return
 				parentDuck.minigamemanager.player_minigame.blocked_sound.play()
 				#print("reduced damage")
 				

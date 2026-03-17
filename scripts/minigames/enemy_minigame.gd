@@ -96,6 +96,10 @@ func initValues():
 	quacker.max_health = maxHealth
 	quacker.max_quack_range = max_quack_range
 	
+	if minigamemanager.enemyNames.size() > 3:
+		#print("other chances")
+		stateChances = [30, 30, 10, 30]
+	
 	startingModulate = modulate
 	
 
@@ -149,15 +153,22 @@ func changeStates():
 	var stateVariationTimer: float = 1
 	
 	for index in range(STATE.size()):
-		if rng < stateChances[index]:
+		if rng < stateChances[index] and STATE.values()[index] != state:
 			state = STATE.values()[index]
+			#print(state)
 			stateVariationTimer = stateDurations[index]
 		else:
+			#print(rng, rng - stateChances[index])
 			rng -= stateChances[index]
 			if rng <= 0:
+				#print("breaking")
 				break
 			
 	stateRandomTimer = randf_range(stateBaseRandomTimer - stateRandomTimerVariation, stateBaseRandomTimer + stateRandomTimerVariation) * stateVariationTimer		
+	#print(state)
+	
+	
+		
 		
 func forceState(forcedState: STATE):
 	if minigamemanager.displaying == true:
@@ -179,7 +190,7 @@ func _process(delta):
 	
 	if state == STATE.RUNNING:
 		if global_position.distance_to(agent.target_position) < 30:
-			changeStates()
+			forceState(STATE.FOLLOWING)
 	
 	if moveVector.x < 0:
 		walking.flip_h = true
@@ -284,9 +295,9 @@ func quack():
 
 func _attackQuack():
 	var direction = (minigamemanager.player_minigame.global_position - global_position).normalized()
-	var projSpeed = 13.0 * ((attackDamage - 1)/4.0 + 1) + speed/80.0
+	var projSpeed = 13.0 * ((attackDamage - 1)/5.0 + 1) + speed/130.0
 	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
-		projSpeed *= 1.4
+		projSpeed *= 1.2
 	quacker.quack(direction, projSpeed)
 
 func _rammed(area):
@@ -308,8 +319,10 @@ func _died():
 	if minigamemanager.player_minigame.quacker.health < minigamemanager.player_minigame.quacker.max_health:
 		minigamemanager.player_minigame.heal_sound.pitch_scale = 1.0 + minigamemanager.player_minigame.quacker.health/minigamemanager.player_minigame.quacker.max_health
 		minigamemanager.player_minigame.heal_sound.play(0.15)
-	
-	minigamemanager.player_minigame.quacker.damage(-1 * clampi(floor(maxHealth/10.0) + floor(attackDamage/2.0), 1, 10), quacker)
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		minigamemanager.player_minigame.quacker.damage(-1 * clampi(floor(maxHealth/15.0) + floor(attackDamage/4.0), 1, 10), quacker)
+	else:
+		minigamemanager.player_minigame.quacker.damage(-1 * clampi(floor(maxHealth/10.0) + floor(attackDamage/3.0), 1, 10), quacker)
 	#minigamemanager.player_minigame.quacker.damage(-baseHealAmount - round(maxHealth/healthToHealingRatio), quacker)
 	#
 	infoBox.hpValue = 0

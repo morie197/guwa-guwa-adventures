@@ -131,11 +131,9 @@ func _input(event):
 			if Input.is_action_just_pressed("attack"):
 				_quack()
 		
-	if (Input.is_action_pressed("lunge")) and !tired:
-		if moveVector == Vector2.ZERO:
-			return
+	if event.is_action_pressed("lunge") and !tired and !event.is_echo():
 		lunging = true
-		lungeVector = moveVector
+		
 			
 		
 		#
@@ -297,7 +295,7 @@ func knockback(direction: Vector2, multiplier: float = 1):
 	
 func _move(movevec: Vector2):
 	if lunging:
-		velocity = lungeVector.normalized() * lungeSpeed
+		velocity = moveVector.normalized() * lungeSpeed
 		velocity *= moveSpeed
 		velocity *= ((speedMultiplier - 1) / 5) + 1
 	else:

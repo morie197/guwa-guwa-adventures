@@ -153,10 +153,16 @@ func _exitMinigame():
 	
 func _ducksUpdated():
 	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
-		duckHPFinal = duckHP.map(func(n): return n + hardAddHP)
-		duckATKFinal = duckATK.map(func(n): return n + hardAddATK)
-		duckSPDFinal = duckSPD.map(func(n): return n + hardAddSPD)
-		duckRANFinal = duckRAN.map(func(n): return n + hardAddRAN)
+		if owners.size() <= 3:
+			duckHPFinal = duckHP.map(func(n): return n + hardAddHP)
+			duckATKFinal = duckATK.map(func(n): return n + hardAddATK)
+			duckSPDFinal = duckSPD.map(func(n): return n + hardAddSPD)
+			duckRANFinal = duckRAN.map(func(n): return n + hardAddRAN)
+		else:
+			duckHPFinal = duckHP.map(func(n): return n + hardAddHP)
+			duckATKFinal = duckATK.duplicate()
+			duckSPDFinal = duckSPD.map(func(n): return n + round(hardAddSPD/2.0))
+			duckRANFinal = duckRAN.duplicate()
 	else:
 		duckHPFinal = duckHP.duplicate()
 		duckATKFinal = duckATK.duplicate()

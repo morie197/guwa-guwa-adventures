@@ -80,7 +80,7 @@ func setData(data, slotNumber: int = 0):
 		difficulty.text = tr("MEDIUM")
 		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
 	elif int(data["difficulty"]) == 2:
-		difficulty.text = tr("HARD")
+		difficulty.text = "[color=RED]" + tr("HARD") + "[/color]"
 		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
 		
 		

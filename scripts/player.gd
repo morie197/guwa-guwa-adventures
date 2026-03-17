@@ -26,6 +26,8 @@ var flytoLand: bool = false
 
 var timeBeingDamaged: float
 var timeBeingDamagedUntilHit: float = 0.15
+var timeBeingDamageUntilHitHard: float = 0.05
+var damageUntilHitTimer: float = 0
 
 var animations = []
 
@@ -163,6 +165,7 @@ signal radar
 signal updatedStamina(current: int, max: int)
 
 func _ready():
+	damageUntilHitTimer = timeBeingDamagedUntilHit
 	camera_2d.make_current()
 	area_collider.area_entered.connect(_area_enter)
 	area_collider.area_exited.connect(_area_exit)
@@ -228,11 +231,11 @@ func _unhandled_input(event):
 			if !flying:
 				sprinting = (Input.is_action_pressed("sprint") and !tired)
 			if GameManager.abilities.has("fly"):
-				if Input.is_action_just_pressed("fly") and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
+				if Input.is_action_just_pressed("fly") and !(GameManager.worldLayer == 0 and !isBreathable):
 					if sprinting:
 						sprinting = false
 				if layer != 2:
-					if Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
+					if Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and !isBreathable):
 						_toggleFly(true)
 					else:
 						_toggleFly(false)
@@ -451,7 +454,7 @@ func _process(delta):
 			stamina -= delta * underwaterStaminaDrain
 		else:
 			GameManager.damagePlayer(1)
-			modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
+			modulate = Color(1, clampf(1.0 - damageUntilHitTimer * 2, 0, 1), clampf(1.0 - damageUntilHitTimer * 2, 0, 1))
 		
 		emitUpdatedStaminaValue()
 		if under_water_sounds.playing == false: 
@@ -506,7 +509,7 @@ func _process(delta):
 
 	if layer == 2 and tired and forcedFly:
 		GameManager.damagePlayer(1)
-		modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
+		modulate = Color(1, clampf(1.0 - damageUntilHitTimer * 2, 0, 1), clampf(1.0 - damageUntilHitTimer * 2, 0, 1))
 	
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
@@ -600,11 +603,11 @@ func tileCheck(forced: bool = false):
 	if GameManager.worldManager == null:
 		return
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
-	var pos = global_position + moveVector * 32
+	var pos = global_position + velocity.normalized() * 32
 	var nextTile = GameManager.worldManager.getTileUnderPos(pos)
 	var nextAtlascoords = null
 	
-	if GameManager.worldLayer == 0:			
+	if GameManager.worldLayer == 0:
 		nextAtlascoords = GameManager.worldManager.tileToAtlasCoords(nextTile)
 	
 	if tile != newtile or forced:
@@ -708,6 +711,11 @@ func initializeValues():
 	tileCheck()
 	if streamRef == null:
 		areaForce = Vector2.ZERO
+		
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		damageUntilHitTimer = timeBeingDamageUntilHitHard
+	else:
+		damageUntilHitTimer = timeBeingDamagedUntilHit
 	
 	stamina = maxStamina * resistanceMultiplier
 	emitUpdatedStaminaValue()
@@ -744,7 +752,7 @@ func _migrated():
 		_travelOrWin()
 	
 	
-	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level > 90):
+	if (!GameManager.abilities.has("travel") and GameManager.levelLoaded) or (GameManager.worldManager.levelName == "Hidden Grove" and GameManager.level >= 90):
 		GameManager.won()	
 		
 		_winGameCamera()
@@ -938,7 +946,7 @@ func _move(movevec: Vector2, delt):
 				velocity *= thornSpeedMultiplier
 				if !(GameManager.difficultyValue == GameManager.Difficulty.EASY):
 					GameManager.damagePlayer()
-					modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
+					modulate = Color(1, clampf(1.0 - damageUntilHitTimer * 2, 0, 1), clampf(1.0 - damageUntilHitTimer * 2, 0, 1))
 				#if global_position.distance_to(tilePosition) < 64:
 		if areaFlag.match("wind"):
 			var windForce: Vector2
@@ -968,7 +976,7 @@ func _move(movevec: Vector2, delt):
 					tornadoThrownVelocity = velocity
 					_toggleFly(false)
 					GameManager.damagePlayer(2)
-					modulate = Color(1, clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1), clampf(1.0 - timeBeingDamagedUntilHit * 2, 0, 1))
+					modulate = Color(1, clampf(1.0 - damageUntilHitTimer * 2, 0, 1), clampf(1.0 - damageUntilHitTimer * 2, 0, 1))
 		elif areaFlag.match("tornadoSafe"):
 			if streamRef != null:
 				var distanceFromCenter = global_position - streamRef.global_position
@@ -1038,10 +1046,10 @@ func _move(movevec: Vector2, delt):
 		
 	var colliding = move_and_slide()
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
-		if timeBeingDamaged < timeBeingDamagedUntilHit:
+		if timeBeingDamaged < damageUntilHitTimer:
 			timeBeingDamaged += delt
 			modulate = Color(1, clampf(1.0 - timeBeingDamaged  * 2, 0, 1), clampf(1.0 - timeBeingDamaged * 2, 0, 1))
-		if timeBeingDamaged >= timeBeingDamagedUntilHit:
+		if timeBeingDamaged >= damageUntilHitTimer:
 			GameManager.damagePlayer(1)
 			#_toggleFly(false)
 	elif timeBeingDamaged > 0:

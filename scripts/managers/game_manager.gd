@@ -356,7 +356,7 @@ func closeUpgrades():
 	
 func cameraShow(category: String):
 	paused = true
-	if shownTutorials.has(category) or playerRef == null:
+	if playerRef == null:
 		#print("already shown")
 		return
 	
@@ -424,13 +424,16 @@ func cameraSwitchWorldLayer():
 		worldManager.switchUnderOverGround()
 	
 	
-func showTutorial(tutorialName: String):
-	if shownTutorials.has(tutorialName):
+func showTutorial(tutorialName: String, forced: bool = false):
+	if shownTutorials.has(tutorialName) and !forced:
 		return
 	
 	if GameManager.level % 5 == 0 and difficultyValue == Difficulty.HARD and !SaveManager.hardAutosaved:
 		shownTutorials.append(tutorialName)
-		GameManager.saved.connect(showTutorial.bind(tutorialName))
+		if !GameManager.saved.is_connected(showTutorial):
+			GameManager.saved.connect(showTutorial.bind(tutorialName, true))
+		else:
+			GameManager.saved.disconnect(showTutorial)
 		return
 		
 	if GameManager.saved.is_connected(showTutorial):
@@ -627,6 +630,9 @@ func damagePlayer(amount: int = 1):
 	if canDamage == false:
 		return
 		
+	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
+		amount *= 2
+			
 	damageHealTimer.wait_time = damagedHealCooldown
 	damageHealTimer.timeout.connect(func allowHealing(): canHealAfterDamage = true)
 	damageHealTimer.start()
@@ -642,7 +648,10 @@ func damagePlayer(amount: int = 1):
 		lostGame()
 	var tim = Timer.new()
 	add_child(tim)
-	tim.wait_time = damageCooldown
+	if difficultyValue == Difficulty.HARD:
+		tim.wait_time = damageCooldown / 1.3
+	else:
+		tim.wait_time = damageCooldown
 	tim.timeout.connect(func canDamagePlayer(): canDamage = true)
 	#tim.timeout.connect(func canDamagedPlayer(): print(canDamage))
 	tim.timeout.connect(tim.queue_free)
