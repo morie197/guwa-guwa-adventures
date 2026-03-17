@@ -73,6 +73,8 @@ var flyLerpSpeed: float = 1
 
 var treatFindRangeMult: float = 2.0
 
+var actualVelocity: Vector2
+
 var healTimer: Timer
 var areaSwitchTimer: Timer
 
@@ -532,6 +534,8 @@ func _process(delta):
 	
 	_animateDuck()
 	
+	if waterSurfaceSwitchDelayTimer > 0:
+		return
 	if sprinting or flying:
 		if stamina > 0: # prevent negative stamina values
 			if sprinting:
@@ -603,12 +607,13 @@ func tileCheck(forced: bool = false):
 	if GameManager.worldManager == null:
 		return
 	newtile = GameManager.worldManager.getTileUnderPos(global_position)
-	var pos = global_position + velocity.normalized() * 32
+	var pos = global_position + actualVelocity.normalized() * 32
 	var nextTile = GameManager.worldManager.getTileUnderPos(pos)
 	var nextAtlascoords = null
 	
 	if GameManager.worldLayer == 0:
 		nextAtlascoords = GameManager.worldManager.tileToAtlasCoords(nextTile)
+		#print(nextAtlascoords)
 	
 	if tile != newtile or forced:
 		GameManager.moved.emit()
@@ -1045,6 +1050,7 @@ func _move(movevec: Vector2, delt):
 		velocity *= 0
 		
 	var colliding = move_and_slide()
+	actualVelocity = get_real_velocity()
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
 		if timeBeingDamaged < damageUntilHitTimer:
 			timeBeingDamaged += delt
