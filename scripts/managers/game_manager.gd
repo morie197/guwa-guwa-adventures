@@ -347,6 +347,9 @@ func closeUpgrades():
 	if abilities.has("travel"):
 		#print("has travel!")
 		showTutorial("travel")
+		
+	if level >= 4 and difficultyValue == Difficulty.HARD:
+		showTutorial("savingHard")
 	
 	if testingCheats == true:
 		testingCheats = false

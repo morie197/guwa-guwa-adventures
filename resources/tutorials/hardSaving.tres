@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Tutorial" load_steps=3 format=3 uid="uid://bayrncdwl0r3k"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_1lkg8"]
+[ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/resourceBases/tutorial.gd" id="2_opemn"]
+
+[resource]
+script = ExtResource("2_opemn")
+displayText = "SAVING_HARD_TUTORIAL"
+metadata/_custom_type_script = "uid://c3vgn54satwgg"

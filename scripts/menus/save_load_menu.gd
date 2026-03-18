@@ -101,4 +101,5 @@ func _back():
 			parentMenu._inPopup()
 	if mode == "saveHard":
 		GameManager.paused = false
+		GameManager.saved.emit()
 	queue_free()

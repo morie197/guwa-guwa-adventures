@@ -15,7 +15,7 @@ MEDIUM,Normal,普通,普通,普通
 HARD,Hard,難しい,困难,困難
 EASY_HINT,Easy: No damage from hazards | save anytime,簡単ー危険からダメージ無し・いつでもセーブ出来る,简单——不会受到地形伤害 · 随时保存,簡單——不會受到地形傷害 · 隨時儲存
 MEDIUM_HINT,Normal: Damage from hazards | save anytime,普通ー危険からダメージ受ける・いつでもセーブ出来る,普通——受到地形伤害 · 随时保存,普通——受到地形傷害 · 隨時儲存
-HARD_HINT,Hard: Damage from hazards | save every 5 treats,難しいー危険からダメージ受ける・おやつを5個集めたらセーブ出来る,困难——受到地形伤害 · 每收集五个谷物保存一次,困難——受到地形傷害 · 每收集五個穀物儲存一次
+HARD_HINT,Hard: Extra damage from hazards | buffed enemies | save every 5 treats,難しいー危険からダメージ受ける・おやつを5個集めたらセーブ出来る,困难——受到地形伤害 · 每收集五个谷物保存一次,困難——受到地形傷害 · 每收集五個穀物儲存一次
 NEW_GAME_CREATE,New game!,始める！,开始,開始
 PAUSED,Paused,ポーズ中,暂停中,暫停中
 LOAD,Load,ロード,加载,載入
@@ -43,7 +43,7 @@ POWER,Power,力,力量,力量
 RESISTANCE_HINT,+1 max HP and +10% max stamina,最大HP＋１、最大スタミナ＋１０％,最大HP+1，最大耐力+10%,最大HP+1，最大耐力+10%
 REACH_HINT,Increases visibility by 20% and attack range by 10%,視認性＋２０％、攻撃範囲＋１０％,视觉范围+20%，攻击范围+10%,視覺範圍+20%，攻擊範圍+10%
 POWER_HINT,"+1 ATK per 5 levels, +5% speed",５レベルごとに＋１攻撃力、移動速度＋５％,每五级攻击力+1，移动速度+5%,每五級攻擊力+1，移動速度+5%
-UPGRADE,Upgrade!,アップグレード,升级！,升級！
+UPGRADE,Upgrade,アップグレード,升级！,升級！
 REMAINING_POINTS,Remaining Points: ,残ってるポイント：,剩余点数:,剩餘點數:
 MAXED,MAX,最大,最大,最大
 GAME_SAVED,Game Saved!,ゲームが保存されました！,游戏已保存,遊戲已儲存
@@ -62,22 +62,23 @@ FLY,Flight,飛行,飞行,飛行
 MIGRATE,Migrate,渡り,迁徙,遷徙
 TRAVEL,Travel,トラベル,旅行,旅行
 BASICS_TUTORIAL,"You are a duck. Eat 40 duck treats to evolve, then migrate south. (TAB to hide)",あなたはアヒルです。アヒルのおやつを４０個食べて進化し、南へ渡りましょう。（TABで非表示）,你是一只鸭子。吃掉40个谷物以进化，向南迁徙吧！(按TAB关闭),你是一隻鴨子。吃掉40個穀物以進化，向南遷徙吧！(按TAB關閉)
-DIVING_TUTORIAL,"Darker water spots can be dived in. Once underwater, if you run out of stamina you start taking damage.",暗い水に潜れるようになりました。水没してる間にスタミナがなくなるとダメージ受け始めます。,可以潜入更深的水域了。在水下体力耗尽时将会受到伤害。,可以潛入更深的水域了。在水下體力耗盡時將會受到傷害。
-FLYING_TUTORIAL,"Hold SPACEBAR to fly, allowing you to fly over cliffs. Once out of stamina or upon hitting an obstacle you take damage.",SPACEを長押しすると飛行出来るようになりました。飛行してる間、スタミナがなくなると、または物に打つかるとダメージを受けます。,可以长按空格进行飞行了。滞空期间体力耗尽或撞击物体将会受到伤害。,可以長按空格進行飛行了。滯空期間體力耗盡或撞擊物體將會受到傷害。
+DIVING_TUTORIAL,Press R to dive underwater/swim to the surface. If you run out of stamina underwater you start taking damage.,暗い水に潜れるようになりました。水没してる間にスタミナがなくなるとダメージ受け始めます。,可以潜入更深的水域了。在水下体力耗尽时将会受到伤害。,可以潛入更深的水域了。在水下體力耗盡時將會受到傷害。
+FLYING_TUTORIAL,Hold SPACEBAR to fly. Flying into a wall or flying with no stamina will damage you.,SPACEを長押しすると飛行出来るようになりました。飛行してる間、スタミナがなくなると、または物に打つかるとダメージを受けます。,可以长按空格进行飞行了。滞空期间体力耗尽或撞击物体将会受到伤害。,可以長按空格進行飛行了。滯空期間體力耗盡或撞擊物體將會受到傷害。
 HIDDEN_GROVE_TUTORIAL,"Welcome to the hidden grove! Survive by getting to 90 duck treats, then migrate back north.",隠れた林へようこそ！生存するためにアヒルのおやつを９０個集めてから、北へ戻って渡りましょう。,欢迎来到隐秘森林！为了满足生存需要，收集90个谷物然后迁徙回北方吧！,歡迎來到隱秘森林！為了滿足生存需要，收集90個穀物然後遷徙回北方吧！
-WALKING_TUTORIAL,You can now walk on land! Walking on land is slower than swimming in water.,地面に歩けるようになりました。地面歩くのが水に泳ぐより遅いです。,可以在地面上行走了。在地面上行走比在水中游泳更慢。,可以在地面上行走了。在地面上行走比在水中游泳更慢。
-MAP_TUTORIAL,"Press M to open the map. All previously visited places will show up, and the mapping range can be improved with range upgrades.",Mでマップが開けます。過去に訪れた場所が表示されます。マップされる範囲がアップグレードで増加できます。,按M可以打开地图。过去抵达过的地方将会被显示。地图显示的范围将会随着升级而增大。,按M可以開啟地圖。過去抵達過的地方將會被顯示。地圖顯示的範圍將會隨著升級而增大。
+WALKING_TUTORIAL,You can now walk on land!,地面に歩けるようになりました。地面歩くのが水に泳ぐより遅いです。,可以在地面上行走了。在地面上行走比在水中游泳更慢。,可以在地面上行走了。在地面上行走比在水中游泳更慢。
+MAP_TUTORIAL,"Press M to open the map. You can toggle the minimap with H, and range upgrades increases the map reveal range.",Mでマップが開けます。過去に訪れた場所が表示されます。マップされる範囲がアップグレードで増加できます。,按M可以打开地图。过去抵达过的地方将会被显示。地图显示的范围将会随着升级而增大。,按M可以開啟地圖。過去抵達過的地方將會被顯示。地圖顯示的範圍將會隨著升級而增大。
 MIGRATE_TUTORIAL,Hold Q and SPACEBAR while moving to migrate and beat the game!,動きながらQとスペースを押したら渡って勝てます。,移动时按住Q和空格以迁徙并胜利结束游戏。,移動時按住Q和空格以遷徙並勝利結束遊戲。
 QUACK_TUTORIAL,Pressing Q near enemy ducks will initiate a battle. Winning makes them move out of the way.,敵アヒルの近くにQを押すと戦闘できます。勝ったら敵アヒルがどけます。,在敌方鸭子附近按Q进入战斗。获胜将挡在路上的鸭子赶走。,在敵方鴨子附近按Q進入戰鬥。獲勝將擋在路上的鴨子趕走。
-RADAR_TUTORIAL,Pressing E will scan the area for hidden areas.,Eを押すと隠しアリア見つけます。,按E扫描以找到隐藏区域,按E掃描以找到隱藏區域
+RADAR_TUTORIAL,Pressing E will scan for hidden areas.,Eを押すと隠しアリア見つけます。,按E扫描以找到隐藏区域,按E掃描以找到隱藏區域
 AUTOSAVE_TUTORIAL,"The game autosaves by default, but you may turn it off in the settings or save manually in the pause menu.",デフォルトで自動セーブされますが、設定でオフに変えます。セーブはポーズメニューで手動でも出来ます。,默认自动保存，可以在设置中更改。也可在暂停菜单中手动保存。,預設自動儲存，可以在設定中更改。也可在暫停選單中手動儲存。
-SPRINT_TUTORIAL,You can sprint with SHIFT. Once running out of stamina you are unable to sprint for a short while.,SHIFTで走れます。スタミナがなくなると暫く走れなくなります。,按SHIFT奔跑。体力耗尽将会暂时无法奔跑。,按SHIFT奔跑。體力耗盡將會暫時無法奔跑。
-TRAVEL_TUTORIAL,"Congratulations on collecting 60 treats! You may now travel to the hidden grove upon migrating, which is full of enemy ducks and hazards!",６０個のおやつを集めておめでとうございます。「隠された林」に渡るようになりました。「隠された林」には敵アヒルが多くて危険が多いです。,恭喜你集齐60个谷物！可以向《隐秘森林》迁徙了。《隐秘森林》里的敌方鸭子数量众多，地势凶险。,恭喜你集齊60個穀物！可以向《隱秘森林》遷徙了。《隱秘森林》裡的敵方鴨子數量眾多，地勢兇險。
-TREAT_SONAR_TUTORIAL,"Pressing E will now also point to the nearest treat, and show a hint on the map!",Eを押すと最も近い範囲内のおやつに指示されてマップにもヒントが表示されます。,按E指向最近的谷物并在地图上显示。,按E指向最近的穀物並在地圖上顯示。
+SAVING_HARD_TUTORIAL,"On hard difficulty, you only get one chance to save every 5 treats. You can only save immediately after collecting the 5th treat.",,,
+SPRINT_TUTORIAL,You can sprint with SHIFT. Once you run out of stamina you are unable to sprint for a short while.,SHIFTで走れます。スタミナがなくなると暫く走れなくなります。,按SHIFT奔跑。体力耗尽将会暂时无法奔跑。,按SHIFT奔跑。體力耗盡將會暫時無法奔跑。
+TRAVEL_TUTORIAL,"Congratulations on collecting 60 treats! You may now choose to travel to the hidden grove upon migrating, which is full of enemy ducks and hazards.",６０個のおやつを集めておめでとうございます。「隠された林」に渡るようになりました。「隠された林」には敵アヒルが多くて危険が多いです。,恭喜你集齐60个谷物！可以向《隐秘森林》迁徙了。《隐秘森林》里的敌方鸭子数量众多，地势凶险。,恭喜你集齊60個穀物！可以向《隱秘森林》遷徙了。《隱秘森林》裡的敵方鴨子數量眾多，地勢兇險。
+TREAT_SONAR_TUTORIAL,Pressing E will now also point to the nearest treat and show a hint on the map. The radar prioritizes normal treats over hidden treats.,Eを押すと最も近い範囲内のおやつに指示されてマップにもヒントが表示されます。,按E指向最近的谷物并在地图上显示。,按E指向最近的穀物並在地圖上顯示。
 AUTOSAVE_SLOT,Autosave,自動セーブ,自动保存,自動儲存
 SLOT,Slot,スロット,栏位,欄位
 TREATS,Treats,おやつ,谷物,穀物
-RADAR_READY,Radar Ready!,ソナー使えます。,声纳就绪,聲納就緒
+RADAR_READY,Radar Ready,ソナー使えます。,声纳就绪,聲納就緒
 LOST_TEXT,You have fallen...,負けました。,你输了。,你輸了。
 BASICS_MOVE_ACTION,Move: ,移動：,移动:,移動:
 BASICS_ZOOM_ACTION,Zoom: ,ズーム：,缩放:,縮放:
@@ -93,9 +94,10 @@ SEARCH_ACTION,Search: ,おやつを探す：,搜寻谷物:,搜尋穀物:
 ATTACK_ACTION,Attack: ,攻撃：,攻击:,攻擊:
 LUNGE_ACTION,Lunge: ,突っかかる：,冲刺:,衝刺:
 AIM_ACTION,Aim: ,エイム：,瞄准:,瞄準:
-PROJECTILE_RANGE_TUTORIAL,- Projectiles deal half damage outside of range.,・射程外では射撃攻撃のダメージが半減します。,·射程外伤害将减少一半。,·射程外傷害將減少一半。
+PROJECTILE_RANGE_TUTORIAL,- Non-reflected projectiles deal half damage outside of range.,・射程外では射撃攻撃のダメージが半減します。,·射程外伤害将减少一半。,·射程外傷害將減少一半。
 REFLECT_TUTORIAL,- Attacking AFTER an enemy will cause the enemy projectile to be reflected.,・敵の後に攻撃を放つと、その敵の射撃攻撃が敵に反射されます。,·在敌人身后发动攻击，敌人的攻击将被反射。,·在敵人身後發動攻擊，敵人的攻擊將被反射。
 BLOCK_TUTORIAL,- Attacking BEFORE an enemy will cause the projectiles to damage each other.,・敵の前に攻撃を放つと、射撃攻撃が打つかって攻撃力が同等だと両方が消えて、一方が高いともう一方が消えます。,·在敌人身前发动攻击，攻击力同等将会抵消，攻击力高的一方造成伤害。,·在敵人身前發動攻擊，攻擊力同等將會抵消，攻擊力高的一方造成傷害。
+DODGE_TUTORIAL,- Lunging will temporarily grant you invincibility.,,,
 DUCK_NAME,Duck,アヒル,鸭,鴨
 NEW_ABILITY_TEXT,"New Ability ""%s"" unlocked!",新しい能力「%s」が解除されました！,新的能力《%s》已经解锁了！,新的能力《%s》已經解鎖了！
 DUCK_HP_STAT,HP: ,HP: ,HP:,HP:
@@ -117,14 +119,16 @@ CREDITS_YOU_NAME,You,あなた,您,您
 CREDITS_YOU_DESCRIPTION,"For taking the time to play and beat my game!
 Any feedback, negative or positive is welcome!","大切な時間を、私のゲームをプレイするために使ってもらってクリアまでやってくれてありがとうございました
 必須ではありませんが、フィードバックをいただけると嬉しいです。",十分感谢您将宝贵的时间用在游玩我的游戏上并坚持到最后！如果您愿意的话，很荣幸收到您的反馈！,十分感謝您將寶貴的時間用在遊玩我的遊戲上並堅持到最後！如果您願意的話，很榮幸收到您的反饋！
+CREDITS_TOROMI_NAME,Toromi,,,
+CREDITS_TOROMI_DESCRIPTION,For playtesting and helping with the Japanese translation!,,,
 CREDITS_ASSETS_USED,Assets used,使ったアセット,使用素材,使用素材
 CREDITS_MUSIC,Music,音楽,音乐,音樂
 CREDITS_SFX,SFX,SFX,效果音,效果音
 CREDITS_IMAGES,UI Assets,UI素材,UI素材,UI素材
 CREDITS_DEVELOPED_BY,Developed by,開発者,开发者,開發者
 CREDITS_DEVELOPER,Ikuna Games,いくなGames,Ikuna Games,Ikuna Games
-CREDITS_YOU_DESCRIPTION_FULL,"For taking the time to play and 100% my game!
-Any feedback, negative or positive is welcome!","大切な時間を、私のゲームをプレイするために使ってもらって100％までやってくれてありがとうございました
+CREDITS_YOU_DESCRIPTION_FULL,"For taking the time to play and [color=BLUE]100%[/color] my game!
+Any feedback, negative or positive is welcome!","大切な時間を、私のゲームをプレイするために使ってもらって [color=BLUE]100％[/color]までやってくれてありがとうございました
 必須ではありませんが、フィードバックをいただけると嬉しいです。",十分感谢您将宝贵的时间用在游玩我的游戏上并坚持到最后！如果您愿意的话，很荣幸收到您的反馈！,十分感謝您將寶貴的時間用在遊玩我的遊戲上並堅持到最後！如果您願意的話，很榮幸收到您的反饋！
 REQUIRED_TEXT,Required: ,必要：,需要,需要
 REQUIRED_TREATS,%s Treats,%s個のおやつ,%s个谷物,%s個穀物
@@ -134,3 +138,4 @@ DUCK_TREAT_OBTAINED,Duck Treat Obtained!,アヒルのおやつを獲得！,获�
 TRAVEL_HIDDEN_GROVE_PROMPT,Travel to the hidden grove?,隠れた林に移動しますか？,前往隐秘森林？,前往隱秘森林？
 POPUP_WARNING_DEFAULT,Are you sure?,よろしいですか？,确定吗？,確定嗎？
 SHOW_MINIMAP,Show Minimap: ,ミニマップを表示：,,
+MINIMAP_ACTION,Toggle Minimap: ,ミニマップの切り替え：,,

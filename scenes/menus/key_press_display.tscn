@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2wiliedjt5cj" path="res://scripts/menus/key_press_display.gd" id="1_03oao"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckq4c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icw8i"]
 content_margin_left = 7.0
 content_margin_top = 7.0
 content_margin_right = 7.0
@@ -25,7 +25,7 @@ expand_margin_bottom = 5.0
 [node name="PanelContainer" type="PanelContainer"]
 offset_right = 296.0
 offset_bottom = 92.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ckq4c")
+theme_override_styles/panel = SubResource("StyleBoxFlat_icw8i")
 script = ExtResource("1_03oao")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

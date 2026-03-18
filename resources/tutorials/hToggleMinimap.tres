@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=3 format=3 uid="uid://bdi756sw0vnye"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_k7ml1"]
+[ext_resource type="Texture2D" uid="uid://d03u843o82uqo" path="res://keyboard_h.svg" id="1_mqaol"]
+
+[resource]
+script = ExtResource("1_k7ml1")
+icons = Array[Texture2D]([ExtResource("1_mqaol")])
+text = "MINIMAP_ACTION"
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

@@ -613,8 +613,19 @@ size_flags_vertical = 8
 theme_override_constants/line_separation = 0
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 28
 text = "PROJECTILE_RANGE_TUTORIAL"
+fit_content = true
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/line_separation = 0
+theme_override_constants/paragraph_separation = 25
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 28
+text = "DODGE_TUTORIAL"
 fit_content = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer/controls/VBoxContainer"]
@@ -624,7 +635,7 @@ size_flags_vertical = 8
 theme_override_constants/line_separation = 0
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 28
 text = "REFLECT_TUTORIAL"
 fit_content = true
 
@@ -635,7 +646,7 @@ size_flags_vertical = 8
 theme_override_constants/line_separation = 0
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 28
 text = "BLOCK_TUTORIAL"
 fit_content = true
 

@@ -191,10 +191,8 @@ func _enableDisable(enable: bool = true):
 	
 	if enable and onWorldlayer:
 		water_sprite.visible = true
-		land_sprite.visible = true
 		process_mode = PROCESS_MODE_ALWAYS
 	else:
 		water_sprite.visible = false
-		land_sprite.visible = false
 		process_mode = PROCESS_MODE_DISABLED
 	

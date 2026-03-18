@@ -42,6 +42,10 @@ func _ready():
 				key_presses.add_child(keyDisplay)
 				keyDisplay.setData(item.icons, item.text, item.type)
 	
+	if key_presses.get_child_count() > 9:
+		for keyPress in key_presses.get_children():
+			keyPress.setTextSize(42)
+	
 func _resume():
 	ui_manager.pause()
 	

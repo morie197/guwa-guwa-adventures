@@ -2,6 +2,12 @@ extends Control
 
 @onready var h_box_container = $HBoxContainer
 
+func setTextSize(textSize = 64):
+	for item in h_box_container.get_children():
+		if item is RichTextLabel:
+			item.add_theme_font_size_override("normal_font_size", textSize)
+	
+
 func setData(keyDataOriginal: Array[Texture2D], text: String, type: String):
 	var keyData = keyDataOriginal.duplicate()
 	if !text.match(""):
