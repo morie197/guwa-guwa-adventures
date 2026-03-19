@@ -53,6 +53,14 @@ func _process(delta):
 	if !switch:
 		return
 	
+	if GameManager.paused:
+		if tim != null:
+			tim.paused = true
+		return
+	else:
+		if tim != null:
+			tim.paused = false
+	
 	if switchTimer <= 0:
 		if tim == null:
 			tim = Timer.new()
