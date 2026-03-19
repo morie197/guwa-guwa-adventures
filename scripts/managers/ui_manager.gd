@@ -362,6 +362,7 @@ func _updateGoal():
 		until_next_goal.text = tr("MIGRATION_BACK_GOAL")
 	else:
 		until_next_goal.text = tr("ALL_TREAT_GOAL")
+	
 	if GameManager.level > 40:
 		progress_to_completion.self_modulate = Color.TEAL
 		if GameManager.worldManager.levelName == "Quiet Gardens":
@@ -388,6 +389,10 @@ func _updateGoal():
 				collectedAll = true
 			progress_to_completion.max_value = 65.0
 			progress_to_complete_percent.max_value = 65.0
+		
+	else:
+		progress_to_completion.max_value = 40.0
+		progress_to_complete_percent.max_value = 40.0
 		
 	progress_to_completion.value = GameManager.level
 	progress_to_complete_percent.value = GameManager.level
