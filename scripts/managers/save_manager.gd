@@ -33,6 +33,9 @@ var autosaveCooldownTimer: Timer
 var tim: Timer
 
 func _ready():
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), true)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+	
 	loadAllData()
 	if saveDataAll.size() < saveSlotCount:
 		for i in range(saveDataAll.size(), saveSlotCount):
@@ -269,6 +272,9 @@ func applyConfigData():
 		#if configData["audio"].has("sfx"):		
 			#var index = AudioServer.get_bus_index("SFX")
 			#AudioServer.set_bus_volume_db(index, configData["audio"]["sfx"])
+			
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
 	
 func saveConfigData():
 	var config = ConfigFile.new()

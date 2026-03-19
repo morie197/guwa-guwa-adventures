@@ -3,6 +3,7 @@ extends PathFollow2D
 @export var speed: float = 100
 @export var peakPos: float = -1
 @export var underground: bool = false
+@export var tornadoParticles: GPUParticles2D
 
 @export var disableStreamComponents: Array[Node2D]
 
@@ -13,6 +14,8 @@ func _ready():
 		peakPosRatio = peakPos / get_parent().curve.get_baked_length()
 	if disableStreamComponents.size() > 0:
 		GameManager.switchedWorldLevel.connect(_toggleTornado)
+		
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

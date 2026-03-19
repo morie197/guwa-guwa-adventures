@@ -25,6 +25,29 @@ var switchValue: int = 1
 func _ready():
 	switchFromFlag = flag
 	GameManager.changeBreathableLayer.connect(_updateBreathable)
+	
+	if flag == "tornado":
+		var emitter: GPUParticles2D = null
+		if $GPUParticles2D != null:
+			$GPUParticles2D.emitting = false
+			emitter = $GPUParticles2D
+		
+		if $CollisionShape2D != null:
+			if collider == null:
+				collider = $CollisionShape2D
+		
+		if emitter == null or collider == null:
+			print("nahman")
+			return
+		
+		if collider.shape is CircleShape2D:
+			var notifier = VisibleOnScreenNotifier2D.new()
+			add_child(notifier)
+			notifier.rect.size = Vector2(collider.shape.radius * 2, collider.shape.radius * 2)
+			notifier.rect.position = -notifier.rect.size/2
+			notifier.screen_entered.connect(func(): emitter.emitting = true)
+			notifier.screen_exited.connect(func(): emitter.emitting = false)
+				
 
 func _process(delta):
 	if !switch:

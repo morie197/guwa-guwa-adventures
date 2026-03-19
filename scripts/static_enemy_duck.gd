@@ -77,7 +77,8 @@ func _breathLayerChanged(breathable: bool = false):
 		water_sprite.modulate = Color.TRANSPARENT
 
 func _updateDirection():
-	if GameManager.playerRef != null:
+	
+	if GameManager.playerRef != null and detected:
 		if GameManager.playerRef.global_position.distance_to(global_position) < activationDistance:
 			if GameManager.playerRef.global_position.x < global_position.x:
 				%waterSprite.flip_h = true
@@ -119,15 +120,20 @@ func _duckWindowPopup():
 	
 func _player_exited(_area):
 	detected = false
-	if landDuck:
-		%landSprite.visible = false
-		%waterSprite.visible = true
 	if GameManager.playerRef != null:
 		GameManager.playerRef.quack.disconnect(_quack)
 		for duck in owners:
 			if duck.duckContainer != null:
 				duck.duckContainer.queue_free()
 				duck.duckContainer = null
+				
+	if GameManager.duckRegistry.has(id):
+		%landSprite.visible = false
+		%waterSprite.visible = false
+		return
+	if landDuck:
+		%landSprite.visible = false
+		%waterSprite.visible = true
 
 func _quack():
 	if duckNames.size() > 0 and GameManager.minigame == false and GameManager.lost == false:
