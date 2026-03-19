@@ -516,7 +516,7 @@ func _process(delta):
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
-	if (moveVector != Vector2.ZERO) or (areaForce != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null):
+	if (moveVector != Vector2.ZERO) or (areaForce != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null and !GameManager.loadingLevel):
 		_stateEffects()
 		
 		
@@ -597,7 +597,8 @@ func _area_exit(_area):
 		areaSwitchTimer.start()
 	
 func loadGameChecks():
-	tileCheck()
+	tileCheck(true)
+	switchUnderwater(true)
 	flying = false
 	velocity = Vector2.ZERO
 	sprinting = false
@@ -673,7 +674,7 @@ func tileCheck(forced: bool = false):
 			switch = true
 		elif ((nextAtlascoords == Vector2i(2, 3) or nextAtlascoords == Vector2i(0, 3)) and !newBreathable):
 			switch = true
-				
+	
 			#print(nextAtlascoords)
 			#print(isBreathable == newBreathable)
 			#print(switch, newBreathable)
@@ -688,6 +689,7 @@ func switchUnderwater(forced: bool = false):
 		waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
 		%underwaterSwitchSound.play()
 	else:
+		%underwaterSwitchSound.stop()
 		waterSurfaceSwitchDelayTimer = 0
 	if GameManager.worldManager:
 		GameManager.worldManager.switchBreathableArea(isBreathable)
