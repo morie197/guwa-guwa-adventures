@@ -297,7 +297,7 @@ func _ready():
 	switchBreathableArea(GameManager.playerRef.isBreathable)
 
 func switchBreathableArea(breathable: bool = false):
-	#print("called")
+	print("called, ", breathable)
 	if breathable:
 		undergroundTreats.visible = true
 		#undergroundDucks.visible = true

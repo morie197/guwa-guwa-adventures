@@ -837,7 +837,6 @@ script = ExtResource("1_4eecq")
 levelName = "Quiet Gardens"
 
 [node name="Underground" type="Node2D" parent="."]
-visible = false
 light_mask = 3
 visibility_layer = 3
 z_index = -4
@@ -1275,6 +1274,7 @@ process_material = SubResource("ParticleProcessMaterial_wvb8j")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Underground/areas/stream4"]
 stream = ExtResource("10_8kpy5")
+volume_db = -10.0
 pitch_scale = 2.71
 autoplay = true
 max_distance = 3500.0
@@ -2574,7 +2574,7 @@ tile_map_data = PackedByteArray("AAD+/9v/AQABAAcAAGD+/wkAAQABAAYAAFD//wkAAQABAAY
 tile_set = ExtResource("5_ida7w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Overground/areas/hiddenArea33"]
-position = Vector2(0, -1344)
+position = Vector2(0, -448)
 shape = SubResource("CapsuleShape2D_4eecq")
 
 [node name="ping" type="AudioStreamPlayer2D" parent="Overground/areas/hiddenArea33"]
@@ -3833,7 +3833,7 @@ stream = ExtResource("10_8kpy5")
 volume_db = -10.0
 pitch_scale = 2.71
 autoplay = true
-max_distance = 350.0
+max_distance = 1000.0
 bus = &"SFX"
 parameters/looping = true
 
@@ -4154,9 +4154,10 @@ process_material = SubResource("ParticleProcessMaterial_xnv6s")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Overground/areas/stream14"]
 stream = ExtResource("10_8kpy5")
+volume_db = -10.0
 pitch_scale = 2.71
 autoplay = true
-max_distance = 3500.0
+max_distance = 1400.0
 bus = &"SFX"
 parameters/looping = true
 
@@ -4710,7 +4711,6 @@ duckHP = Array[int]([15, 15, 15])
 duckATK = Array[int]([3, 1, 2])
 duckSPD = Array[int]([1, 4, 2])
 duckRAN = Array[int]([2, 1, 3])
-stageName = "water"
 revealedAreas = [NodePath("../../areas/hiddenArea38")]
 landDuck = true
 owners = [NodePath("."), NodePath("../StaticEnemyDuck28"), NodePath("../StaticEnemyDuck29")]
@@ -4722,7 +4722,6 @@ duckHP = Array[int]([15, 15, 15])
 duckATK = Array[int]([3, 1, 2])
 duckSPD = Array[int]([1, 4, 2])
 duckRAN = Array[int]([2, 1, 3])
-stageName = "water"
 revealedAreas = [NodePath("../../areas/hiddenArea38")]
 landDuck = true
 owners = [NodePath("../StaticEnemyDuck27"), NodePath("."), NodePath("../StaticEnemyDuck29")]
@@ -4734,7 +4733,6 @@ duckHP = Array[int]([15, 15, 15])
 duckATK = Array[int]([3, 1, 2])
 duckSPD = Array[int]([1, 4, 2])
 duckRAN = Array[int]([2, 1, 3])
-stageName = "water"
 revealedAreas = [NodePath("../../areas/hiddenArea38")]
 landDuck = true
 owners = [NodePath("../StaticEnemyDuck27"), NodePath("../StaticEnemyDuck28"), NodePath(".")]
@@ -4932,7 +4930,6 @@ position = Vector2(1920, -8320)
 position = Vector2(3008, -12160)
 
 [node name="MapLayers" type="Node2D" parent="."]
-visible = false
 light_mask = 2
 visibility_layer = 2
 

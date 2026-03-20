@@ -53,6 +53,7 @@ ALL_TREAT_GOAL,All Treats: ,全部のおやつ：,全部的谷物,全部的穀�
 SWIM,Swim,泳ぐ,游泳,游泳
 SPRINT,Sprint,走る,跑,跑
 QUACK,Quack,クワック,鸭叫,鴨叫
+QUACK_SOUND,Quack!,ぐわ！,,
 SONAR,Sonar,ソナー,声纳,聲納
 WALK,Walk,歩く,走,走
 MAP,Map,マップ,地图,地圖
@@ -98,7 +99,7 @@ PROJECTILE_RANGE_TUTORIAL,- Non-reflected projectiles deal half damage outside o
 REFLECT_TUTORIAL,- Attacking AFTER an enemy will cause the enemy projectile to be reflected.,・敵の後に攻撃を放つと、その敵の射撃攻撃が敵に反射されます。,·在敌人身后发动攻击，敌人的攻击将被反射。,·在敵人身後發動攻擊，敵人的攻擊將被反射。
 BLOCK_TUTORIAL,- Attacking BEFORE an enemy will cause the projectiles to damage each other.,・敵の前に攻撃を放つと、射撃攻撃が打つかって攻撃力が同等だと両方が消えて、一方が高いともう一方が消えます。,·在敌人身前发动攻击，攻击力同等将会抵消，攻击力高的一方造成伤害。,·在敵人身前發動攻擊，攻擊力同等將會抵消，攻擊力高的一方造成傷害。
 DODGE_TUTORIAL,- Lunging will temporarily grant you invincibility.,,,
-DUCK_NAME,Duck,アヒル,鸭,鴨
+DUCK_NAME,Duck,アヒルちゃん,鸭,鴨
 NEW_ABILITY_TEXT,"New Ability ""%s"" unlocked!",新しい能力「%s」が解除されました！,新的能力《%s》已经解锁了！,新的能力《%s》已經解鎖了！
 DUCK_HP_STAT,HP: ,HP: ,HP:,HP:
 DUCK_ATK_STAT,ATK: ,攻撃力:,攻击力:,攻擊力:

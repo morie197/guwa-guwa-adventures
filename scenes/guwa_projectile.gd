@@ -51,7 +51,7 @@ func _ready():
 		set_collision_mask_value(8, true)
 	elif force == "player":
 		#print("player2")
-		$Polygon2D.color = Color(0.619, 0.745, 1.0, 1.0)
+		$Polygon2D.color = Color(0.619, 0.745, 1.0, 0.75)
 		set_collision_mask_value(10, true)
 		
 	#print(get_collision_layer_value(8))
@@ -78,7 +78,7 @@ func _process(delta):
 				attack_damage = clampi(round(attack_damage/2.0), 1, 100)
 		if initAttackDamage > attack_damage:
 			var whiteness = attack_damage/float(initAttackDamage)
-			modulate = Color(whiteness, whiteness, whiteness, 1)
+			modulate = Color(whiteness, whiteness, whiteness, 0.75)
 	
 func _physics_process(delta):
 	#print("Self: ", global_position, " | Parent: ", get_parent().global_position)

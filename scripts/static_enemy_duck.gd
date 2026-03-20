@@ -77,7 +77,10 @@ func _breathLayerChanged(breathable: bool = false):
 		water_sprite.modulate = Color.TRANSPARENT
 
 func _updateDirection():
-	
+	if %landSprite.visible:
+		%waterSprite.visible = false
+	elif %waterSprite.visible:
+		%landSprite.visible = false
 	if GameManager.playerRef != null and detected:
 		if GameManager.playerRef.global_position.distance_to(global_position) < activationDistance:
 			if GameManager.playerRef.global_position.x < global_position.x:

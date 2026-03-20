@@ -12,7 +12,7 @@ var fowSaveData = {}
 
 var configData = {}
 
-var saveSlotCount = 6
+var saveSlotCount = 10
 
 var autosave: bool = true
 
@@ -203,7 +203,7 @@ func loadAllData():
 	loadConfigData()
 	applyConfigData()
 	
-	var baseData = [{}, {}, {}, {}, {}, {}]
+	var baseData = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 	
 	var readFile = FileAccess.open(savePath, FileAccess.READ)
 	if readFile == null:

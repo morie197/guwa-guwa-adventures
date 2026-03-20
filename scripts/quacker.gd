@@ -1,6 +1,8 @@
 extends Area2D
 class_name Quacker
 
+const TEXT_FADEOUT = preload("uid://njdbrcbg5b7j")
+
 var max_quack_range: float :
 	set(new_range):
 		if max_quack_range != new_range:
@@ -136,7 +138,24 @@ func quack(direction: Vector2 = Vector2.RIGHT, speed: float = 5.0, reflect: bool
 		projectile.attack_damage = attack_damage
 	parent_duck.minigamemanager.call_deferred("add_child", projectile)
 	
-	
+	#var stringColor: Color = Color(1.0, 0.663, 0.69, 0.749)
+	#if parent_duck.name == "PlayerMinigame":
+		#stringColor = Color(0.619, 0.745, 1.0, 0.75)
+	#
+	#var stringOffset = 64 * 1/tr("QUACK_SOUND").length()
+	#if tr("QUACK_SOUND").length() > 4:
+		#stringOffset = 96 * 1/tr("QUACK_SOUND").length()
+		#
+	#var pos = 1
+	#for c in tr("QUACK_SOUND"):
+		#var richText = TEXT_FADEOUT.instantiate()
+		#parent_duck.minigamemanager.call_deferred("add_child", richText)
+		#richText.attackString = c
+		#richText.color = stringColor
+		#richText.target = projectile
+		#richText.offset = Vector2(-16, -16) + (direction.normalized() * (Vector2(stringOffset, stringOffset) * pos)) - (direction.normalized() * Vector2(stringOffset, stringOffset) * tr("QUACK_SOUND").length()/2.0)
+		#pos += 1
+			
 	quacked.emit()
 	#for enemy in enemy_duck:
 		#if enemy.has_method("damage"):
