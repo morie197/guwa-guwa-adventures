@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialItem" load_steps=3 format=3 uid="uid://dk542ij70u166"]
+
+[ext_resource type="Script" uid="uid://osfvc8pe6lad" path="res://scripts/resourceBases/tutorialItem.gd" id="1_26xlu"]
+[ext_resource type="Texture2D" uid="uid://bq6bus1p6d74e" path="res://sprites/keys/qe/keyboard_q.svg" id="1_djv0y"]
+
+[resource]
+script = ExtResource("1_26xlu")
+icons = Array[Texture2D]([ExtResource("1_djv0y")])
+text = "EAT_ACTION"
+includeInPause = false
+metadata/_custom_type_script = "uid://osfvc8pe6lad"

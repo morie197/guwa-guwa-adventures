@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="tutorialList" load_steps=17 format=3 uid="uid://babei73ri162t"]
+[gd_resource type="Resource" script_class="tutorialList" load_steps=18 format=3 uid="uid://babei73ri162t"]
 
 [ext_resource type="Script" uid="uid://df8cvxetmidef" path="res://scripts/resourceBases/tutorialList.gd" id="1_plr7i"]
 [ext_resource type="Script" uid="uid://c3vgn54satwgg" path="res://scripts/resourceBases/tutorial.gd" id="2_jvs0w"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://cc8n3b2vd0pgd" path="res://resources/tutorials/travelToHiddenGrove.tres" id="14_45kta"]
 [ext_resource type="Resource" uid="uid://bdapj8ncckthg" path="res://resources/tutorials/hiddengrove.tres" id="15_tnl36"]
 [ext_resource type="Resource" uid="uid://bayrncdwl0r3k" path="res://resources/tutorials/hardSaving.tres" id="16_mouur"]
+[ext_resource type="Resource" uid="uid://c1y5s8qq6adtk" path="res://resources/tutorials/scavengeTutorial.tres" id="17_h0v31"]
 
 [resource]
 script = ExtResource("1_plr7i")
@@ -31,6 +32,7 @@ tutorials = Dictionary[String, ExtResource("2_jvs0w")]({
 "radar": ExtResource("7_1hoe8"),
 "saving": ExtResource("4_8evg3"),
 "savingHard": ExtResource("16_mouur"),
+"scavenge": ExtResource("17_h0v31"),
 "sprint": ExtResource("6_owgbv"),
 "travel": ExtResource("14_45kta"),
 "treatdetect": ExtResource("13_uviob")

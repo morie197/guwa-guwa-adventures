@@ -22,7 +22,7 @@ var testingCheats: bool = false
 enum Difficulty {EASY, NORMAL, HARD}
 var difficultyValue: Difficulty = Difficulty.NORMAL
 
-var hpRestoredFromTreat
+var hpRestoredFromTreat: int
 
 const SAVE_LABEL = preload("uid://dr217ab6yuj6k")
 const DUCK_MINIGAME = preload("uid://djxnchr27abqs")
@@ -39,6 +39,9 @@ var treatRegistry: Array[int] = []
 
 var revealedTiles: Array[Vector2i] = []
 var revealedTilesUnder: Array[Vector2i] = []
+
+var duckBiteFoundRegistry: Array[int] = []
+var duckBiteEatenRegistry: Array[int] = []
 
 var hiddenRegistry: Array[int] = []
 
@@ -146,6 +149,8 @@ func saveValues():
 	SaveManager.saveData["hiddenRegistry"] = hiddenRegistry.duplicate()
 	SaveManager.fowSaveData[0] = worldManager.underFow.duplicate()
 	SaveManager.fowSaveData[1] = worldManager.overFow.duplicate()
+	SaveManager.saveData["duckBiteFoundRegistry"] = duckBiteFoundRegistry.duplicate()
+	SaveManager.saveData["duckBiteEatenRegistry"] = duckBiteEatenRegistry.duplicate()
 
 func genericArrayToVector2i(targets) -> Array[Vector2i]:
 	var typedArray: Array[Vector2i]
@@ -216,6 +221,9 @@ func loadValues(resetRefs: bool = false):
 	duckRegistry.assign(SaveManager.saveData.get("duckRegistry", []))
 	treatRegistry.assign(SaveManager.saveData.get("treatRegistry", []))
 	hiddenRegistry.assign(SaveManager.saveData.get("hiddenRegistry", []))
+	
+	duckBiteFoundRegistry.assign(SaveManager.saveData.get("duckBiteFoundRegistry", []))
+	duckBiteEatenRegistry.assign(SaveManager.saveData.get("duckBiteEatenRegistry", []))
 	
 	if worldManager.levelName == "Hidden Grove":
 		upgradeSet = UpgradeData.POSTGAMEUPGRADES
@@ -324,8 +332,6 @@ func closeUpgrades():
 	paused = false
 	upgraded.emit()
 	
-	#print(abilities)
-	
 	if abilities.has("quack"):
 		showTutorial("quack")
 	if abilities.has("sprint"):
@@ -345,16 +351,13 @@ func closeUpgrades():
 	if abilities.has("treatdetect"):
 		showTutorial("treatdetect")
 	if abilities.has("travel"):
-		#print("has travel!")
 		showTutorial("travel")
+	if abilities.has("scavenge"):
+		showTutorial("scavenge")
 		
 	if level >= 4 and difficultyValue == Difficulty.HARD:
 		showTutorial("savingHard")
-	
-	if testingCheats == true:
-		testingCheats = false
-		return
-	
+		
 	SaveManager.autoSave(true)
 	
 func cameraShow(category: String):

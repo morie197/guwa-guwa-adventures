@@ -255,6 +255,11 @@ func _ready():
 		treat.point_light_2d.energy = treat.undergroundEnergy
 		treat.point_light_2d.enabled = false
 		
+	for bite in $Underground/bites.get_children():
+		bite.underground = true
+		bite.id = -bite.id
+		
+		
 	_getDucksRecursively(undergroundDucks)
 	GameManager.playerRef = player
 	GameManager.worldManager = self
@@ -302,6 +307,7 @@ func switchBreathableArea(breathable: bool = false):
 	print("called, ", breathable)
 	if breathable:
 		undergroundTreats.visible = true
+		$Underground/bites.visible = true
 		#undergroundDucks.visible = true
 		undergroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
 			
@@ -314,6 +320,7 @@ func switchBreathableArea(breathable: bool = false):
 			child.modulate = Color.WHITE
 	else:
 		undergroundTreats.visible = false
+		$Underground/bites.visible = false
 		#undergroundDucks.visible = false
 		undergroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
 			
@@ -430,7 +437,7 @@ func updateFOW(usual: bool = false):
 		
 	var finalFOWRadius
 	if levelName == "Hidden Grove":
-		finalFOWRadius = FOWRadius/2 + (GameManager.postgameUpgradeLevels["reach"] * GameManager.treatRegistry.size()/10.0)
+		finalFOWRadius = FOWRadius + (GameManager.postgameUpgradeLevels["reach"] * (1 + GameManager.treatRegistry.size())/10.0)
 	else:
 		finalFOWRadius = FOWRadius + (GameManager.upgradeLevels["range"])
 	var playerCell = getTileUnderPos(GameManager.playerRef.global_position)

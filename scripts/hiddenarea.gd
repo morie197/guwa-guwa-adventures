@@ -124,18 +124,18 @@ func pingSoundPlay(subtle: bool = false):
 	if noRadar:
 		return
 	
-	elif subtle:
-		pingSubtlePlayed = true
-		var timmy = Timer.new()
-		timmy.wait_time = pingCooldown
-		timmy.timeout.connect(func subtleReset(): pingSubtlePlayed = false)
-		add_child(timmy)
-		timmy.start()
+	#elif subtle:
+		#pingSubtlePlayed = true
+		#var timmy = Timer.new()
+		#timmy.wait_time = pingCooldown
+		#timmy.timeout.connect(func subtleReset(): pingSubtlePlayed = false)
+		#add_child(timmy)
+		#timmy.start()
 		
 	if subtle:
-		ping.volume_db = -7
-		ping.pitch_scale = 1.8
-		ping.play()
+		#ping.volume_db = -7
+		#ping.pitch_scale = 1.8
+		#ping.play()
 		return
 	else:
 		ping.volume_db = pingRadarVolume

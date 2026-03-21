@@ -3178,6 +3178,8 @@ range_z_max = 2
 texture = SubResource("GradientTexture2D_qhnmj")
 texture_scale = 1.13
 
+[node name="bites" type="Node2D" parent="Underground"]
+
 [node name="Overground" type="Node2D" parent="."]
 light_mask = 3
 visibility_layer = 3
@@ -8670,6 +8672,8 @@ position = Vector2(3648, -6208)
 
 [node name="1" type="Node2D" parent="Overground/cameraNodes/flyNodes"]
 position = Vector2(3392, -9152)
+
+[node name="bites" type="Node2D" parent="Overground"]
 
 [node name="MapLayers" type="Node2D" parent="."]
 light_mask = 2

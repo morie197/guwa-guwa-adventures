@@ -399,7 +399,7 @@ func _process(delta):
 		moveVector = Vector2.ZERO
 		return
 	if migrating:
-		if flying and GameManager.worldLayer == 1:
+		if flying and GameManager.worldLayer == 1 and timeBeingDamaged <= 0:
 			if migrateTimer > 0:
 				bgm.volume_db = lerp(bgm.volume_db, -40.0, bgmFadeTime * delta )
 				migrateTimer -= delta
@@ -411,7 +411,12 @@ func _process(delta):
 			migrateTimer = clampf(migrateTimer + delta * 1.5, 0, migrationTime)
 			GameManager.worldManager.ui_manager.updateMigrateBar(floor(migrateTimer * 100), floor(migrationTime * 100))
 		
+	#if GameManager.worldManager.levelName == "Hidden Grove":
+		#%PointLight2D4.enabled = true
+	#else:
+		#%PointLight2D4.enabled = false
 	if GameManager.worldLayer == 0 or GameManager.worldManager.levelName == "Hidden Grove":
+	#if GameManager.worldLayer == 0:
 		point_light_2d_3.enabled = true
 	else:
 		point_light_2d_3.enabled = false
@@ -763,6 +768,7 @@ func initializeValues():
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	if GameManager.abilities.has("travel"):
 		point_light_2d_3.texture_scale = 3 * visibilityMultiplier
+		#%PointLight2D4.texture_scale = 3 * visibilityMultiplier
 	
 func emitUpdatedStaminaValue():
 	updatedStamina.emit(round(stamina * 100), round(maxStamina * resistanceMultiplier * 100))
@@ -886,8 +892,8 @@ func distanceToTreatFormula(global_pos: Vector2) -> bool:
 	var distanceToClosest = global_pos.distance_to(self.global_position)
 	var mult: float = 1
 	if GameManager.worldManager.levelName == "Hidden Grove":
-		mult = 0.1 * visibilityMultiplier * GameManager.treatRegistry.size()/15.0
-	if distanceToClosest < radarRange * rangeMultiplier * treatFindRangeMult * GameManager.level/10.0 * mult:
+		mult = 0.2
+	if distanceToClosest < radarRange * rangeMultiplier * visibilityMultiplier * treatFindRangeMult * GameManager.level/10.0 * mult:
 		return true
 	else:
 		return false
@@ -959,7 +965,11 @@ func _move(movevec: Vector2, delt):
 		if flying == true:
 			#velocity = lerp(velocity.normalized(), ((velocity.normalized() * 2) + lastMovedDirection.normalized()).normalized(), delt * 100)
 			#velocity = lerp(velocity.normalized(), lastMovedDirection, delt * 100)
-			velocity = lastMovedDirection
+			if migrateTimer <= 0:
+				velocity = lastMovedDirection
+			else:
+				velocity = (lastMovedDirection.normalized() * 0.2) + (lastMovedDirection * 0.8)
+			
 		elif (((areaFlag.match("stream") or areaFlag.match("whirlpool") or areaFlag.match("forcestream")) and layer != 1) or (areaFlag.match("wind") and (flying or forcedFly or layer == 2))) and streamRef != null:
 			velocity = movevec
 		else:
@@ -1087,6 +1097,8 @@ func _move(movevec: Vector2, delt):
 	var colliding = move_and_slide()
 	actualVelocity = get_real_velocity()
 	if (colliding and flying) or (backwards_detector.is_colliding() and (((areaFlag == "forcestream" or areaFlag == "stream" or areaFlag == "whirlpool") and layer == 0 or layer == -1) and streamRef != null)):
+		#if layer == -1:
+		#	switchWorldLayer()
 		if timeBeingDamaged < damageUntilHitTimer:
 			timeBeingDamaged += delt
 			modulate = Color(1, clampf(1.0 - timeBeingDamaged  * 2, 0, 1), clampf(1.0 - timeBeingDamaged * 2, 0, 1))

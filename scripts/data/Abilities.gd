@@ -6,57 +6,62 @@ const ABILITIES = {
 	0: {
 		"name": "swim",
 		"displayName": "SWIM",
-		"description": "Allows for swimming."
+		"description": ""
 		},
 	3: {
 		"name": "sprint",
 		"displayName": "SPRINT",
-		"description": "Hold SHIFT to move faster!"
+		"description": ""
 		}, 	
 	5: {
 		"name": "quack",
 		"displayName": "QUACK",
-		"description": "Press E to quack! Quacking may be used to fight other ducks!"
+		"description": ""
 		}, 	
 	8: {
 		"name": "sonar",
 		"displayName": "SONAR",
-		"description": "Press Q to search your sorroundings, potentially uncovering secret areas!"
+		"description": ""
 		},
 	13: {
 		"name": "walk",
 		"displayName": "WALK",
-		"description": "Allows you to walk on the land."
+		"description": ""
 		}, 	
 	16: {
 		"name": "map",
 		"displayName": "MAP",
-		"description": "Allows mapping your sorroundings."
+		"description": ""
 		},
 	20: {
 		"name": "dive",
 		"displayName": "DIVE",
-		"description": "Press R to dive into deeper water, allowing traversal to new areas!"
+		"description": ""
 		}, 	  
 	26: {
 		"name": "treatdetect",
 		"displayName": "TREAT_SONAR",
-		"description": "Pressing Q to search your sorroundings now also reveals nearby treats!"
+		"description": ""
 		}, 	 
 	30: {
 		"name": "fly",
 		"displayName": "FLY",
-		"description": "Hold SPACEBAR to fly, moving faster than usual and overcoming lower obstacles!"
+		"description": ""
 		}, 	  
 	40: {
 		"name": "migrate",
 		"displayName": "MIGRATE",
-		"description": "Hold SPACEBAR and E for 5 seconds to migrate, beating the game!"
+		"description": ""
 		},
 	60: {
 		"name": "travel",
 		"displayName": "TRAVEL",
-		"description": "Hold SPACEBAR and E for 5 seconds to travel to the hidden grove!"
-		}
+		"description": ""
+		},
+	70: {
+		"name": "scavenge",
+		"displayName": "SCAVENGE",
+		"description": ""
+	}
 	
 	}
