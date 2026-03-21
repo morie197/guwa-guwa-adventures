@@ -13,6 +13,8 @@ const ENEMY_MINIGAME = preload("uid://5y4if4dkbvsj")
 @onready var popup_panel = $PanelContainer/PopupPanel
 @onready var popup_text = $PanelContainer/PopupPanel/PopupText
 
+@onready var showing_tutorial_panel = %showingTutorialPanel
+
 
 
 
@@ -56,13 +58,31 @@ var displaying = false
 
 var acculumatedTime: float
 
+var inTutorial: bool = false
+
 signal won
 signal lost
 
+var minimumShownTime: float = 5
+
 @export var textDisplayTime: float = 2
+		
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if acculumatedTime > minimumShownTime:
+			showing_tutorial_panel.visible = false
+			inTutorial = false
 		
 func initValues():
 	camera_2d.make_current()
+	
+	if GameManager.duckRegistry.size() <= 0 and GameManager.level < 60:
+		showing_tutorial_panel.visible = true
+		inTutorial = true
+	else:
+		showing_tutorial_panel.visible = false
+		inTutorial = false
+	
 	if stage == "":
 		return
 	var stageMap
@@ -158,6 +178,9 @@ func _player_hp_changed():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	acculumatedTime += delta
+	
+	if inTutorial:
+		return
 	
 	if updateTimer <= 0:
 		_updatePlayerPos()

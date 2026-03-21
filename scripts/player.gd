@@ -160,7 +160,7 @@ var newArea: Vector2 = Vector2.ZERO
 
 var tilePosition: Vector2i
 
-var healRegenerationTime: float = 45.0
+var healRegenerationTime: float = 30.0
 
 signal quack
 signal radar

@@ -139,6 +139,8 @@ func _unhandled_input(event):
 		moveVector.x = Input.get_axis("left", "right")
 		
 	if GameManager.abilities.has("map") and inMap:
+		if Input.is_action_just_pressed("menuback pause"):
+			openMap()
 		if event is InputEventMouseMotion and Input.is_action_pressed("leftClick"):
 			mouseMoveVector = event.relative
 		else:

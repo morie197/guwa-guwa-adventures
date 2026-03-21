@@ -140,7 +140,7 @@ func initValues():
 	changeStates()
 
 func _physics_process(delta):
-	if agent.is_navigation_finished():
+	if agent.is_navigation_finished() or minigamemanager.inTutorial == true:
 		velocity = Vector2.ZERO
 		return
 
@@ -184,7 +184,7 @@ func forceState(forcedState: STATE):
 	stateRandomTimer = randf_range(stateBaseRandomTimer - stateRandomTimerVariation, stateBaseRandomTimer + stateRandomTimerVariation) * stateVariationTimer		
 
 func _process(delta):
-	if minigamemanager.displaying == true:
+	if minigamemanager.displaying == true or minigamemanager.inTutorial == true:
 		velocity = Vector2.ZERO
 		return
 	

@@ -76,6 +76,7 @@ SAVING_HARD_TUTORIAL,"On hard difficulty, you only get one chance to save every 
 SPRINT_TUTORIAL,You can sprint with SHIFT. Once you run out of stamina you are unable to sprint for a short while.,SHIFTで走れます。スタミナがなくなると暫く走れなくなります。,按SHIFT奔跑。体力耗尽将会暂时无法奔跑。,按SHIFT奔跑。體力耗盡將會暫時無法奔跑。
 TRAVEL_TUTORIAL,"Congratulations on collecting 60 treats! You may now choose to travel to the hidden grove upon migrating, which is full of enemy ducks and hazards.",６０個のおやつを集めておめでとうございます。「隠された林」に渡るようになりました。「隠された林」には敵アヒルが多くて危険が多いです。,恭喜你集齐60个谷物！可以向《隐秘森林》迁徙了。《隐秘森林》里的敌方鸭子数量众多，地势凶险。,恭喜你集齊60個穀物！可以向《隱秘森林》遷徙了。《隱秘森林》裡的敵方鴨子數量眾多，地勢兇險。
 TREAT_SONAR_TUTORIAL,Pressing E will now also point to the nearest treat and show a hint on the map. The radar prioritizes normal treats over hidden treats.,Eを押すと最も近い範囲内のおやつに指示されてマップにもヒントが表示されます。,按E指向最近的谷物并在地图上显示。,按E指向最近的穀物並在地圖上顯示。
+BATTLE_TUTORIAL,Welcome to a duck battle. The controls and tutorial are to the left. Press any key to continue.,,,
 AUTOSAVE_SLOT,Autosave,自動セーブ,自动保存,自動儲存
 SLOT,Slot,スロット,栏位,欄位
 TREATS,Treats,おやつ,谷物,穀物

@@ -119,7 +119,7 @@ func initValues():
 	
 
 func _input(event):
-	if minigamemanager.displaying == true:
+	if minigamemanager.displaying == true or minigamemanager.inTutorial == true:
 		moveVector = Vector2.ZERO
 		return
 		
