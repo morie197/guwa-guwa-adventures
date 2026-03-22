@@ -235,30 +235,20 @@ func loadValues(resetRefs: bool = false):
 	revealedTiles = []
 	revealedTilesUnder = []
 	
-	#var revTiles = SaveManager.saveData.get("revealedTiles", null)
-	#if revTiles != null:
-		#print("not null1")
-		#revealedTiles.assign(stringToVector2i(revTiles))
-	#
-	#var revTilesUnder = SaveManager.saveData.get("revealedTilesUnder", null)
-	#if revTilesUnder != null:
-		#revealedTilesUnder.assign(stringToVector2i(revTilesUnder))
 	
 	var undFow = SaveManager.fowSaveData.get(0, null)
 	if undFow != null:
 		worldManager.underFow = undFow.duplicate()
-		#print("set undFow")
-	#else:
-		#print("noUnderFow")
-		
+
 	var oveFow = SaveManager.fowSaveData.get(1, null)
 	if oveFow != null:
 		worldManager.overFow = oveFow.duplicate()
-		#print("set oveFow")
-	#else:
-		#print("noOverFow")
 	
-	#print("has these abilities: ", abilities)
+	if difficultyValue == Difficulty.HARD:
+		SaveManager.hardAutosaved = true
+		hpRestoredFromTreat = 2
+	else:
+		hpRestoredFromTreat = 3
 	
 	levelUp.emit()
 	
@@ -266,14 +256,8 @@ func loadValues(resetRefs: bool = false):
 	
 	playerRef.visible = true
 	
-	#changeBreathableLayer.emit(playerRef.isBreathable)
-	
 	availableUpgradePoints = 0
 	
-	#
-	#print(int(SaveManager.saveData.get("worldLayer", 1)))
-	#print(worldLayer)
-	#
 	if int(SaveManager.saveData.get("worldLayer", 1)) != worldLayer:
 		if worldManager == null:
 			print("null world manager")
@@ -290,11 +274,7 @@ func loadValues(resetRefs: bool = false):
 	
 	canDamage = true
 	
-	if difficultyValue == Difficulty.HARD:
-		SaveManager.hardAutosaved = true
-		hpRestoredFromTreat = 2
-	else:
-		hpRestoredFromTreat = 3
+
 		
 	
 	playerRef.loadGameChecks()
