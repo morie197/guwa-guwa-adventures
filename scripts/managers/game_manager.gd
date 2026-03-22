@@ -429,7 +429,8 @@ func showTutorial(tutorialName: String, forced: bool = false):
 		#print("showing")
 		cameraShow(tutorialName)
 		
-	shownTutorials.append(tutorialName)
+	if !shownTutorials.has(tutorialName):
+		shownTutorials.append(tutorialName)
 	startTutorial.emit(tutorialName)
 	
 func initiateMinigame(entityNames: Array[String], entityHealth: Array, entityAttack: Array, entitySpeed: Array, entityRange: Array, stageName: String, owners):

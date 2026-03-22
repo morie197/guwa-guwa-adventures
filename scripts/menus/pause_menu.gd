@@ -34,8 +34,13 @@ func _ready():
 	#	save.disabled = true
 	#	save.hide()
 	
+	var storedTutorials = []
 	for unlockedTutorials in GameManager.shownTutorials:
 		var tutorial = ui_manager.ALL_TUTORIALS.tutorials[unlockedTutorials]
+		if !storedTutorials.has(tutorial):
+			storedTutorials.append(tutorial)
+		else:
+			return
 		for item in tutorial.items:
 			if item.includeInPause:
 				var keyDisplay = KEY_PRESS_DISPLAY.instantiate()
