@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://x4vnr5iy3hg3"]
+[gd_scene load_steps=8 format=3 uid="uid://x4vnr5iy3hg3"]
 
 [ext_resource type="Script" uid="uid://ce3bs1qqevbu5" path="res://scripts/menus/pause_menu.gd" id="1_kukqi"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="2_5d2l8"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="3_7l7mv"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="4_eyfc8"]
+[ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="5_xiui8"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="6_gqhbq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lakk"]
 content_margin_left = 0.0
@@ -44,7 +47,7 @@ layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 96
 text = "PAUSED"
 fit_content = true
 scroll_active = false
@@ -55,7 +58,7 @@ vertical_alignment = 1
 [node name="resume" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = ExtResource("2_5d2l8")
 theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
@@ -66,7 +69,7 @@ text = "RESUME"
 [node name="settings" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = ExtResource("2_5d2l8")
 theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
@@ -77,7 +80,7 @@ text = "SETTINGS"
 [node name="save" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = ExtResource("2_5d2l8")
 theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
@@ -88,7 +91,7 @@ text = "SAVE"
 [node name="load" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = ExtResource("2_5d2l8")
 theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
@@ -99,7 +102,7 @@ text = "LOAD"
 [node name="quit" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = ExtResource("2_5d2l8")
 theme_override_styles/pressed = ExtResource("3_7l7mv")
 theme_override_styles/hover = ExtResource("3_7l7mv")
@@ -119,3 +122,23 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 11
+
+[node name="hoversound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_eyfc8")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="clickSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_xiui8")
+volume_db = -8.0
+pitch_scale = 1.7
+bus = &"SFX"
+
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_gqhbq")
+volume_db = -8.0
+pitch_scale = 1.7
+bus = &"SFX"

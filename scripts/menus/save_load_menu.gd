@@ -23,6 +23,7 @@ func _ready():
 	_updateSlots()
 		
 	back_button.pressed.connect(_back)
+	back_button.mouse_entered.connect(%hoversound.play)
 		
 func _updateSlots():
 	if slotsContainer.get_child_count() > 0:
@@ -43,6 +44,7 @@ func _updateSlots():
 		slot.setData(SaveManager.saveDataAll[i], i)
 
 func _slotSelected(slotNumber: int = 0):
+	%clickSound.play()
 	if mode == "load":
 		if !SaveManager.saveDataAll[slotNumber].has("levelName"):
 			return
@@ -84,6 +86,7 @@ func _slotSelected(slotNumber: int = 0):
 		popup.no.connect(popup.queue_free)
 		
 func _slotDeleted(slotNumber: int = 0):
+	%clickSoundQuit.play()
 	var popup = parentMenu.POPUP.instantiate()
 	popup.warningText = tr("DELETE_WARNING") % str(slotNumber)
 	add_child(popup)
@@ -96,6 +99,11 @@ func _slotDeleted(slotNumber: int = 0):
 	#popup.no.connect(parentMenu._inPopup)
 	
 func _back():
+	var clickSound = %clickSoundQuit
+	clickSound.reparent(parentMenu)
+	clickSound.finished.connect(queue_free)
+	clickSound.play()
+	
 	if parentMenu.has_method("_inPopup"):
 		if parentMenu.inPopup:
 			parentMenu._inPopup()

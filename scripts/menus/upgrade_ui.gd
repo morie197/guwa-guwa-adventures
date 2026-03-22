@@ -43,7 +43,7 @@ func _updateUI():
 			upgrade_level_text.add_theme_color_override("default_color", Color.RED)
 			upgrade_button.visible = false
 
-	upgrade_level_text.text = "lvl: " + str(level) + " / " +  str(GameManager.upgradeSet[upgradeName]["levels"])
+	upgrade_level_text.text = str(level) + " / " +  str(GameManager.upgradeSet[upgradeName]["levels"])
 
 	if upgradeSelectionUI != null:
 		upgradeSelectionUI.updateRemainingPoints()

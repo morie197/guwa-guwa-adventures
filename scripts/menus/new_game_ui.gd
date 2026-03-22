@@ -31,17 +31,22 @@ func _ready():
 	normal_button.pressed.connect(GameManager.changeDifficulty.bind(GameManager.Difficulty.NORMAL))
 	%hardButton.pressed.connect(GameManager.changeDifficulty.bind(GameManager.Difficulty.HARD))
 	
+	#easy_button.pressed.connect(%clickSound.play)
+	#normal_button.pressed.connect(%clickSound.play)
+	#%hardButton.pressed.connect(%clickSound.play)
+	
 	if GameManager.difficultyValue == GameManager.Difficulty.EASY:
 		easy_button.button_pressed = true
 	elif GameManager.difficultyValue == GameManager.Difficulty.HARD:
 		%hardButton.button_pressed = true
 	
 	new_game_button.pressed.connect(_newGame)
+	new_game_button.mouse_entered.connect(%hoversound.play)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _newGame():
-	print("new game")
+	%clickSound.play()
 	if selectedStage.match("Quiet Gardens"):
 		SaveManager.saveData = {"levelName":"Quiet Gardens", "player_pos_x":1920.0,"player_pos_y":-1080.0, "difficulty": GameManager.difficultyValue}
 	else:
@@ -51,10 +56,15 @@ func _newGame():
 	SaveManager.loadLevel(selectedStage)
 
 func _back():
+	var clickSound = %clickSoundQuit
+	clickSound.reparent(parentMenu)
+	clickSound.finished.connect(queue_free)
+	clickSound.play()
 	parentMenu._inPopup()
 	queue_free()
 	
 func _stageSelected(stageName: String):
+	%clickSound.play()
 	selectedStage = stageName
 	if stageName.match("Quiet Gardens"):
 		slot_name.add_theme_color_override("default_color", selectedTextColor)

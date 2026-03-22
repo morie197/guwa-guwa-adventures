@@ -34,7 +34,7 @@ DELETE_WARNING,Are you sure you  want to delete slot %s?,スロット%sを削除
 RANGE,Range,範囲,范围,範圍
 ENDURANCE,Endurance,体力,体力,體力
 SPEED,Speed,速さ,速度,速度
-RANGE_HINT,"Increases quack, sonar, map reveal, and zoom out range",クワック・ソナー・マップ解放・ズームアウトの範囲が増加,提升叫声，声纳，地图解锁 · 缩放范围的大小,提升叫聲，聲納，地圖解鎖 · 縮放範圍的大小
+RANGE_HINT,"Increases attack, sonar, map reveal, and zoom out range",攻撃・ソナー・マップ解放・ズームアウトの範囲が増加,提升叫声，声纳，地图解锁 · 缩放范围的大小,提升叫聲，聲納，地圖解鎖 · 縮放範圍的大小
 ENDURANCE_HINT,"+1 max HP every 2 levels, +5% stamina recovery",２レベルごとに最大HP＋１、スタミナ回復＋５％,每两级最大HP+1，耐力回复+5%,每兩級最大HP+1，耐力回覆+5%
 SPEED_HINT,Increases player movement and attack speed.,移動速度と攻撃速度が増加,提升移动速度和攻击速度,提升移動速度和攻擊速度
 RESISTANCE,Resistance,耐力,抗性,抗性
@@ -105,7 +105,7 @@ DODGE_TUTORIAL,- Lunging will temporarily grant you invincibility.,・突っか�
 DUCK_NAME,Duck,アヒルちゃん,鸭,鴨
 NEW_ABILITY_TEXT,"New Ability ""%s"" unlocked!",新しい能力「%s」が解除されました！,新的能力《%s》已经解锁了！,新的能力《%s》已經解鎖了！
 DUCK_HP_STAT,HP: ,HP: ,HP:,HP:
-DUCK_ATK_STAT,ATK: ,攻撃力:,攻击力:,攻擊力:
+DUCK_ATK_STAT,ATK: ,ATK:,攻击力:,攻擊力:
 DUCK_SPD_STAT,SPD: ,速度:,速度:,速度:
 DUCK_RAN_STAT,RAN: ,射程:,射程:,射程:
 CREDITS_DUCK_QUACKING,Quack Quack!,ぐわぐわ！,嘎嘎！,嘎嘎！
@@ -121,8 +121,8 @@ CREDITS_TF_NAME,TF,TF,TF,TF
 CREDITS_TF_DESCRIPTION,For playtesting my game and giving me detailed feedback!,私のゲームをプレイテストして詳らかなフィードバックをくれてありがとう,感谢你测试我的游戏并给出详细的反馈！,感謝你測試我的遊戲並給出詳細的反饋！
 CREDITS_YOU_NAME,You,あなた,您,您
 CREDITS_YOU_DESCRIPTION,"For taking the time to play and beat my game!
-Any feedback, negative or positive is welcome!","大切な時間を、私のゲームをプレイするために使ってもらってクリアまでやってくれてありがとうございました
-必須ではありませんが、フィードバックをいただけると嬉しいです。",十分感谢您将宝贵的时间用在游玩我的游戏上并坚持到最后！如果您愿意的话，很荣幸收到您的反馈！,十分感謝您將寶貴的時間用在遊玩我的遊戲上並堅持到最後！如果您願意的話，很榮幸收到您的反饋！
+Any feedback, negative or positive is welcome!","遊んでくれて、そしてクリアまでやってくれてありがとう！
+良かった点も悪かった点も、気軽に感想を教えてくれると嬉しいです。",十分感谢您将宝贵的时间用在游玩我的游戏上并坚持到最后！如果您愿意的话，很荣幸收到您的反馈！,十分感謝您將寶貴的時間用在遊玩我的遊戲上並堅持到最後！如果您願意的話，很榮幸收到您的反饋！
 CREDITS_TOROMI_NAME,Toromi,とろみ,,
 CREDITS_TOROMI_DESCRIPTION,For playtesting and helping with the Japanese translation!,プレイテストと日本語翻訳を手伝ってくれてありがとう,,
 CREDITS_ASSETS_USED,Assets used,使ったアセット,使用素材,使用素材
@@ -143,3 +143,5 @@ TRAVEL_HIDDEN_GROVE_PROMPT,Travel to the hidden grove?,隠れた林に移動し�
 POPUP_WARNING_DEFAULT,Are you sure?,よろしいですか？,确定吗？,確定嗎？
 SHOW_MINIMAP,Show Minimap: ,ミニマップを表示：,,
 MINIMAP_ACTION,Toggle Minimap: ,ミニマップの切り替え：,,
+YES_ACTION,yes,はい,,
+NO_ACTION,no,いいえ,,

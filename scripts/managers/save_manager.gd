@@ -235,9 +235,9 @@ func applyConfigData():
 		configData = {"toggles": 
 			{"fullscreen" = false,"autosave" = true}, 
 			"audio": 
-				{"music" = 0.0, "sfx" = 0.0},
+				{"music" = -24.0, "sfx" = -24.0},
 			"other":
-				{"language" = TranslationServer.get_locale()}
+				{"language" = getLanguage()}
 			}
 	
 	if configData["toggles"]["fullscreen"] == true:
@@ -254,27 +254,16 @@ func applyConfigData():
 		if configData["other"].has("language"):
 			TranslationServer.set_locale(SaveManager.configData["other"]["language"])
 	else:
-		configData["other"] = {"language" = TranslationServer.get_locale()}
+		configData["other"] = {"language" = getLanguage()}
 	
-				#
-	#if configData.has("toggles"):
-		#if configData["toggles"].has("fullscreen"):
-			#if configData["toggles"]["fullscreen"] == true:
-				#GameManager.toggleFullscreen()
-		#if configData["toggles"].has("autosave"):
-			#if configData["toggles"]["autosave"] == false:
-				#autosave = false
-	#
-	#if configData.has("audio"):
-		#if configData["audio"].has("music"):
-			#var index = AudioServer.get_bus_index("Music")
-			#AudioServer.set_bus_volume_db(index, configData["audio"]["music"])
-		#if configData["audio"].has("sfx"):		
-			#var index = AudioServer.get_bus_index("SFX")
-			#AudioServer.set_bus_volume_db(index, configData["audio"]["sfx"])
-			
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+	
+func getLanguage() -> String:
+	var localCode: String = TranslationServer.get_locale()
+	if localCode == "ja_JP":
+		localCode = "ja"
+	return localCode
 	
 func saveConfigData():
 	var config = ConfigFile.new()

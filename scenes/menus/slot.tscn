@@ -1,15 +1,14 @@
 [gd_scene load_steps=14 format=3 uid="uid://b2ro5tjpr3nh3"]
 
-[ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="1_xarye"]
 [ext_resource type="Script" uid="uid://bok5g4r8gtgk6" path="res://scripts/menus/slot.gd" id="2_n501c"]
 [ext_resource type="Texture2D" uid="uid://5wm0trmf4gqj" path="res://sprites/sprites/check_square_grey_cross (2).svg" id="3_ekjpx"]
 [ext_resource type="Texture2D" uid="uid://bv3a3hdxbtaw0" path="res://sprites/sprites/check_square_color_cross.svg" id="4_6m0fw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ienct"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
 bg_color = Color(0.105882354, 0.105882354, 0.105882354, 0.49019608)
 border_width_left = 2
 border_width_top = 2
@@ -31,6 +30,18 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekjpx"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.106126174, 0.106126174, 0.106126174, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 corner_detail = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xarye"]
@@ -101,7 +112,7 @@ vertical_alignment = 1
 [node name="imgPanelContainer" type="PanelContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/panel = ExtResource("1_xarye")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekjpx")
 
 [node name="img" type="TextureRect" parent="VBoxContainer/imgPanelContainer"]
 unique_name_in_owner = true

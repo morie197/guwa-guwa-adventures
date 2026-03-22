@@ -404,7 +404,7 @@ func _showLevelUpUI():
 	collected_number.text = str(GameManager.level)
 	
 	if GameManager.availableUpgradePoints <= 0:
-		SaveManager.autoSave(true)
+		#SaveManager.autoSave(true)
 		return
 	
 	print(GameManager.availableUpgradePoints)

@@ -43,6 +43,8 @@ func setData(data, slotNumber: int = 0):
 		
 	if data == {}:
 		empty_text.show()
+		delete_button.disabled = true
+		delete_button.hide()
 		h_box_container.hide()
 		h_box_container_2.hide()
 		h_box_container_3.hide()

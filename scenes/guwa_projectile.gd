@@ -51,7 +51,7 @@ func _ready():
 		set_collision_mask_value(8, true)
 	elif force == "player":
 		#print("player2")
-		$Polygon2D.color = Color(0.619, 0.745, 1.0, 0.75)
+		$Polygon2D.color = Color(0.619, 0.745, 1.0, 1)
 		set_collision_mask_value(10, true)
 		
 	#print(get_collision_layer_value(8))

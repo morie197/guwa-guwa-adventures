@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cxeo2bpbyldtm"]
+
+[ext_resource type="Texture2D" uid="uid://bv8tu48g87iat" path="res://sprites/duckwater2.png" id="1_63sqf"]
+
+[resource]
+atlas = ExtResource("1_63sqf")
+region = Rect2(0, 0, 64, 64)

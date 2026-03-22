@@ -10,8 +10,14 @@ extends PanelContainer
 func _ready():
 	music_slider.value_changed.connect(_music_changed)
 	sound_slider.value_changed.connect(_sound_changed)
+	
+	music_slider.drag_ended.connect(%clickSound.play)
+	sound_slider.drag_ended.connect(%clickSound.play)
+	
 	back_button.pressed.connect(queue_free)
+	back_button.pressed.connect(_back)
 	back_button.pressed.connect(SaveManager.saveConfigData)
+	back_button.mouse_entered.connect(%hoversound.play)
 	
 	if SaveManager.autosave == false:
 		autosaves.button_pressed = false
@@ -20,25 +26,34 @@ func _ready():
 	
 	autosaves.pressed.connect(toggleAutosaves)
 	fullscreen.pressed.connect(GameManager.toggleFullscreen)
+	autosaves.pressed.connect(%clickSound.play)
+	fullscreen.pressed.connect(%clickSound.play)
 	
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
 	sound_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
 	
 	_localeButtonSetup()
 	
+func _back():
+	var clickSound = %clickSoundQuit
+	if get_parent() != null:
+		var parent = get_parent()
+		clickSound.reparent(parent)
+		clickSound.finished.connect(queue_free)
+		clickSound.play()
+	
 func _localeButtonSetup():
 	var nativeNames = {
 		"en": "English",
 		"ja": "日本語",
 		"zh_CN": "简体中文",
-		'zh_TW': "繁體中文"
+		"zh_TW": "繁體中文"
 	}
 	
 	var locales = TranslationServer.get_loaded_locales()
 	
 	for i in range(locales.size()):
 		var localCode = locales[i]
-		print(localCode)
 		
 		%languages.add_item(nativeNames[localCode])
 		%languages.set_item_metadata(i, localCode)
@@ -49,6 +64,7 @@ func _localeButtonSetup():
 					%languages.selected = i
 			
 	%languages.item_selected.connect(selectLanguage)
+	%languages.item_selected.connect(%clickSound.play)
 		
 
 func selectLanguage(index):

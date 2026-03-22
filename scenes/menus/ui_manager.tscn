@@ -306,6 +306,7 @@ stretch_mode = 4
 
 [node name="collectedNumber" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer/treatIcon"]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -320,7 +321,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
-theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/normal_font_size = 115
 text = "0"
 fit_content = true
 autowrap_mode = 0

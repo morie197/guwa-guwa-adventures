@@ -86,6 +86,7 @@ func _eat():
 	if !GameManager.duckBiteEatenRegistry.has(id):
 		GameManager.duckBiteEatenRegistry.append(id)
 		GameManager.healPlayer(GameManager.hpRestoredFromTreat)
+		%crunchSound.play()
 		_enableDisable(false)
 	
 	

@@ -1,18 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://utkhontokf0j"]
+[gd_scene load_steps=7 format=3 uid="uid://utkhontokf0j"]
 
 [ext_resource type="Script" uid="uid://cnyc3cer3k5bf" path="res://scenes/guwa_projectile.gd" id="1_sd1gl"]
+[ext_resource type="Texture2D" uid="uid://cukdxfv0xegeq" path="res://scenes/guwa_projectiletext.tres" id="2_syta0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsxgi"]
 radius = 16.0
 
 [sub_resource type="Gradient" id="Gradient_sd1gl"]
-offsets = PackedFloat32Array(0.57751936, 1)
+offsets = PackedFloat32Array(0.8449612, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_syta0"]
 gradient = SubResource("Gradient_sd1gl")
-fill_from = Vector2(0.53418803, 1)
-fill_to = Vector2(0.55982906, 0)
+fill_from = Vector2(0.508547, 1)
+fill_to = Vector2(0.53846157, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd1gl"]
 size = Vector2(5, 5)
@@ -28,9 +29,16 @@ shape = SubResource("CircleShape2D_tsxgi")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(0, 8)
-color = Color(1, 0.663, 0.69, 0.749)
+color = Color(0.68, 0.1632, 0.28378657, 1)
+texture = ExtResource("2_syta0")
+polygon = PackedVector2Array(-6, -14, -4, -23, -2, -26, 0, -28, 2, -26, 4, -23, 6, -14, 0, 14)
+uv = PackedVector2Array(-8, -10, -6, -16, -4, -22, 0, -24, 4, -22, 6, -16, 8, -10, 0, 24)
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygon2D"]
+z_index = -1
+color = Color(1, 1, 1, 0.4862745)
 texture = SubResource("GradientTexture2D_syta0")
-polygon = PackedVector2Array(-12, -6, -10, -16, -6, -22, 0, -24, 6, -22, 10, -16, 12, -6, 0, 24)
+polygon = PackedVector2Array(-8, -14, -6, -24, -3, -28, 0, -31, 4, -28, 6, -24, 8, -14, 0, 20)
 uv = PackedVector2Array(-8, -10, -6, -16, -4, -22, 0, -24, 4, -22, 6, -16, 8, -10, 0, 24)
 
 [node name="wallCollider" type="Area2D" parent="."]

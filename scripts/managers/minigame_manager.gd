@@ -63,7 +63,7 @@ var inTutorial: bool = false
 signal won
 signal lost
 
-var minimumShownTime: float = 5
+var minimumShownTime: float = 2
 
 @export var textDisplayTime: float = 2
 		

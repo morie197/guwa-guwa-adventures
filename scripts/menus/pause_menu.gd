@@ -24,6 +24,12 @@ func _ready():
 	loadGame.pressed.connect(_load)
 	quit.pressed.connect(_quit)
 	
+	resume.mouse_entered.connect(%hoversound.play)
+	settingsButton.mouse_entered.connect(%hoversound.play)
+	save.mouse_entered.connect(%hoversound.play)
+	loadGame.mouse_entered.connect(%hoversound.play)
+	quit.mouse_entered.connect(%hoversound.play)
+	
 	if SaveManager.check_save() == false:
 		loadGame.disabled = true
 		
@@ -52,22 +58,26 @@ func _ready():
 			keyPress.setTextSize(42)
 	
 func _resume():
+	%clickSound.play()
 	ui_manager.pause()
 	
 func _settings():
+	%clickSound.play()
 	var settingsMenu = SETTINGS_MENU.instantiate()
 	add_child(settingsMenu)
 	settingsMenu.back_button.pressed.connect(_inPopup)
 	_inPopup()
 	
 func _save():
+	%clickSound.play()
 	var saveLoadMenu = SAVE_LOAD_MENU.instantiate()
 	saveLoadMenu.mode = "save"
 	add_child(saveLoadMenu)
 	saveLoadMenu.parentMenu = self
 	_inPopup()
 	
-func _load():	
+func _load():
+	%clickSound.play()
 	var saveLoadMenu = SAVE_LOAD_MENU.instantiate()
 	saveLoadMenu.mode = "load"
 	add_child(saveLoadMenu)
@@ -75,6 +85,7 @@ func _load():
 	_inPopup()
 	
 func _quit():
+	%clickSoundQuit.play()
 	if SaveManager.saveWarning == true:
 		var popup = POPUP.instantiate()
 		add_child(popup)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://caib5734534ds"
+path="res://.godot/imported/paper crunchy 8.wav-9826b2797c352f341c8e8c1caa341da8.sample"
+
+[deps]
+
+source_file="res://sounds/SFX/paper crunchy 8.wav"
+dest_files=["res://.godot/imported/paper crunchy 8.wav-9826b2797c352f341c8e8c1caa341da8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

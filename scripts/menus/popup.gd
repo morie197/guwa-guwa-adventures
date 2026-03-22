@@ -14,6 +14,9 @@ func _ready():
 	yesButton.pressed.connect(_yes)
 	noButton.pressed.connect(_no)
 	
+	yesButton.text = tr("YES_ACTION")
+	noButton.text = tr("NO_ACTION")
+	
 	if warningText == "":
 		warningText = tr("POPUP_WARNING_DEFAULT")
 	

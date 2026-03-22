@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8nmevsdid6a6"]
+[gd_scene load_steps=7 format=3 uid="uid://b8nmevsdid6a6"]
 
 [ext_resource type="Script" uid="uid://c0ad0tiswhk3h" path="res://scripts/menus/save_load_menu.gd" id="1_8r3bj"]
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="2_knhrb"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="3_r5uco"]
+[ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="4_iqvcw"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="5_rq5ph"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qteal"]
 content_margin_left = 0.0
@@ -69,4 +72,24 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_qteal")
-text = "back"
+text = "BACK"
+
+[node name="hoversound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_r5uco")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="clickSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_iqvcw")
+volume_db = -8.0
+pitch_scale = 1.7
+bus = &"SFX"
+
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_rq5ph")
+volume_db = -8.0
+pitch_scale = 1.7
+bus = &"SFX"
