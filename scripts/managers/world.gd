@@ -22,7 +22,6 @@ class_name WorldManager
 @onready var overAreas = $Overground/areas
 
 @onready var underwater_land_layer = $Underground/LandLayer
-#@onready var borders = $Underground/LandLayer/borders
 @onready var water = $Underground/LandLayer/water
 @onready var water_layer_border = $Underground/WaterLayer3
 
@@ -55,7 +54,6 @@ var current_logic_layer
 var zoomInAmount: float = 2
 var zoomOutAmount: float = 0.5
 
-const HIDDEN = preload("uid://bhx0dlto56i1j")
 const LEVEL_3_MUSIC = preload("uid://c64fa5fkyx48n")
 const LEVEL_0_MUSIC = preload("uid://b8kxk1dhvy5xl")
 
@@ -118,7 +116,6 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("openMap"):
 		if GameManager.abilities.has("map"):
 			if mapLayer != GameManager.worldLayer:
-			#	print(mapLayer, " ", GameManager.worldLayer)
 				openMap(true)
 				openMap()
 			else:
@@ -128,7 +125,6 @@ func _unhandled_input(event):
 		if underFow.get_true_bit_count() > 0:
 			openMap(true)
 		
-	#if event is InputEventMouseButton:
 	if Input.is_action_just_pressed("zoomin"):
 		mouseScrollInput = zoomInAmount
 	elif Input.is_action_just_pressed("zoomout"):
@@ -149,44 +145,10 @@ func _unhandled_input(event):
 func _process(delta):
 	if sinceLastUpdate < 30.0:
 		sinceLastUpdate += delta
-		
-	#print(get_viewport().canvas_cull_mask)
-		
-	#
-	#updates = 0
-	#updateTilesInFrameUnder = []
-	#updateTilesInFrameOver = []
-	#
-	#
-	#for tile in toUpdateTilesUnder.duplicate():
-		#if updates >= maxUpdatesPerFrame:
-			##print(updates, " >= ", maxUpdatesPerFrame)
-			#break
-		#updateTilesInFrameUnder.append(tile)
-		##underHidden.set_cell(tile, -1)
-		#toUpdateTilesUnder.erase(tile)
-		#updates += 1
-	#updates = 0
-	#for tile in toUpdateTilesOver.duplicate():
-		#if updates >= maxUpdatesPerFrame:
-			##print(updates, " >= ", maxUpdatesPerFrame)
-			#break
-		#updateTilesInFrameOver.append(tile)
-		##overHidden.set_cell(tile, -1)
-		#toUpdateTilesOver.erase(tile)
-		#updates += 1
-	
-	#underHidden.set_cells_terrain_connect(updateTilesInFrameUnder, 0, -1, false)
-	#overHidden.set_cells_terrain_connect(updateTilesInFrameOver, 0, -1, false)
-		
-		
-	#print(updates)
 	
 	if inMap:
-		#var newTargetCamPosition = moveVector * cameraMoveSpeed * ((zoomMin - mapCam.zoom.x) + 1)
 		var newTargetCamPosition = (moveVector * cameraMoveSpeed) / (mapCam.zoom * 3)
 		newTargetCamPosition -= (mouseMoveVector * 10) / (mapCam.zoom * 5)
-		#newTargetCamPosition -= (mouseMoveVector) * ((zoomMin - mapCam.zoom.x) + 1)
 		
 		targetCamPosition = targetCamPosition.lerp(newTargetCamPosition, 1.0 - exp(delta * -8))
 		mapCam.global_position += targetCamPosition
@@ -194,7 +156,6 @@ func _process(delta):
 		if mouseScrollInput != 0.0:
 			var calculatedZoom: float = clamp(mapCam.zoom.x * mouseScrollInput, ZOOMMAX, zoomMin)
 			targetZoom = Vector2(calculatedZoom, calculatedZoom)
-			#print(targetZoom)
 			mouseScrollInput = 0
 		
 		if mapCam.zoom != targetZoom:
@@ -286,8 +247,6 @@ func _ready():
 	if overFow.get_size() != overRect.size:
 		overFow.create(overRect.size)
 	
-	#request_ready()
-	
 	overMap.modulate = Color.WHITE
 	underMap.modulate = Color.TRANSPARENT
 	
@@ -304,11 +263,9 @@ func _ready():
 	switchBreathableArea(GameManager.playerRef.isBreathable)
 
 func switchBreathableArea(breathable: bool = false):
-	print("called, ", breathable)
 	if breathable:
 		undergroundTreats.visible = true
 		$Underground/bites.visible = true
-		#undergroundDucks.visible = true
 		undergroundTreats.process_mode = Node.PROCESS_MODE_ALWAYS
 			
 		GameManager.changeBreathableLayer.emit(breathable)
@@ -321,7 +278,6 @@ func switchBreathableArea(breathable: bool = false):
 	else:
 		undergroundTreats.visible = false
 		$Underground/bites.visible = false
-		#undergroundDucks.visible = false
 		undergroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
 			
 		GameManager.changeBreathableLayer.emit(breathable)
@@ -334,13 +290,11 @@ func switchBreathableArea(breathable: bool = false):
 		water.modulate = Color(1,1,1,0.4)
 
 func openMap(switching: bool = false):
-	#print("opening", inMap)
 	if inMap and !switching:
 		get_viewport().canvas_cull_mask = 1
 		mapCam.enabled = false
 		GameManager.paused = false
 		inMap = false
-		#GameManager.playerRef.healTimer.paused = false
 		if GameManager.worldLayer == 1:
 			if levelName == "Hidden Grove":
 				darkener.show()
@@ -351,12 +305,9 @@ func openMap(switching: bool = false):
 			
 			
 		else:
-			#darkener.hide()
 			darkener.show()
 			overgroundLayer.modulate = Color.TRANSPARENT
 			undergroundLayer.modulate = Color.WHITE
-		#underMap.modulate = Color.TRANSPARENT
-		#overMap.modulate = Color.TRANSPARENT
 		return
 	
 	if inMap == false:
@@ -367,23 +318,11 @@ func openMap(switching: bool = false):
 				ui_manager.switch.show()
 			else:
 				ui_manager.switch.hide()
-		#GameManager.playerRef.healTimer.paused = true
 		darkener.hide()
-		#overAreas.hide()
-		#overAreas.process_mode = Node.PROCESS_MODE_DISABLED
-		#underAreas.hide()
-		#underAreas.process_mode = Node.PROCESS_MODE_DISABLED
-		#
-		#overgroundTreats.hide()
-		#overgroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
-		#undergroundTreats.hide()
-		#undergroundTreats.process_mode = Node.PROCESS_MODE_DISABLED
 		
 		mapLayer = GameManager.worldLayer
 		get_viewport().canvas_cull_mask = 2
 		mapCam.global_position = GameManager.playerRef.global_position
-		#mapCam.zoom = GameManager.minimapCam.zoom * 2
-		#targetZoom = GameManager.minimapCam.zoom * 2
 	inMap = true
 	mapCam.enabled = true
 	mapCam.make_current()
@@ -413,27 +352,10 @@ func updateMinimap():
 		underMap.modulate = Color.TRANSPARENT
 
 func updateFOW(usual: bool = false):
-	#if usual and sinceLastUpdate < (FOWRadius + (GameManager.upgradeLevels["range"]/2.0))/20.0:
-		##print("returning")
-		#return
 	if usual and sinceLastUpdate < 0.3:
-		#print("returning")
 		return
 	else:
 		sinceLastUpdate = 0
-	#var FOWTileMap: TileMapLayer
-	
-	#print("updating")
-	var dict
-	if GameManager.worldLayer == 0:
-		dict = toUpdateTilesUnder
-		#FOWTileMap = underHidden
-	elif GameManager.worldLayer == 1:
-		dict = toUpdateTilesOver
-		#FOWTileMap = overHidden
-	else:
-		#print("no tile map ;(")
-		return
 		
 	var finalFOWRadius
 	if levelName == "Hidden Grove":
@@ -444,8 +366,6 @@ func updateFOW(usual: bool = false):
 	for x in range(-finalFOWRadius, finalFOWRadius + 1):
 		for y in range(-finalFOWRadius, finalFOWRadius + 1):
 			var cellReveal = Vector2i(playerCell.x + x, playerCell.y + y)
-			#dict[cellReveal] = true
-			#FOWTileMap.set_cell(cellReveal, -1)
 		
 			if GameManager.worldLayer == 0:
 				revealedTilesUnderDict[cellReveal] = true
@@ -460,42 +380,17 @@ func updateFOW(usual: bool = false):
 
 			
 	if GameManager.worldLayer == 0:	
-		#var img = underFow.convert_to_image()
 		underTexture.set_image(underFow.convert_to_image())
-		#underTexture = ImageTexture.create_from_image(img)
-		#underTexture.update(img)
 		underMat.set_shader_parameter("fow_mask", underTexture)
 	elif GameManager.worldLayer == 1:
-		#var img = underFow.convert_to_image()
 		overTexture.set_image(overFow.convert_to_image())
-		#overTexture = ImageTexture.create_from_image(img)
-		#overTexture.update(img)
-		#overTexture.set_image(overFow.convert_to_image())
 		overMat.set_shader_parameter("fow_mask", overTexture)
-		
-	#print(underMat, overMat)
 			
 func loadFOW():	
-	#revealedTilesDict = {}
-	#revealedTilesUnderDict = {}
-	
-	#print("loaded FOW")
-	
-	#print(underFow)
-	#print(overFow)
-	
 	underTexture.set_image(underFow.convert_to_image())
 	underMat.set_shader_parameter("fow_mask", underTexture)
 	overTexture.set_image(overFow.convert_to_image())
 	overMat.set_shader_parameter("fow_mask", overTexture)
-	
-	#for tile in GameManager.revealedTilesUnder:
-		#toUpdateTilesUnder[tile] = true
-	#for tile in GameManager.revealedTiles:
-		#toUpdateTilesOver[tile] = true
-	
-	#overHidden.set_cells_terrain_connect(GameManager.revealedTiles, 0, -1, false)
-	#underHidden.set_cells_terrain_connect(GameManager.revealedTilesUnder, 0, -1, false)
 	
 	for val in GameManager.revealedTiles:
 		revealedTilesDict[val] = true
@@ -505,7 +400,6 @@ func loadFOW():
 			
 
 func clearFOW():
-	#print("cleared FOW")
 	
 	underFow = BitMap.new()
 	var underRect: Rect2i = underground_logic_layer.get_used_rect()
@@ -515,20 +409,8 @@ func clearFOW():
 	var overRect: Rect2i = overground_logic_layer.get_used_rect()
 	overFow.create(overRect.size)
 	
-	#var parentMap
-	#parentMap = overHidden.get_parent()
-	#overHidden.queue_free()
-	#overHidden = HIDDEN.instantiate()
-	#parentMap.add_child(overHidden)
-	
-	#parentMap = underHidden.get_parent()
-	#underHidden.queue_free()
-	#underHidden = HIDDEN.instantiate()
-	#parentMap.add_child(underHidden)
-
 func switchUnderOverGround():
 	if overgroundLayer == null or undergroundLayer == null:
-		#print("no overground or underground tilemap")
 		return
 		
 	GameManager.switchedWorldLevel.emit()
@@ -539,7 +421,6 @@ func switchUnderOverGround():
 		_turnOnOffLayer(overgroundLayer, false)
 		overMap.modulate = Color.TRANSPARENT
 		underMap.modulate = Color.WHITE
-		#print(overMap.modulate)
 		overground_collision_layer.collision_enabled = false
 		mapLayer = 0
 		
@@ -553,7 +434,6 @@ func switchUnderOverGround():
 		if levelName == "Hidden Grove":
 			darkener.show()
 		else:
-			#print(levelName)
 			darkener.hide()
 		_turnOnOffLayer(undergroundLayer, false)
 		overMap.modulate = Color.WHITE
@@ -570,7 +450,6 @@ func switchUnderOverGround():
 
 func getTileUnderPos(globalPos: Vector2):
 	if current_logic_layer == null:
-		#print("no logic layer present")
 		return
 		
 	if current_logic_layer.z_index == 0: 
@@ -579,9 +458,7 @@ func getTileUnderPos(globalPos: Vector2):
 	return current_logic_layer.local_to_map(globalPos)
 
 func tileToAtlasCoords(localToMapCoords: Vector2i):
-	#print("updating FOW")
 	if current_logic_layer == null:
-		#print("no logic layer present")
 		return
 	
 	return current_logic_layer.get_cell_atlas_coords(localToMapCoords)
@@ -634,10 +511,7 @@ func getClosestTreat() -> Node2D:
 				if treat.global_position.distance_to(GameManager.playerRef.global_position) < closestDistanceHidden:
 					closestHiddenTreat = treat
 					closestDistanceHidden = treat.global_position.distance_to(GameManager.playerRef.global_position)
-					
-	#print(closestTreat)
-	#print(closestHiddenTreat)
-	
+
 	if closestTreat != null:
 		if GameManager.playerRef.distanceToTreatFormula(closestTreat.global_position):
 			return closestTreat
@@ -645,7 +519,6 @@ func getClosestTreat() -> Node2D:
 		if GameManager.playerRef.distanceToTreatFormula(closestHiddenTreat.global_position):
 			closestHiddenTreat.hiddenOnRadar = false
 			return closestHiddenTreat
-	#print("null")
 	return null
 		
 func _getTreats(group) -> Array[Node2D]:
@@ -659,17 +532,12 @@ func _getTreats(group) -> Array[Node2D]:
 			var recursiveTreats = _getTreats(treat)
 			for rTreat in recursiveTreats:
 				treats.append(rTreat)
-	
-	#print(treats)
 	return treats
 		
 		
 func _getAreasOnly(group, underground: bool = false):
-	#var hiddenAreas
 	for area in group.get_children():
 		if area is HiddenArea:
 			area.underground = underground
 			if underground:
 				area.id = -area.id
-	#		hiddenAreas.append(area)
-	#return hiddenAreas

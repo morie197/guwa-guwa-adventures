@@ -13,9 +13,9 @@ DIFFICULTY,Difficulty:,難易度：,难度,難度
 EASY,Easy,簡単,简单,簡單
 MEDIUM,Normal,普通,普通,普通
 HARD,Hard,難しい,困难,困難
-EASY_HINT,Easy: No damage from hazards | save anytime,簡単ー環境によってのダメージ無し・いつでもセーブ出来る,简单——不会受到地形伤害 · 随时保存,簡單——不會受到地形傷害 · 隨時儲存
-MEDIUM_HINT,Normal: Damage from hazards | save anytime,普通ー環境によってのダメージを受ける・いつでもセーブ出来る,普通——受到地形伤害 · 随时保存,普通——受到地形傷害 · 隨時儲存
-HARD_HINT,Hard: Extra damage from hazards | buffed enemies | save every 5 treats,難しいー環境によってのダメージが２倍・敵の強化・おやつを5個集めたらセーブ出来る,困难——受到地形伤害 · 每收集五个谷物保存一次,困難——受到地形傷害 · 每收集五個穀物儲存一次
+EASY_HINT,Easy: No damage from hazards | save anytime,簡単：環境によってのダメージ無し・いつでもセーブ出来る,简单——不会受到地形伤害 · 随时保存,簡單——不會受到地形傷害 · 隨時儲存
+MEDIUM_HINT,Normal: Damage from hazards | save anytime,普通：環境によってのダメージを受ける・いつでもセーブ出来る,普通——受到地形伤害 · 随时保存,普通——受到地形傷害 · 隨時儲存
+HARD_HINT,Hard: Extra damage from hazards | buffed enemies | save every 5 treats,難しい：環境によってのダメージが２倍・敵の強化・おやつを5個集めたらセーブ出来る,困难——受到地形伤害 · 每收集五个谷物保存一次,困難——受到地形傷害 · 每收集五個穀物儲存一次
 NEW_GAME_CREATE,New game!,始める！,开始,開始
 PAUSED,Paused,ポーズ中,暂停中,暫停中
 LOAD,Load,ロード,加载,載入
@@ -24,6 +24,7 @@ RESUME,Resume,再開,继续,繼續
 BACK_TO_MAIN_MENU,Title Screen,タイトルへ,回到主菜单,回到主選單
 AUTOSAVES,Autosaves:,自動セーブ：,自动保存,自動儲存
 FULLSCREEN,Fullscreen:,フルスクリーン：,全屏,全屏
+TUTORIALS,Tutorials:,チュートリアル：,,
 MUSIC,Music:,BGM：,背景音乐,背景音樂
 SFX,SFX:,SE：,效果音,效果音
 LANGUAGE,Language:,言語：,语言,語言
@@ -57,7 +58,7 @@ SONAR,Sonar,ソナー,声纳,聲納
 WALK,Walk,歩く,走,走
 MAP,Map,マップ,地图,地圖
 DIVE,Dive,潜る,潜水,潛水
-TREAT_SONAR,Treat Sonar,おやつのソナー,谷物声纳,穀物聲納
+TREAT_SONAR,Treat Sonar,おやつソナー,谷物声纳,穀物聲納
 FLY,Flight,飛行,飞行,飛行
 MIGRATE,Migrate,渡り,迁徙,遷徙
 TRAVEL,Travel,トラベル,旅行,旅行
@@ -65,7 +66,7 @@ SCAVENGE,Scavenge,あさる,,
 BASICS_TUTORIAL,"You are a duck. Eat 40 duck treats to evolve, then migrate south. (TAB to hide)",あなたはアヒルです。アヒルのおやつを４０個食べて進化し、南へ渡りましょう。（TABで非表示）,你是一只鸭子。吃掉40个谷物以进化，向南迁徙吧！(按TAB关闭),你是一隻鴨子。吃掉40個穀物以進化，向南遷徙吧！(按TAB關閉)
 DIVING_TUTORIAL,Press R to dive underwater/swim to the surface. If you run out of stamina underwater you start taking damage.,Rを押すと水から浮上・水に潜ることが出来ます。水没してる間にスタミナがなくなるとダメージ受け始めます。,可以潜入更深的水域了。在水下体力耗尽时将会受到伤害。,可以潛入更深的水域了。在水下體力耗盡時將會受到傷害。
 FLYING_TUTORIAL,Hold SPACEBAR to fly. Flying into a wall or flying with no stamina will damage you.,SPACEを長押しすると飛行出来るようになりました。物に打つかると、またはスタミナ無しに飛行してるとダメージ受けます。,可以长按空格进行飞行了。滞空期间体力耗尽或撞击物体将会受到伤害。,可以長按空格進行飛行了。滯空期間體力耗盡或撞擊物體將會受到傷害。
-HIDDEN_GROVE_TUTORIAL,"Welcome to the hidden grove! Survive by getting to 90 duck treats, then migrate back north.",隠れた林へようこそ！生存するためにアヒルのおやつを９０個集めてから、北へ戻って渡りましょう。,欢迎来到隐秘森林！为了满足生存需要，收集90个谷物然后迁徙回北方吧！,歡迎來到隱秘森林！為了滿足生存需要，收集90個穀物然後遷徙回北方吧！
+HIDDEN_GROVE_TUTORIAL,"Welcome to the hidden grove! Survive by getting to 90 duck treats, then migrate back north.",隠れた林へようこそ！生存するためにアヒルのおやつを90個集めてから、北へ渡って戻りましょう。,欢迎来到隐秘森林！为了满足生存需要，收集90个谷物然后迁徙回北方吧！,歡迎來到隱秘森林！為了滿足生存需要，收集90個穀物然後遷徙回北方吧！
 WALKING_TUTORIAL,You can now walk on land!,地面に歩けるようになりました。,可以在地面上行走了。在地面上行走比在水中游泳更慢。,可以在地面上行走了。在地面上行走比在水中游泳更慢。
 MAP_TUTORIAL,"Press M to open the map. You can toggle the minimap with H, and range upgrades increases the map reveal range.",Mでマップが開けます。ミニマップはHキーで非表示できます。マップされる範囲がアップグレードで増加できます。,按M可以打开地图。过去抵达过的地方将会被显示。地图显示的范围将会随着升级而增大。,按M可以開啟地圖。過去抵達過的地方將會被顯示。地圖顯示的範圍將會隨著升級而增大。
 MIGRATE_TUTORIAL,Hold Q and SPACEBAR while moving to migrate and beat the game!,動きながらQとスペースを押したら渡って勝てます。,移动时按住Q和空格以迁徙并胜利结束游戏。,移動時按住Q和空格以遷徙並勝利結束遊戲。
@@ -75,13 +76,13 @@ AUTOSAVE_TUTORIAL,"The game autosaves by default, but you may turn it off in the
 SAVING_HARD_TUTORIAL,"On hard difficulty, you only get one chance to save every 5 treats. You can only save immediately after collecting the 5th treat.",ハードだと、５個のおやつを集めたら一回だけセーブできます。５個目を集めた直後にしかセーブできません。,,
 SPRINT_TUTORIAL,You can sprint with SHIFT. Once you run out of stamina you are unable to sprint for a short while.,SHIFTで走れます。スタミナがなくなると暫く走れなくなります。,按SHIFT奔跑。体力耗尽将会暂时无法奔跑。,按SHIFT奔跑。體力耗盡將會暫時無法奔跑。
 TRAVEL_TUTORIAL,"Congratulations on collecting 60 treats! You may now choose to travel to the hidden grove upon migrating, which is full of enemy ducks and hazards.",おめでとうございます。６０個のおやつが集まりました。「隠された林」に渡れるようになりました。「隠された林」には敵アヒルが多くて危険が潜んでいます。,恭喜你集齐60个谷物！可以向《隐秘森林》迁徙了。《隐秘森林》里的敌方鸭子数量众多，地势凶险。,恭喜你集齊60個穀物！可以向《隱秘森林》遷徙了。《隱秘森林》裡的敵方鴨子數量眾多，地勢兇險。
-TREAT_SONAR_TUTORIAL,Pressing E will now also point to the nearest treat and show a hint on the map. The radar prioritizes normal treats over hidden treats.,Eを押すと最も近い範囲内のおやつに指示されてマップにもヒントが表示されます。普通のおやつが隠されたおやつに優先されます。,按E指向最近的谷物并在地图上显示。,按E指向最近的穀物並在地圖上顯示。
+TREAT_SONAR_TUTORIAL,Pressing E will now also point to the nearest treat and show a hint on the map. The radar prioritizes normal treats over hidden treats.,Eを押すと最も近い範囲内のおやつに指示されてマップにもヒントが表示されます。隠されたおやつより、普通のおやつが優先されます。,按E指向最近的谷物并在地图上显示。,按E指向最近的穀物並在地圖上顯示。
 BATTLE_TUTORIAL,Welcome to a duck battle. The controls and tutorial are to the left. Press any key to continue.,アヒルバトルへようこそ。操作方法とチュートリアルが左側にあります。いずれかのキーを押して続行してください。,,
 SCAVENGE_TUTORIAL,"Pressing E will now also scan the area for duck bites. Pressing Q near a duck bite allows you to eat it and heal 3 (2 on hard) health. Duck bites don't respawn, so use them wisely.",Eを押すと、周囲ダックバイトも検知できるようなりました。近くでQを押すとHPが３（ハードでは２）回復します。ダックバイトはリスポーンしないため、使いどころに注意してください。,,
 AUTOSAVE_SLOT,Autosave,自動セーブ,自动保存,自動儲存
 SLOT,Slot,スロット,栏位,欄位
 TREATS,Treats,おやつ,谷物,穀物
-RADAR_READY,Radar Ready,ソナー使えます。,声纳就绪,聲納就緒
+RADAR_READY,Radar Ready,ソナー使えます,声纳就绪,聲納就緒
 LOST_TEXT,You have fallen...,負けました。,你输了。,你輸了。
 BASICS_MOVE_ACTION,Move: ,移動：,移动:,移動:
 BASICS_ZOOM_ACTION,Zoom: ,ズーム：,缩放:,縮放:

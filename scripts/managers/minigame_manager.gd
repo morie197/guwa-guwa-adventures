@@ -76,7 +76,7 @@ func _unhandled_input(event):
 func initValues():
 	camera_2d.make_current()
 	
-	if GameManager.duckRegistry.size() <= 0 and GameManager.level < 60:
+	if (GameManager.duckRegistry.size() <= 0 and GameManager.level < 60) and GameManager.showTutorials:
 		showing_tutorial_panel.visible = true
 		inTutorial = true
 	else:

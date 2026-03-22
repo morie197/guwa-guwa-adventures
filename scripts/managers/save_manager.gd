@@ -233,18 +233,24 @@ func loadConfigData():
 func applyConfigData():
 	if configData == {}:
 		configData = {"toggles": 
-			{"fullscreen" = false,"autosave" = true}, 
+			{"fullscreen" = false,"autosave" = true, "tutorials" = true}, 
 			"audio": 
 				{"music" = -24.0, "sfx" = -24.0},
 			"other":
 				{"language" = getLanguage()}
 			}
 	
+	if configData.has("toggles"):
+		if !configData["toggles"].has("tutorials"):
+			configData["toggles"]["tutorials"] = true
+	
 	if configData["toggles"]["fullscreen"] == true:
-		#print("fullscreen")
 		GameManager.toggleFullscreen()
 	if configData["toggles"]["autosave"] == false:
 		autosave = false
+	if configData["toggles"]["tutorials"] == false:
+		print('false')
+		GameManager.showTutorials = false
 	
 	if configData.has("audio"):
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), configData["audio"]["music"])

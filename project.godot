@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="GuwaGuwaAdventures"
+config/version="1.0"
 run/main_scene="uid://43y02csf0qmi"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="uid://b7evk4xuvgp55"
+config/icon="uid://cc6ed8ja03j7d"
 
 [audio]
 

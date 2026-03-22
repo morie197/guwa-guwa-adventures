@@ -46,6 +46,7 @@ var duckBiteEatenRegistry: Array[int] = []
 var hiddenRegistry: Array[int] = []
 
 var shownTutorials = []
+var showTutorials: bool = true
 
 var abilities := []
 
@@ -425,6 +426,10 @@ func showTutorial(tutorialName: String, forced: bool = false):
 	if GameManager.saved.is_connected(showTutorial):
 		GameManager.saved.disconnect(showTutorial)
 		
+	if !showTutorials:
+		if !shownTutorials.has(tutorialName):
+			shownTutorials.append(tutorialName)
+		return
 	if tutorialName.match("quack") or tutorialName.match("land") or tutorialName.match("dive") or tutorialName.match("fly"):
 		#print("showing")
 		cameraShow(tutorialName)

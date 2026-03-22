@@ -23,11 +23,15 @@ func _ready():
 		autosaves.button_pressed = false
 	if GameManager.fullscreen == true:
 		fullscreen.button_pressed = true
+	if GameManager.showTutorials == false:
+		%tutorials.button_pressed = false
 	
 	autosaves.pressed.connect(toggleAutosaves)
 	fullscreen.pressed.connect(GameManager.toggleFullscreen)
+	%tutorials.pressed.connect(toggleTutorials)
 	autosaves.pressed.connect(%clickSound.play)
 	fullscreen.pressed.connect(%clickSound.play)
+	%tutorials.pressed.connect(%clickSound.play)
 	
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
 	sound_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
@@ -72,6 +76,10 @@ func selectLanguage(index):
 	
 	SaveManager.configData["other"]["language"] = %languages.get_item_metadata(index)
 	
+func toggleTutorials():
+	GameManager.showTutorials = !GameManager.showTutorials
+	
+	SaveManager.configData["toggles"]["tutorials"] = GameManager.showTutorials
 
 func toggleAutosaves():
 	SaveManager.autosave = !SaveManager.autosave
