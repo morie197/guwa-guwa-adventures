@@ -11,6 +11,10 @@ var mode: String = "load"
 
 var parentMenu
 
+var inPopup: bool = false
+
+var buttonList = []
+
 func _ready():
 	if mode.match("load"):
 		text.text = tr("LOAD")
@@ -28,11 +32,13 @@ func _ready():
 func _updateSlots():
 	if slotsContainer.get_child_count() > 0:
 		for slot in slotsContainer.get_children():
+			buttonList.erase(slot)
 			slot.queue_free()
 	
 	for i in range(SaveManager.saveSlotCount):
 		var slot = SLOT.instantiate()
 		slot.slotMode = mode
+		buttonList.append(slot)
 		slotsContainer.add_child(slot)
 		slot.selected.connect(_slotSelected)
 		slot.deleted.connect(_slotDeleted)
@@ -44,6 +50,7 @@ func _updateSlots():
 		slot.setData(SaveManager.saveDataAll[i], i)
 
 func _slotSelected(slotNumber: int = 0):
+	_inPopup()
 	%clickSound.play()
 	if mode == "load":
 		if !SaveManager.saveDataAll[slotNumber].has("levelName"):
@@ -63,6 +70,7 @@ func _slotSelected(slotNumber: int = 0):
 		#popup.yes.connect(GameManager.loadValues)
 	
 		popup.no.connect(popup.queue_free)
+		popup.no.connect(_inPopup)
 		#popup.no.connect(parentMenu._inPopup)
 	
 	elif mode == "save":
@@ -72,6 +80,7 @@ func _slotSelected(slotNumber: int = 0):
 		popup.yes.connect(SaveManager.save_game.bind(slotNumber))
 	
 		popup.no.connect(popup.queue_free)
+		popup.no.connect(_inPopup)
 		#popup.no.connect(parentMenu._inPopup)
 		
 	elif mode == "saveHard":
@@ -84,6 +93,7 @@ func _slotSelected(slotNumber: int = 0):
 		popup.yes.connect(queue_free)
 		popup.yes.connect(SaveManager.save_game.bind(slotNumber))
 		popup.no.connect(popup.queue_free)
+		popup.no.connect(_inPopup)
 		
 func _slotDeleted(slotNumber: int = 0):
 	%clickSoundQuit.play()
@@ -96,6 +106,7 @@ func _slotDeleted(slotNumber: int = 0):
 	popup.yes.connect(popup.queue_free)
 	
 	popup.no.connect(popup.queue_free)
+	popup.no.connect(_inPopup)
 	#popup.no.connect(parentMenu._inPopup)
 	
 func _back():
@@ -111,3 +122,14 @@ func _back():
 		GameManager.paused = false
 		GameManager.saved.emit()
 	queue_free()
+
+
+func _inPopup():
+	inPopup = !inPopup
+	var buttons = [back_button]
+	for button in buttons:
+		button.disabled = inPopup
+	for slot in buttonList:
+		if slot != null:
+			if !slot.is_queued_for_deletion():
+				slot.toggleButtons(inPopup)	

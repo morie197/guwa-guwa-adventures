@@ -11,6 +11,7 @@ signal yes
 signal no
 
 func _ready():
+	yesButton.grab_focus()
 	yesButton.pressed.connect(_yes)
 	noButton.pressed.connect(_no)
 	

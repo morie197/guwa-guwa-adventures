@@ -160,7 +160,7 @@ var newArea: Vector2 = Vector2.ZERO
 
 var tilePosition: Vector2i
 
-var healRegenerationTime: float = 30.0
+var healRegenerationTime: float = 45.0
 
 signal quack
 signal radar
@@ -198,7 +198,10 @@ func _unhandled_input(event):
 	if GameManager.lost:
 		return
 		
-
+	if event is InputEventKey:
+		if GameManager.abilities.has("sonar") and radarTimer <= 0:
+			if Input.is_action_pressed("search"):
+				_radar()
 	
 	if Input.is_action_just_pressed("menuback pause"):
 		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown or GameManager.worldManager.inMap:
@@ -218,15 +221,12 @@ func _unhandled_input(event):
 		elif Input.is_action_just_pressed("zoomout"):
 			mouseScrollInput = zoomOutAmount
 	
-	if event is InputEventKey:
-		if GameManager.abilities.has("sonar") and radarTimer <= 0:
-			if Input.is_action_pressed("search"):
-				_radar()
 				
 		if GameManager.worldManager != null:
 			if GameManager.worldManager.inMap:
 				return
 		
+	if event is InputEventKey:
 		moveVector.y = Input.get_axis("up", "down")
 		moveVector.x = Input.get_axis("left", "right")
 		
@@ -395,6 +395,9 @@ func _process(delta):
 	else:
 		bgm.volume_db = bgmVolume
 		
+	if radarTimer > 0:
+		radarTimer -= delta
+		
 	if GameManager.paused:	
 		moveVector = Vector2.ZERO
 		return
@@ -497,8 +500,7 @@ func _process(delta):
 	if quackTimer > 0:
 		quackTimer -= delta
 		
-	if radarTimer > 0:
-		radarTimer -= delta
+	
 
 	if layer == 2 and tired and forcedFly:
 		GameManager.damagePlayer(1)

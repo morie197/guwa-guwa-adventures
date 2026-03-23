@@ -118,6 +118,9 @@ func _ready():
 	loadGame.pressed.connect(_load)
 	quit.pressed.connect(_quit)
 	
+	loadGame.mouse_entered.connect(%hoversound.play)
+	quit.mouse_entered.connect(%hoversound.play)
+	
 	if GameManager.abilities.has("sprint"):
 		stamina_bar.show()
 	else:
@@ -130,6 +133,14 @@ func _unhandled_input(event):
 			mini_map_panel.visible = !mini_map_panel.visible
 			%showmapText.visible = !mini_map_panel.visible
 			%showmapText.text = tr("SHOW_MINIMAP") + "H"
+			
+	if Input.is_action_just_pressed("HideHUD"):
+		GameManager.noHUD = !GameManager.noHUD
+		if GameManager.noHUD:
+			hud.modulate = Color.TRANSPARENT
+		else:
+			hud.modulate = Color.WHITE
+		
 
 func updateNextAbility():
 	until_next_ability.text = ""
@@ -273,6 +284,7 @@ func closeLoadSave():
 	_inPopup()
 
 func _load():
+	%clickSound.play()
 	if saveLoadMenu != null:
 		saveLoadMenu.queue_free()
 	saveLoadMenu = SAVE_LOAD_MENU.instantiate()
@@ -284,7 +296,9 @@ func _load():
 func _quit():
 	GameManager.paused = false
 	GameManager.lost = false
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	%clickSoundQuit.finished.connect(get_tree().change_scene_to_file.bind("res://scenes/menus/main_menu.tscn"))
+	%clickSoundQuit.play()
+	#get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 
 func _inPopup():
 	inPopup = !inPopup

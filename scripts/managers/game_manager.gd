@@ -13,6 +13,8 @@ var maxHP: int = 10
 
 var lost: bool = false
 
+var noHUD: bool = false
+
 var loadingLevel: bool = false
 
 var fullscreen: bool = false
@@ -61,7 +63,7 @@ var minimapCam
 var canDamage: bool = true
 var damageCooldown: float = 1.25
 
-var damagedHealCooldown: float = 30.0
+var damagedHealCooldown: float = 20.0
 var damageHealTimer: Timer
 var canHealAfterDamage: bool = true
 
@@ -106,7 +108,6 @@ func enterLevel():
 	worldLayer = 1
 	
 	if worldManager.levelName == "Hidden Grove":
-		print("hidden grove")
 		upgradeSet = UpgradeData.POSTGAMEUPGRADES
 	
 	if damageHealTimer != null:
@@ -450,7 +451,6 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array, entityAtt
 		playerRef.point_light_2d_3.visible = false
 	var minigame_stage = DUCK_MINIGAME.instantiate()
 	if owners.size() == 0:
-		#print("not properly setup!")
 		return
 	minigame_stage.global_position = owners[0].global_position
 	worldManager.add_child(minigame_stage)
@@ -461,11 +461,6 @@ func initiateMinigame(entityNames: Array[String], entityHealth: Array, entityAtt
 	minigame_stage.enemySpeedValues = entitySpeed.duplicate()
 	minigame_stage.enemyRangeValues = entityRange.duplicate()
 	
-	#for index in range(entityNames.size()):
-	#	minigame_stage.enemyNames.append(entityNames[index])
-	#	minigame_stage.enemyHealthValues.append(entityHealth[index])
-	#	minigame_stage.enemyAttackValues.append(entityAttack[index])
-		
 	minigame_stage.enemyCount = entityNames.size()
 	minigame_stage.level = level
 	minigame_stage.speedMultiplier = playerRef.speedMultiplier
@@ -511,6 +506,10 @@ func calculateBonuses(heal: bool = true):
 		
 		
 func healPlayer(amount: int = 1, regenHeal: bool = false):
+	if difficultyValue == Difficulty.EASY:
+		return
+	if lost:
+		return
 	if difficultyValue == Difficulty.HARD:
 		if regenHeal == true:
 			return

@@ -7,7 +7,7 @@ var rangeMultiplier: float = 1
 var speedMultiplier: float = 1
 
 @export var moveSpeed: float = 120
-@export var staminaRecoveryRate: float = 0.8
+@export var staminaRecoveryRate: float = 0.6
 @export var baseQuackRange: float = 80.0
 @export var quackCooldown: float = 1.3
 @export var lungeTime: float = 0.15
@@ -120,16 +120,12 @@ func initValues():
 
 func _input(event):
 	if minigamemanager.displaying == true or minigamemanager.inTutorial == true:
-		moveVector = Vector2.ZERO
 		return
 		
 	if Input.is_action_just_pressed("leftClick"):
 		_quack()
 		
 	if event is InputEventKey:
-		moveVector.y = Input.get_axis("up", "down")
-		moveVector.x = Input.get_axis("left", "right")
-			
 		if quackTimer <= 0:
 			if Input.is_action_just_pressed("attack"):
 				_quack()
@@ -138,26 +134,16 @@ func _input(event):
 		lunging = true
 		invincibleDurationTimer = lungeTime + invincibleDuration
 		
-			
-		
-		#
-		#if GameManager.abilities.has("fly") or GameManager.abilities.has("sprint"):
-			#if !flying:
-				#sprinting = (Input.is_action_pressed("sprint") and !tired)
-			#if GameManager.abilities.has("fly"):
-				#if Input.is_action_just_pressed("fly") and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
-					#if sprinting:
-						#sprinting = false
-				#if layer != 2:
-					#if Input.is_action_pressed("fly") and !tired and !(GameManager.worldLayer == 0 and (layer == 0 or layer == -1)):
-						#_toggleFly(true)
-					#else:
-						#_toggleFly(false)
-		
 func _physics_process(delta):
 	_move(moveVector)
 	
 func _process(delta):
+	moveVector.y = Input.get_axis("up", "down")
+	moveVector.x = Input.get_axis("left", "right")
+	
+	if minigamemanager.displaying == true or minigamemanager.inTutorial == true:
+		moveVector = Vector2.ZERO
+	
 	if quackTimer > 0:
 		quackTimer -= delta
 		
@@ -198,7 +184,7 @@ func _process(delta):
 		
 	
 	if moveVector != Vector2.ZERO:
-		lastMovedDirection = lastMovedDirection.lerp(moveVector, delta * flyLerpSpeed)
+		lastMovedDirection = lastMovedDirection.lerp(moveVector, clampf(delta * 500, 0, 1))
 		
 	
 	if flyDelayTimer > 0:
@@ -219,22 +205,22 @@ func _process(delta):
 		else:
 			tired = false
 		
-func _toggleFly(value: bool):
-	if flying == value: 
-		return
-		
-	if !GameManager.abilities.has("fly"):
-		return
-		
-	lastMovedDirection = lastMovedDirection * 0.4
-	#if lastMovedDirection.x > 0.5 or lastMovedDirection.y > 0.5:
-	#	lastMovedDirection = lastMovedDirection/2.0
-	if !wings_flapping_sound.playing:
-		wings_flapping_sound.play()
-	if wings_flying_sound.playing:
-		wings_flying_sound.stop()
-	flyDelayTimer = flyDelay
-	flying = value
+#func _toggleFly(value: bool):
+	#if flying == value: 
+		#return
+		#
+	#if !GameManager.abilities.has("fly"):
+		#return
+		#
+	#lastMovedDirection = lastMovedDirection * 0.4
+	##if lastMovedDirection.x > 0.5 or lastMovedDirection.y > 0.5:
+	##	lastMovedDirection = lastMovedDirection/2.0
+	#if !wings_flapping_sound.playing:
+		#wings_flapping_sound.play()
+	#if wings_flying_sound.playing:
+		#wings_flying_sound.stop()
+	#flyDelayTimer = flyDelay
+	#flying = value
 		
 func _quack():
 	if quackTimer > 0:
@@ -302,6 +288,10 @@ func knockback(direction: Vector2, multiplier: float = 1):
 	
 func _move(movevec: Vector2):
 	if lunging:
+		if moveVector == Vector2.ZERO:
+			if lastMovedDirection == Vector2.ZERO:
+				lastMovedDirection = Vector2.RIGHT
+			moveVector = lastMovedDirection.normalized()
 		velocity = moveVector.normalized() * lungeSpeed
 		velocity *= moveSpeed
 		velocity *= ((speedMultiplier - 1) / 5) + 1

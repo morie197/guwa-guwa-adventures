@@ -15,7 +15,6 @@ var upgradeName: String
 var upgradeText: String
 var description: String
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	upgrade_button.pressed.connect(_upgradeButtonPressed)

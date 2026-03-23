@@ -76,6 +76,12 @@ func _unhandled_input(event):
 func initValues():
 	camera_2d.make_current()
 	
+	if GameManager.noHUD:
+		%controls.visible = false
+		
+	if !GameManager.showTutorials:
+		%textTutorials.visible = false
+	
 	if (GameManager.duckRegistry.size() <= 0 and GameManager.level < 60) and GameManager.showTutorials:
 		showing_tutorial_panel.visible = true
 		inTutorial = true
@@ -121,18 +127,6 @@ func initValues():
 		enemyArray.append(enemy)
 		enemy.minigamemanager = self
 		
-		#if GameManager.difficultyValue == GameManager.Difficulty.EASY:
-			#enemy.maxHealth = enemyHealthValues[ene] + round((GameManager.level/(((enemyHealthValues.size() - 1)/2.0) + 1)) / 2.0)
-			##enemy.speed = enemy.speed * (speedMultiplier / 2)
-		#else:
-			#enemy.maxHealth = enemyHealthValues[ene]
-			#if enemy.maxHealth <= 10:
-				##enemy.speed = enemy.speed / (clampf(enemy.maxHealth - 10, 3, 10) / 2)
-				#enemy.speed = enemy.speed
-			#else:
-				##enemy.speed = enemy.speed / (enemy.maxHealth / 8)
-				#enemy.speed = enemy.speed / 2.0
-				
 		enemy.speed = (enemy.speed/4.0) + ((enemy.speed/8.0) * enemySpeedValues[ene])
 		
 		if enemyNames.size() > 3:
@@ -175,7 +169,6 @@ func _player_hp_changed():
 	playerHPBar.max_value = player_minigame.quacker.max_health
 	playerHPBar.value = player_minigame.quacker.health
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	acculumatedTime += delta
 	

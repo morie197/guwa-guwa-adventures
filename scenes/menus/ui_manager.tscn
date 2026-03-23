@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene load_steps=28 format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/managers/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="AudioStream" uid="uid://dugxx4l44rqni" path="res://sounds/SFX/level-up-08-402152.mp3" id="3_2oyku"]
@@ -7,8 +7,10 @@
 [ext_resource type="AudioStream" uid="uid://dsdyh8ybdgat7" path="res://sounds/SFX/button_09-190435.mp3" id="5_gl862"]
 [ext_resource type="AudioStream" uid="uid://d3kfhwm4hrjdf" path="res://sounds/music/Sketchbook 2025-11-23.ogg" id="6_hii27"]
 [ext_resource type="Texture2D" uid="uid://c6rburndnqe7h" path="res://sprites/bars/baroverlay.png" id="6_hst8a"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="7_1hnrs"]
 [ext_resource type="Texture2D" uid="uid://t05yvs3l52fs" path="res://sprites/bars/bluebar.png" id="7_tanoa"]
 [ext_resource type="Texture2D" uid="uid://be01o6n3ywk7v" path="res://sprites/sprites/arrow_decorative_s.svg" id="8_jo33p"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="8_mm6t1"]
 [ext_resource type="Texture2D" uid="uid://cst8o164y85ev" path="res://sprites/bars/whitebar.png" id="8_tanoa"]
 [ext_resource type="Texture2D" uid="uid://dq1i4suv57vi4" path="res://sprites/bars/yellowbar.png" id="12_4v62q"]
 [ext_resource type="Texture2D" uid="uid://bndjltytrte55" path="res://sprites/sprites/ducktreat.png" id="12_ipats"]
@@ -97,6 +99,26 @@ stream = ExtResource("6_hii27")
 volume_db = -8.0
 bus = &"Music"
 parameters/looping = true
+
+[node name="hoversound" type="AudioStreamPlayer" parent="sounds"]
+unique_name_in_owner = true
+stream = ExtResource("7_1hnrs")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="clickSound" type="AudioStreamPlayer" parent="sounds"]
+unique_name_in_owner = true
+stream = ExtResource("4_ixhu3")
+volume_db = -8.0
+pitch_scale = 1.7
+bus = &"SFX"
+
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="sounds"]
+unique_name_in_owner = true
+stream = ExtResource("8_mm6t1")
+volume_db = -8.0
+pitch_scale = 1.7
+bus = &"SFX"
 
 [node name="MigrateDownIndicator" type="TextureRect" parent="."]
 visible = false

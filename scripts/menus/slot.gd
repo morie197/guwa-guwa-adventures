@@ -34,7 +34,6 @@ func setData(data, slotNumber: int = 0):
 		elif slotMode == "save" or slotMode == "saveHard":
 			queue_free()
 	else:
-		#slot_name.text = "Slot " + str(slotNumber)
 		h_box_container_3.hide()
 		slot_name.hide()
 		
@@ -60,13 +59,6 @@ func setData(data, slotNumber: int = 0):
 	else:
 		img_panel_container.hide()
 		
-		
-	#level.text = str(data["currentHP"])
-	#if data["abilities"].has("travel"):
-		#if data.has("postgameUpgradeLevels"):
-			#upgrades.text = "RES:" + str(int(data["postgameUpgradeLevels"]["resistance"])) + " | REA:" + str(int(data["postgameUpgradeLevels"]["reach"])) + " | POW:" + str(int(data["postgameUpgradeLevels"]["power"]))
-	#else:
-		#upgrades.text = "RAN:" + str(int(data["upgradeLevels"]["range"])) + " | END:" + str(int(data["upgradeLevels"]["endurance"])) + " | SPE:" + str(int(data["upgradeLevels"]["speed"]))
 	level.text = tr("TREATS") + ": " + str(int(data["level"]))
 	var levelName = data["levelName"]
 	if levelName == "Quiet Gardens":
@@ -85,10 +77,9 @@ func setData(data, slotNumber: int = 0):
 		difficulty.text = "[color=RED]" + tr("HARD") + "[/color]"
 		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
 		
-		
-	#stage_name.text = "Map: " + data["levelName"]
-	
-	
+func toggleButtons(inpopup: bool = true):
+	%Button.disabled = inpopup
+	%deleteButton.disabled = inpopup
 	
 
 	

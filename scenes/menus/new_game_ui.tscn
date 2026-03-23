@@ -1,10 +1,12 @@
-[gd_scene load_steps=32 format=3 uid="uid://saw53iuafodd"]
+[gd_scene load_steps=33 format=3 uid="uid://saw53iuafodd"]
 
 [ext_resource type="Script" uid="uid://scr4b8unpieb" path="res://scripts/menus/new_game_ui.gd" id="1_s8q75"]
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="2_4vpmo"]
 [ext_resource type="Texture2D" uid="uid://bdhn7vnr0riyv" path="res://sprites/sprites/check_square_grey_checkmark.png" id="3_fqowj"]
 [ext_resource type="Texture2D" uid="uid://e4rhcl2pyyqh" path="res://sprites/sprites/check_square_grey.png" id="4_xhr88"]
 [ext_resource type="Texture2D" uid="uid://5wm0trmf4gqj" path="res://sprites/sprites/check_square_grey_cross (2).svg" id="5_r6g15"]
+[ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="5_s5ufm"]
+[ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="6_c73i3"]
 [ext_resource type="Texture2D" uid="uid://bv3a3hdxbtaw0" path="res://sprites/sprites/check_square_color_cross.svg" id="6_s5ufm"]
 [ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="7_xhr88"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="8_r6g15"]
@@ -83,22 +85,6 @@ thickness = 4
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrdfw"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_w10jp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igpak"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.5211406, 0.52114064, 0.52114046, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
 
 [node name="newGameUI" type="PanelContainer"]
 anchors_preset = 15
@@ -334,7 +320,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_igpak")
+theme_override_styles/normal = ExtResource("5_s5ufm")
+theme_override_styles/pressed = ExtResource("6_c73i3")
+theme_override_styles/hover = ExtResource("6_c73i3")
+theme_override_styles/disabled = ExtResource("5_s5ufm")
+theme_override_styles/focus = ExtResource("6_c73i3")
 text = "NEW_GAME_CREATE"
 
 [node name="Control" type="Control" parent="menu"]
