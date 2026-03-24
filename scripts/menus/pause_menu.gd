@@ -53,9 +53,9 @@ func _ready():
 				key_presses.add_child(keyDisplay)
 				keyDisplay.setData(item.icons, item.text, item.type)
 	
-	if key_presses.get_child_count() > 9:
+	if key_presses.get_child_count() > 8:
 		for keyPress in key_presses.get_children():
-			keyPress.setTextSize(42)
+			keyPress.setTextSize(26)
 	
 func _resume():
 	%clickSound.play()

@@ -101,6 +101,8 @@ func _slotDeleted(slotNumber: int = 0):
 	popup.warningText = tr("DELETE_WARNING") % str(slotNumber)
 	add_child(popup)
 	
+	_inPopup()
+	
 	popup.yes.connect(SaveManager.delete_game.bind(slotNumber))
 	popup.yes.connect(_updateSlots)
 	popup.yes.connect(popup.queue_free)

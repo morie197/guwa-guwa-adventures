@@ -1,4 +1,4 @@
-[gd_resource type="CurveTexture" load_steps=2 format=3 uid="uid://casgqr0vvuhce"]
+[gd_resource type="CurveTexture" format=3 uid="uid://casgqr0vvuhce"]
 
 [sub_resource type="Curve" id="Curve_umus7"]
 _limits = [-200.0, 200.0, 0.0, 1.0]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8nmevsdid6a6"]
+[gd_scene format=3 uid="uid://b8nmevsdid6a6"]
 
 [ext_resource type="Script" uid="uid://c0ad0tiswhk3h" path="res://scripts/menus/save_load_menu.gd" id="1_8r3bj"]
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="2_knhrb"]
@@ -8,7 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="4_ry6ee"]
 [ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="5_rq5ph"]
 
-[node name="SaveLoadMenu" type="PanelContainer"]
+[node name="SaveLoadMenu" type="PanelContainer" unique_id=2093424975]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,20 +16,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8r3bj")
 
-[node name="menu" type="PanelContainer" parent="."]
+[node name="menu" type="PanelContainer" parent="." unique_id=307614026]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("2_knhrb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="menu" unique_id=1317013430]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="text" type="RichTextLabel" parent="menu/VBoxContainer"]
+[node name="text" type="RichTextLabel" parent="menu/VBoxContainer" unique_id=1994721919]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 text = "Load"
 fit_content = true
@@ -37,22 +38,22 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="menu/VBoxContainer" unique_id=769489954]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="menu/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="menu/VBoxContainer" unique_id=1192165174]
 custom_minimum_size = Vector2(0, 700)
 layout_mode = 2
 
-[node name="slots" type="VBoxContainer" parent="menu/VBoxContainer/ScrollContainer"]
+[node name="slots" type="VBoxContainer" parent="menu/VBoxContainer/ScrollContainer" unique_id=1252953893]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(410, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=610564814]
 layout_mode = 2
 
-[node name="backButton" type="Button" parent="menu/VBoxContainer/HBoxContainer"]
+[node name="backButton" type="Button" parent="menu/VBoxContainer/HBoxContainer" unique_id=377757701]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -64,20 +65,20 @@ theme_override_styles/disabled = ExtResource("3_rq5ph")
 theme_override_styles/focus = ExtResource("4_ry6ee")
 text = "BACK"
 
-[node name="hoversound" type="AudioStreamPlayer" parent="."]
+[node name="hoversound" type="AudioStreamPlayer" parent="." unique_id=1070451058]
 unique_name_in_owner = true
 stream = ExtResource("3_r5uco")
 volume_db = -8.0
 bus = &"SFX"
 
-[node name="clickSound" type="AudioStreamPlayer" parent="."]
+[node name="clickSound" type="AudioStreamPlayer" parent="." unique_id=1464156509]
 unique_name_in_owner = true
 stream = ExtResource("4_iqvcw")
 volume_db = -8.0
 pitch_scale = 1.7
 bus = &"SFX"
 
-[node name="clickSoundQuit" type="AudioStreamPlayer" parent="."]
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="." unique_id=1575768795]
 unique_name_in_owner = true
 stream = ExtResource("5_rq5ph")
 volume_db = -8.0

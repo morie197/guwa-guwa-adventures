@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cd68megybdr25"]
+[gd_scene format=3 uid="uid://cd68megybdr25"]
 
 [ext_resource type="Script" uid="uid://ctomnouu7yh06" path="res://scripts/menus/popup.gd" id="1_cv3ct"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="2_dvgw1"]
@@ -20,7 +20,7 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 5
 
-[node name="popup" type="Control"]
+[node name="popup" type="Control" unique_id=1295972539]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cv3ct")
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=110086205]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,31 +42,32 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 
-[node name="popupDialogue" type="PanelContainer" parent="PanelContainer2"]
+[node name="popupDialogue" type="PanelContainer" parent="PanelContainer2" unique_id=1103098338]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_ry4tx")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/popupDialogue"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/popupDialogue" unique_id=900704502]
 layout_mode = 2
 
-[node name="text" type="RichTextLabel" parent="PanelContainer2/popupDialogue/VBoxContainer"]
+[node name="text" type="RichTextLabel" parent="PanelContainer2/popupDialogue/VBoxContainer" unique_id=2066148843]
 clip_contents = false
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 32
 text = "Are you sure?"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/popupDialogue/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/popupDialogue/VBoxContainer" unique_id=1752827086]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="yes" type="Button" parent="PanelContainer2/popupDialogue/VBoxContainer/HBoxContainer"]
+[node name="yes" type="Button" parent="PanelContainer2/popupDialogue/VBoxContainer/HBoxContainer" unique_id=1181271715]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -78,7 +79,7 @@ theme_override_styles/disabled = ExtResource("2_dvgw1")
 theme_override_styles/focus = ExtResource("3_stq87")
 text = "yes"
 
-[node name="no" type="Button" parent="PanelContainer2/popupDialogue/VBoxContainer/HBoxContainer"]
+[node name="no" type="Button" parent="PanelContainer2/popupDialogue/VBoxContainer/HBoxContainer" unique_id=274538782]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)

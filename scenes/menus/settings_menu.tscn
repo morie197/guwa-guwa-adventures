@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnkbdoidjjxng"]
+[gd_scene format=3 uid="uid://dnkbdoidjjxng"]
 
 [ext_resource type="Script" uid="uid://bj5mu5aofixvm" path="res://scripts/menus/settings_menu.gd" id="1_wswnh"]
 [ext_resource type="Texture2D" uid="uid://bdhn7vnr0riyv" path="res://sprites/sprites/check_square_grey_checkmark.png" id="2_labj1"]
 [ext_resource type="Texture2D" uid="uid://e4rhcl2pyyqh" path="res://sprites/sprites/check_square_grey.png" id="3_lwwgp"]
 [ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="4_jjfif"]
+[ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="4_qnuys"]
+[ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="5_eoonq"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="5_kffdn"]
 [ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="6_qnuys"]
 
@@ -91,23 +93,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0eu6"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.5211406, 0.52114064, 0.52114046, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[node name="settingsMenu" type="PanelContainer"]
+[node name="settingsMenu" type="PanelContainer" unique_id=372382191]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -115,19 +101,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wswnh")
 
-[node name="menu" type="PanelContainer" parent="."]
+[node name="menu" type="PanelContainer" parent="." unique_id=26353355]
 custom_minimum_size = Vector2(424, 402)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_oerog")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="menu" unique_id=2048183225]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="text" type="RichTextLabel" parent="menu/VBoxContainer"]
+[node name="text" type="RichTextLabel" parent="menu/VBoxContainer" unique_id=145543426]
 layout_mode = 2
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 64
 text = "SETTINGS"
 fit_content = true
@@ -135,21 +122,22 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="menu/VBoxContainer" unique_id=1581018124]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=676509546]
 layout_mode = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer2" unique_id=1045417443]
 layout_mode = 2
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 32
 text = "AUTOSAVES"
 fit_content = true
 autowrap_mode = 0
 
-[node name="autosaves" type="CheckBox" parent="menu/VBoxContainer/HBoxContainer2"]
+[node name="autosaves" type="CheckBox" parent="menu/VBoxContainer/HBoxContainer2" unique_id=1700547061]
 z_index = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -159,21 +147,22 @@ theme_override_icons/radio_checked = ExtResource("2_labj1")
 theme_override_icons/radio_unchecked = ExtResource("3_lwwgp")
 button_pressed = true
 
-[node name="HSeparator4" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="menu/VBoxContainer" unique_id=774516302]
 layout_mode = 2
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=1105752596]
 layout_mode = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer5"]
+[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer5" unique_id=752517316]
 layout_mode = 2
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 32
 text = "TUTORIALS"
 fit_content = true
 autowrap_mode = 0
 
-[node name="tutorials" type="CheckBox" parent="menu/VBoxContainer/HBoxContainer5"]
+[node name="tutorials" type="CheckBox" parent="menu/VBoxContainer/HBoxContainer5" unique_id=1385080435]
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 2
@@ -184,21 +173,22 @@ theme_override_icons/radio_checked = ExtResource("2_labj1")
 theme_override_icons/radio_unchecked = ExtResource("3_lwwgp")
 button_pressed = true
 
-[node name="HSeparator3" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="menu/VBoxContainer" unique_id=737392253]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=1492806970]
 layout_mode = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer3"]
+[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer3" unique_id=771612491]
 layout_mode = 2
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 32
 text = "FULLSCREEN"
 fit_content = true
 autowrap_mode = 0
 
-[node name="fullscreen" type="CheckBox" parent="menu/VBoxContainer/HBoxContainer3"]
+[node name="fullscreen" type="CheckBox" parent="menu/VBoxContainer/HBoxContainer3" unique_id=1267442197]
 z_index = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -207,21 +197,22 @@ theme_override_icons/unchecked = ExtResource("3_lwwgp")
 theme_override_icons/radio_checked = ExtResource("2_labj1")
 theme_override_icons/radio_unchecked = ExtResource("3_lwwgp")
 
-[node name="HSeparator6" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="menu/VBoxContainer" unique_id=1437214252]
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=2066819636]
 layout_mode = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer4"]
+[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/HBoxContainer4" unique_id=1355677267]
 layout_mode = 2
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 40
 text = "LANGUAGE"
 fit_content = true
 autowrap_mode = 0
 
-[node name="languages" type="OptionButton" parent="menu/VBoxContainer/HBoxContainer4"]
+[node name="languages" type="OptionButton" parent="menu/VBoxContainer/HBoxContainer4" unique_id=851337549]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -234,17 +225,18 @@ theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ojvp1")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ojvp1")
 alignment = 1
 
-[node name="HSeparator5" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="menu/VBoxContainer" unique_id=319518257]
 layout_mode = 2
 
-[node name="music" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="music" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=991778895]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/music"]
+[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/music" unique_id=1341131373]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 32
 text = "MUSIC"
 fit_content = true
@@ -253,7 +245,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="musicSlider" type="HSlider" parent="menu/VBoxContainer/music"]
+[node name="musicSlider" type="HSlider" parent="menu/VBoxContainer/music" unique_id=1057847023]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -266,17 +258,18 @@ value = 1.0
 scrollable = false
 ticks_position = 3
 
-[node name="HSeparator" type="HSeparator" parent="menu/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="menu/VBoxContainer" unique_id=211151889]
 layout_mode = 2
 
-[node name="sounds" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="sounds" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=352692714]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/sounds"]
+[node name="RichTextLabel" type="RichTextLabel" parent="menu/VBoxContainer/sounds" unique_id=406167967]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
+theme_override_constants/line_separation = 8
 theme_override_font_sizes/normal_font_size = 32
 text = "SFX"
 fit_content = true
@@ -285,7 +278,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="soundSlider" type="HSlider" parent="menu/VBoxContainer/sounds"]
+[node name="soundSlider" type="HSlider" parent="menu/VBoxContainer/sounds" unique_id=1709218740]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -298,31 +291,35 @@ value = 1.0
 scrollable = false
 ticks_position = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="menu/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="menu/VBoxContainer" unique_id=1171733708]
 layout_mode = 2
 
-[node name="backButton" type="Button" parent="menu/VBoxContainer/HBoxContainer"]
+[node name="backButton" type="Button" parent="menu/VBoxContainer/HBoxContainer" unique_id=1263555494]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_d0eu6")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("4_qnuys")
+theme_override_styles/pressed = ExtResource("5_eoonq")
+theme_override_styles/hover = ExtResource("5_eoonq")
+theme_override_styles/disabled = ExtResource("4_qnuys")
+theme_override_styles/focus = ExtResource("5_eoonq")
 text = "BACK"
 
-[node name="hoversound" type="AudioStreamPlayer" parent="."]
+[node name="hoversound" type="AudioStreamPlayer" parent="." unique_id=622816940]
 unique_name_in_owner = true
 stream = ExtResource("4_jjfif")
 volume_db = -8.0
 bus = &"SFX"
 
-[node name="clickSound" type="AudioStreamPlayer" parent="."]
+[node name="clickSound" type="AudioStreamPlayer" parent="." unique_id=2016210280]
 unique_name_in_owner = true
 stream = ExtResource("5_kffdn")
 volume_db = -8.0
 pitch_scale = 1.7
 bus = &"SFX"
 
-[node name="clickSoundQuit" type="AudioStreamPlayer" parent="."]
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="." unique_id=213449229]
 unique_name_in_owner = true
 stream = ExtResource("6_qnuys")
 volume_db = -8.0

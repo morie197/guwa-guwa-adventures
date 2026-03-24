@@ -367,7 +367,8 @@ theme_override_styles/panel = ExtResource("31_d6syi")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PanelContainer/showingTutorialPanel/PanelContainer2"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 48
+theme_override_constants/line_separation = 10
+theme_override_font_sizes/normal_font_size = 44
 text = "BATTLE_TUTORIAL"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -541,7 +542,7 @@ theme_override_constants/separation = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "LUNGE_ACTION"
 fit_content = true
@@ -659,10 +660,10 @@ size_flags_vertical = 3
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/line_separation = 0
+theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 30
 text = "PROJECTILE_RANGE_TUTORIAL"
 fit_content = true
 
@@ -670,10 +671,10 @@ fit_content = true
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/line_separation = 0
+theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 30
 text = "DODGE_TUTORIAL"
 fit_content = true
 
@@ -681,10 +682,10 @@ fit_content = true
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/line_separation = 0
+theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 30
 text = "REFLECT_TUTORIAL"
 fit_content = true
 
@@ -692,10 +693,10 @@ fit_content = true
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/line_separation = 0
+theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 30
 text = "BLOCK_TUTORIAL"
 fit_content = true
 
@@ -747,6 +748,7 @@ clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 text = "Duck 5/5HP"
 fit_content = true

@@ -6,7 +6,10 @@ func setTextSize(textSize = 64):
 	for item in h_box_container.get_children():
 		if item is RichTextLabel:
 			item.add_theme_font_size_override("normal_font_size", textSize)
-	
+			item.custom_minimum_size = Vector2(0, 70)
+	var styleboxNormal = get_theme_stylebox("panel").duplicate()
+	styleboxNormal.set_content_margin_all(0)
+	add_theme_stylebox_override("panel", styleboxNormal)
 
 func setData(keyDataOriginal: Array[Texture2D], text: String, type: String):
 	var keyData = keyDataOriginal.duplicate()
@@ -71,9 +74,10 @@ func _addText(text: String, target = h_box_container):
 	target.add_child(richText)
 	richText.text = tr(text)
 	richText.fit_content = true
+	richText.custom_minimum_size = Vector2(0, 75)
 	richText.horizontal_alignment =HORIZONTAL_ALIGNMENT_CENTER
 	richText.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	richText.autowrap_mode = 0
-	richText.add_theme_font_size_override("normal_font_size", 64)
+	richText.add_theme_font_size_override("normal_font_size", 40)
 		
 	

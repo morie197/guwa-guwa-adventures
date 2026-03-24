@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dgs7ojaeq1tam"]
+[gd_resource type="TileSet" format=3 uid="uid://dgs7ojaeq1tam"]
 
 [ext_resource type="Texture2D" uid="uid://b4cxtgy683rfx" path="res://sprites/sprites/ducktileland.png" id="1_4bocm"]
 

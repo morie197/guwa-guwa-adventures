@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://m1snqfluq1ip"]
+[gd_resource type="TileSet" format=3 uid="uid://m1snqfluq1ip"]
 
 [ext_resource type="Texture2D" uid="uid://do1yuhcqp3vqc" path="res://sprites/sprites/ducktilelogic.png" id="1_m62fh"]
 

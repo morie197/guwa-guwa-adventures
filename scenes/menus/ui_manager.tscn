@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bdgxe0o350b3g"]
+[gd_scene format=3 uid="uid://bdgxe0o350b3g"]
 
 [ext_resource type="Script" uid="uid://yyr2nu3jcs6r" path="res://scripts/managers/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="AudioStream" uid="uid://dugxx4l44rqni" path="res://sounds/SFX/level-up-08-402152.mp3" id="3_2oyku"]
@@ -68,59 +68,59 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 
-[node name="UIManager" type="CanvasLayer"]
+[node name="UIManager" type="CanvasLayer" unique_id=1126898706]
 script = ExtResource("1_rwj1f")
 targetModulateColor = Color(0, 0, 0, 0.90588236)
 
-[node name="sounds" type="Node" parent="."]
+[node name="sounds" type="Node" parent="." unique_id=667161762]
 
-[node name="LevelUpSound" type="AudioStreamPlayer" parent="sounds"]
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="sounds" unique_id=1119238882]
 stream = ExtResource("3_reske")
 bus = &"SFX"
 
-[node name="NewAbility" type="AudioStreamPlayer" parent="sounds"]
+[node name="NewAbility" type="AudioStreamPlayer" parent="sounds" unique_id=252460092]
 stream = ExtResource("3_2oyku")
 volume_db = -5.0
 pitch_scale = 1.2
 bus = &"SFX"
 
-[node name="maxLevelSound" type="AudioStreamPlayer" parent="sounds"]
+[node name="maxLevelSound" type="AudioStreamPlayer" parent="sounds" unique_id=1197505740]
 stream = ExtResource("4_ixhu3")
 pitch_scale = 0.6
 bus = &"SFX"
 
-[node name="upgradedSound" type="AudioStreamPlayer" parent="sounds"]
+[node name="upgradedSound" type="AudioStreamPlayer" parent="sounds" unique_id=995012646]
 stream = ExtResource("5_gl862")
 pitch_scale = 2.0
 bus = &"SFX"
 
-[node name="gameWonBGM" type="AudioStreamPlayer" parent="sounds"]
+[node name="gameWonBGM" type="AudioStreamPlayer" parent="sounds" unique_id=1741360497]
 stream = ExtResource("6_hii27")
 volume_db = -8.0
 bus = &"Music"
 parameters/looping = true
 
-[node name="hoversound" type="AudioStreamPlayer" parent="sounds"]
+[node name="hoversound" type="AudioStreamPlayer" parent="sounds" unique_id=478973624]
 unique_name_in_owner = true
 stream = ExtResource("7_1hnrs")
 volume_db = -8.0
 bus = &"SFX"
 
-[node name="clickSound" type="AudioStreamPlayer" parent="sounds"]
+[node name="clickSound" type="AudioStreamPlayer" parent="sounds" unique_id=1182120291]
 unique_name_in_owner = true
 stream = ExtResource("4_ixhu3")
 volume_db = -8.0
 pitch_scale = 1.7
 bus = &"SFX"
 
-[node name="clickSoundQuit" type="AudioStreamPlayer" parent="sounds"]
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="sounds" unique_id=58352676]
 unique_name_in_owner = true
 stream = ExtResource("8_mm6t1")
 volume_db = -8.0
 pitch_scale = 1.7
 bus = &"SFX"
 
-[node name="MigrateDownIndicator" type="TextureRect" parent="."]
+[node name="MigrateDownIndicator" type="TextureRect" parent="." unique_id=260528167]
 visible = false
 modulate = Color(0.7003872, 0.30979958, 0.8744973, 1)
 z_index = 9
@@ -137,7 +137,7 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("8_jo33p")
 
-[node name="MigrateBar" type="TextureProgressBar" parent="."]
+[node name="MigrateBar" type="TextureProgressBar" parent="." unique_id=596234932]
 visible = false
 z_index = 5
 custom_minimum_size = Vector2(0, 100)
@@ -154,7 +154,7 @@ texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("8_tanoa")
 tint_progress = Color(0.77228, 0.2752, 0.86, 1)
 
-[node name="StaminaBarMinigame" type="TextureProgressBar" parent="."]
+[node name="StaminaBarMinigame" type="TextureProgressBar" parent="." unique_id=1354236775]
 visible = false
 z_index = 5
 custom_minimum_size = Vector2(0, 100)
@@ -175,7 +175,7 @@ nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("7_tanoa")
 
-[node name="LungeText" type="RichTextLabel" parent="StaminaBarMinigame"]
+[node name="LungeText" type="RichTextLabel" parent="StaminaBarMinigame" unique_id=1190478053]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -194,7 +194,7 @@ text = "QUACK!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="winpanel" type="PanelContainer" parent="."]
+[node name="winpanel" type="PanelContainer" parent="." unique_id=1487287605]
 unique_name_in_owner = true
 visible = false
 modulate = Color(0, 0, 0, 0)
@@ -211,7 +211,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hii27")
 
-[node name="HUD" type="Control" parent="."]
+[node name="HUD" type="Control" parent="." unique_id=530604861]
 unique_name_in_owner = true
 light_mask = 3
 visibility_layer = 3
@@ -223,7 +223,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="StaminaBar" type="TextureProgressBar" parent="HUD"]
+[node name="StaminaBar" type="TextureProgressBar" parent="HUD" unique_id=1628727361]
 unique_name_in_owner = true
 z_index = 5
 custom_minimum_size = Vector2(600, 100)
@@ -244,7 +244,7 @@ nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("7_tanoa")
 
-[node name="staminaThingy2" type="TextureProgressBar" parent="HUD/StaminaBar"]
+[node name="staminaThingy2" type="TextureProgressBar" parent="HUD/StaminaBar" unique_id=687006051]
 visible = false
 self_modulate = Color(0, 0, 0, 0.60784316)
 z_index = -1
@@ -267,7 +267,7 @@ value = 40.0
 nine_patch_stretch = true
 texture_progress = ExtResource("8_tanoa")
 
-[node name="staminaThingy" type="TextureProgressBar" parent="HUD/StaminaBar"]
+[node name="staminaThingy" type="TextureProgressBar" parent="HUD/StaminaBar" unique_id=829834213]
 self_modulate = Color(0.7708395, 0.77083945, 0.77083945, 0.92156863)
 z_index = -2
 material = SubResource("ShaderMaterial_fft06")
@@ -292,7 +292,7 @@ nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("8_tanoa")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD" unique_id=755762210]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -301,11 +301,11 @@ offset_left = -414.0
 offset_bottom = 284.0
 grow_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer" unique_id=496335241]
 layout_mode = 2
 alignment = 2
 
-[node name="untilNextAbility" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer"]
+[node name="untilNextAbility" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer" unique_id=887430408]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
@@ -317,7 +317,7 @@ autowrap_mode = 0
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="treatIcon" type="TextureRect" parent="HUD/VBoxContainer/HBoxContainer"]
+[node name="treatIcon" type="TextureRect" parent="HUD/VBoxContainer/HBoxContainer" unique_id=2109875186]
 unique_name_in_owner = true
 self_modulate = Color(0.8047426, 0.80474263, 0.8047425, 1)
 material = SubResource("ShaderMaterial_lho24")
@@ -326,7 +326,7 @@ layout_mode = 2
 texture = ExtResource("12_ipats")
 stretch_mode = 4
 
-[node name="collectedNumber" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer/treatIcon"]
+[node name="collectedNumber" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer/treatIcon" unique_id=936486485]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 1
@@ -335,7 +335,7 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.0
+offset_left = -56.0
 offset_top = -87.5
 offset_right = 72.0
 offset_bottom = 87.5
@@ -350,11 +350,11 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/VBoxContainer" unique_id=448251798]
 layout_mode = 2
 alignment = 2
 
-[node name="untilNextGoal" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer2"]
+[node name="untilNextGoal" type="RichTextLabel" parent="HUD/VBoxContainer/HBoxContainer2" unique_id=862412444]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -366,7 +366,7 @@ autowrap_mode = 0
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="progressToCompletion" type="TextureProgressBar" parent="HUD/VBoxContainer/HBoxContainer2"]
+[node name="progressToCompletion" type="TextureProgressBar" parent="HUD/VBoxContainer/HBoxContainer2" unique_id=849560809]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -376,7 +376,7 @@ nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("12_4v62q")
 
-[node name="ProgressToCompletePercent" type="ProgressBar" parent="HUD/VBoxContainer/HBoxContainer2/progressToCompletion"]
+[node name="ProgressToCompletePercent" type="ProgressBar" parent="HUD/VBoxContainer/HBoxContainer2/progressToCompletion" unique_id=1343785221]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -390,7 +390,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_45cly")
 theme_override_styles/fill = SubResource("StyleBoxEmpty_prq0i")
 max_value = 40.0
 
-[node name="progressToCompletion2" type="TextureProgressBar" parent="HUD/VBoxContainer/HBoxContainer2/progressToCompletion"]
+[node name="progressToCompletion2" type="TextureProgressBar" parent="HUD/VBoxContainer/HBoxContainer2/progressToCompletion" unique_id=257975645]
 self_modulate = Color(1, 1, 1, 0.78431374)
 z_index = -1
 material = SubResource("ShaderMaterial_fft06")
@@ -415,12 +415,12 @@ nine_patch_stretch = true
 texture_over = ExtResource("6_hst8a")
 texture_progress = ExtResource("8_tanoa")
 
-[node name="HP" type="VBoxContainer" parent="HUD"]
+[node name="HP" type="VBoxContainer" parent="HUD" unique_id=1307610604]
 layout_mode = 0
 offset_right = 220.0
 offset_bottom = 92.0
 
-[node name="HPBars" type="HBoxContainer" parent="HUD/HP"]
+[node name="HPBars" type="HBoxContainer" parent="HUD/HP" unique_id=873442450]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 70)
@@ -428,7 +428,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = -38
 
-[node name="HPText" type="RichTextLabel" parent="HUD/HP"]
+[node name="HPText" type="RichTextLabel" parent="HUD/HP" unique_id=1868409425]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -437,7 +437,7 @@ text = "HP: 5/5"
 fit_content = true
 autowrap_mode = 0
 
-[node name="switch" type="HBoxContainer" parent="HUD"]
+[node name="switch" type="HBoxContainer" parent="HUD" unique_id=474520949]
 unique_name_in_owner = true
 light_mask = 2
 visibility_layer = 2
@@ -445,7 +445,7 @@ layout_mode = 0
 offset_right = 480.0
 offset_bottom = 88.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/switch"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/switch" unique_id=142327525]
 light_mask = 3
 visibility_layer = 3
 layout_mode = 2
@@ -457,7 +457,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="HUD/switch"]
+[node name="TextureRect" type="TextureRect" parent="HUD/switch" unique_id=887812414]
 light_mask = 2
 visibility_layer = 2
 z_index = 1
@@ -469,7 +469,7 @@ size_flags_stretch_ratio = 0.33
 texture = ExtResource("13_45cly")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="HUD/switch/TextureRect"]
+[node name="Panel" type="Panel" parent="HUD/switch/TextureRect" unique_id=1791349791]
 visibility_layer = 2
 z_index = -1
 layout_mode = 1
@@ -486,7 +486,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lho24")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HUD"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD" unique_id=61250549]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -499,11 +499,12 @@ grow_horizontal = 0
 grow_vertical = 0
 alignment = 2
 
-[node name="radarReady" type="RichTextLabel" parent="HUD/VBoxContainer2"]
+[node name="radarReady" type="RichTextLabel" parent="HUD/VBoxContainer2" unique_id=1800672253]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_colors/default_color = Color(0.36862746, 1, 1, 1)
+theme_override_constants/line_separation = 10
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 46
 text = "RADAR_READY"
@@ -512,17 +513,17 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MiniMapPanel" type="PanelContainer" parent="HUD/VBoxContainer2"]
+[node name="MiniMapPanel" type="PanelContainer" parent="HUD/VBoxContainer2" unique_id=1262606824]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_styles/panel = ExtResource("16_prq0i")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD/VBoxContainer2/MiniMapPanel"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD/VBoxContainer2/MiniMapPanel" unique_id=1702590453]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="minimap" type="SubViewport" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer"]
+[node name="minimap" type="SubViewport" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer" unique_id=1079555180]
 unique_name_in_owner = true
 process_mode = 3
 disable_3d = true
@@ -532,11 +533,11 @@ size = Vector2i(384, 384)
 size_2d_override = Vector2i(384, 384)
 render_target_update_mode = 0
 
-[node name="minimapCamera" type="Camera2D" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer/minimap"]
+[node name="minimapCamera" type="Camera2D" parent="HUD/VBoxContainer2/MiniMapPanel/SubViewportContainer/minimap" unique_id=449828724]
 unique_name_in_owner = true
 position = Vector2(-464, 0)
 
-[node name="showmapText" type="RichTextLabel" parent="HUD/VBoxContainer2"]
+[node name="showmapText" type="RichTextLabel" parent="HUD/VBoxContainer2" unique_id=242132395]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -547,7 +548,7 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="lostpanel" type="PanelContainer" parent="."]
+[node name="lostpanel" type="PanelContainer" parent="." unique_id=1112094857]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -555,12 +556,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="lostpanel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="lostpanel" unique_id=858562910]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="lostpanel/VBoxContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="lostpanel/VBoxContainer2" unique_id=1852997516]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -570,13 +571,13 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="lostpanel/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="lostpanel/VBoxContainer2" unique_id=1028267927]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="load" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer"]
+[node name="load" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer" unique_id=1539529285]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -588,7 +589,7 @@ theme_override_styles/disabled = ExtResource("12_ms7gl")
 theme_override_styles/focus = ExtResource("13_4v62q")
 text = "Load"
 
-[node name="quit" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer"]
+[node name="quit" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer" unique_id=243136119]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
