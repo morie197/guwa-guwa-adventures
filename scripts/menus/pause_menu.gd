@@ -55,7 +55,7 @@ func _ready():
 	
 	if key_presses.get_child_count() > 8:
 		for keyPress in key_presses.get_children():
-			keyPress.setTextSize(26)
+			keyPress.setTextSize(35)
 	
 func _resume():
 	%clickSound.play()

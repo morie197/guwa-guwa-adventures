@@ -24,6 +24,8 @@ func _ready():
 func initialize():
 	#textName.text = "+" + str(GameManager.upgradeSet[upgradeName]["percentIncrease"]) + "% " + upgradeName
 	textName.text = upgradeText
+	if upgradeText.length() > 7:
+		textName.add_theme_font_size_override("normal_font_size", 38)
 	descriptionText.text = description
 	_updateUI()
 

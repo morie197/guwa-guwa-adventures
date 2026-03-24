@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bmv7xxamm24pi"]
+[gd_resource type="TileSet" format=3 uid="uid://bmv7xxamm24pi"]
 
 [ext_resource type="Texture2D" uid="uid://d2134ihb6exvv" path="res://sprites/sprites/ducktiledecoration.png" id="1_1eukw"]
 

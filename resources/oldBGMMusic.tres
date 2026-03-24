@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://dsuftp28fmh2u"]
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dsuftp28fmh2u"]
 
 [ext_resource type="AudioStream" uid="uid://php3ewivl5o0" path="res://sounds/music/Cuddle Clouds.mp3" id="1_ty67a"]
 [ext_resource type="AudioStream" uid="uid://bmlmui0x8upoi" path="res://sounds/music/Strange Worlds.mp3" id="2_j8vwj"]
@@ -6,7 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://drkjcynn0jwi0" path="res://sounds/music/Wanderer's Tale.mp3" id="4_m643m"]
 
 [resource]
-playback_mode = 1
 streams_count = 4
 stream_0/stream = ExtResource("1_ty67a")
 stream_0/weight = 2.0

@@ -201,7 +201,8 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if GameManager.abilities.has("sonar") and radarTimer <= 0:
 			if Input.is_action_pressed("search"):
-				_radar()
+				if !GameManager.minigame:
+					_radar()
 	
 	if Input.is_action_just_pressed("menuback pause"):
 		if GameManager.minigame or GameManager.inUpgradeMenu or GameManager.wonGame or GameManager.cameraShown or GameManager.worldManager.inMap:

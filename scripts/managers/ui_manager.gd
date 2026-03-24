@@ -105,7 +105,7 @@ func _ready():
 	else:
 		_updateMaxHP()
 	
-	GameManager.levelUp.connect(_showLevelUpUI)
+	GameManager.treatObtained.connect(_showLevelUpUI)
 	GameManager.startTutorial.connect(_startTutorial)
 	GameManager.upgraded.connect(_updateMaxHP)
 	GameManager.loadedLevel.connect(_updateGoal)
@@ -133,13 +133,13 @@ func _unhandled_input(event):
 			mini_map_panel.visible = !mini_map_panel.visible
 			%showmapText.visible = !mini_map_panel.visible
 			%showmapText.text = tr("SHOW_MINIMAP") + "H"
-			
-	if Input.is_action_just_pressed("HideHUD"):
-		GameManager.noHUD = !GameManager.noHUD
-		if GameManager.noHUD:
-			hud.modulate = Color.TRANSPARENT
-		else:
-			hud.modulate = Color.WHITE
+			#
+	#if Input.is_action_just_pressed("HideHUD"):
+		#GameManager.noHUD = !GameManager.noHUD
+		#if GameManager.noHUD:
+			#hud.modulate = Color.TRANSPARENT
+		#else:
+			#hud.modulate = Color.WHITE
 		
 
 func updateNextAbility():
@@ -360,9 +360,28 @@ func gameWon():
 	game_won_bgm.volume_db = -60.0
 	game_won_bgm.play()
 	
-	creditContentSize = 7500
+	creditContentSize = 6951.0 + 250.0
 
 func _updateGoal():
+	
+	collected_number.text = str(GameManager.level)
+	
+	var foundNextAbility = false
+	
+	for ability in AbilityData.ABILITIES:
+		if GameManager.level >= ability:
+			continue
+		else:
+			until_next_ability.text = tr(AbilityData.ABILITIES[ability]["displayName"]) + ": " + str(ability)
+			foundNextAbility = true
+			break
+			
+	if foundNextAbility == false:
+		until_next_ability.hide()
+
+		
+	
+	
 	collected_number.add_theme_color_override("default_color", Color.WHITE)
 	
 	if GameManager.difficultyValue == GameManager.Difficulty.HARD:
@@ -415,40 +434,26 @@ func _updateGoal():
 	
 
 func _showLevelUpUI():
-	collected_number.text = str(GameManager.level)
-	
 	if GameManager.availableUpgradePoints <= 0:
-		#SaveManager.autoSave(true)
+		SaveManager.autoSave(true)
 		return
 	
-	print(GameManager.availableUpgradePoints)
+	#print(GameManager.availableUpgradePoints)
 	
 	GameManager.paused = true
 	GameManager.playerRef.healTimer.paused = true
 	
-	var foundNextAbility = false
-	
-	for ability in AbilityData.ABILITIES:
-		if GameManager.level >= ability:
-			continue
-		else:
-			until_next_ability.text = tr(AbilityData.ABILITIES[ability]["displayName"]) + ": " + str(ability)
-			foundNextAbility = true
-			break
-			
-	if foundNextAbility == false:
-		until_next_ability.hide()
-
 	if level_up_sound.playing == true or new_ability.playing == true:
 		level_up_sound.stop()
 		new_ability.stop()
-		
+	
 	if AbilityData.ABILITIES.has(GameManager.level):
 		#level_up_sound_2.play()
 		new_ability.play()
 	else:
 		level_up_sound.play()
 	
+
 	
 	if levelUpUI != null:
 		levelUpUI.queue_free()

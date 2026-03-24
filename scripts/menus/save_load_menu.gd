@@ -106,6 +106,7 @@ func _slotDeleted(slotNumber: int = 0):
 	popup.yes.connect(SaveManager.delete_game.bind(slotNumber))
 	popup.yes.connect(_updateSlots)
 	popup.yes.connect(popup.queue_free)
+	popup.yes.connect(_inPopup)
 	
 	popup.no.connect(popup.queue_free)
 	popup.no.connect(_inPopup)

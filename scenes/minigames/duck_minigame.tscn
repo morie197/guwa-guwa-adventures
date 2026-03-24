@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://djxnchr27abqs"]
+[gd_scene format=3 uid="uid://djxnchr27abqs"]
 
 [ext_resource type="Script" uid="uid://cllau4e2iypce" path="res://scripts/managers/minigame_manager.gd" id="1_3pkwc"]
 [ext_resource type="Script" uid="uid://wgq8xgrc1khk" path="res://scripts/minigames/player_minigame.gd" id="2_nthku"]
@@ -216,12 +216,12 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="DuckMinigame" type="Node2D"]
+[node name="DuckMinigame" type="Node2D" unique_id=1296736503]
 z_index = 15
 position = Vector2(-960, -512)
 script = ExtResource("1_3pkwc")
 
-[node name="PlayerMinigame" type="CharacterBody2D" parent="."]
+[node name="PlayerMinigame" type="CharacterBody2D" parent="." unique_id=358643315]
 z_index = 2
 position = Vector2(640, 576)
 collision_layer = 192
@@ -229,43 +229,43 @@ collision_mask = 64
 motion_mode = 1
 script = ExtResource("2_nthku")
 
-[node name="swimming" type="AnimatedSprite2D" parent="PlayerMinigame"]
+[node name="swimming" type="AnimatedSprite2D" parent="PlayerMinigame" unique_id=652786101]
 sprite_frames = SubResource("SpriteFrames_5jswy")
 
-[node name="walking" type="AnimatedSprite2D" parent="PlayerMinigame"]
+[node name="walking" type="AnimatedSprite2D" parent="PlayerMinigame" unique_id=1803157783]
 visible = false
 sprite_frames = SubResource("SpriteFrames_gsmep")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame" unique_id=243052222]
 shape = SubResource("RectangleShape2D_fq1qg")
 
-[node name="Quacker" parent="PlayerMinigame" instance=ExtResource("5_v7abb")]
+[node name="Quacker" parent="PlayerMinigame" unique_id=2090858691 instance=ExtResource("5_v7abb")]
 material = SubResource("CanvasItemMaterial_dplsg")
 
-[node name="quackSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+[node name="quackSound" type="AudioStreamPlayer" parent="PlayerMinigame" unique_id=249999544]
 stream = ExtResource("6_wgwjx")
 volume_db = -8.0
 bus = &"SFX"
 
-[node name="blockSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+[node name="blockSound" type="AudioStreamPlayer" parent="PlayerMinigame" unique_id=1308086413]
 stream = ExtResource("7_1v83y")
 max_polyphony = 5
 bus = &"SFX"
 
-[node name="blockedSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+[node name="blockedSound" type="AudioStreamPlayer" parent="PlayerMinigame" unique_id=1553934554]
 stream = ExtResource("8_vf2ar")
 pitch_scale = 1.25
 max_polyphony = 5
 bus = &"SFX"
 
-[node name="hitSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+[node name="hitSound" type="AudioStreamPlayer" parent="PlayerMinigame" unique_id=646549850]
 stream = ExtResource("8_u7pdh")
 volume_db = 4.0
 pitch_scale = 0.9
 max_polyphony = 5
 bus = &"SFX"
 
-[node name="invincibilityBar" type="TextureProgressBar" parent="PlayerMinigame"]
+[node name="invincibilityBar" type="TextureProgressBar" parent="PlayerMinigame" unique_id=2129234617]
 visible = false
 z_index = 5
 anchors_preset = 7
@@ -286,70 +286,70 @@ texture_over = ExtResource("9_vf2ar")
 texture_progress = ExtResource("10_dplsg")
 tint_progress = Color(0.94509804, 0.54901963, 0.5764706, 1)
 
-[node name="enemyHit" type="AudioStreamPlayer" parent="PlayerMinigame"]
+[node name="enemyHit" type="AudioStreamPlayer" parent="PlayerMinigame" unique_id=957288183]
 stream = ExtResource("11_xaff1")
 pitch_scale = 1.3
 bus = &"SFX"
 
-[node name="ram" type="Area2D" parent="PlayerMinigame"]
+[node name="ram" type="Area2D" parent="PlayerMinigame" unique_id=2105653238]
 visible = false
 collision_layer = 2048
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame/ram"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMinigame/ram" unique_id=1107193013]
 shape = SubResource("CircleShape2D_6sb5u")
 
-[node name="healSound" type="AudioStreamPlayer2D" parent="PlayerMinigame"]
+[node name="healSound" type="AudioStreamPlayer2D" parent="PlayerMinigame" unique_id=1541796308]
 stream = ExtResource("12_nthku")
 volume_db = -5.0
 pitch_scale = 1.6
 bus = &"SFX"
 
-[node name="wingsFlyingSound" type="AudioStreamPlayer2D" parent="PlayerMinigame"]
+[node name="wingsFlyingSound" type="AudioStreamPlayer2D" parent="PlayerMinigame" unique_id=863975247]
 unique_name_in_owner = true
 stream = ExtResource("13_u7pdh")
 volume_db = 6.0
 bus = &"SFX"
 
-[node name="wingsFlappingSound" type="AudioStreamPlayer2D" parent="PlayerMinigame"]
+[node name="wingsFlappingSound" type="AudioStreamPlayer2D" parent="PlayerMinigame" unique_id=934119022]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_06rur")
 volume_db = 6.0
 bus = &"SFX"
 
-[node name="dodgeSound" type="AudioStreamPlayer" parent="PlayerMinigame"]
+[node name="dodgeSound" type="AudioStreamPlayer" parent="PlayerMinigame" unique_id=1227917183]
 stream = ExtResource("20_xaff1")
 volume_db = -8.0
 pitch_scale = 3.0
 bus = &"SFX"
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="." unique_id=1661676020]
 position = Vector2(1280, 576)
 
-[node name="TerrainVariations" type="Node2D" parent="."]
+[node name="TerrainVariations" type="Node2D" parent="." unique_id=835806763]
 position = Vector2(-64, 64)
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1982728605]
 z_index = -1
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gsmep")
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer" unique_id=553921760]
 custom_minimum_size = Vector2(1000, 1000)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_fq1qg")
 
-[node name="showingTutorialPanel" type="Panel" parent="PanelContainer/PanelContainer"]
+[node name="showingTutorialPanel" type="Panel" parent="PanelContainer/PanelContainer" unique_id=2002986395]
 unique_name_in_owner = true
 z_index = 10
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u6wm1")
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/PanelContainer/showingTutorialPanel"]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/PanelContainer/showingTutorialPanel" unique_id=818708959]
 z_index = 6
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 1
@@ -365,7 +365,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_styles/panel = ExtResource("31_d6syi")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PanelContainer/showingTutorialPanel/PanelContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PanelContainer/showingTutorialPanel/PanelContainer2" unique_id=1688937518]
 layout_mode = 2
 theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 44
@@ -373,38 +373,38 @@ text = "BATTLE_TUTORIAL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=1912856067]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=903161303]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="InfoPanel" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="InfoPanel" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=439649568]
 layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=681462382]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="controls" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="controls" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=139294389]
 unique_name_in_owner = true
 z_index = 12
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="movement" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls"]
+[node name="movement" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls" unique_id=1144650223]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement" unique_id=35895841]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
 text = "BASICS_MOVE_ACTION"
@@ -413,10 +413,10 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement" unique_id=917231114]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer" unique_id=721927858]
 clip_contents = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
@@ -425,7 +425,7 @@ size_flags_vertical = 4
 texture = ExtResource("12_d6syi")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/TextureRect"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/TextureRect" unique_id=621666919]
 z_index = -1
 layout_mode = 0
 offset_left = 16.0
@@ -434,16 +434,16 @@ offset_right = 56.0
 offset_bottom = 58.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer" unique_id=432266590]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer" unique_id=1199583880]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture = ExtResource("13_u6wm1")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect" unique_id=1090472680]
 z_index = -1
 layout_mode = 0
 offset_left = 16.0
@@ -452,13 +452,13 @@ offset_right = 56.0
 offset_bottom = 58.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer" unique_id=2071110128]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture = ExtResource("14_06rur")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect2"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect2" unique_id=1375109427]
 z_index = -1
 layout_mode = 0
 offset_left = 16.0
@@ -467,13 +467,13 @@ offset_right = 56.0
 offset_bottom = 58.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer" unique_id=2143934310]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture = ExtResource("15_qf5xk")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect3"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/movement/VBoxContainer/HBoxContainer/TextureRect3" unique_id=2097600072]
 z_index = -1
 layout_mode = 0
 offset_left = 16.0
@@ -482,10 +482,10 @@ offset_right = 56.0
 offset_bottom = 58.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="attack" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls"]
+[node name="attack" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls" unique_id=541836922]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack" unique_id=2136824248]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 48
 text = "ATTACK_ACTION"
@@ -494,14 +494,14 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack" unique_id=1906336893]
 layout_mode = 2
 theme_override_constants/separation = -32
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer" unique_id=905728332]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer" unique_id=1562215419]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -509,7 +509,7 @@ size_flags_vertical = 4
 texture = ExtResource("16_i4syp")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect" unique_id=569932079]
 z_index = -1
 layout_mode = 0
 offset_left = 21.0
@@ -518,7 +518,7 @@ offset_right = 81.0
 offset_bottom = 82.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer" unique_id=396889824]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -526,7 +526,7 @@ size_flags_vertical = 4
 texture = ExtResource("17_lx27d")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect2"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/attack/VBoxContainer/HBoxContainer/TextureRect2" unique_id=2056193882]
 visible = false
 z_index = -1
 layout_mode = 0
@@ -536,11 +536,11 @@ offset_right = 81.0
 offset_bottom = 82.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="lunge" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls"]
+[node name="lunge" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls" unique_id=826076913]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge" unique_id=783214250]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
@@ -549,23 +549,23 @@ fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge" unique_id=127248387]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = -80
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer" unique_id=1171918823]
 layout_mode = 2
 theme_override_constants/separation = -8
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer" unique_id=411970661]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("19_vhdu7")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer/TextureRect" unique_id=1083307849]
 z_index = -1
 layout_mode = 0
 offset_left = 32.0
@@ -574,7 +574,7 @@ offset_right = 116.0
 offset_bottom = 94.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer" unique_id=1514050772]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -582,7 +582,7 @@ size_flags_vertical = 4
 texture = ExtResource("27_dplsg")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer/TextureRect2"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/HBoxContainer/TextureRect2" unique_id=356774794]
 visible = false
 z_index = -1
 layout_mode = 0
@@ -592,7 +592,7 @@ offset_right = 81.0
 offset_bottom = 82.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer" unique_id=1574406100]
 visible = false
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
@@ -601,7 +601,7 @@ size_flags_vertical = 4
 texture = ExtResource("18_8fesu")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/TextureRect3"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge/VBoxContainer/TextureRect3" unique_id=2064801435]
 z_index = -1
 layout_mode = 0
 offset_left = 21.0
@@ -610,11 +610,11 @@ offset_right = 81.0
 offset_bottom = 66.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="lunge2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls"]
+[node name="lunge2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls" unique_id=708565502]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2" unique_id=277219311]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
@@ -623,16 +623,16 @@ fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2" unique_id=1110552939]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = -80
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2/VBoxContainer" unique_id=1526040899]
 layout_mode = 2
 theme_override_constants/separation = -8
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2/VBoxContainer/HBoxContainer" unique_id=1901855545]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -640,7 +640,7 @@ size_flags_vertical = 4
 texture = ExtResource("29_dplsg")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2/VBoxContainer/HBoxContainer/TextureRect2"]
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/lunge2/VBoxContainer/HBoxContainer/TextureRect2" unique_id=378129926]
 visible = false
 z_index = -1
 layout_mode = 0
@@ -650,62 +650,62 @@ offset_right = 81.0
 offset_bottom = 82.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sb5u")
 
-[node name="textTutorials" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls"]
+[node name="textTutorials" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls" unique_id=2007913419]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials" unique_id=290096873]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 26
 text = "PROJECTILE_RANGE_TUTORIAL"
 fit_content = true
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials" unique_id=1014934728]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 26
 text = "DODGE_TUTORIAL"
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials" unique_id=1195694070]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 26
 text = "REFLECT_TUTORIAL"
 fit_content = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/MarginContainer/controls/textTutorials" unique_id=1166195192]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/line_separation = 8
 theme_override_constants/paragraph_separation = 25
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 26
 text = "BLOCK_TUTORIAL"
 fit_content = true
 
-[node name="EnemyInfo" type="VBoxContainer" parent="PanelContainer"]
+[node name="EnemyInfo" type="VBoxContainer" parent="PanelContainer" unique_id=810482713]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="StageName" type="RichTextLabel" parent="PanelContainer"]
+[node name="StageName" type="RichTextLabel" parent="PanelContainer" unique_id=245206792]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
@@ -720,7 +720,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PopupPanel" type="PanelContainer" parent="PanelContainer"]
+[node name="PopupPanel" type="PanelContainer" parent="PanelContainer" unique_id=1881170207]
 visible = false
 z_index = 10
 layout_mode = 2
@@ -728,7 +728,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_rpuvt")
 
-[node name="PopupText" type="RichTextLabel" parent="PanelContainer/PopupPanel"]
+[node name="PopupText" type="RichTextLabel" parent="PanelContainer/PopupPanel" unique_id=1483935816]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -739,11 +739,11 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="PlayerInfo" type="VBoxContainer" parent="PanelContainer"]
+[node name="PlayerInfo" type="VBoxContainer" parent="PanelContainer" unique_id=498749884]
 layout_mode = 2
 theme_override_constants/separation = -32
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PlayerInfo"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/PlayerInfo" unique_id=672641816]
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 4
@@ -756,7 +756,7 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="PanelContainer/PlayerInfo"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PanelContainer/PlayerInfo" unique_id=1573560138]
 z_index = 5
 custom_minimum_size = Vector2(1000, 100)
 layout_mode = 2
@@ -766,12 +766,12 @@ nine_patch_stretch = true
 texture_over = ExtResource("9_vf2ar")
 texture_progress = ExtResource("20_sq7tm")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1718542149]
 position = Vector2(960, 540)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1440853768]
 stream = ExtResource("21_r2a71")
-volume_db = -10.759
+volume_db = -15.0
 autoplay = true
 bus = &"Music"
 parameters/looping = true

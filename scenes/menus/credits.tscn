@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://26t45ci53pbw"]
+[gd_scene format=3 uid="uid://26t45ci53pbw"]
 
 [ext_resource type="Script" uid="uid://cct6ykpn26fix" path="res://scripts/menus/creditSecret.gd" id="1_0bpdh"]
 
@@ -52,7 +52,7 @@ content_margin_bottom = 0.0
 color = Color(0.5, 0.5, 0.5, 1)
 thickness = 8
 
-[node name="Credits" type="Control"]
+[node name="Credits" type="Control" unique_id=659191674]
 z_index = 20
 layout_mode = 3
 anchors_preset = 5
@@ -60,7 +60,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=459280430]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -72,16 +72,17 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 100
 
-[node name="basic" type="PanelContainer" parent="VBoxContainer"]
+[node name="basic" type="PanelContainer" parent="VBoxContainer" unique_id=1203457936]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ygfb5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/basic"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/basic" unique_id=256451187]
 layout_mode = 2
 theme_override_constants/separation = -64
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer" unique_id=1247596320]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 128
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -92,13 +93,14 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/basic/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/basic/VBoxContainer" unique_id=1193078963]
 layout_mode = 2
 theme_override_constants/separation = -30
 alignment = 1
 
-[node name="Title2" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer/HBoxContainer"]
+[node name="Title2" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer/HBoxContainer" unique_id=2080744267]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 128
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -111,9 +113,10 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Title3" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer/HBoxContainer"]
+[node name="Title3" type="RichTextLabel" parent="VBoxContainer/basic/VBoxContainer/HBoxContainer" unique_id=683319260]
 clip_contents = false
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 80
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -126,23 +129,24 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/basic/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/basic/VBoxContainer" unique_id=507353332]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_ygfb5")
 
-[node name="spacer" type="Control" parent="VBoxContainer"]
+[node name="spacer" type="Control" parent="VBoxContainer" unique_id=1614314885]
 custom_minimum_size = Vector2(0, 700)
 layout_mode = 2
 
-[node name="hugeThanks" type="PanelContainer" parent="VBoxContainer"]
+[node name="hugeThanks" type="PanelContainer" parent="VBoxContainer" unique_id=132493471]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/hugeThanks"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/hugeThanks" unique_id=250005677]
 layout_mode = 2
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/hugeThanks/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/hugeThanks/VBoxContainer" unique_id=1017552266]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 128
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -153,15 +157,16 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Toa" type="PanelContainer" parent="VBoxContainer"]
+[node name="Toa" type="PanelContainer" parent="VBoxContainer" unique_id=1785479665]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Toa"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Toa" unique_id=2091517506]
 layout_mode = 2
 
-[node name="Toa" type="RichTextLabel" parent="VBoxContainer/Toa/VBoxContainer"]
+[node name="Toa" type="RichTextLabel" parent="VBoxContainer/Toa/VBoxContainer" unique_id=71328231]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -174,12 +179,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Toa/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Toa/VBoxContainer" unique_id=142900298]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="Toatext" type="RichTextLabel" parent="VBoxContainer/Toa/VBoxContainer"]
+[node name="Toatext" type="RichTextLabel" parent="VBoxContainer/Toa/VBoxContainer" unique_id=634889292]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -192,15 +198,16 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Myokun" type="PanelContainer" parent="VBoxContainer"]
+[node name="Myokun" type="PanelContainer" parent="VBoxContainer" unique_id=1221011208]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Myokun"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Myokun" unique_id=1873829573]
 layout_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Myokun/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Myokun/VBoxContainer" unique_id=1213468919]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -213,12 +220,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Myokun/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Myokun/VBoxContainer" unique_id=773163788]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Myokun/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Myokun/VBoxContainer" unique_id=894174782]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -230,15 +238,16 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AJ" type="PanelContainer" parent="VBoxContainer"]
+[node name="AJ" type="PanelContainer" parent="VBoxContainer" unique_id=1230427455]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AJ"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AJ" unique_id=1903497255]
 layout_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/AJ/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/AJ/VBoxContainer" unique_id=745098079]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -251,12 +260,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/AJ/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/AJ/VBoxContainer" unique_id=1625329620]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/AJ/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/AJ/VBoxContainer" unique_id=1340153111]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -268,15 +278,16 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TF" type="PanelContainer" parent="VBoxContainer"]
+[node name="TF" type="PanelContainer" parent="VBoxContainer" unique_id=978965250]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TF"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TF" unique_id=1550407843]
 layout_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/TF/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/TF/VBoxContainer" unique_id=1679914238]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -289,12 +300,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TF/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TF/VBoxContainer" unique_id=1090658746]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TF/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TF/VBoxContainer" unique_id=1648835314]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -306,15 +318,16 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Toromi" type="PanelContainer" parent="VBoxContainer"]
+[node name="Toromi" type="PanelContainer" parent="VBoxContainer" unique_id=1985162945]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Toromi"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Toromi" unique_id=2040493892]
 layout_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Toromi/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Toromi/VBoxContainer" unique_id=2109094552]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -327,12 +340,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Toromi/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Toromi/VBoxContainer" unique_id=1565950184]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Toromi/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Toromi/VBoxContainer" unique_id=1162733852]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -344,15 +358,16 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="You" type="PanelContainer" parent="VBoxContainer"]
+[node name="You" type="PanelContainer" parent="VBoxContainer" unique_id=640495297]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/You"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/You" unique_id=1358912486]
 layout_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/You/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/You/VBoxContainer" unique_id=1809106557]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -365,12 +380,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/You/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/You/VBoxContainer" unique_id=1559824333]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/You/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/You/VBoxContainer" unique_id=847249662]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -383,20 +399,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_0bpdh")
 
-[node name="spacer2" type="Control" parent="VBoxContainer"]
+[node name="spacer2" type="Control" parent="VBoxContainer" unique_id=104275464]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
-[node name="assetsUsed" type="PanelContainer" parent="VBoxContainer"]
+[node name="assetsUsed" type="PanelContainer" parent="VBoxContainer" unique_id=29120655]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/assetsUsed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/assetsUsed" unique_id=308743286]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/assetsUsed/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/assetsUsed/VBoxContainer" unique_id=13523063]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 128
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -407,16 +424,17 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="music" type="PanelContainer" parent="VBoxContainer"]
+[node name="music" type="PanelContainer" parent="VBoxContainer" unique_id=1533828561]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/music"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/music" unique_id=2012114857]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer" unique_id=2036902849]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -427,12 +445,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/music/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/music/VBoxContainer" unique_id=1047324049]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer" unique_id=420490187]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -444,12 +463,13 @@ scroll_active = false
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/music/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/music/VBoxContainer" unique_id=530648233]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/music/VBoxContainer" unique_id=1651000107]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 90
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -461,16 +481,17 @@ scroll_active = false
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="sfx" type="PanelContainer" parent="VBoxContainer"]
+[node name="sfx" type="PanelContainer" parent="VBoxContainer" unique_id=1681845517]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/sfx"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/sfx" unique_id=847240228]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer" unique_id=599615800]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -481,12 +502,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/sfx/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/sfx/VBoxContainer" unique_id=341485501]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer" unique_id=676547395]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 90
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -498,12 +520,13 @@ scroll_active = false
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/sfx/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/sfx/VBoxContainer" unique_id=1711923056]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer"]
+[node name="RichTextLabel5" type="RichTextLabel" parent="VBoxContainer/sfx/VBoxContainer" unique_id=829554803]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 90
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -515,16 +538,17 @@ scroll_active = false
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="images" type="PanelContainer" parent="VBoxContainer"]
+[node name="images" type="PanelContainer" parent="VBoxContainer" unique_id=2062575723]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/images"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/images" unique_id=1386048792]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer" unique_id=1656251904]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 96
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -535,12 +559,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/images/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/images/VBoxContainer" unique_id=5152139]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel6" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
+[node name="RichTextLabel6" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer" unique_id=133998798]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 90
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -552,12 +577,13 @@ scroll_active = false
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="HSeparator5" type="HSeparator" parent="VBoxContainer/images/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="VBoxContainer/images/VBoxContainer" unique_id=780055345]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="RichTextLabel7" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer"]
+[node name="RichTextLabel7" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer" unique_id=1443670635]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 90
 theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
@@ -569,20 +595,39 @@ scroll_active = false
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="spacer3" type="Control" parent="VBoxContainer"]
+[node name="HSeparator7" type="HSeparator" parent="VBoxContainer/images/VBoxContainer" unique_id=1025468858]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
+
+[node name="RichTextLabel8" type="RichTextLabel" parent="VBoxContainer/images/VBoxContainer" unique_id=1270458388]
+layout_mode = 2
+theme_override_constants/line_separation = 10
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "Font: zpix"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="spacer3" type="Control" parent="VBoxContainer" unique_id=1458788673]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
-[node name="assetsUsed2" type="PanelContainer" parent="VBoxContainer"]
+[node name="assetsUsed2" type="PanelContainer" parent="VBoxContainer" unique_id=419979584]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uahl8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/assetsUsed2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/assetsUsed2" unique_id=12762210]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Title" type="RichTextLabel" parent="VBoxContainer/assetsUsed2/VBoxContainer"]
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/assetsUsed2/VBoxContainer" unique_id=1309698241]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 128
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true
@@ -593,12 +638,13 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/assetsUsed2/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/assetsUsed2/VBoxContainer" unique_id=55921324]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_uahl8")
 
-[node name="Title2" type="RichTextLabel" parent="VBoxContainer/assetsUsed2/VBoxContainer"]
+[node name="Title2" type="RichTextLabel" parent="VBoxContainer/assetsUsed2/VBoxContainer" unique_id=804011533]
 layout_mode = 2
+theme_override_constants/line_separation = 10
 theme_override_font_sizes/normal_font_size = 140
 theme_override_font_sizes/italics_font_size = 128
 bbcode_enabled = true

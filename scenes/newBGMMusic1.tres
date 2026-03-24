@@ -1,9 +1,0 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://b1rjey3stccjt"]
-
-[ext_resource type="AudioStream" uid="uid://cvu0vvf0ik5k2" path="res://sounds/music/syouki_takahashi-relief-358185.mp3" id="1_tklck"]
-[ext_resource type="AudioStream" uid="uid://r3gtgfop4ehi" path="res://sounds/music/syouki_takahashi-midnight-forest-184304.mp3" id="2_ps5g4"]
-
-[resource]
-streams_count = 2
-stream_0/stream = ExtResource("1_tklck")
-stream_1/stream = ExtResource("2_ps5g4")

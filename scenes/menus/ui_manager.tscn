@@ -45,6 +45,12 @@ shader_parameter/uv_offset = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_prq0i"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1hnrs"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lho24"]
 content_margin_left = 0.0
 content_margin_top = 0.0
@@ -433,6 +439,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1hnrs")
 text = "HP: 5/5"
 fit_content = true
 autowrap_mode = 0
@@ -541,9 +548,10 @@ position = Vector2(-464, 0)
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+theme_override_constants/line_separation = 6
 theme_override_font_sizes/normal_font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_fft06")
-text = "Show Minimap: "
+text = "SHOW_MINIMAP"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -560,13 +568,14 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 18
 
 [node name="RichTextLabel" type="RichTextLabel" parent="lostpanel/VBoxContainer2" unique_id=1852997516]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/normal_font_size = 64
-text = "You have fallen..."
+text = "LOST_TEXT"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -575,28 +584,28 @@ autowrap_mode = 0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 16
+theme_override_constants/separation = 24
 
 [node name="load" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer" unique_id=1539529285]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = ExtResource("12_ms7gl")
 theme_override_styles/pressed = ExtResource("13_4v62q")
 theme_override_styles/hover = ExtResource("13_4v62q")
 theme_override_styles/disabled = ExtResource("12_ms7gl")
 theme_override_styles/focus = ExtResource("13_4v62q")
-text = "Load"
+text = "LOAD"
 
 [node name="quit" type="Button" parent="lostpanel/VBoxContainer2/VBoxContainer" unique_id=243136119]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = ExtResource("12_ms7gl")
 theme_override_styles/pressed = ExtResource("13_4v62q")
 theme_override_styles/hover = ExtResource("13_4v62q")
 theme_override_styles/disabled = ExtResource("12_ms7gl")
 theme_override_styles/focus = ExtResource("13_4v62q")
-text = "Quit"
+text = "BACK_TO_MAIN_MENU"

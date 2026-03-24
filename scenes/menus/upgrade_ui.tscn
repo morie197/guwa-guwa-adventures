@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdqibxl2ctiqt"]
+[gd_scene format=3 uid="uid://bdqibxl2ctiqt"]
 
 [ext_resource type="Script" uid="uid://becjwxni0umge" path="res://scripts/menus/upgrade_ui.gd" id="1_k1o73"]
 
@@ -35,35 +35,35 @@ border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_55gai"]
 
-[node name="UpgradeUI" type="Control"]
+[node name="UpgradeUI" type="Control" unique_id=48860116]
 z_index = 1
-custom_minimum_size = Vector2(1024, 112)
+custom_minimum_size = Vector2(1088, 112)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1024.0
+offset_right = 1088.0
 offset_bottom = 112.0
 script = ExtResource("1_k1o73")
 
-[node name="backgroundPanel" type="Panel" parent="."]
+[node name="backgroundPanel" type="Panel" parent="." unique_id=1219468306]
 z_index = -1
 custom_minimum_size = Vector2(1024, 112)
 layout_mode = 0
-offset_right = 896.0
-offset_bottom = 80.0
+offset_right = 1088.0
+offset_bottom = 112.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jc35x")
 
-[node name="UpgradeContent" type="HBoxContainer" parent="."]
+[node name="UpgradeContent" type="HBoxContainer" parent="." unique_id=936557975]
 custom_minimum_size = Vector2(1024, 112)
 layout_mode = 0
-offset_right = 896.0
-offset_bottom = 80.0
+offset_right = 1088.0
+offset_bottom = 112.0
 alignment = 1
 
-[node name="Text" type="HBoxContainer" parent="UpgradeContent"]
+[node name="Text" type="HBoxContainer" parent="UpgradeContent" unique_id=1714688123]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="name" type="RichTextLabel" parent="UpgradeContent/Text"]
+[node name="name" type="RichTextLabel" parent="UpgradeContent/Text" unique_id=1473410813]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -75,7 +75,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Description" type="RichTextLabel" parent="UpgradeContent/Text"]
+[node name="Description" type="RichTextLabel" parent="UpgradeContent/Text" unique_id=275313361]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -86,12 +86,12 @@ text = "Increases the maximum zoom out amount."
 scroll_active = false
 vertical_alignment = 1
 
-[node name="UpgradeInfo" type="HBoxContainer" parent="UpgradeContent"]
+[node name="UpgradeInfo" type="HBoxContainer" parent="UpgradeContent" unique_id=2022243610]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.45
+size_flags_stretch_ratio = 0.35
 
-[node name="upgradeLevel" type="RichTextLabel" parent="UpgradeContent/UpgradeInfo"]
+[node name="upgradeLevel" type="RichTextLabel" parent="UpgradeContent/UpgradeInfo" unique_id=1435604250]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(1, 1, 1, 1)
@@ -102,7 +102,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="maxedOutIndicator" type="Button" parent="UpgradeContent/UpgradeInfo"]
+[node name="maxedOutIndicator" type="Button" parent="UpgradeContent/UpgradeInfo" unique_id=800473232]
 custom_minimum_size = Vector2(134, 64)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -116,7 +116,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_k1o73")
 theme_override_styles/focus = SubResource("StyleBoxFlat_k1o73")
 text = "MAXED"
 
-[node name="upgradeButton" type="Button" parent="UpgradeContent/UpgradeInfo/maxedOutIndicator"]
+[node name="upgradeButton" type="Button" parent="UpgradeContent/UpgradeInfo/maxedOutIndicator" unique_id=1411993272]
 custom_minimum_size = Vector2(134, 64)
 layout_mode = 1
 anchors_preset = 8

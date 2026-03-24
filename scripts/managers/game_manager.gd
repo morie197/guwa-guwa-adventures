@@ -82,6 +82,7 @@ signal loadedLevel
 signal changeBreathableLayer(breathable: bool)
 signal moved
 signal saved
+signal treatObtained
 	
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("fullscreen"):
@@ -307,6 +308,7 @@ func loadValues(resetRefs: bool = false):
 func treatGet():
 	_levelUp()
 	healPlayer(hpRestoredFromTreat)
+	treatObtained.emit()
 
 func closeUpgrades():
 	inUpgradeMenu = false
