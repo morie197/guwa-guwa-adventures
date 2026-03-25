@@ -69,13 +69,13 @@ func setData(data, slotNumber: int = 0):
 		stage_name.text = tr("STAGE_3")
 	if int(data["difficulty"]) == 0:
 		difficulty.text = tr("EASY")
-		health.text = "HP: " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
+		health.text = "HP: " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0) + int(data["postgameUpgradeLevels"]["resistance"])))
 	elif int(data["difficulty"]) == 1:
 		difficulty.text = tr("MEDIUM")
-		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
+		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0) + int(data["postgameUpgradeLevels"]["resistance"])))
 	elif int(data["difficulty"]) == 2:
 		difficulty.text = "[color=RED]" + tr("HARD") + "[/color]"
-		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0)))
+		health.text = "HP: " + str(int(data["currentHP"])) + " / " + str(GameManager.baseHealthValue + floor(int(data["upgradeLevels"]["endurance"] / 2.0) + int(data["postgameUpgradeLevels"]["resistance"])))
 		
 func toggleButtons(inpopup: bool = true):
 	%Button.disabled = inpopup
