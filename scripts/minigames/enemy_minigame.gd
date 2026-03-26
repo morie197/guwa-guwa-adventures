@@ -303,6 +303,14 @@ func _attackQuack():
 func _rammed(area):
 	if area.get_parent().name == "PlayerMinigame":
 		area.get_parent().quacker.damage(attackDamage, self)
+		var timmer = Timer.new()
+		ram.set_deferred("monitoring", false)
+		timmer.wait_time = quackCooldown
+		timmer.timeout.connect(timmer.queue_free)
+		timmer.timeout.connect(func(): ram.set_deferred("monitoring", true))
+		add_child(timmer)
+		timmer.start()
+		
 
 func knockback(direction: Vector2):
 	beingKnockedBack = true

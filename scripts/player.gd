@@ -780,6 +780,7 @@ func initializeValues():
 	quack_collider.get_child(0).shape.radius = quackRange * rangeMultiplier
 	radar_collider.get_child(0).shape.radius = radarRange * rangeMultiplier
 	if GameManager.abilities.has("travel"):
+		point_light_2d_3.energy = 0.61 + visibilityMultiplier * 0.04
 		point_light_2d_3.texture_scale = 3 * visibilityMultiplier
 		#%PointLight2D4.texture_scale = 3 * visibilityMultiplier
 	
