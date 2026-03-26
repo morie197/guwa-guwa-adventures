@@ -64,11 +64,18 @@ func _area_exited(_area):
 		GameManager.playerRef.radar.disconnect(_find)
 	
 func _find():
-	#print(GameManager.duckBiteFoundRegistry)
-#	print(duck_area.visible)
 	if !GameManager.abilities.has("scavenge"):
 		return
+	var timmytim = Timer.new()
+	timmytim.timeout.connect(_reveal)
+	timmytim.timeout.connect(timmytim.queue_free)
+	timmytim.wait_time = clampf(global_position.distance_to(GameManager.playerRef.global_position)/240.0, 0.1, 5)
+	add_child(timmytim)
+	timmytim.start()
 
+	
+		
+func _reveal():
 	if !GameManager.duckBiteFoundRegistry.has(id):
 		GameManager.duckBiteFoundRegistry.append(id)
 		audio_stream_player_2d.play()

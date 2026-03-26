@@ -133,13 +133,13 @@ func _unhandled_input(event):
 			mini_map_panel.visible = !mini_map_panel.visible
 			%showmapText.visible = !mini_map_panel.visible
 			%showmapText.text = tr("SHOW_MINIMAP") + "H"
-			
-	if Input.is_action_just_pressed("HideHUD"):
-		GameManager.noHUD = !GameManager.noHUD
-		if GameManager.noHUD:
-			hud.modulate = Color.TRANSPARENT
-		else:
-			hud.modulate = Color.WHITE
+			#
+	#if Input.is_action_just_pressed("HideHUD"):
+		#GameManager.noHUD = !GameManager.noHUD
+		#if GameManager.noHUD:
+			#hud.modulate = Color.TRANSPARENT
+		#else:
+			#hud.modulate = Color.WHITE
 		
 
 func updateNextAbility():

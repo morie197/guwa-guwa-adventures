@@ -279,6 +279,10 @@ func _unhandled_input(event):
 		elif Input.is_action_just_pressed("zoomout") and mouseScrollInput == 0:
 			mouseScrollInput = zoomOutAmount / keyZoomMult
 		
+func _pauseAnimations():
+	for anim in animations:
+		anim.pause()
+		
 func _stopAnimations(exclusion: AnimatedSprite2D, hide: bool = true):
 	for anim in animations:
 		if anim != exclusion:
@@ -297,7 +301,7 @@ func _animateDuck():
 	
 	if tornadoThrownVelocity.is_zero_approx():
 		
-		if waterSurfaceSwitchDelayTimer > 0.0:
+		if waterSurfaceSwitchDelayTimer > 0.0 and layer != 1:
 			var target = %underwatersurface
 			if (underwater and !isBreathable) or surfaceToUnderwater:
 				_stopAnimations(%underwatertransition)
@@ -310,7 +314,7 @@ func _animateDuck():
 			var progFrame: float = 0.0
 			progFrame = (1.0 - clampf(waterSurfaceSwitchDelayTimer / waterSurfaceSwitchDelay, 0, 1))
 			target.frame = target.sprite_frames.get_frame_count("default") * progFrame
-		elif underwater and !isBreathable:
+		elif underwater and !isBreathable and layer != 1:
 			_stopAnimations(%underwaterswim)
 			%underwaterswim.play()
 			%underwaterswim.visible = true
@@ -399,8 +403,12 @@ func _process(delta):
 	if radarTimer > 0:
 		radarTimer -= delta
 		
+	if waterSurfaceSwitchDelayTimer > 0:
+		waterSurfaceSwitchDelayTimer -= delta
+		
 	if GameManager.paused:	
 		moveVector = Vector2.ZERO
+		_pauseAnimations()
 		return
 	if migrating:
 		if flying and GameManager.worldLayer == 1 and timeBeingDamaged <= 0:
@@ -420,7 +428,6 @@ func _process(delta):
 	#else:
 		#%PointLight2D4.enabled = false
 	if GameManager.worldLayer == 0 or GameManager.worldManager.levelName == "Hidden Grove":
-	#if GameManager.worldLayer == 0:
 		point_light_2d_3.enabled = true
 	else:
 		point_light_2d_3.enabled = false
@@ -467,8 +474,7 @@ func _process(delta):
 	if flyDelayTimer > 0:
 		flyDelayTimer -= delta
 		
-	if waterSurfaceSwitchDelayTimer > 0:
-		waterSurfaceSwitchDelayTimer -= delta
+
 		
 	if healTimer.paused:
 		healTimer.paused = false
@@ -510,7 +516,7 @@ func _process(delta):
 	GameManager.minimapCam.global_position = global_position
 	GameManager.minimapCam.zoom = camera_2d.zoom / 8
 	
-	if (moveVector != Vector2.ZERO) or (areaForce != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null and !GameManager.loadingLevel):
+	if (moveVector != Vector2.ZERO) or(areaForce != Vector2.ZERO) or (forcedFly or flying) or ((areaFlag.match("wind") or areaFlag.match("stream") or areaFlag.match("forcestream") or areaFlag.match("whirlpool") or areaFlag.match("tornado")) and streamRef != null and !GameManager.loadingLevel):
 		_stateEffects()
 		
 		
@@ -592,7 +598,7 @@ func _area_exit(_area):
 	
 func loadGameChecks():
 	tileCheck(true)
-	switchUnderwater(true)
+	switchUnderwater(true, true)
 	flying = false
 	velocity = Vector2.ZERO
 	sprinting = false
@@ -635,6 +641,7 @@ func tileCheck(forced: bool = false):
 			layer = 0
 			newBreathable = false
 		elif atlascoords == Vector2i(0, 0):
+			#forced = true
 			#newBreathable = true
 			layer = 1
 		elif atlascoords == Vector2i(0, 3):
@@ -682,7 +689,6 @@ func tileCheck(forced: bool = false):
 		elif ((nextAtlascoords == Vector2i(0, 0) or nextAtlascoords == Vector2i(1, 0)) and newBreathable):
 			switch = true
 		elif ((nextAtlascoords == Vector2i(2, 3) or nextAtlascoords == Vector2i(0, 3))):
-			print('yea')
 			switch = true
 	
 			#print(nextAtlascoords)
@@ -703,6 +709,7 @@ func switchWorldLayer():
 		timmy.timeout.connect(timmy.queue_free)
 		timmy.timeout.connect(GameManager.worldManager.switchUnderOverGround)
 		timmy.timeout.connect(GameManager.worldManager.switchBreathableArea.bind(false))
+		timmy.timeout.connect(tileCheck.bind(true))
 		timmy.start()
 	else:
 		surfaceToUnderwater = false
@@ -712,15 +719,16 @@ func switchWorldLayer():
 	tileCheck(true)
 
 	
-func switchUnderwater(forced: bool = false):
+func switchUnderwater(forced: bool = false, loadLevel: bool = false):
 	isBreathable = newBreathable
 	
-	print("foced: ", forced)
+	#print("foced: ", forced)
 	if forced == false:
 		waterSurfaceSwitchDelayTimer = waterSurfaceSwitchDelay
 		%underwaterSwitchSound.play()
 	else:
-		%underwaterSwitchSound.stop()
+		if loadLevel:
+			%underwaterSwitchSound.stop()
 		waterSurfaceSwitchDelayTimer = 0
 		
 	if !isBreathable:
