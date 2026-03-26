@@ -280,6 +280,8 @@ func _unhandled_input(event):
 			mouseScrollInput = zoomOutAmount / keyZoomMult
 		
 func _pauseAnimations():
+	if GameManager.wonGame:
+		return
 	for anim in animations:
 		anim.pause()
 		
