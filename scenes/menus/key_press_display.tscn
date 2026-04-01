@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cu2qa7tl2feks"]
 
 [ext_resource type="Script" uid="uid://d2wiliedjt5cj" path="res://scripts/menus/key_press_display.gd" id="1_03oao"]
-[ext_resource type="StyleBox" uid="uid://c60vftb3pxnlc" path="res://keypressStyle2.tres" id="1_bchcg"]
+[ext_resource type="StyleBox" uid="uid://c60vftb3pxnlc" path="res://resources/themes/keypressStyle2.tres" id="1_bchcg"]
 
 [node name="PanelContainer" type="PanelContainer" unique_id=2047414033]
 offset_right = 296.0

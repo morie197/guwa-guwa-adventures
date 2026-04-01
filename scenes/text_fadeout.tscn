@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://njdbrcbg5b7j"]
+
+[ext_resource type="Script" uid="uid://cn40qc55dy6vx" path="res://scripts/fadeout.gd" id="1_m4m6r"]
+[ext_resource type="Script" uid="uid://cphlqqp6v8chs" path="res://scripts/quackText.gd" id="1_ye78w"]
+
+[node name="textFadeout" type="Node2D"]
+script = ExtResource("1_ye78w")
+
+[node name="text" type="RichTextLabel" parent="." node_paths=PackedStringArray("deleteList")]
+z_index = 10
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_m4m6r")
+deleteList = [NodePath("..")]

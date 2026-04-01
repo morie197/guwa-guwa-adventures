@@ -1,15 +1,15 @@
 [gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dsuftp28fmh2u"]
 
-[ext_resource type="AudioStream" uid="uid://php3ewivl5o0" path="res://sounds/music/Cuddle Clouds.mp3" id="1_ty67a"]
-[ext_resource type="AudioStream" uid="uid://bmlmui0x8upoi" path="res://sounds/music/Strange Worlds.mp3" id="2_j8vwj"]
-[ext_resource type="AudioStream" uid="uid://b1lfew4w1nxj6" path="res://sounds/music/Sunlight Through Leaves.mp3" id="3_ggp8i"]
-[ext_resource type="AudioStream" uid="uid://drkjcynn0jwi0" path="res://sounds/music/Wanderer's Tale.mp3" id="4_m643m"]
+[ext_resource type="AudioStream" uid="uid://cx0nu648ug4d" path="res://sounds/music/Cuddle Clouds.ogg" id="1_wnh3p"]
+[ext_resource type="AudioStream" uid="uid://bb8cyvs1x7ue7" path="res://sounds/music/Strange Worlds.ogg" id="2_5704y"]
+[ext_resource type="AudioStream" uid="uid://bvtlrjjm8namv" path="res://sounds/music/Sunlight Through Leaves.ogg" id="3_hldqh"]
+[ext_resource type="AudioStream" uid="uid://bhn51dy0iyfpp" path="res://sounds/music/Wanderer's Tale.ogg" id="4_s4vol"]
 
 [resource]
 streams_count = 4
-stream_0/stream = ExtResource("1_ty67a")
+stream_0/stream = ExtResource("1_wnh3p")
 stream_0/weight = 2.0
-stream_1/stream = ExtResource("2_j8vwj")
-stream_2/stream = ExtResource("3_ggp8i")
-stream_3/stream = ExtResource("4_m643m")
+stream_1/stream = ExtResource("2_5704y")
+stream_2/stream = ExtResource("3_hldqh")
+stream_3/stream = ExtResource("4_s4vol")
 stream_3/weight = 1.2

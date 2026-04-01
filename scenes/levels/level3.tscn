@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://csewmdswsinay" path="res://scripts/area.gd" id="6_wt4k6"]
 [ext_resource type="AudioStream" uid="uid://d1mbtdtxmbu16" path="res://sounds/SFX/waterfall-24060.mp3" id="7_wo5bm"]
 [ext_resource type="AudioStream" uid="uid://ba686607s85ia" path="res://sounds/SFX/waterfall-sounds-259625.mp3" id="8_edoqj"]
-[ext_resource type="Texture2D" uid="uid://casgqr0vvuhce" path="res://windycurves.tres" id="8_wt4k6"]
+[ext_resource type="Texture2D" uid="uid://casgqr0vvuhce" path="res://resources/windycurves.tres" id="8_wt4k6"]
 [ext_resource type="Script" uid="uid://cpsn7p6ujkh0t" path="res://scripts/hiddenarea.gd" id="9_022ip"]
 [ext_resource type="AudioStream" uid="uid://cpu8pkc6v8sf7" path="res://sounds/SFX/loud-wind-429220.mp3" id="9_edoqj"]
 [ext_resource type="PackedScene" uid="uid://dlea1st48lkyn" path="res://scenes/duck_treat.tscn" id="10_hl16f"]
@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="12_fhpi3"]
 [ext_resource type="PackedScene" uid="uid://bdgxe0o350b3g" path="res://scenes/menus/ui_manager.tscn" id="13_db4wd"]
 [ext_resource type="Shader" uid="uid://dakpxtjasbren" path="res://scenes/levels/hidden.gdshader" id="15_ahaer"]
-[ext_resource type="PackedScene" uid="uid://busuf6hn3a628" path="res://duck_bite.tscn" id="16_wo5bm"]
+[ext_resource type="PackedScene" uid="uid://busuf6hn3a628" path="res://scenes/duck_bite.tscn" id="16_wo5bm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yc51k"]
 texture = ExtResource("3_a82vw")

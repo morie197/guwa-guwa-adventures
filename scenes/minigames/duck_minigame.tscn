@@ -30,8 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://b12o13pe5sy5j" path="res://sprites/bars/greenbar.png" id="20_sq7tm"]
 [ext_resource type="AudioStream" uid="uid://cua5k258p5d25" path="res://sounds/SFX/swing-whoosh-metal-hit-2-234619.mp3" id="20_xaff1"]
 [ext_resource type="AudioStream" uid="uid://t7sbgg0mx1ky" path="res://sounds/music/Sketchbook 2025-11-13.ogg" id="21_r2a71"]
-[ext_resource type="Texture2D" uid="uid://cogqfkcocl8by" path="res://mouse_right.svg" id="27_dplsg"]
-[ext_resource type="Texture2D" uid="uid://43pdb5wjf2fl" path="res://mouse_move.svg" id="29_dplsg"]
+[ext_resource type="Texture2D" uid="uid://cogqfkcocl8by" path="res://sprites/keys/mouse_right.svg" id="27_dplsg"]
+[ext_resource type="Texture2D" uid="uid://43pdb5wjf2fl" path="res://sprites/keys/mouse_move.svg" id="29_dplsg"]
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="31_d6syi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]

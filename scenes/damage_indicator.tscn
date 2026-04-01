@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cw53hm2wahaxq"]
+
+[ext_resource type="Script" uid="uid://c3syp00scf2ud" path="res://scripts/damageindicator.gd" id="1_nibuy"]
+[ext_resource type="Script" uid="uid://cn40qc55dy6vx" path="res://scripts/fadeout.gd" id="2_0kcir"]
+
+[node name="damageIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nibuy")
+riseSpeed = 50.0
+
+[node name="damageText" type="RichTextLabel" parent="." node_paths=PackedStringArray("deleteList")]
+z_index = 3
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(1, 0.7411765, 0.7411765, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 20
+text = "-10"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_0kcir")
+deleteList = [NodePath("..")]

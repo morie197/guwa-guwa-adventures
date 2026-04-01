@@ -1,11 +1,11 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://c64fa5fkyx48n"]
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://c64fa5fkyx48n"]
 
-[ext_resource type="AudioStream" uid="uid://dw6ututcvajv3" path="res://Drifting Memories.mp3" id="1_c65wy"]
-[ext_resource type="AudioStream" uid="uid://bj1vmgrn5ic5r" path="res://Forgotten Biomes.mp3" id="2_evc72"]
-[ext_resource type="AudioStream" uid="uid://csm3n3qtndjki" path="res://Polar Lights.mp3" id="3_evc72"]
+[ext_resource type="AudioStream" uid="uid://bnkq8xq5if8vw" path="res://sounds/music/Drifting Memories.ogg" id="1_evc72"]
+[ext_resource type="AudioStream" uid="uid://crpfoc63ot3pv" path="res://sounds/music/Forgotten Biomes.ogg" id="2_dlthw"]
+[ext_resource type="AudioStream" uid="uid://b8x6wyach5ubc" path="res://sounds/music/Polar Lights.ogg" id="3_0tno0"]
 
 [resource]
 streams_count = 3
-stream_0/stream = ExtResource("1_c65wy")
-stream_1/stream = ExtResource("2_evc72")
-stream_2/stream = ExtResource("3_evc72")
+stream_0/stream = ExtResource("1_evc72")
+stream_1/stream = ExtResource("2_dlthw")
+stream_2/stream = ExtResource("3_0tno0")

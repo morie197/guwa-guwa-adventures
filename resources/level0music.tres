@@ -1,9 +1,9 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://b8kxk1dhvy5xl"]
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://b8kxk1dhvy5xl"]
 
-[ext_resource type="AudioStream" uid="uid://bh6hc5yftnpq4" path="res://sounds/music/Evening Harmony.mp3" id="1_8is7p"]
-[ext_resource type="AudioStream" uid="uid://xestn702v5e4" path="res://Floating Dream.mp3" id="2_4w3hd"]
-[ext_resource type="AudioStream" uid="uid://cv6gy18yp34o5" path="res://Golden Gleam.mp3" id="3_cn2ny"]
-[ext_resource type="AudioStream" uid="uid://b4fljfkflsusj" path="res://Gentle Breeze.mp3" id="4_dlu5t"]
+[ext_resource type="AudioStream" uid="uid://8s752dduovus" path="res://sounds/music/Evening Harmony.ogg" id="1_8is7p"]
+[ext_resource type="AudioStream" uid="uid://b7c2edf8b408j" path="res://sounds/music/Floating Dream.ogg" id="2_4w3hd"]
+[ext_resource type="AudioStream" uid="uid://dbtd106l03id2" path="res://sounds/music/Golden Gleam.ogg" id="3_cn2ny"]
+[ext_resource type="AudioStream" uid="uid://d2a15cyx5fbrk" path="res://sounds/music/Gentle Breeze.ogg" id="4_dlu5t"]
 
 [resource]
 streams_count = 4

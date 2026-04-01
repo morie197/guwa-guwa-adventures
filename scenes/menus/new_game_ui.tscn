@@ -8,9 +8,9 @@
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="5_s5ufm"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="6_c73i3"]
 [ext_resource type="Texture2D" uid="uid://bv3a3hdxbtaw0" path="res://sprites/sprites/check_square_color_cross.svg" id="6_s5ufm"]
-[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="7_xhr88"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://sounds/SFX/eneter1.wav" id="7_xhr88"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="8_r6g15"]
-[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="9_s5ufm"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://sounds/SFX/click1.wav" id="9_s5ufm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4f55m"]
 content_margin_left = 0.0

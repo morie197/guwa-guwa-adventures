@@ -1,11 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://x4vnr5iy3hg3"]
+[gd_scene format=3 uid="uid://x4vnr5iy3hg3"]
 
 [ext_resource type="Script" uid="uid://ce3bs1qqevbu5" path="res://scripts/menus/pause_menu.gd" id="1_kukqi"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="2_5d2l8"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="3_7l7mv"]
-[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="4_eyfc8"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://sounds/SFX/eneter1.wav" id="4_eyfc8"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="5_xiui8"]
-[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="6_gqhbq"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://sounds/SFX/click1.wav" id="6_gqhbq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lakk"]
 content_margin_left = 0.0
@@ -27,7 +27,7 @@ expand_margin_top = 32.0
 expand_margin_right = 32.0
 expand_margin_bottom = 32.0
 
-[node name="PauseMenu" type="PanelContainer"]
+[node name="PauseMenu" type="PanelContainer" unique_id=1847283879]
 z_index = 5
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,17 +36,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kukqi")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1111081618]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_2lakk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1043750506]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer" unique_id=776888848]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 96
 text = "PAUSED"
@@ -56,7 +56,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="resume" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="resume" type="Button" parent="PanelContainer/VBoxContainer" unique_id=53613354]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
@@ -67,7 +67,7 @@ theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
 text = "RESUME"
 
-[node name="settings" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="settings" type="Button" parent="PanelContainer/VBoxContainer" unique_id=755772284]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
@@ -78,7 +78,7 @@ theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
 text = "SETTINGS"
 
-[node name="save" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="save" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1972388842]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
@@ -89,7 +89,7 @@ theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
 text = "SAVE"
 
-[node name="load" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="load" type="Button" parent="PanelContainer/VBoxContainer" unique_id=226458017]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
@@ -100,7 +100,7 @@ theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
 text = "LOAD"
 
-[node name="quit" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1673484183]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
@@ -111,7 +111,7 @@ theme_override_styles/disabled = ExtResource("2_5d2l8")
 theme_override_styles/focus = ExtResource("3_7l7mv")
 text = "BACK_TO_MAIN_MENU"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=416501187]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 16
@@ -119,25 +119,25 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="keyPresses" type="VBoxContainer" parent="MarginContainer"]
+[node name="keyPresses" type="VBoxContainer" parent="MarginContainer" unique_id=800890933]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 30
 
-[node name="hoversound" type="AudioStreamPlayer" parent="."]
+[node name="hoversound" type="AudioStreamPlayer" parent="." unique_id=607351611]
 unique_name_in_owner = true
 stream = ExtResource("4_eyfc8")
 volume_db = -8.0
 bus = &"SFX"
 
-[node name="clickSound" type="AudioStreamPlayer" parent="."]
+[node name="clickSound" type="AudioStreamPlayer" parent="." unique_id=508363799]
 unique_name_in_owner = true
 stream = ExtResource("5_xiui8")
 volume_db = -8.0
 pitch_scale = 1.7
 bus = &"SFX"
 
-[node name="clickSoundQuit" type="AudioStreamPlayer" parent="."]
+[node name="clickSoundQuit" type="AudioStreamPlayer" parent="." unique_id=1092460638]
 unique_name_in_owner = true
 stream = ExtResource("6_gqhbq")
 volume_db = -8.0

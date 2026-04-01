@@ -43,6 +43,7 @@ project/assembly_name="GuwaGuwaAdventures"
 [file_customization]
 
 folder_colors={
+"res://localization/": "blue",
 "res://resources/": "green",
 "res://scenes/": "red",
 "res://scripts/": "orange",
@@ -175,7 +176,7 @@ HideHUD={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.ja.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.zh_CN.translation", "res://GuwaGuwaBoukenLocalization - Sheet1.zh_TW.translation")
+locale/translations=PackedStringArray("res://localization/GuwaGuwaBoukenLocalization - Sheet1.en.translation", "res://localization/GuwaGuwaBoukenLocalization - Sheet1.ja.translation", "res://localization/GuwaGuwaBoukenLocalization - Sheet1.zh_CN.translation", "res://localization/GuwaGuwaBoukenLocalization - Sheet1.zh_TW.translation")
 
 [layer_names]
 

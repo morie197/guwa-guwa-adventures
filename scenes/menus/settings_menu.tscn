@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bj5mu5aofixvm" path="res://scripts/menus/settings_menu.gd" id="1_wswnh"]
 [ext_resource type="Texture2D" uid="uid://bdhn7vnr0riyv" path="res://sprites/sprites/check_square_grey_checkmark.png" id="2_labj1"]
 [ext_resource type="Texture2D" uid="uid://e4rhcl2pyyqh" path="res://sprites/sprites/check_square_grey.png" id="3_lwwgp"]
-[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="4_jjfif"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://sounds/SFX/eneter1.wav" id="4_jjfif"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="4_qnuys"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="5_eoonq"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="5_kffdn"]
-[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="6_qnuys"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://sounds/SFX/click1.wav" id="6_qnuys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oerog"]
 content_margin_left = 12.0

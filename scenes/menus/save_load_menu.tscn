@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c0ad0tiswhk3h" path="res://scripts/menus/save_load_menu.gd" id="1_8r3bj"]
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="2_knhrb"]
-[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://eneter1.wav" id="3_r5uco"]
+[ext_resource type="AudioStream" uid="uid://yif5r71mfv2l" path="res://sounds/SFX/eneter1.wav" id="3_r5uco"]
 [ext_resource type="StyleBox" uid="uid://chtndwu287xy2" path="res://resources/themes/buttonThemeNormal.tres" id="3_rq5ph"]
 [ext_resource type="AudioStream" uid="uid://cj4odyoat3d1r" path="res://sounds/SFX/casual-click-pop-ui-3-262120.mp3" id="4_iqvcw"]
 [ext_resource type="StyleBox" uid="uid://i8vsbdxko7gt" path="res://resources/themes/buttonThemePressed.tres" id="4_ry6ee"]
-[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://click1.wav" id="5_rq5ph"]
+[ext_resource type="AudioStream" uid="uid://dnfieoe1osqvl" path="res://sounds/SFX/click1.wav" id="5_rq5ph"]
 
 [node name="SaveLoadMenu" type="PanelContainer" unique_id=2093424975]
 anchors_preset = 15

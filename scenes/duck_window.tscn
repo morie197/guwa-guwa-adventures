@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddbias5728mqh"]
+[gd_scene format=3 uid="uid://ddbias5728mqh"]
 
-[ext_resource type="Script" uid="uid://disflqwu5aqhi" path="res://duck_window.gd" id="1_1hb5k"]
+[ext_resource type="Script" uid="uid://disflqwu5aqhi" path="res://scripts/duck_window.gd" id="1_1hb5k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hb5k"]
 content_margin_left = 0.0
@@ -14,7 +14,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="DuckWindow" type="PanelContainer"]
+[node name="DuckWindow" type="PanelContainer" unique_id=1502091913]
 z_index = 10
 anchors_preset = 5
 anchor_left = 0.5
@@ -23,6 +23,6 @@ grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1hb5k")
 script = ExtResource("1_1hb5k")
 
-[node name="DuckGrid" type="GridContainer" parent="."]
+[node name="DuckGrid" type="GridContainer" parent="." unique_id=823678944]
 layout_mode = 2
 columns = 3

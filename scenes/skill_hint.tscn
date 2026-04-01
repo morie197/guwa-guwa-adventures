@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctrk2bwc2f63d"]
+[gd_scene format=3 uid="uid://ctrk2bwc2f63d"]
 
 [ext_resource type="StyleBox" uid="uid://bos3hffq6dwnr" path="res://resources/themes/goodStyleBox.tres" id="1_byj6t"]
-[ext_resource type="Script" uid="uid://coqeulgsv40ep" path="res://skill_hint.gd" id="2_vmdup"]
+[ext_resource type="Script" uid="uid://coqeulgsv40ep" path="res://scripts/skill_hint.gd" id="2_vmdup"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_byj6t"]
 light_mode = 1

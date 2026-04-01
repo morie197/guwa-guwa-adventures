@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bo5k27tj5txjb" path="res://scenes/player.tscn" id="13_fq0wv"]
 [ext_resource type="Script" uid="uid://ii1rt1h5f4o2" path="res://scripts/followPath.gd" id="13_mq31s"]
 [ext_resource type="PackedScene" uid="uid://bdgxe0o350b3g" path="res://scenes/menus/ui_manager.tscn" id="14_gwbx5"]
-[ext_resource type="Texture2D" uid="uid://casgqr0vvuhce" path="res://windycurves.tres" id="14_p62il"]
+[ext_resource type="Texture2D" uid="uid://casgqr0vvuhce" path="res://resources/windycurves.tres" id="14_p62il"]
 [ext_resource type="AudioStream" uid="uid://bsy56u3df52mm" path="res://sounds/SFX/tornado-sound-better-quality-68141.mp3" id="15_b8j7q"]
 [ext_resource type="Script" uid="uid://bugiatvopwsmi" path="res://scenes/levels/tutorial_area.gd" id="16_jyre1"]
 [ext_resource type="Script" uid="uid://biqqorevcedwu" path="res://scripts/followTarget.gd" id="16_qhnmj"]
