@@ -87,7 +87,7 @@ var playerPos: Vector2 :
 		if state == STATE.RUNNING:
 			#agent.target_position = global_position + -playerPos.normalized() * 100
 			var potential_target = (global_position - playerPos).normalized() * 200
-			agent.target_position = NavigationServer2D.map_get_closest_point(get_world_2d().get_navigation_map(), global_position + potential_target)
+			agent.target_position = NavigationServer2D.map_get_closest_point(get_world_2d().get_navigation_map(), potential_target)
 		
 
 func initValues():
